@@ -126,6 +126,15 @@ main {
   padding: 24px 16px 32px;
 }
 
+.home-main {
+  display: grid;
+  gap: 16px;
+}
+
+.home-hero {
+  background: var(--paper-2);
+}
+
 .page-grid {
   display: grid;
   gap: 16px;
@@ -252,13 +261,16 @@ main {
 
 .heatmap {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 18px);
+  grid-auto-rows: 18px;
   gap: 4px;
   margin-top: 8px;
+  width: fit-content;
 }
 
 .hm-cell {
   height: 18px;
+  width: 18px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--paper-4);

@@ -26,10 +26,40 @@
       </div>
     </header>
 
-    <main>
-      <section class="panel">
-        <h1 class="panel-title">Heatmap de performance</h1>
-        <p class="panel-subtitle">Suivi sur 28 jours.</p>
+    <main class="home-main">
+      <section class="panel home-hero">
+        <h1 class="panel-title">Révision C - Tableau de bord</h1>
+        <p class="panel-subtitle">Suivi de progression et accès rapide aux sessions.</p>
+
+        <div class="stat-grid mt-16">
+          <article class="stat-item">
+            <p class="stat-label">Cartes révisées</p>
+            <p id="statCardsReviewed" class="stat-value">0</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Taux de réussite</p>
+            <p id="statSuccessRate" class="stat-value">0%</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Série en cours</p>
+            <p id="statStreak" class="stat-value">0</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Total erreurs</p>
+            <p id="statErrors" class="stat-value">0</p>
+          </article>
+        </div>
+
+        <div class="btn-row">
+          <a id="resumeSessionBtn" class="btn btn-primary hidden" href="flashcards.html?resume=1">Reprendre</a>
+          <a class="btn btn-secondary" href="flashcards.html">Flashcards</a>
+          <a class="btn btn-secondary" href="quiz.html">Quiz</a>
+        </div>
+      </section>
+
+      <section class="panel mt-16">
+        <h2 class="panel-title">Heatmap de performance</h2>
+        <p class="panel-subtitle">28 derniers jours.</p>
         <div id="heatmapGrid" class="heatmap" aria-label="Heatmap performance"></div>
         <div class="legend" aria-hidden="true">
           <span class="legend-item"><span class="legend-swatch swatch-neutral"></span>Neutre</span>
@@ -39,6 +69,12 @@
           <span class="legend-item"><span class="legend-swatch swatch-good"></span>Bon</span>
           <span class="legend-item"><span class="legend-swatch swatch-best"></span>Excellent</span>
         </div>
+      </section>
+
+      <section class="panel mt-16">
+        <h2 class="panel-title">Cartes difficiles</h2>
+        <p class="panel-subtitle">Priorité de révision selon les échecs récents.</p>
+        <ul id="difficultCardsList" class="list"></ul>
       </section>
     </main>
 
