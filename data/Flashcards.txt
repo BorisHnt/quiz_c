@@ -1,0 +1,1794 @@
+Voici **20 flashcards “Patterns”**, prêtes à être utilisées dans ton futur site.
+Elles sont formulées pour déclencher **le raisonnement exam**, pas réciter du code.
+
+Chaque carte contient : situation → réflexe → étapes.
+
+---
+
+## 🟦 CARD 1 — itoa
+
+**Face :**
+Tu dois convertir un int en string. Quel pattern appliquer ?
+
+**Dos :**
+• gérer le signe
+• caster en long
+• compter chiffres
+• malloc taille +1 (+1 si négatif)
+• '\0' final
+• remplir à l’envers
+• poser '-' si besoin
+
+---
+
+## 🟦 CARD 2 — split
+
+**Face :**
+Avant de coder split, quel pattern préparer ?
+
+**Dos :**
+• définir séparateurs
+• ignorer séparateurs
+• compter mots
+• malloc tableau (mots + NULL)
+• pour chaque mot : compter lettres
+• malloc mot +1
+• copier
+• NULL final
+
+---
+
+## 🟦 CARD 3 — ft_range
+
+**Face :**
+Quel est le pattern pour remplir un tableau de start à end ?
+
+**Dos :**
+• calculer taille = abs(end-start)+1
+• step = +1 ou -1
+• malloc
+• boucle de remplissage
+• return ptr
+
+---
+
+## 🟦 CARD 4 — union/inter
+
+**Face :**
+Comment éviter les doublons de caractères ?
+
+**Dos :**
+• tableau seen[256]
+• indexer avec unsigned char
+• afficher si seen == 0
+• marquer seen = 1
+
+---
+
+## 🟦 CARD 5 — wdmatch
+
+**Face :**
+Quel est le pattern de wdmatch ?
+
+**Dos :**
+• parcourir string 2
+• avancer index string 1 quand match
+• fin si index1 == fin
+• afficher string 1 si réussi
+
+---
+
+## 🟦 CARD 6 — strdup
+
+**Face :**
+Quel est le pattern de strdup ?
+
+**Dos :**
+• compter longueur
+• malloc len +1
+• copier
+• '\0'
+
+---
+
+## 🟦 CARD 7 — list_foreach
+
+**Face :**
+Comment parcourir une liste ?
+
+**Dos :**
+• cur = begin
+• while(cur)
+• appliquer f(cur->data)
+• cur = cur->next
+
+---
+
+## 🟦 CARD 8 — list_remove_if
+
+**Face :**
+Quel est le pattern général ?
+
+**Dos :**
+• nettoyer tête avec while
+• utiliser double pointeur
+• parcourir avec cur
+• tmp = cur->next
+• unlink
+• free(tmp)
+
+---
+
+## 🟦 CARD 9 — sort_list
+
+**Face :**
+Quel pattern simple pour trier une liste ?
+
+**Dos :**
+• bubble sort
+• flag swapped
+• parcourir
+• swap data
+• recommencer si swapped
+
+---
+
+## 🟦 CARD 10 — atoi
+
+**Face :**
+Pattern classique pour atoi ?
+
+**Dos :**
+• ignorer espaces
+• gérer signe
+• accumuler n = n*10 + digit
+• return résultat
+
+---
+
+## 🟦 CARD 11 — last_word
+
+**Face :**
+Pattern pour trouver le dernier mot ?
+
+**Dos :**
+• aller en fin
+• reculer sur séparateurs
+• marquer fin
+• reculer lettres
+• afficher segment
+
+---
+
+## 🟦 CARD 12 — strrev
+
+**Face :**
+Comment inverser une string ?
+
+**Dos :**
+• deux indices i/j
+• swap
+• i++ / j--
+• stop quand i >= j
+
+---
+
+## 🟦 CARD 13 — search and replace
+
+**Face :**
+Pattern de remplacement simple ?
+
+**Dos :**
+• parcourir string
+• if char == cible → remplacer
+• write char
+
+---
+
+## 🟦 CARD 14 — lstsize
+
+**Face :**
+Comment compter les maillons ?
+
+**Dos :**
+• count = 0
+• while(lst)
+• count++
+• lst = lst->next
+
+---
+
+## 🟦 CARD 15 — putstr
+
+**Face :**
+Pattern pour afficher une string ?
+
+**Dos :**
+• parcourir
+• write(1,&c,1)
+• '\n' si demandé
+
+---
+
+## 🟦 CARD 16 — rot13 / rotone
+
+**Face :**
+Pattern de rotation de lettres ?
+
+**Dos :**
+• tester plage a-z / A-Z
+• décaler
+• wrap si dépasse
+• écrire char
+
+---
+
+## 🟦 CARD 17 — foreach argv
+
+**Face :**
+Pattern pour parcourir argv ?
+
+**Dos :**
+• i = 1
+• while(argv[i])
+• traiter
+• i++
+
+---
+
+## 🟦 CARD 18 — ft_list_remove_if tête
+
+**Face :**
+Comment supprimer plusieurs têtes ?
+
+**Dos :**
+• while(*begin && cmp(...)==0)
+• tmp = *begin
+• *begin = tmp->next
+• free(tmp)
+
+---
+
+## 🟦 CARD 19 — split : détecter mot
+
+**Face :**
+Comment repérer un début de mot ?
+
+**Dos :**
+• caractère non séparateur
+• précédé par séparateur ou début
+• start index
+
+---
+
+## 🟦 CARD 20 — affichage exam
+
+**Face :**
+Pattern d’affichage à l’exam ?
+
+**Dos :**
+• respecter strictement
+• write only
+• newline final
+• rien en trop
+
+---
+
+Voici **20 flashcards “Pièges”**, écrites pour provoquer le réflexe exam immédiat : *“attention, danger ici”*.
+
+---
+
+## 🟥 CARD 1 — string sans '\0'
+
+**Face :**
+Tu copies une string sans ajouter '\0'. Que risque-tu ?
+
+**Dos :**
+• lecture hors limites
+• affichage aléatoire
+• crash possible
+• tests KO
+
+---
+
+## 🟥 CARD 2 — malloc trop petit
+
+**Face :**
+Tu fais malloc(len) pour une string. Problème ?
+
+**Dos :**
+• pas de place pour '\0'
+• écriture hors tableau
+• comportement indéfini
+
+---
+
+## 🟥 CARD 3 — argc incorrect
+
+**Face :**
+argc n’est pas celui attendu. Que faire ?
+
+**Dos :**
+• afficher seulement '\n'
+• rien d’autre
+
+---
+
+## 🟥 CARD 4 — char signé
+
+**Face :**
+Tu utilises char comme index dans seen[256]. Danger ?
+
+**Dos :**
+• valeur négative possible
+• accès hors tableau
+• caster unsigned char
+
+---
+
+## 🟥 CARD 5 — avancer après suppression
+
+**Face :**
+Dans remove_if, tu avances cur après unlink. Risque ?
+
+**Dos :**
+• sauter un maillon
+• suppression incomplète
+
+---
+
+## 🟥 CARD 6 — INT_MIN
+
+**Face :**
+itoa sans gérer INT_MIN ?
+
+**Dos :**
+• overflow
+• valeur fausse
+• tests ratés
+
+---
+
+## 🟥 CARD 7 — printf interdit
+
+**Face :**
+write est imposé mais tu utilises printf.
+
+**Dos :**
+• interdit
+• note = 0
+• tests KO
+
+---
+
+## 🟥 CARD 8 — free avant unlink
+
+**Face :**
+Tu free un maillon avant de reconnecter la liste.
+
+**Dos :**
+• corruption
+• accès mémoire invalide
+
+---
+
+## 🟥 CARD 9 — NULL oublié
+
+**Face :**
+Tu oublies le NULL final dans split.
+
+**Dos :**
+• parcours infini
+• segfault
+
+---
+
+## 🟥 CARD 10 — variable non initialisée
+
+**Face :**
+len non initialisé avant comptage.
+
+**Dos :**
+• taille aléatoire
+• malloc faux
+• crash
+
+---
+
+## 🟥 CARD 11 — double free
+
+**Face :**
+Tu free deux fois le même pointeur.
+
+**Dos :**
+• segfault
+• corruption heap
+
+---
+
+## 🟥 CARD 12 — mauvais pointeur
+
+**Face :**
+Tu écris `*p = malloc(10)` alors que p est `char *`.
+
+**Dos :**
+• type invalide
+• écrasement mémoire
+
+---
+
+## 🟥 CARD 13 — return local
+
+**Face :**
+Tu retournes l’adresse d’une variable locale.
+
+**Dos :**
+• dangling pointer
+• crash futur
+
+---
+
+## 🟥 CARD 14 — off-by-one
+
+**Face :**
+Boucle i <= len au lieu de i < len.
+
+**Dos :**
+• dépassement
+• corruption
+
+---
+
+## 🟥 CARD 15 — skip séparateurs
+
+**Face :**
+Tu oublies d’ignorer les séparateurs dans split.
+
+**Dos :**
+• mots vides
+• mauvaise sortie
+
+---
+
+## 🟥 CARD 16 — malloc non testé
+
+**Face :**
+Tu ne vérifies pas malloc.
+
+**Dos :**
+• segfault si NULL
+
+---
+
+## 🟥 CARD 17 — seen pas remis à zéro
+
+**Face :**
+seen[256] non initialisé.
+
+**Dos :**
+• faux doublons
+• comportement aléatoire
+
+---
+
+## 🟥 CARD 18 — avancer mauvais pointeur
+
+**Face :**
+Dans une liste, tu avances cur au mauvais moment.
+
+**Dos :**
+• élément ignoré
+• bug logique
+
+---
+
+## 🟥 CARD 19 — '\n' oublié
+
+**Face :**
+L’énoncé demande un newline final, tu l’oublies.
+
+**Dos :**
+• tests automatiques échouent
+
+---
+
+## 🟥 CARD 20 — malloc arbitraire
+
+**Face :**
+Tu fais malloc(1000) “pour être large”.
+
+**Dos :**
+• pas robuste
+• tests limites ratés
+• mauvaise pratique
+
+---
+
+Voici **20 flashcards “Réflexes mémoire”**, conçues pour automatiser les bons gestes en exam C : tailles, malloc, free, NULL, ownership, protection, comptage.
+
+---
+
+## 🟩 CARD 1 — string malloc
+
+**Face :**
+Tu alloues une string copiée. Quelle taille minimale ?
+
+**Dos :**
+• longueur + 1
+• place pour '\0'
+
+---
+
+## 🟩 CARD 2 — malloc check
+
+**Face :**
+Quel est le premier test après malloc ?
+
+**Dos :**
+• if (!ptr) return NULL;
+
+---
+
+## 🟩 CARD 3 — tableau de strings
+
+**Face :**
+Comment doit se terminer un tableau de strings ?
+
+**Dos :**
+• pointeur NULL final
+
+---
+
+## 🟩 CARD 4 — free après unlink
+
+**Face :**
+Quand libérer un maillon supprimé ?
+
+**Dos :**
+• après avoir reconnecté la liste
+
+---
+
+## 🟩 CARD 5 — sizeof
+
+**Face :**
+Pourquoi écrire sizeof(type) * n ?
+
+**Dos :**
+• nombre d’octets correct
+
+---
+
+## 🟩 CARD 6 — itoa taille
+
+**Face :**
+Quelle taille malloc pour "-42" ?
+
+**Dos :**
+• 4 caractères : '-', '4', '2', '\0'
+
+---
+
+## 🟩 CARD 7 — pointeur après free
+
+**Face :**
+Que faire après free(ptr) ?
+
+**Dos :**
+• ptr = NULL (si possible)
+
+---
+
+## 🟩 CARD 8 — compter avant malloc
+
+**Face :**
+Pourquoi compter avant malloc ?
+
+**Dos :**
+• allouer juste
+• éviter dépassement
+
+---
+
+## 🟩 CARD 9 — seen[256]
+
+**Face :**
+Pourquoi initialiser seen[256] ?
+
+**Dos :**
+• éviter faux positifs
+• état propre
+
+---
+
+## 🟩 CARD 10 — owner mémoire
+
+**Face :**
+Qui doit free la mémoire retournée par une fonction ?
+
+**Dos :**
+• l’appelant
+
+---
+
+## 🟩 CARD 11 — tableau 2D
+
+**Face :**
+Comment allouer un tableau de pointeurs vers mots ?
+
+**Dos :**
+• malloc(nb_mots + 1)
+• NULL final
+
+---
+
+## 🟩 CARD 12 — long cast
+
+**Face :**
+Pourquoi caster en long dans itoa ?
+
+**Dos :**
+• éviter overflow (INT_MIN)
+
+---
+
+## 🟩 CARD 13 — index unsigned
+
+**Face :**
+Pourquoi caster en unsigned char ?
+
+**Dos :**
+• éviter index négatif
+
+---
+
+## 🟩 CARD 14 — variable init
+
+**Face :**
+Pourquoi initialiser len = 0 ?
+
+**Dos :**
+• éviter valeur aléatoire
+
+---
+
+## 🟩 CARD 15 — free en erreur
+
+**Face :**
+Si malloc échoue au milieu de split ?
+
+**Dos :**
+• free ce qui est déjà alloué
+
+---
+
+## 🟩 CARD 16 — buffer fixe
+
+**Face :**
+Pourquoi éviter malloc(1000) arbitraire ?
+
+**Dos :**
+• imprécis
+• fragile
+
+---
+
+## 🟩 CARD 17 — '\0' final
+
+**Face :**
+Pourquoi ajouter '\0' ?
+
+**Dos :**
+• terminaison string
+• affichage correct
+
+---
+
+## 🟩 CARD 18 — double pointeur
+
+**Face :**
+Pourquoi t_list ** dans remove_if ?
+
+**Dos :**
+• modifier la tête
+• éviter perdre accès
+
+---
+
+## 🟩 CARD 19 — sizeof(ptr)
+
+**Face :**
+Pourquoi sizeof(ptr) est souvent faux ?
+
+**Dos :**
+• taille pointeur
+• pas taille élément
+
+---
+
+## 🟩 CARD 20 — free(NULL)
+
+**Face :**
+Que fait free(NULL) ?
+
+**Dos :**
+• rien
+• sûr
+
+---
+
+Voici **20 flashcards “Pointeurs”**, écrites pour ancrer les mécanismes essentiels en exam C : adresse, déréférencement, double pointeur, listes, erreurs classiques.
+
+---
+
+## 🟨 CARD 1 — définition
+
+**Face :**
+Qu’est-ce qu’un pointeur en C ?
+
+**Dos :**
+• une variable qui contient une adresse mémoire
+
+---
+
+## 🟨 CARD 2 — deref
+
+**Face :**
+Que fait `*p` ?
+
+**Dos :**
+• accède à la valeur pointée
+
+---
+
+## 🟨 CARD 3 — &
+
+**Face :**
+Que fait `&x` ?
+
+**Dos :**
+• donne l’adresse de x
+
+---
+
+## 🟨 CARD 4 — simple vs double
+
+**Face :**
+Pourquoi utiliser `t_list **` ?
+
+**Dos :**
+• modifier la tête
+• changer un pointeur
+
+---
+
+## 🟨 CARD 5 — avancer liste
+
+**Face :**
+Quelle ligne fait avancer dans une liste ?
+
+**Dos :**
+• cur = cur->next
+
+---
+
+## 🟨 CARD 6 — opérateur
+
+**Face :**
+Quel opérateur pour accéder à un champ via pointeur ?
+
+**Dos :**
+• ->
+
+---
+
+## 🟨 CARD 7 — pointeur non init
+
+**Face :**
+Danger d’un pointeur non initialisé ?
+
+**Dos :**
+• comportement indéfini
+• segfault
+
+---
+
+## 🟨 CARD 8 — après free
+
+**Face :**
+Peut-on utiliser un pointeur après free ?
+
+**Dos :**
+• non
+• dangling pointer
+
+---
+
+## 🟨 CARD 9 — argv
+
+**Face :**
+Pourquoi argv est un char ** ?
+
+**Dos :**
+• tableau de strings
+
+---
+
+## 🟨 CARD 10 — tmp
+
+**Face :**
+Pourquoi utiliser un pointeur tmp en liste ?
+
+**Dos :**
+• garder adresse
+• free ensuite
+
+---
+
+## 🟨 CARD 11 — changer tête
+
+**Face :**
+Quelle ligne modifie la tête ?
+
+**Dos :**
+• *begin = (*begin)->next
+
+---
+
+## 🟨 CARD 12 — deref NULL
+
+**Face :**
+Que se passe-t-il si on deref NULL ?
+
+**Dos :**
+• segfault
+
+---
+
+## 🟨 CARD 13 — swap
+
+**Face :**
+Pourquoi swap data plutôt que liens ?
+
+**Dos :**
+• plus simple
+• moins risqué
+
+---
+
+## 🟨 CARD 14 — priorité opérateurs
+
+**Face :**
+Pourquoi `*cur->next` est piégeux ?
+
+**Dos :**
+• -> avant *
+• parenthèses nécessaires
+
+---
+
+## 🟨 CARD 15 — type void *
+
+**Face :**
+Que représente void * ?
+
+**Dos :**
+• pointeur générique
+
+---
+
+## 🟨 CARD 16 — vérification
+
+**Face :**
+Quand vérifier un pointeur ?
+
+**Dos :**
+• avant deref
+
+---
+
+## 🟨 CARD 17 — tableau vs pointeur
+
+**Face :**
+Différence char s[10] / char *s ?
+
+**Dos :**
+• tableau vs adresse
+• stockage différent
+
+---
+
+## 🟨 CARD 18 — return local
+
+**Face :**
+Pourquoi ne pas retourner &local ?
+
+**Dos :**
+• pointeur mort
+• stack détruite
+
+---
+
+## 🟨 CARD 19 — ++ interdit
+
+**Face :**
+Pourquoi ne pas faire cur++ sur une liste ?
+
+**Dos :**
+• pas contigu
+• mémoire arbitraire
+
+---
+
+## 🟨 CARD 20 — double pointeur danger
+
+**Face :**
+Risque principal avec ** ?
+
+**Dos :**
+• modifier mauvaise adresse
+• perdre tête
+
+---
+
+Voici **20 flashcards “malloc”**, conçues pour automatiser les bons réflexes d’allocation en exam C : tailles exactes, protection, ownership, erreurs classiques.
+
+---
+
+## 🟪 CARD 1 — définition
+
+**Face :**
+À quoi sert malloc ?
+
+**Dos :**
+• allouer dynamiquement en heap
+• renvoie un pointeur
+
+---
+
+## 🟪 CARD 2 — échec
+
+**Face :**
+Que retourne malloc en cas d’échec ?
+
+**Dos :**
+• NULL
+
+---
+
+## 🟪 CARD 3 — taille string
+
+**Face :**
+Quelle taille malloc pour copier une string ?
+
+**Dos :**
+• longueur + 1
+• '\0'
+
+---
+
+## 🟪 CARD 4 — sizeof
+
+**Face :**
+Pourquoi sizeof(type) * n ?
+
+**Dos :**
+• nombre d’octets correct
+
+---
+
+## 🟪 CARD 5 — test
+
+**Face :**
+Quel test immédiat après malloc ?
+
+**Dos :**
+• if (!ptr) return NULL
+
+---
+
+## 🟪 CARD 6 — ownership
+
+**Face :**
+Qui doit free la mémoire retournée ?
+
+**Dos :**
+• l’appelant
+
+---
+
+## 🟪 CARD 7 — free(NULL)
+
+**Face :**
+Que fait free(NULL) ?
+
+**Dos :**
+• rien
+• sûr
+
+---
+
+## 🟪 CARD 8 — buffer fixe
+
+**Face :**
+Pourquoi éviter malloc(1000) arbitraire ?
+
+**Dos :**
+• fragile
+• imprécis
+
+---
+
+## 🟪 CARD 9 — sizeof(ptr)
+
+**Face :**
+Pourquoi sizeof(ptr) est faux pour tableau ?
+
+**Dos :**
+• taille pointeur
+• pas élément
+
+---
+
+## 🟪 CARD 10 — 2D
+
+**Face :**
+Comment allouer un tableau de mots ?
+
+**Dos :**
+• malloc(nb + 1)
+• NULL final
+
+---
+
+## 🟪 CARD 11 — libérer après unlink
+
+**Face :**
+Quand free un maillon supprimé ?
+
+**Dos :**
+• après reconnecter
+
+---
+
+## 🟪 CARD 12 — erreur intermédiaire
+
+**Face :**
+malloc échoue dans split à mi-chemin ?
+
+**Dos :**
+• free ce qui est déjà alloué
+
+---
+
+## 🟪 CARD 13 — calloc
+
+**Face :**
+Que fait calloc ?
+
+**Dos :**
+• malloc + mise à zéro
+
+---
+
+## 🟪 CARD 14 — realloc
+
+**Face :**
+À quoi sert realloc ?
+
+**Dos :**
+• agrandir / réduire
+• conserve contenu
+
+---
+
+## 🟪 CARD 15 — fuite
+
+**Face :**
+Qu’est-ce qu’une fuite mémoire ?
+
+**Dos :**
+• mémoire jamais free
+
+---
+
+## 🟪 CARD 16 — après free
+
+**Face :**
+Pourquoi mettre ptr = NULL après free ?
+
+**Dos :**
+• éviter réutilisation
+
+---
+
+## 🟪 CARD 17 — taille inclusive
+
+**Face :**
+Pourquoi +1 dans ft_range ?
+
+**Dos :**
+• inclure start et end
+
+---
+
+## 🟪 CARD 18 — itoa
+
+**Face :**
+Pourquoi malloc len + sign + 1 ?
+
+**Dos :**
+• '-'
+• '\0'
+
+---
+
+## 🟪 CARD 19 — check arguments
+
+**Face :**
+Pourquoi vérifier argc avant malloc ?
+
+**Dos :**
+• éviter allocation inutile
+
+---
+
+## 🟪 CARD 20 — règle absolue
+
+**Face :**
+Réflexe numéro un avec malloc ?
+
+**Dos :**
+• vérifier NULL
+
+---
+
+Voici **20 flashcards “Listes chaînées”**, conçues pour fixer les mécanismes indispensables en exam C : parcours, suppression, double pointeur, tri, erreurs classiques.
+
+---
+
+## 🟫 CARD 1 — rôle next
+
+**Face :**
+À quoi sert le champ next ?
+
+**Dos :**
+• pointer vers le maillon suivant
+
+---
+
+## 🟫 CARD 2 — tête
+
+**Face :**
+Que représente begin_list ?
+
+**Dos :**
+• pointeur vers la tête
+
+---
+
+## 🟫 CARD 3 — double pointeur
+
+**Face :**
+Pourquoi passer t_list ** ?
+
+**Dos :**
+• modifier la tête
+• relier après suppression
+
+---
+
+## 🟫 CARD 4 — parcourir
+
+**Face :**
+Comment parcourir une liste ?
+
+**Dos :**
+• cur = begin
+• while(cur)
+• cur = cur->next
+
+---
+
+## 🟫 CARD 5 — supprimer suivant
+
+**Face :**
+Comment retirer cur->next ?
+
+**Dos :**
+• tmp = cur->next
+• cur->next = tmp->next
+• free(tmp)
+
+---
+
+## 🟫 CARD 6 — nettoyer tête
+
+**Face :**
+Comment supprimer plusieurs têtes ?
+
+**Dos :**
+• while(*begin && cmp(...))
+• tmp = *begin
+• *begin = tmp->next
+• free(tmp)
+
+---
+
+## 🟫 CARD 7 — avancer
+
+**Face :**
+Quand avancer cur ?
+
+**Dos :**
+• seulement si pas supprimé
+
+---
+
+## 🟫 CARD 8 — fin liste
+
+**Face :**
+Comment détecter la fin ?
+
+**Dos :**
+• cur == NULL
+
+---
+
+## 🟫 CARD 9 — liste vide
+
+**Face :**
+Que vaut une liste vide ?
+
+**Dos :**
+• pointeur NULL
+
+---
+
+## 🟫 CARD 10 — tmp
+
+**Face :**
+Pourquoi tmp est indispensable ?
+
+**Dos :**
+• garder adresse
+• free après
+
+---
+
+## 🟫 CARD 11 — sort_list
+
+**Face :**
+Quel tri simple utiliser à l’exam ?
+
+**Dos :**
+• bubble sort
+• swap data
+
+---
+
+## 🟫 CARD 12 — swapped
+
+**Face :**
+À quoi sert swapped ?
+
+**Dos :**
+• savoir si encore des échanges
+
+---
+
+## 🟫 CARD 13 — cmp
+
+**Face :**
+Que fait cmp dans sort_list ?
+
+**Dos :**
+• indique ordre correct
+
+---
+
+## 🟫 CARD 14 — lstsize
+
+**Face :**
+Comment compter les maillons ?
+
+**Dos :**
+• while(lst) count++
+
+---
+
+## 🟫 CARD 15 — dernier
+
+**Face :**
+Que vaut next du dernier ?
+
+**Dos :**
+• NULL
+
+---
+
+## 🟫 CARD 16 — unlink avant free
+
+**Face :**
+Pourquoi unlink avant free ?
+
+**Dos :**
+• éviter corruption
+
+---
+
+## 🟫 CARD 17 — accès sécurisé
+
+**Face :**
+Quel test avant cur->next ?
+
+**Dos :**
+• if(cur->next)
+
+---
+
+## 🟫 CARD 18 — supprimer dernier
+
+**Face :**
+Comment supprimer le dernier ?
+
+**Dos :**
+• parcourir jusqu’à avant dernier
+• unlink
+• free
+
+---
+
+## 🟫 CARD 19 — récursion
+
+**Face :**
+Pourquoi éviter récursion à l’exam ?
+
+**Dos :**
+• stack
+• complexité
+
+---
+
+## 🟫 CARD 20 — danger principal
+
+**Face :**
+Piège majeur avec les listes ?
+
+**Dos :**
+• avancer au mauvais moment
+• perdre un lien
+
+---
+
+Voici **20 flashcards “Conditions limites”**, faites pour entraîner ton réflexe *“et si c’est le cas bizarre ?”* avant de coder : chaînes vides, listes à 1 élément, 0, négatif, malloc qui échoue.
+
+---
+
+## 🟦 CARD 1 — itoa INT_MIN
+
+**Face :**
+Quel est le cas limite majeur de itoa ?
+
+**Dos :**
+• INT_MIN
+• overflow si non géré
+• caster en long
+
+---
+
+## 🟦 CARD 2 — split vide
+
+**Face :**
+split("") doit retourner quoi ?
+
+**Dos :**
+• tableau contenant seulement NULL
+
+---
+
+## 🟦 CARD 3 — ft_range égalité
+
+**Face :**
+ft_range(5,5) ?
+
+**Dos :**
+• tableau {5}
+
+---
+
+## 🟦 CARD 4 — liste vide
+
+**Face :**
+Que vaut begin_list si la liste est vide ?
+
+**Dos :**
+• NULL
+
+---
+
+## 🟦 CARD 5 — supprimer tout
+
+**Face :**
+remove_if supprime tous les éléments. Résultat ?
+
+**Dos :**
+• *begin devient NULL
+
+---
+
+## 🟦 CARD 6 — atoi zéro
+
+**Face :**
+atoi("0") ?
+
+**Dos :**
+• 0
+
+---
+
+## 🟦 CARD 7 — only spaces
+
+**Face :**
+split("   ") doit produire ?
+
+**Dos :**
+• tableau NULL
+
+---
+
+## 🟦 CARD 8 — un seul élément
+
+**Face :**
+sort_list avec un seul maillon ?
+
+**Dos :**
+• inchangé
+
+---
+
+## 🟦 CARD 9 — wdmatch raté
+
+**Face :**
+wdmatch ne trouve pas tous les caractères.
+
+**Dos :**
+• afficher '\n'
+
+---
+
+## 🟦 CARD 10 — start > end
+
+**Face :**
+ft_range(3,0) ?
+
+**Dos :**
+• {3,2,1,0}
+
+---
+
+## 🟦 CARD 11 — itoa(0)
+
+**Face :**
+itoa(0) retourne ?
+
+**Dos :**
+• "0"
+
+---
+
+## 🟦 CARD 12 — foreach vide
+
+**Face :**
+ft_list_foreach sur liste vide ?
+
+**Dos :**
+• rien
+
+---
+
+## 🟦 CARD 13 — aucun match
+
+**Face :**
+remove_if ne trouve rien.
+
+**Dos :**
+• liste inchangée
+
+---
+
+## 🟦 CARD 14 — tableau final
+
+**Face :**
+Comment doit se terminer un tableau de strings ?
+
+**Dos :**
+• NULL
+
+---
+
+## 🟦 CARD 15 — atoi espaces
+
+**Face :**
+atoi("   42") ?
+
+**Dos :**
+• 42
+
+---
+
+## 🟦 CARD 16 — union vide
+
+**Face :**
+union("", "") ?
+
+**Dos :**
+• rien afficher
+
+---
+
+## 🟦 CARD 17 — dernier mot
+
+**Face :**
+Dernier mot sans séparateur ?
+
+**Dos :**
+• inclure quand même
+
+---
+
+## 🟦 CARD 18 — supprimer dernier
+
+**Face :**
+remove_if supprime dernier maillon ?
+
+**Dos :**
+• unlink
+• free
+
+---
+
+## 🟦 CARD 19 — argc faux
+
+**Face :**
+argc incorrect.
+
+**Dos :**
+• afficher '\n'
+
+---
+
+## 🟦 CARD 20 — malloc échoue
+
+**Face :**
+malloc échoue dans split ?
+
+**Dos :**
+• free déjà alloué
+• return NULL
+
+---
+
+Voici **20 flashcards “Règles implicites des énoncés”**, pensées pour t’éviter les zéros bêtes à l’exam : sorties exactes, fonctions autorisées, prototypes stricts, fichiers imposés.
+
+---
+
+## 🟪 CARD 1 — argc incorrect
+
+**Face :**
+argc n’est pas celui attendu. Que faire ?
+
+**Dos :**
+• afficher uniquement `\n`
+• rien d’autre
+
+---
+
+## 🟪 CARD 2 — fonctions autorisées
+
+**Face :**
+Une fonction n’est pas listée dans “Allowed functions”.
+
+**Dos :**
+• interdite
+• ne pas l’utiliser
+
+---
+
+## 🟪 CARD 3 — write imposé
+
+**Face :**
+write est la seule fonction autorisée.
+
+**Dos :**
+• pas printf
+• pas puts
+• pas perror
+
+---
+
+## 🟪 CARD 4 — sortie exacte
+
+**Face :**
+Pourquoi l’output doit être strict ?
+
+**Dos :**
+• tests automatiques
+• comparaison exacte
+
+---
+
+## 🟪 CARD 5 — newline final
+
+**Face :**
+L’énoncé montre un `\n` final.
+
+**Dos :**
+• obligatoire
+• sinon tests KO
+
+---
+
+## 🟪 CARD 6 — nom de fichier
+
+**Face :**
+“Expected files : wdmatch.c”.
+
+**Dos :**
+• un seul fichier
+• nom exact
+
+---
+
+## 🟪 CARD 7 — prototype
+
+**Face :**
+Le prototype doit correspondre exactement ?
+
+**Dos :**
+• oui
+• sinon compilation refusée
+
+---
+
+## 🟪 CARD 8 — include fourni
+
+**Face :**
+“include list.h but do not turn it in”.
+
+**Dos :**
+• utiliser le header
+• ne pas rendre le fichier
+
+---
+
+## 🟪 CARD 9 — structure imposée
+
+**Face :**
+Une struct est fournie dans l’énoncé.
+
+**Dos :**
+• ne pas modifier
+• utiliser telle quelle
+
+---
+
+## 🟪 CARD 10 — pas de debug
+
+**Face :**
+Peut-on laisser des printf de debug ?
+
+**Dos :**
+• non
+• sortie strictement contrôlée
+
+---
+
+## 🟪 CARD 11 — affichage erreur
+
+**Face :**
+L’énoncé ne demande pas d’erreur explicite.
+
+**Dos :**
+• rester silencieux
+• ou seulement `\n`
+
+---
+
+## 🟪 CARD 12 — return malloc
+
+**Face :**
+Une fonction doit retourner un pointeur.
+
+**Dos :**
+• retourner une adresse valide
+• pas une variable locale
+
+---
+
+## 🟪 CARD 13 — Allowed functions: malloc
+
+**Face :**
+calloc est autorisé ?
+
+**Dos :**
+• non
+• pas listé
+
+---
+
+## 🟪 CARD 14 — exemples
+
+**Face :**
+Les exemples fournis servent à quoi ?
+
+**Dos :**
+• contrat exact
+• format à respecter
+
+---
+
+## 🟪 CARD 15 — stderr
+
+**Face :**
+Afficher sur stderr au lieu de stdout ?
+
+**Dos :**
+• tests ratés
+
+---
+
+## 🟪 CARD 16 — afficher trop
+
+**Face :**
+Tu affiches plus que demandé.
+
+**Dos :**
+• tests KO
+
+---
+
+## 🟪 CARD 17 — comportement non précisé
+
+**Face :**
+Un cas n’est pas décrit.
+
+**Dos :**
+• rester minimal
+• ne rien inventer
+
+---
+
+## 🟪 CARD 18 — noms fonctions
+
+**Face :**
+Pourquoi respecter les noms exacts ?
+
+**Dos :**
+• linker
+• compilation
+
+---
+
+## 🟪 CARD 19 — ordre affichage
+
+**Face :**
+Changer l’ordre d’affichage ?
+
+**Dos :**
+• interdit
+• tests KO
+
+---
+
+## 🟪 CARD 20 — règle absolue
+
+**Face :**
+Règle implicite numéro un ?
+
+**Dos :**
+• relire l’énoncé
+• respecter chaque mot
+
+---
+
