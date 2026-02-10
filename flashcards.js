@@ -294,30 +294,70 @@ function renderHistory() {
 
 function parseAnswer(answerText) {
   const text = String(answerText || "").trim();
-  const out = { title: "Réponse attendue", steps: [], objective: "" };
+  const out = { title: "Réponse attendue", steps: [] };
   if (!text) {
     return out;
   }
 
-  const objectiveMatch = text.match(/Objectif\\s*:\\s*(.+)$/i);
-  if (objectiveMatch) {
-    out.objective = objectiveMatch[1].trim();
+  const segments = text
+    .split("|")
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  if (segments.length === 0) {
+    return out;
   }
 
-  const checklist = text
-    .replace(/^Checklist(?: opérationnelle)?\\s*:\\s*/i, "")
-    .replace(/Objectif\\s*:.+$/i, "")
-    .trim();
+  const labeled = segments
+    .map((segment) => {
+      const idx = segment.indexOf(":");
+      if (idx === -1) {
+        return null;
+      }
+      const label = segment.slice(0, idx).trim().toLowerCase();
+      const value = segment.slice(idx + 1).trim();
+      if (!label || !value) {
+        return null;
+      }
+      return { label, value };
+    })
+    .filter(Boolean);
 
-  if (checklist.length > 0) {
-    out.steps = checklist
-      .split("|")
-      .map((step) => step.replace(/^\\s*\\d+\\)\\s*/, "").trim())
-      .filter(Boolean);
-  }
+  if (labeled.length > 0) {
+    const memorySegment = labeled.find((item) => item.label.startsWith("a mémoriser"));
+    if (memorySegment) {
+      out.title = memorySegment.value;
+    }
 
-  if (out.objective) {
-    out.title = `Réponse attendue - ${out.objective}`;
+    labeled.forEach((item) => {
+      if (item.label.startsWith("a mémoriser")) {
+        return;
+      }
+
+      if (item.label.startsWith("méthode concrète")) {
+        item.value
+          .split("->")
+          .map((part) => part.replace(/^\\s*\\d+\\)\\s*/, "").trim())
+          .filter(Boolean)
+          .forEach((step) => out.steps.push(step));
+        return;
+      }
+
+      const prettyLabel = item.label.charAt(0).toUpperCase() + item.label.slice(1);
+      out.steps.push(`${prettyLabel}: ${item.value}`);
+    });
+  } else {
+    const checklist = text
+      .replace(/^Checklist(?: opérationnelle)?\\s*:\\s*/i, "")
+      .replace(/Objectif\\s*:.+$/i, "")
+      .trim();
+
+    if (checklist.length > 0) {
+      out.steps = checklist
+        .split("|")
+        .map((step) => step.replace(/^\\s*\\d+\\)\\s*/, "").trim())
+        .filter(Boolean);
+    }
   }
 
   return out;
