@@ -273,15 +273,15 @@ main {
 }
 
 .hm-3 {
-  background: var(--light-blue);
-}
-
-.hm-4 {
   background: var(--blue);
 }
 
-.hm-5 {
+.hm-4 {
   background: var(--green);
+}
+
+.hm-5 {
+  background: var(--light-blue);
 }
 
 .legend {
@@ -318,15 +318,15 @@ main {
 }
 
 .swatch-mid {
-  background: var(--light-blue);
-}
-
-.swatch-good {
   background: var(--blue);
 }
 
-.swatch-best {
+.swatch-good {
   background: var(--green);
+}
+
+.swatch-best {
+  background: var(--light-blue);
 }
 
 .layout-two {

@@ -28,58 +28,8 @@
 
     <main>
       <section class="panel">
-        <h1 class="panel-title">Révision active du C</h1>
-        <p class="panel-subtitle">
-          Objectif: rappel actif, répétition espacée, correction rapide des lacunes et préparation examen blanc.
-        </p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href="flashcards.html">Lancer les flashcards</a>
-          <a class="btn btn-primary" href="quiz.html?mode=training">Mode entraînement chronométré</a>
-          <a class="btn btn-primary" href="quiz.html?mode=exam">Mode examen blanc</a>
-          <a id="resumeSessionBtn" class="btn btn-secondary hidden" href="flashcards.html?resume=1">Reprendre la session</a>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2 class="panel-title">Statistiques globales</h2>
-        <div class="stat-grid">
-          <article class="stat-item">
-            <p class="stat-label">Cartes révisées</p>
-            <p id="statCardsReviewed" class="stat-value">0</p>
-          </article>
-          <article class="stat-item">
-            <p class="stat-label">Taux de réussite</p>
-            <p id="statSuccessRate" class="stat-value">0%</p>
-          </article>
-          <article class="stat-item">
-            <p class="stat-label">Série actuelle</p>
-            <p id="statStreak" class="stat-value">0</p>
-          </article>
-          <article class="stat-item">
-            <p class="stat-label">Erreurs mémorisées</p>
-            <p id="statErrors" class="stat-value">0</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="layout-two">
-        <article class="panel">
-          <h2 class="panel-title">Cartes difficiles prioritaires</h2>
-          <ul id="difficultCardsList" class="list" aria-live="polite"></ul>
-        </article>
-
-        <article class="panel">
-          <h2 class="panel-title">Accès erreurs</h2>
-          <p class="panel-subtitle">Révision ciblée immédiate</p>
-          <div class="btn-row">
-            <a class="btn btn-danger" href="flashcards.html?errors=1">Flashcards erreurs</a>
-            <a class="btn btn-danger" href="quiz.html?mode=targeted">Quiz ciblé erreurs</a>
-          </div>
-        </article>
-      </section>
-
-      <section class="panel">
-        <h2 class="panel-title">Heatmap performance (28 jours)</h2>
+        <h1 class="panel-title">Heatmap de performance</h1>
+        <p class="panel-subtitle">Suivi sur 28 jours.</p>
         <div id="heatmapGrid" class="heatmap" aria-label="Heatmap performance"></div>
         <div class="legend" aria-hidden="true">
           <span class="legend-item"><span class="legend-swatch swatch-neutral"></span>Neutre</span>

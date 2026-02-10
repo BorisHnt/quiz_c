@@ -1,6 +1,5 @@
 import {
   initCommon,
-  loadProgress,
   saveProgress,
   createSeededRng,
   seedFromString,
@@ -56,6 +55,7 @@ function sanitizeQuizData(payload) {
       choices: Array.isArray(item.choices) ? item.choices.filter((choice) => typeof choice === "string") : [],
       correct: Number.isInteger(item.correct) ? item.correct : -1,
       explanation: typeof item.explanation === "string" ? item.explanation.trim() : "",
+      theme: typeof item.theme === "string" ? item.theme : "patterns",
       tags: Array.isArray(item.tags) ? item.tags.filter((tag) => typeof tag === "string") : [],
     }))
     .filter(
@@ -140,58 +140,39 @@ function weightedOrder(items, weightFn, rng) {
   return out;
 }
 
-function pickModeDefaults(mode) {
-  if (mode === "rush") {
-    return { timer: 10, count: 10 };
-  }
-  if (mode === "targeted") {
-    return { timer: 15, count: 10 };
-  }
-  if (mode === "exam") {
-    return { timer: 20, count: 20 };
-  }
-  return { timer: 20, count: 20 };
-}
-
-function buildQuestionSet(allQuestions, mode, count, weaknessInfo, rng) {
+function buildQuestionSet(allQuestions, count, weaknessInfo, rng) {
   const weighted = weightedOrder(allQuestions, (question) => questionWeight(question, weaknessInfo), rng);
-
-  if (mode === "targeted") {
-    const targeted = weighted.filter((question) => questionWeight(question, weaknessInfo) > 1.6);
-    if (targeted.length > 0) {
-      return targeted.slice(0, Math.min(count, targeted.length));
-    }
-    return weighted.slice(0, Math.min(count, weighted.length));
-  }
-
-  if (mode === "rush") {
-    return weighted.slice(0, Math.min(count, 10, weighted.length));
-  }
-
-  if (mode === "exam") {
-    const examCount = Math.max(20, count);
-    return weighted.slice(0, Math.min(examCount, weighted.length));
-  }
-
   return weighted.slice(0, Math.min(count, weighted.length));
 }
 
-function modeLabel(mode) {
-  if (mode === "rush") {
-    return "Rush";
+function themeLabel(theme) {
+  if (theme === "patterns") {
+    return "Patterns";
   }
-  if (mode === "targeted") {
-    return "Ciblé erreurs";
+  if (theme === "pieges") {
+    return "Pièges";
   }
-  if (mode === "exam") {
-    return "Examen blanc";
+  if (theme === "reflexes_memoire") {
+    return "Réflexes mémoire";
   }
-  return "Entraînement";
+  if (theme === "pointeurs_malloc") {
+    return "Pointeurs & malloc";
+  }
+  if (theme === "listes_chainees") {
+    return "Listes chaînées";
+  }
+  if (theme === "conditions_limites") {
+    return "Conditions limites";
+  }
+  if (theme === "regles_implicites") {
+    return "Règles implicites";
+  }
+  return "Random";
 }
 
 const ui = {
   setupPanel: null,
-  modeSelect: null,
+  themeSelect: null,
   timerSelect: null,
   countSelect: null,
   penaltySelect: null,
@@ -206,8 +187,8 @@ const ui = {
   feedback: null,
   nextBtn: null,
   finalPanel: null,
+  finalTheme: null,
   finalScore: null,
-  finalMode: null,
   finalPenalty: null,
   errorsList: null,
   restartBtn: null,
@@ -221,7 +202,7 @@ const state = {
   index: 0,
   score: 0,
   answered: false,
-  sessionMode: "training",
+  selectedTheme: "random",
   timerPerQuestion: 20,
   penaltySeconds: 3,
   penaltyTotal: 0,
@@ -232,7 +213,7 @@ const state = {
 
 function selectUi() {
   ui.setupPanel = document.querySelector("#quizSetupPanel");
-  ui.modeSelect = document.querySelector("#quizModeSelect");
+  ui.themeSelect = document.querySelector("#quizThemeSelect");
   ui.timerSelect = document.querySelector("#timerPerQuestionSelect");
   ui.countSelect = document.querySelector("#questionCountSelect");
   ui.penaltySelect = document.querySelector("#timePenaltySelect");
@@ -247,8 +228,8 @@ function selectUi() {
   ui.feedback = document.querySelector("#quizFeedback");
   ui.nextBtn = document.querySelector("#nextQuestionBtn");
   ui.finalPanel = document.querySelector("#quizFinalPanel");
+  ui.finalTheme = document.querySelector("#finalThemeText");
   ui.finalScore = document.querySelector("#finalScoreText");
-  ui.finalMode = document.querySelector("#finalModeText");
   ui.finalPenalty = document.querySelector("#finalPenaltyText");
   ui.errorsList = document.querySelector("#quizErrorsList");
   ui.restartBtn = document.querySelector("#restartQuizBtn");
@@ -271,12 +252,6 @@ async function fetchQuiz() {
     throw new Error("Impossible de charger le quiz.");
   }
   return sanitizeQuizData(await response.json());
-}
-
-function applyModeDefaults(mode) {
-  const defaults = pickModeDefaults(mode);
-  ui.timerSelect.value = String(defaults.timer);
-  ui.countSelect.value = String(defaults.count);
 }
 
 function updateTopStats() {
@@ -327,7 +302,7 @@ function registerError(question, selectedIndex) {
     selected: selectedText,
     correct: question.choices[question.correct],
     tags: [...question.tags],
-    mode: state.sessionMode,
+    mode: "quiz",
   };
   state.sessionErrors.push(errorEntry);
 }
@@ -406,7 +381,8 @@ function finishQuiz() {
 
   state.progress.quiz.sessions.push({
     date: new Date().toISOString(),
-    mode: state.sessionMode,
+    mode: "quiz",
+    theme: state.selectedTheme,
     score: state.score,
     total: state.sessionQuestions.length,
     penalty: state.penaltyTotal,
@@ -422,9 +398,9 @@ function finishQuiz() {
 
   const adjustedScore = Math.max(0, state.score - Math.floor(state.penaltyTotal / Math.max(1, state.timerPerQuestion)));
 
+  ui.finalTheme.textContent = `Thème: ${themeLabel(state.selectedTheme)}`;
   ui.finalScore.textContent =
     `Score brut: ${state.score}/${state.sessionQuestions.length} | Score ajusté pénalité: ${adjustedScore}/${state.sessionQuestions.length}`;
-  ui.finalMode.textContent = `Mode: ${modeLabel(state.sessionMode)} | Timer/question: ${state.timerPerQuestion}s`;
   ui.finalPenalty.textContent = `Pénalité cumulée: ${state.penaltyTotal}s`;
 
   ui.errorsList.innerHTML = "";
@@ -442,12 +418,12 @@ function finishQuiz() {
 }
 
 function startSession() {
-  const mode = ui.modeSelect.value;
+  const selectedTheme = ui.themeSelect.value;
   const requestedTimer = Number.parseInt(ui.timerSelect.value, 10);
   const requestedCount = Number.parseInt(ui.countSelect.value, 10);
   const penaltySeconds = Number.parseInt(ui.penaltySelect.value, 10);
 
-  state.sessionMode = mode;
+  state.selectedTheme = selectedTheme;
   state.timerPerQuestion = Number.isFinite(requestedTimer) ? requestedTimer : 20;
   state.penaltySeconds = Number.isFinite(penaltySeconds) ? penaltySeconds : 3;
   state.penaltyTotal = 0;
@@ -457,12 +433,16 @@ function startSession() {
   state.sessionErrors = [];
 
   const weaknessInfo = buildWeaknessMap(state.progress);
-  const seed = seedFromString(`${todayKey()}-${mode}-${state.progress.quiz.errors.length}`);
+  const seed = seedFromString(`${todayKey()}-quiz-${state.selectedTheme}-${state.progress.quiz.errors.length}`);
   const rng = createSeededRng(seed);
-  state.sessionQuestions = buildQuestionSet(state.allQuestions, mode, requestedCount, weaknessInfo, rng);
+  const themedQuestions =
+    state.selectedTheme === "random"
+      ? state.allQuestions
+      : state.allQuestions.filter((question) => question.theme === state.selectedTheme);
+  state.sessionQuestions = buildQuestionSet(themedQuestions, requestedCount, weaknessInfo, rng);
 
   if (state.sessionQuestions.length === 0) {
-    setFeedback("Aucune question disponible pour ce mode.", "is-error");
+    setFeedback("Aucune question disponible pour cette session.", "is-error");
     return;
   }
 
@@ -501,10 +481,6 @@ function exportErrorsAsJson() {
 }
 
 function bindEvents() {
-  ui.modeSelect.addEventListener("change", () => {
-    applyModeDefaults(ui.modeSelect.value);
-  });
-
   ui.startBtn.addEventListener("click", startSession);
   ui.nextBtn.addEventListener("click", goToNextQuestion);
 
@@ -549,16 +525,24 @@ async function initQuizPage() {
 
     state.timer = new QuestionTimer(setTimerDisplay, () => evaluateAnswer(-1, true));
     bindEvents();
-
     const params = new URLSearchParams(window.location.search);
-    const modeFromQuery = params.get("mode");
-
-    if (["training", "rush", "targeted", "exam"].includes(modeFromQuery)) {
-      ui.modeSelect.value = modeFromQuery;
+    const themeFromQuery = params.get("theme");
+    if (
+      [
+        "random",
+        "patterns",
+        "pieges",
+        "reflexes_memoire",
+        "pointeurs_malloc",
+        "listes_chainees",
+        "conditions_limites",
+        "regles_implicites",
+      ].includes(themeFromQuery)
+    ) {
+      ui.themeSelect.value = themeFromQuery;
     }
-    applyModeDefaults(ui.modeSelect.value);
 
-    setFeedback("Configure le mode puis démarre le quiz.");
+    setFeedback("Configure le quiz puis démarre la session.");
   } catch (_error) {
     setFeedback("Erreur de chargement des questions.", "is-error");
   }

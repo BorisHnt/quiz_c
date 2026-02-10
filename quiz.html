@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Révision C - Quiz</title>
-    <meta name="description" content="Quiz C chronométrés avec modes rush, ciblé et examen blanc." />
+    <meta name="description" content="Quiz C chronométré avec score, pénalité temps et historique d'erreurs." />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body data-page="quiz">
@@ -28,15 +28,19 @@
 
     <main>
       <section class="panel" id="quizSetupPanel">
-        <h1 class="panel-title">Quiz - Entraînement, ciblé, examen blanc</h1>
+        <h1 class="panel-title">Quiz chronométré</h1>
         <div class="control-grid">
           <div class="field">
-            <label for="quizModeSelect">Mode</label>
-            <select id="quizModeSelect">
-              <option value="training">Entraînement chronométré</option>
-              <option value="rush">Rush</option>
-              <option value="targeted">Révision ciblée erreurs</option>
-              <option value="exam">Examen blanc</option>
+            <label for="quizThemeSelect">Thème</label>
+            <select id="quizThemeSelect">
+              <option value="random" selected>Random</option>
+              <option value="patterns">Patterns</option>
+              <option value="pieges">Pièges</option>
+              <option value="reflexes_memoire">Réflexes mémoire</option>
+              <option value="pointeurs_malloc">Pointeurs & malloc</option>
+              <option value="listes_chainees">Listes chaînées</option>
+              <option value="conditions_limites">Conditions limites</option>
+              <option value="regles_implicites">Règles implicites</option>
             </select>
           </div>
           <div class="field">
@@ -67,7 +71,7 @@
         </div>
         <div class="btn-row">
           <button id="startQuizBtn" class="btn btn-primary" type="button">Démarrer</button>
-          <a class="btn btn-secondary" href="flashcards.html?errors=1">Réviser erreurs en flashcards</a>
+          <a class="btn btn-secondary" href="flashcards.html">Aller aux flashcards</a>
         </div>
       </section>
 
@@ -104,8 +108,8 @@
       <section id="quizFinalPanel" class="panel hidden" aria-live="polite">
         <h2 class="panel-title">Récapitulatif de session</h2>
         <div class="final-grid">
+          <p id="finalThemeText" class="panel-subtitle"></p>
           <p id="finalScoreText" class="panel-subtitle"></p>
-          <p id="finalModeText" class="panel-subtitle"></p>
           <p id="finalPenaltyText" class="panel-subtitle"></p>
         </div>
 

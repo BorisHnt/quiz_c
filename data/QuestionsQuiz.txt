@@ -1,0 +1,4605 @@
+Voici **50 questions de quiz sur le thème “Patterns”**, toutes en QCM avec **A, B, C, D**.
+Elles sont pensées pour l’exam C / 42 : reconnaître les schémas récurrents, pas réciter du code au hasard.
+
+---
+
+## 1)
+
+Quel pattern est utilisé dans `ft_split` avant d’appeler malloc pour le tableau ?
+
+A) remplir → compter → terminer
+B) compter → malloc → remplir → terminer
+C) malloc → remplir → compter
+D) free → malloc → remplir
+
+Réponse attendue : B
+
+---
+
+## 2)
+
+Quel est le pattern classique pour convertir un int en string (itoa) ?
+
+A) remplir → malloc → compter
+B) compter → remplir → malloc
+C) gérer signe → compter → malloc → remplir à l’envers
+D) malloc → signe → remplir
+
+Réponse : C
+
+---
+
+## 3)
+
+Dans `union`, quel pattern évite les doublons ?
+
+A) tri préalable
+B) compteur global
+C) tableau seen[256]
+D) malloc dynamique
+
+Réponse : C
+
+---
+
+## 4)
+
+Quel pattern sert à parcourir une liste chaînée ?
+
+A) for(i=0;i<n;i++)
+B) while(node) node = node->next
+C) do while
+D) récursion obligatoire
+
+Réponse : B
+
+---
+
+## 5)
+
+Dans `ft_list_remove_if`, quel pattern gère la tête ?
+
+A) cur = begin
+B) boucle while sur *begin
+C) for
+D) swap data
+
+Réponse : B
+
+---
+
+## 6)
+
+Quel pattern permet d’éviter de perdre l’adresse d’un maillon supprimé ?
+
+A) tmp = cur
+B) tmp = cur->next
+C) free(cur)
+D) continue
+
+Réponse : B
+
+---
+
+## 7)
+
+Quel est le pattern pour remplir une string terminée ?
+
+A) '\n' au début
+B) '\0' à la fin
+C) '\t' au milieu
+D) free à la fin
+
+Réponse : B
+
+---
+
+## 8)
+
+Quel pattern permet de gérer INT_MIN dans itoa ?
+
+A) cast en float
+B) cast en long
+C) malloc double
+D) memcpy
+
+Réponse : B
+
+---
+
+## 9)
+
+Quel pattern sert à ignorer les séparateurs ?
+
+A) if unique
+B) while(is_sep) avancer
+C) break
+D) free
+
+Réponse : B
+
+---
+
+## 10)
+
+Dans `sort_list`, quel pattern indique la fin du tri ?
+
+A) i == n
+B) cmp == 0
+C) swapped == 0
+D) cur == NULL
+
+Réponse : C
+
+---
+
+## 11)
+
+Quel pattern est utilisé pour compter des chiffres ?
+
+A) while(n) { n/=10; }
+B) for(i=0;i<n;i++)
+C) malloc
+D) strcpy
+
+Réponse : A
+
+---
+
+## 12)
+
+Quel pattern est commun à strdup et split ?
+
+A) strcpy direct
+B) compter longueur → malloc → copier
+C) free
+D) sort
+
+Réponse : B
+
+---
+
+## 13)
+
+Quel pattern garantit la fin d’un tableau de strings ?
+
+A) '\0'
+B) NULL final
+C) free
+D) sizeof
+
+Réponse : B
+
+---
+
+## 14)
+
+Quel pattern empêche une boucle infinie lors d’un comptage ?
+
+A) continue
+B) break
+C) modifier la variable testée
+D) malloc
+
+Réponse : C
+
+---
+
+## 15)
+
+Dans wdmatch, quel pattern est utilisé ?
+
+A) deux boucles imbriquées inversées
+B) parcourir argv[1] seulement
+C) parcourir argv[2] en avançant dans argv[1]
+D) tri préalable
+
+Réponse : C
+
+---
+
+## 16)
+
+Quel pattern est utilisé pour supprimer plusieurs têtes successives ?
+
+A) if
+B) while
+C) for
+D) goto
+
+Réponse : B
+
+---
+
+## 17)
+
+Quel pattern est commun à atoi et itoa ?
+
+A) modulo
+B) strlen
+C) memcpy
+D) sort
+
+Réponse : A
+
+---
+
+## 18)
+
+Quel pattern est utilisé pour swap deux data dans sort_list ?
+
+A) malloc
+B) tmp variable
+C) free
+D) break
+
+Réponse : B
+
+---
+
+## 19)
+
+Quel pattern permet de gérer start > end dans ft_range ?
+
+A) for fixe
+B) step = +1 ou -1
+C) free
+D) goto
+
+Réponse : B
+
+---
+
+## 20)
+
+Quel pattern permet d’allouer un tableau d’int ?
+
+A) malloc(n)
+B) malloc(sizeof(int))
+C) malloc(sizeof(int) * n)
+D) calloc(1)
+
+Réponse : C
+
+---
+
+## 21)
+
+Quel pattern est utilisé pour détecter la fin d’une string ?
+
+A) '\n'
+B) '\t'
+C) '\0'
+D) EOF
+
+Réponse : C
+
+---
+
+## 22)
+
+Quel pattern est utilisé pour compter les mots ?
+
+A) while(str)
+B) transitions séparateur → lettre
+C) strlen
+D) atoi
+
+Réponse : B
+
+---
+
+## 23)
+
+Quel pattern sert à protéger malloc ?
+
+A) if(ptr) free
+B) if(!ptr) return NULL
+C) break
+D) exit obligatoire
+
+Réponse : B
+
+---
+
+## 24)
+
+Quel pattern est utilisé pour remplir une string depuis la droite ?
+
+A) index croissant
+B) index décroissant
+C) memcpy
+D) strcpy
+
+Réponse : B
+
+---
+
+## 25)
+
+Quel pattern sert à éviter de sauter un élément après suppression ?
+
+A) avancer toujours
+B) ne pas avancer après unlink
+C) free double
+D) goto
+
+Réponse : B
+
+---
+
+## 26)
+
+Quel pattern est commun à union et inter ?
+
+A) bubble sort
+B) seen[256]
+C) recursion
+D) free
+
+Réponse : B
+
+---
+
+## 27)
+
+Quel pattern sert à gérer argc ?
+
+A) strcmp
+B) if(argc != attendu)
+C) malloc
+D) break
+
+Réponse : B
+
+---
+
+## 28)
+
+Quel pattern est utilisé pour remplir un tableau avec une suite ?
+
+A) while
+B) step + incrément
+C) recursion
+D) goto
+
+Réponse : B
+
+---
+
+## 29)
+
+Quel pattern est utilisé pour parcourir argv ?
+
+A) argv++
+B) while(argv[i])
+C) strcpy
+D) free
+
+Réponse : B
+
+---
+
+## 30)
+
+Quel pattern est commun à toutes les fonctions avec sortie texte ?
+
+A) printf
+B) write + '\n'
+C) scanf
+D) fgets
+
+Réponse : B
+
+---
+
+## 31)
+
+Quel pattern est utilisé pour stocker l’état des cartes ratées ?
+
+A) tableau fixe
+B) compteur par carte
+C) free
+D) strcpy
+
+Réponse : B
+
+---
+
+## 32)
+
+Quel pattern sert à calculer une taille inclusive ?
+
+A) end-start
+B) abs(end-start)
+C) abs(end-start)+1
+D) sizeof
+
+Réponse : C
+
+---
+
+## 33)
+
+Quel pattern sert à parcourir jusqu’à NULL ?
+
+A) while(ptr)
+B) for
+C) if
+D) break
+
+Réponse : A
+
+---
+
+## 34)
+
+Quel pattern est utilisé pour repérer un début de mot ?
+
+A) lettre + lettre
+B) séparateur + lettre
+C) lettre + séparateur
+D) EOF
+
+Réponse : B
+
+---
+
+## 35)
+
+Quel pattern est utilisé pour remplir un tableau dynamique ?
+
+A) malloc puis indexation
+B) realloc constant
+C) recursion
+D) goto
+
+Réponse : A
+
+---
+
+## 36)
+
+Quel pattern sert à convertir un char chiffre en int ?
+
+A) c * 10
+B) c + '0'
+C) c - '0'
+D) atoi
+
+Réponse : C
+
+---
+
+## 37)
+
+Quel pattern sert à convertir un int en char chiffre ?
+
+A) n + '0'
+B) n - '0'
+C) n * '0'
+D) atoi
+
+Réponse : A
+
+---
+
+## 38)
+
+Quel pattern est utilisé pour nettoyer un pointeur après free ?
+
+A) ptr++
+B) ptr = NULL
+C) malloc
+D) break
+
+Réponse : B
+
+---
+
+## 39)
+
+Quel pattern est commun à tous les parcours ?
+
+A) condition + avancement
+B) malloc
+C) free
+D) sizeof
+
+Réponse : A
+
+---
+
+## 40)
+
+Quel pattern est utilisé pour stocker temporairement une valeur ?
+
+A) static
+B) tmp
+C) free
+D) sizeof
+
+Réponse : B
+
+---
+
+## 41)
+
+Quel pattern est utilisé pour parcourir une string ?
+
+A) for sans condition
+B) while(str[i])
+C) free
+D) malloc
+
+Réponse : B
+
+---
+
+## 42)
+
+Quel pattern sert à s’arrêter sur un séparateur ?
+
+A) while(!sep)
+B) break
+C) free
+D) goto
+
+Réponse : A
+
+---
+
+## 43)
+
+Quel pattern sert à copier un mot ?
+
+A) strcpy
+B) boucle char par char
+C) memcpy uniquement
+D) free
+
+Réponse : B
+
+---
+
+## 44)
+
+Quel pattern est commun à toutes les allocations ?
+
+A) malloc + free
+B) sizeof
+C) if(!ptr)
+D) A + C
+
+Réponse : D
+
+---
+
+## 45)
+
+Quel pattern est utilisé pour tester la fin d’un tableau de strings ?
+
+A) '\0'
+B) NULL
+C) EOF
+D) 0xFF
+
+Réponse : B
+
+---
+
+## 46)
+
+Quel pattern sert à gérer un cas spécial ?
+
+A) if initial
+B) free
+C) malloc
+D) goto
+
+Réponse : A
+
+---
+
+## 47)
+
+Quel pattern est utilisé pour inverser une string ?
+
+A) malloc
+B) deux indices i/j
+C) recursion
+D) sizeof
+
+Réponse : B
+
+---
+
+## 48)
+
+Quel pattern est utilisé pour faire un tri simple ?
+
+A) quicksort
+B) bubble sort
+C) mergesort
+D) heapsort
+
+Réponse : B
+
+---
+
+## 49)
+
+Quel pattern est utilisé pour stocker une erreur ?
+
+A) flag
+B) free
+C) sizeof
+D) goto
+
+Réponse : A
+
+---
+
+## 50)
+
+Quel pattern est commun à tous les exos d’exam réussis ?
+
+A) vitesse
+B) écrire direct
+C) checklist mentale
+D) copier internet
+
+Réponse : C
+
+---
+
+Voici **50 questions de quiz sur le thème “Pièges”**, toutes en QCM avec **A, B, C, D**, orientées exam C / 42 : erreurs fréquentes, détails qui font tomber les tests, comportements indéfinis, sorties strictes, edge cases.
+
+---
+
+## 1)
+
+Quel oubli provoque le plus souvent un dépassement mémoire lors d’une copie de string ?
+
+A) oublier sizeof
+B) oublier '\0'
+C) oublier free
+D) oublier argc
+
+Réponse : B
+
+---
+
+## 2)
+
+Dans un exo d’exam, que faut-il afficher si argc est incorrect ?
+
+A) message d’erreur
+B) rien
+C) juste '\n'
+D) exit(1)
+
+Réponse : C
+
+---
+
+## 3)
+
+Quel est le piège principal dans wdmatch ?
+
+A) malloc
+B) mauvais sens de parcours
+C) tri
+D) free
+
+Réponse : B
+
+---
+
+## 4)
+
+Quel est le piège classique dans split ?
+
+A) free trop tôt
+B) ne pas compter les mots
+C) malloc trop grand
+D) utiliser printf
+
+Réponse : B
+
+---
+
+## 5)
+
+Pourquoi seen[256] doit être indexé avec unsigned char ?
+
+A) optimisation
+B) éviter indices négatifs
+C) style
+D) tri
+
+Réponse : B
+
+---
+
+## 6)
+
+Quel piège survient si on avance cur après avoir supprimé cur->next ?
+
+A) double free
+B) fuite
+C) saut d’élément
+D) segfault immédiat
+
+Réponse : C
+
+---
+
+## 7)
+
+Dans itoa, que se passe-t-il si on ne traite pas INT_MIN ?
+
+A) fuite
+B) overflow
+C) boucle infinie
+D) segmentation fault
+
+Réponse : B
+
+---
+
+## 8)
+
+Quel piège arrive si on oublie de vérifier malloc ?
+
+A) warning
+B) free manquant
+C) segfault
+D) compilation impossible
+
+Réponse : C
+
+---
+
+## 9)
+
+Pourquoi dst[i] = "\0" est faux ?
+
+A) trop long
+B) type incorrect
+C) compile mais bug
+D) lent
+
+Réponse : B
+
+---
+
+## 10)
+
+Quel est le piège avec while(n) quand n vaut 0 ?
+
+A) crash
+B) boucle infinie
+C) boucle ignorée
+D) double free
+
+Réponse : C
+
+---
+
+## 11)
+
+Quel oubli cause une boucle infinie ?
+
+A) break
+B) incrément
+C) free
+D) malloc
+
+Réponse : B
+
+---
+
+## 12)
+
+Quel piège avec start > end dans ft_range ?
+
+A) segfault
+B) rien
+C) oublier step négatif
+D) malloc
+
+Réponse : C
+
+---
+
+## 13)
+
+Que se passe-t-il si on écrit malloc(len) au lieu de malloc(len + 1) ?
+
+A) fuite
+B) un caractère manquant
+C) écriture hors limites
+D) compile pas
+
+Réponse : C
+
+---
+
+## 14)
+
+Pourquoi '\n' final est obligatoire dans beaucoup d’exos ?
+
+A) style
+B) tests automatiques
+C) malloc
+D) free
+
+Réponse : B
+
+---
+
+## 15)
+
+Quel piège survient si on ne remet pas à zéro seen[256] ?
+
+A) crash
+B) doublons ratés
+C) faux positifs
+D) segmentation fault
+
+Réponse : C
+
+---
+
+## 16)
+
+Pourquoi modifier directement nbr dans itoa est dangereux ?
+
+A) fuite
+B) on perd la valeur originale
+C) segmentation fault
+D) compile pas
+
+Réponse : B
+
+---
+
+## 17)
+
+Quel est le piège avec char signé utilisé comme index ?
+
+A) lent
+B) overflow
+C) index négatif
+D) fuite
+
+Réponse : C
+
+---
+
+## 18)
+
+Que provoque un prototype différent de l’énoncé ?
+
+A) warning
+B) runtime error
+C) compilation KO
+D) fuite
+
+Réponse : C
+
+---
+
+## 19)
+
+Quel piège avec printf quand write est imposé ?
+
+A) lent
+B) mauvais output
+C) interdit
+D) compile pas
+
+Réponse : C
+
+---
+
+## 20)
+
+Pourquoi il faut traiter le cas string vide ?
+
+A) sinon crash
+B) sinon sortie fausse
+C) sinon warning
+D) sinon tri
+
+Réponse : B
+
+---
+
+## 21)
+
+Quel piège arrive si on free sans unlink ?
+
+A) fuite
+B) segfault
+C) double free
+D) corruption
+
+Réponse : D
+
+---
+
+## 22)
+
+Quel piège si on oublie de mettre NULL dans un tableau de strings ?
+
+A) fuite
+B) parcours infini
+C) compile pas
+D) segmentation fault
+
+Réponse : B
+
+---
+
+## 23)
+
+Pourquoi il faut travailler sur une copie pour compter ?
+
+A) performance
+B) éviter modifier l’original
+C) style
+D) free
+
+Réponse : B
+
+---
+
+## 24)
+
+Quel piège avec while(ptr->next) ?
+
+A) saute la tête
+B) oublie dernier
+C) segfault
+D) fuite
+
+Réponse : B
+
+---
+
+## 25)
+
+Quel piège avec cmp mal utilisé ?
+
+A) segfault
+B) tri inversé
+C) doublons
+D) compile pas
+
+Réponse : B
+
+---
+
+## 26)
+
+Que se passe-t-il si on swap les pointeurs au lieu des data dans sort_list sans précaution ?
+
+A) fuite
+B) casse la liste
+C) lent
+D) rien
+
+Réponse : B
+
+---
+
+## 27)
+
+Pourquoi argc doit être strictement vérifié ?
+
+A) style
+B) sécurité
+C) tests
+D) compilation
+
+Réponse : C
+
+---
+
+## 28)
+
+Quel piège avec free(tmp) avant reconnecter ?
+
+A) fuite
+B) segfault
+C) corruption
+D) rien
+
+Réponse : C
+
+---
+
+## 29)
+
+Pourquoi while(*begin_list) est nécessaire au début ?
+
+A) performance
+B) style
+C) supprimer plusieurs têtes
+D) malloc
+
+Réponse : C
+
+---
+
+## 30)
+
+Quel piège avec index mal initialisé ?
+
+A) fuite
+B) valeur indéfinie
+C) lent
+D) free
+
+Réponse : B
+
+---
+
+## 31)
+
+Quel piège si on oublie d’initialiser len ?
+
+A) segmentation fault
+B) fuite
+C) taille aléatoire
+D) compile pas
+
+Réponse : C
+
+---
+
+## 32)
+
+Pourquoi ne pas utiliser des guillemets typographiques ?
+
+A) style
+B) pas ASCII
+C) compile pas
+D) lent
+
+Réponse : C
+
+---
+
+## 33)
+
+Quel piège avec for(i<=len) ?
+
+A) saute un
+B) dépasse
+C) boucle infinie
+D) fuite
+
+Réponse : B
+
+---
+
+## 34)
+
+Pourquoi il faut caster en unsigned char dans union ?
+
+A) performance
+B) norme
+C) sécurité index
+D) free
+
+Réponse : C
+
+---
+
+## 35)
+
+Quel piège si on affiche trop de texte ?
+
+A) style
+B) compile pas
+C) tests KO
+D) lent
+
+Réponse : C
+
+---
+
+## 36)
+
+Pourquoi il ne faut pas avancer cur après suppression ?
+
+A) fuite
+B) sauter un
+C) boucle infinie
+D) compile pas
+
+Réponse : B
+
+---
+
+## 37)
+
+Quel piège avec return prématuré ?
+
+A) fuite
+B) style
+C) optimisation
+D) compile pas
+
+Réponse : A
+
+---
+
+## 38)
+
+Quel piège avec malloc(sizeof(ptr) * n) ?
+
+A) trop petit
+B) trop grand
+C) lent
+D) segmentation fault
+
+Réponse : A
+
+---
+
+## 39)
+
+Quel piège avec while(str[i] != '\n') ?
+
+A) ignore '\0'
+B) segfault
+C) fuite
+D) compile pas
+
+Réponse : A
+
+---
+
+## 40)
+
+Pourquoi ne pas oublier le free dans remove_if ?
+
+A) style
+B) performance
+C) fuite mémoire
+D) compile pas
+
+Réponse : C
+
+---
+
+## 41)
+
+Quel piège avec un tableau global non remis à zéro ?
+
+A) lent
+B) pollution d’état
+C) segfault
+D) compile pas
+
+Réponse : B
+
+---
+
+## 42)
+
+Pourquoi un include interdit peut faire rater ?
+
+A) warning
+B) runtime
+C) règles exam
+D) fuite
+
+Réponse : C
+
+---
+
+## 43)
+
+Quel piège avec strcmp au lieu de comparer chars ?
+
+A) lent
+B) hors sujet
+C) interdit
+D) segmentation fault
+
+Réponse : C
+
+---
+
+## 44)
+
+Pourquoi oublier le cast long peut casser ?
+
+A) lent
+B) overflow
+C) fuite
+D) compile pas
+
+Réponse : B
+
+---
+
+## 45)
+
+Quel piège avec while(cur) au lieu de while(cur->next) dans remove_if ?
+
+A) saute tête
+B) impossible supprimer dernier
+C) segfault
+D) fuite
+
+Réponse : B
+
+---
+
+## 46)
+
+Quel piège avec free deux fois ?
+
+A) fuite
+B) segmentation fault
+C) OK
+D) style
+
+Réponse : B
+
+---
+
+## 47)
+
+Pourquoi oublier de gérer liste vide est dangereux ?
+
+A) rien
+B) crash
+C) lent
+D) compile pas
+
+Réponse : B
+
+---
+
+## 48)
+
+Quel piège avec printf en exam ?
+
+A) lent
+B) interdit
+C) mauvais output
+D) B et C
+
+Réponse : D
+
+---
+
+## 49)
+
+Quel piège avec malloc(1000) “au hasard” ?
+
+A) fuite
+B) imprécis
+C) tests limites ratés
+D) tout
+
+Réponse : D
+
+---
+
+## 50)
+
+Quel est le piège numéro un à l’exam ?
+
+A) coder lentement
+B) ne pas lire l’énoncé
+C) trop commenter
+D) optimiser
+
+Réponse : B
+
+---
+
+Voici **50 questions de quiz sur le thème “Réflexes mémoire”**, toutes en QCM avec **A, B, C, D**, orientées exam C / 42 : automatiser les bons gestes avec malloc, free, tailles, NULL, ownership, copies, protection.
+
+---
+
+## 1)
+
+Pourquoi écrit-on toujours malloc(len + 1) pour une string ?
+
+A) performance
+B) '\n'
+C) '\0'
+D) sizeof
+
+Réponse : C
+
+---
+
+## 2)
+
+Pourquoi utiliser sizeof(type) * n ?
+
+A) rapidité
+B) lisibilité
+C) octets corrects
+D) norme
+
+Réponse : C
+
+---
+
+## 3)
+
+Quel est le premier réflexe après malloc ?
+
+A) écrire dedans
+B) free
+C) vérifier NULL
+D) memset
+
+Réponse : C
+
+---
+
+## 4)
+
+Quand faut-il free un maillon supprimé ?
+
+A) avant unlink
+B) après unlink
+C) jamais
+D) à la fin du programme
+
+Réponse : B
+
+---
+
+## 5)
+
+Pourquoi allouer len + sign + 1 dans itoa ?
+
+A) padding
+B) '\0' + '-'
+C) norme
+D) vitesse
+
+Réponse : B
+
+---
+
+## 6)
+
+Que doit contenir la dernière case d’un tableau de strings ?
+
+A) '\0'
+B) EOF
+C) NULL
+D) 0xFF
+
+Réponse : C
+
+---
+
+## 7)
+
+Pourquoi travailler sur une copie lors d’un comptage ?
+
+A) performance
+B) ne pas modifier l’original
+C) malloc
+D) free
+
+Réponse : B
+
+---
+
+## 8)
+
+Que fait if (!ptr) return NULL ?
+
+A) fuite
+B) protection
+C) free
+D) segfault
+
+Réponse : B
+
+---
+
+## 9)
+
+Pourquoi ne pas free avant reconnecter une liste ?
+
+A) fuite
+B) segfault
+C) corruption
+D) double free
+
+Réponse : C
+
+---
+
+## 10)
+
+Pourquoi ne pas oublier free après unlink ?
+
+A) style
+B) norme
+C) fuite mémoire
+D) compile
+
+Réponse : C
+
+---
+
+## 11)
+
+Pourquoi caster en long dans itoa ?
+
+A) vitesse
+B) éviter overflow
+C) style
+D) norme
+
+Réponse : B
+
+---
+
+## 12)
+
+Que risque malloc(sizeof(ptr) * n) ?
+
+A) trop petit
+B) trop grand
+C) correct
+D) fuite
+
+Réponse : A
+
+---
+
+## 13)
+
+Pourquoi initialiser len à 0 ?
+
+A) style
+B) éviter valeur indéfinie
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 14)
+
+Pourquoi remettre seen[256] à zéro ?
+
+A) style
+B) performance
+C) éviter pollution
+D) norme
+
+Réponse : C
+
+---
+
+## 15)
+
+Que doit-on faire après free(ptr) ?
+
+A) rien
+B) ptr++
+C) ptr = NULL
+D) malloc
+
+Réponse : C
+
+---
+
+## 16)
+
+Pourquoi utiliser unsigned char pour indexer ?
+
+A) vitesse
+B) sécurité
+C) style
+D) norme
+
+Réponse : B
+
+---
+
+## 17)
+
+Pourquoi ne pas écrire malloc(1000) “au hasard” ?
+
+A) lent
+B) imprécis
+C) tests ratés
+D) B et C
+
+Réponse : D
+
+---
+
+## 18)
+
+Quand doit-on free un tableau retourné par split ?
+
+A) dans split
+B) jamais
+C) appelant
+D) OS
+
+Réponse : C
+
+---
+
+## 19)
+
+Pourquoi vérifier argc ?
+
+A) norme
+B) sécurité mémoire
+C) tests
+D) style
+
+Réponse : B
+
+---
+
+## 20)
+
+Que provoque une variable non initialisée ?
+
+A) warning
+B) valeur indéfinie
+C) fuite
+D) style
+
+Réponse : B
+
+---
+
+## 21)
+
+Pourquoi mettre '\0' à la fin d’une string ?
+
+A) affichage
+B) style
+C) norme
+D) A et C
+
+Réponse : D
+
+---
+
+## 22)
+
+Pourquoi malloc retourne void * ?
+
+A) casting auto
+B) générique
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 23)
+
+Pourquoi vérifier malloc même en exam ?
+
+A) style
+B) norme
+C) éviter crash
+D) free
+
+Réponse : C
+
+---
+
+## 24)
+
+Pourquoi on ne free pas argv ?
+
+A) static
+B) OS
+C) interdit
+D) norme
+
+Réponse : A
+
+---
+
+## 25)
+
+Pourquoi malloc(sizeof(char) * n) reste recommandé ?
+
+A) style
+B) portabilité
+C) norme
+D) lent
+
+Réponse : B
+
+---
+
+## 26)
+
+Pourquoi éviter les pointeurs sauvages ?
+
+A) style
+B) segfault
+C) fuite
+D) lent
+
+Réponse : B
+
+---
+
+## 27)
+
+Que se passe-t-il si on oublie de free en boucle ?
+
+A) crash immédiat
+B) fuite mémoire
+C) style
+D) compile
+
+Réponse : B
+
+---
+
+## 28)
+
+Pourquoi ne pas écrire free(NULL) ?
+
+A) interdit
+B) crash
+C) inutile mais sûr
+D) lent
+
+Réponse : C
+
+---
+
+## 29)
+
+Pourquoi séparer allocation et remplissage ?
+
+A) style
+B) lisibilité
+C) débogage
+D) toutes
+
+Réponse : D
+
+---
+
+## 30)
+
+Pourquoi un double pointeur implique vigilance mémoire ?
+
+A) lent
+B) risque de fuite
+C) modification structure
+D) C et B
+
+Réponse : D
+
+---
+
+## 31)
+
+Pourquoi malloc(sizeof(int)) est insuffisant pour n ints ?
+
+A) lent
+B) manque de place
+C) style
+D) free
+
+Réponse : B
+
+---
+
+## 32)
+
+Pourquoi une string doit être terminée avant retour ?
+
+A) affichage
+B) norme
+C) sécurité
+D) toutes
+
+Réponse : D
+
+---
+
+## 33)
+
+Pourquoi vérifier la taille inclusive dans range ?
+
+A) style
+B) off-by-one
+C) free
+D) norme
+
+Réponse : B
+
+---
+
+## 34)
+
+Pourquoi allouer un tableau de pointeurs avant les mots ?
+
+A) style
+B) pattern
+C) mémoire structurée
+D) toutes
+
+Réponse : D
+
+---
+
+## 35)
+
+Pourquoi free après unlink et pas avant ?
+
+A) fuite
+B) corruption
+C) segfault
+D) toutes
+
+Réponse : D
+
+---
+
+## 36)
+
+Pourquoi ne pas réutiliser un pointeur free ?
+
+A) style
+B) segfault
+C) fuite
+D) lent
+
+Réponse : B
+
+---
+
+## 37)
+
+Pourquoi toujours compter avant malloc ?
+
+A) style
+B) sécurité
+C) taille exacte
+D) B et C
+
+Réponse : D
+
+---
+
+## 38)
+
+Pourquoi allouer len + 2 pour "-5" ?
+
+A) padding
+B) '-'+ '\0'
+C) norme
+D) style
+
+Réponse : B
+
+---
+
+## 39)
+
+Pourquoi un tableau dynamique doit être NULL-terminé ?
+
+A) affichage
+B) parcours
+C) norme
+D) toutes
+
+Réponse : D
+
+---
+
+## 40)
+
+Pourquoi éviter de modifier l’argument original ?
+
+A) style
+B) lisibilité
+C) bug potentiel
+D) toutes
+
+Réponse : D
+
+---
+
+## 41)
+
+Pourquoi initialiser les pointeurs ?
+
+A) style
+B) crash
+C) sécurité
+D) B et C
+
+Réponse : D
+
+---
+
+## 42)
+
+Pourquoi sizeof(char) est souvent omis ?
+
+A) toujours 1
+B) norme
+C) style
+D) inutile
+
+Réponse : A
+
+---
+
+## 43)
+
+Pourquoi tester fin de liste avec NULL ?
+
+A) style
+B) norme
+C) sécurité
+D) toutes
+
+Réponse : D
+
+---
+
+## 44)
+
+Pourquoi malloc(len) pour une string est faux ?
+
+A) trop petit
+B) lent
+C) style
+D) free
+
+Réponse : A
+
+---
+
+## 45)
+
+Pourquoi gérer le cas 0 séparément ?
+
+A) style
+B) boucle saute
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 46)
+
+Pourquoi libérer dans remove_if est obligatoire ?
+
+A) style
+B) tests
+C) fuite
+D) norme
+
+Réponse : C
+
+---
+
+## 47)
+
+Pourquoi ne pas allouer un buffer fixe ?
+
+A) lent
+B) imprécis
+C) dangereux
+D) toutes
+
+Réponse : D
+
+---
+
+## 48)
+
+Pourquoi utiliser long dans itoa ?
+
+A) style
+B) overflow
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 49)
+
+Pourquoi remettre à zéro des compteurs ?
+
+A) style
+B) sécurité
+C) éviter faux calcul
+D) toutes
+
+Réponse : D
+
+---
+
+## 50)
+
+Pourquoi vérifier pointeur avant deref ?
+
+A) style
+B) crash
+C) norme
+D) B et C
+
+Réponse : D
+
+---
+
+Voici **50 questions de quiz** pour le thème **“Les Pointeurs et malloc”** :
+
+• **25 questions sur les pointeurs**
+• **25 questions sur malloc / allocation mémoire**
+Toutes en QCM avec **A, B, C, D**.
+
+---
+
+# 🧠 PARTIE 1 — POINTEURS (1–25)
+
+---
+
+## 1)
+
+Que contient une variable de type `int *p` ?
+
+A) un entier
+B) une adresse
+C) un tableau
+D) une taille
+
+Réponse : B
+
+---
+
+## 2)
+
+Que fait `*p` si `p` est un pointeur ?
+
+A) donne l’adresse
+B) modifie p
+C) accède à la valeur pointée
+D) alloue
+
+Réponse : C
+
+---
+
+## 3)
+
+Pourquoi utiliser `t_list **` ?
+
+A) parcourir plus vite
+B) modifier la tête
+C) éviter malloc
+D) trier
+
+Réponse : B
+
+---
+
+## 4)
+
+Quelle ligne fait avancer dans une liste ?
+
+A) `cur++`
+B) `*cur = cur->next`
+C) `cur = cur->next`
+D) `cur.next`
+
+Réponse : C
+
+---
+
+## 5)
+
+Après `free(ptr)`, que faut-il faire idéalement ?
+
+A) ptr++
+B) rien
+C) ptr = NULL
+D) malloc
+
+Réponse : C
+
+---
+
+## 6)
+
+Quelle erreur provoque `*p = NULL` quand p est un pointeur non initialisé ?
+
+A) style
+B) fuite
+C) segfault
+D) warning
+
+Réponse : C
+
+---
+
+## 7)
+
+Quelle est la différence entre `char *s` et `char s[10]` ?
+
+A) aucune
+B) l’un est dynamique
+C) tableau vs pointeur
+D) vitesse
+
+Réponse : C
+
+---
+
+## 8)
+
+Quand faut-il utiliser un pointeur temporaire `tmp` ?
+
+A) pour free après unlink
+B) pour printf
+C) pour trier
+D) pour compter
+
+Réponse : A
+
+---
+
+## 9)
+
+Quel opérateur permet d’accéder à un champ struct via pointeur ?
+
+A) .
+B) *
+C) ->
+D) &
+
+Réponse : C
+
+---
+
+## 10)
+
+Que fait `&x` ?
+
+A) copie
+B) valeur
+C) adresse
+D) malloc
+
+Réponse : C
+
+---
+
+## 11)
+
+Quel est le danger d’un pointeur non initialisé ?
+
+A) lent
+B) fuite
+C) comportement indéfini
+D) warning
+
+Réponse : C
+
+---
+
+## 12)
+
+Pourquoi ne pas avancer cur après suppression ?
+
+A) fuite
+B) on saute un élément
+C) segfault
+D) compile
+
+Réponse : B
+
+---
+
+## 13)
+
+Que signifie dereferencer ?
+
+A) malloc
+B) copier
+C) accéder à la valeur pointée
+D) libérer
+
+Réponse : C
+
+---
+
+## 14)
+
+Quelle ligne modifie la tête d’une liste ?
+
+A) `begin = begin->next`
+B) `*begin = (*begin)->next`
+C) `begin++`
+D) `cur->next`
+
+Réponse : B
+
+---
+
+## 15)
+
+Quel est le rôle de `NULL` dans un pointeur ?
+
+A) valeur magique
+B) fin
+C) adresse invalide
+D) B et C
+
+Réponse : D
+
+---
+
+## 16)
+
+Pourquoi ne pas utiliser un pointeur après free ?
+
+A) lent
+B) fuite
+C) dangling pointer
+D) warning
+
+Réponse : C
+
+---
+
+## 17)
+
+Que fait `p = &x` ?
+
+A) copie x
+B) pointe sur x
+C) alloue
+D) free
+
+Réponse : B
+
+---
+
+## 18)
+
+Que fait `*p = 42` ?
+
+A) change l’adresse
+B) modifie la valeur pointée
+C) malloc
+D) free
+
+Réponse : B
+
+---
+
+## 19)
+
+Quelle est l’erreur dans `cur = *cur->next` ?
+
+A) priorité opérateurs
+B) fuite
+C) free
+D) style
+
+Réponse : A
+
+---
+
+## 20)
+
+Pourquoi préférer swap des data plutôt que des liens ?
+
+A) style
+B) plus simple
+C) rapide
+D) norme
+
+Réponse : B
+
+---
+
+## 21)
+
+Que fait `void *` ?
+
+A) interdit
+B) pointeur générique
+C) fuite
+D) tableau
+
+Réponse : B
+
+---
+
+## 22)
+
+Quand faut-il vérifier un pointeur avant deref ?
+
+A) jamais
+B) toujours
+C) en debug
+D) après free
+
+Réponse : B
+
+---
+
+## 23)
+
+Pourquoi argv est un char ** ?
+
+A) tableau dynamique
+B) liste
+C) tableau de strings
+D) malloc
+
+Réponse : C
+
+---
+
+## 24)
+
+Quelle ligne est fausse ?
+
+A) `p = &x;`
+B) `*p = 3;`
+C) `p = malloc(4);`
+D) `*p = malloc(4);`
+
+Réponse : D
+
+---
+
+## 25)
+
+Quel est le danger principal d’un double pointeur ?
+
+A) lent
+B) fuite
+C) modifier mauvaise adresse
+D) compile
+
+Réponse : C
+
+---
+
+# 💾 PARTIE 2 — MALLOC (26–50)
+
+---
+
+## 26)
+
+Que retourne malloc en cas d’échec ?
+
+A) 0
+B) -1
+C) NULL
+D) errno
+
+Réponse : C
+
+---
+
+## 27)
+
+Pourquoi écrire malloc(sizeof(int) * n) ?
+
+A) style
+B) octets corrects
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 28)
+
+Pourquoi ajouter +1 pour une string ?
+
+A) '\n'
+B) '\0'
+C) padding
+D) norme
+
+Réponse : B
+
+---
+
+## 29)
+
+Qui doit free la mémoire retournée ?
+
+A) malloc
+B) OS
+C) appelant
+D) compilateur
+
+Réponse : C
+
+---
+
+## 30)
+
+Que provoque malloc(1000) “au hasard” ?
+
+A) sécurité
+B) imprécision
+C) tests ratés
+D) B et C
+
+Réponse : D
+
+---
+
+## 31)
+
+Pourquoi vérifier le retour de malloc ?
+
+A) style
+B) éviter crash
+C) norme
+D) lent
+
+Réponse : B
+
+---
+
+## 32)
+
+Que fait free(NULL) ?
+
+A) segfault
+B) interdit
+C) rien
+D) fuite
+
+Réponse : C
+
+---
+
+## 33)
+
+Pourquoi malloc(sizeof(ptr) * n) est souvent faux ?
+
+A) trop petit
+B) trop grand
+C) lent
+D) OK
+
+Réponse : A
+
+---
+
+## 34)
+
+Pourquoi ne pas free avant unlink ?
+
+A) fuite
+B) corruption
+C) segfault
+D) norme
+
+Réponse : B
+
+---
+
+## 35)
+
+Pourquoi allouer tableau de pointeurs avant mots ?
+
+A) style
+B) pattern
+C) structure
+D) toutes
+
+Réponse : D
+
+---
+
+## 36)
+
+Quand libérer dans remove_if ?
+
+A) avant
+B) après unlink
+C) jamais
+D) à la fin
+
+Réponse : B
+
+---
+
+## 37)
+
+Pourquoi malloc(len) pour string est faux ?
+
+A) trop petit
+B) lent
+C) style
+D) free
+
+Réponse : A
+
+---
+
+## 38)
+
+Que fait realloc ?
+
+A) free
+B) agrandit/réduit
+C) copie
+D) malloc+free
+
+Réponse : B
+
+---
+
+## 39)
+
+Pourquoi éviter fuite mémoire ?
+
+A) style
+B) crash
+C) consommation
+D) C et B
+
+Réponse : D
+
+---
+
+## 40)
+
+Que fait sizeof(char) ?
+
+A) dépend
+B) 1
+C) 4
+D) 8
+
+Réponse : B
+
+---
+
+## 41)
+
+Pourquoi ne pas allouer buffer fixe ?
+
+A) lent
+B) imprécis
+C) dangereux
+D) toutes
+
+Réponse : D
+
+---
+
+## 42)
+
+Pourquoi vérifier taille inclusive ?
+
+A) norme
+B) off-by-one
+C) style
+D) free
+
+Réponse : B
+
+---
+
+## 43)
+
+Que devient un pointeur après free ?
+
+A) valide
+B) dangling
+C) NULL
+D) 0
+
+Réponse : B
+
+---
+
+## 44)
+
+Pourquoi mettre ptr = NULL après free ?
+
+A) style
+B) éviter reuse
+C) norme
+D) debug
+
+Réponse : B
+
+---
+
+## 45)
+
+Pourquoi malloc pour tableau 2D ?
+
+A) style
+B) dynamique
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 46)
+
+Que fait calloc ?
+
+A) malloc
+B) initialise à zéro
+C) free
+D) realloc
+
+Réponse : B
+
+---
+
+## 47)
+
+Pourquoi séparer allocation et remplissage ?
+
+A) style
+B) lisibilité
+C) debug
+D) toutes
+
+Réponse : D
+
+---
+
+## 48)
+
+Pourquoi libérer tout en cas d’erreur intermédiaire ?
+
+A) style
+B) fuite
+C) norme
+D) lent
+
+Réponse : B
+
+---
+
+## 49)
+
+Pourquoi malloc retourne void * ?
+
+A) style
+B) générique
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 50)
+
+Quel est le réflexe absolu avec malloc ?
+
+A) écrire
+B) free
+C) vérifier NULL
+D) cast
+
+Réponse : C
+
+---
+
+Voici **50 questions de quiz sur les listes chaînées**, toutes en QCM avec **A, B, C, D**, orientées exam C / 42 : parcours, suppression, double pointeur, tri, pièges, conditions limites.
+
+---
+
+## 1)
+
+À quoi sert le champ `next` dans un maillon ?
+
+A) stocker la donnée
+B) stocker la taille
+C) pointer vers le suivant
+D) allouer
+
+Réponse : C
+
+---
+
+## 2)
+
+Que signifie `t_list *cur` ?
+
+A) un maillon
+B) une adresse de maillon
+C) un tableau
+D) une taille
+
+Réponse : B
+
+---
+
+## 3)
+
+Quand utilise-t-on `t_list **begin` ?
+
+A) pour parcourir
+B) pour modifier la tête
+C) pour afficher
+D) pour trier
+
+Réponse : B
+
+---
+
+## 4)
+
+Comment parcourt-on une liste ?
+
+A) for(i<n)
+B) while(cur) cur = cur->next
+C) recursion obligatoire
+D) malloc
+
+Réponse : B
+
+---
+
+## 5)
+
+Quelle ligne supprime le maillon suivant ?
+
+A) free(cur->next)
+B) cur->next = cur->next->next
+C) cur = cur->next
+D) begin = NULL
+
+Réponse : B
+
+---
+
+## 6)
+
+Pourquoi stocker `tmp = cur->next` avant unlink ?
+
+A) compter
+B) afficher
+C) free ensuite
+D) trier
+
+Réponse : C
+
+---
+
+## 7)
+
+Que devient la liste après suppression de B ?
+
+```
+A -> B -> C
+```
+
+A) A -> NULL
+B) B -> C
+C) A -> C
+D) A -> B
+
+Réponse : C
+
+---
+
+## 8)
+
+Pourquoi nettoyer la tête avec une boucle while ?
+
+A) performance
+B) style
+C) supprimer plusieurs têtes
+D) free
+
+Réponse : C
+
+---
+
+## 9)
+
+Après nettoyage de tête, quel pointeur sert au parcours ?
+
+A) t_list **
+B) t_list *
+C) int *
+D) char **
+
+Réponse : B
+
+---
+
+## 10)
+
+Que se passe-t-il si on avance `cur` juste après suppression ?
+
+A) rien
+B) fuite
+C) on saute un maillon
+D) crash
+
+Réponse : C
+
+---
+
+## 11)
+
+Comment tester fin de liste ?
+
+A) cur->next == 0
+B) cur == NULL
+C) free
+D) break
+
+Réponse : B
+
+---
+
+## 12)
+
+Dans remove_if, sur quel élément applique-t-on cmp ?
+
+A) cur
+B) cur->next
+C) begin
+D) tmp
+
+Réponse : B
+
+---
+
+## 13)
+
+Quand faut-il free un maillon supprimé ?
+
+A) avant unlink
+B) après unlink
+C) jamais
+D) à la fin
+
+Réponse : B
+
+---
+
+## 14)
+
+Quel est le piège si on free avant reconnecter ?
+
+A) fuite
+B) segfault
+C) corruption
+D) warning
+
+Réponse : C
+
+---
+
+## 15)
+
+Que contient `*begin` ?
+
+A) une adresse
+B) la tête
+C) un tableau
+D) une taille
+
+Réponse : B
+
+---
+
+## 16)
+
+Quelle ligne fait changer la tête ?
+
+A) begin = begin->next
+B) *begin = (*begin)->next
+C) cur = cur->next
+D) free(begin)
+
+Réponse : B
+
+---
+
+## 17)
+
+Pourquoi utiliser bubble sort sur liste ?
+
+A) optimal
+B) simple à implémenter
+C) rapide
+D) récursif
+
+Réponse : B
+
+---
+
+## 18)
+
+Que swap-on dans sort_list exam ?
+
+A) pointeurs
+B) data
+C) malloc
+D) free
+
+Réponse : B
+
+---
+
+## 19)
+
+Quand le tri est-il terminé ?
+
+A) cur == NULL
+B) cmp toujours vrai
+C) swapped == 0
+D) fin premier tour
+
+Réponse : C
+
+---
+
+## 20)
+
+Que représente une liste vide ?
+
+A) malloc
+B) pointeur NULL
+C) tableau vide
+D) erreur
+
+Réponse : B
+
+---
+
+## 21)
+
+Pourquoi vérifier begin_list avant deref ?
+
+A) style
+B) crash
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 22)
+
+Quel est le bug de while(cur->next) ?
+
+A) saute tête
+B) oublie dernier
+C) segfault
+D) fuite
+
+Réponse : B
+
+---
+
+## 23)
+
+Comment compter les éléments ?
+
+A) strlen
+B) while(lst) count++
+C) malloc
+D) cmp
+
+Réponse : B
+
+---
+
+## 24)
+
+Pourquoi tmp est indispensable ?
+
+A) style
+B) éviter perdre adresse
+C) free double
+D) trier
+
+Réponse : B
+
+---
+
+## 25)
+
+Que se passe-t-il si tous les éléments sont supprimés ?
+
+A) fuite
+B) begin reste
+C) begin devient NULL
+D) crash
+
+Réponse : C
+
+---
+
+## 26)
+
+Pourquoi passer un double pointeur ?
+
+A) vitesse
+B) modifier structure
+C) free
+D) trier
+
+Réponse : B
+
+---
+
+## 27)
+
+Que fait cur = cur->next ?
+
+A) supprime
+B) avance
+C) free
+D) copie
+
+Réponse : B
+
+---
+
+## 28)
+
+Pourquoi ne pas swap les liens facilement ?
+
+A) lent
+B) complexe
+C) interdit
+D) free
+
+Réponse : B
+
+---
+
+## 29)
+
+Quel est le rôle du dernier maillon ?
+
+A) stocker
+B) next = NULL
+C) data = NULL
+D) free
+
+Réponse : B
+
+---
+
+## 30)
+
+Que signifie next == NULL ?
+
+A) erreur
+B) tête
+C) fin
+D) malloc
+
+Réponse : C
+
+---
+
+## 31)
+
+Que se passe-t-il si begin vaut NULL ?
+
+A) crash
+B) liste vide
+C) warning
+D) malloc
+
+Réponse : B
+
+---
+
+## 32)
+
+Pourquoi ne pas faire cur++ ?
+
+A) interdit
+B) liste pas contiguë
+C) segfault
+D) norme
+
+Réponse : B
+
+---
+
+## 33)
+
+Quel piège avec cur->next->next sans test ?
+
+A) lent
+B) segfault
+C) fuite
+D) free
+
+Réponse : B
+
+---
+
+## 34)
+
+Pourquoi utiliser tmp ?
+
+A) performance
+B) style
+C) libérer après
+D) trier
+
+Réponse : C
+
+---
+
+## 35)
+
+Que contient un maillon ?
+
+A) next uniquement
+B) data uniquement
+C) data + next
+D) taille
+
+Réponse : C
+
+---
+
+## 36)
+
+Quel test protège l’accès suivant ?
+
+A) if(cur)
+B) if(cur->next)
+C) free
+D) break
+
+Réponse : B
+
+---
+
+## 37)
+
+Pourquoi une boucle infinie peut arriver ?
+
+A) free
+B) next jamais modifié
+C) malloc
+D) cmp
+
+Réponse : B
+
+---
+
+## 38)
+
+Pourquoi ne pas modifier data_ref ?
+
+A) style
+B) norme
+C) comparaison
+D) free
+
+Réponse : C
+
+---
+
+## 39)
+
+Que se passe-t-il si cmp est inversé ?
+
+A) tri faux
+B) crash
+C) fuite
+D) compile
+
+Réponse : A
+
+---
+
+## 40)
+
+Pourquoi vérifier cur->next avant cmp ?
+
+A) style
+B) sécurité
+C) norme
+D) free
+
+Réponse : B
+
+---
+
+## 41)
+
+Comment supprimer le premier maillon ?
+
+A) free(begin)
+B) *begin = (*begin)->next
+C) cur->next = cur->next->next
+D) begin++
+
+Réponse : B
+
+---
+
+## 42)
+
+Pourquoi on ne free pas begin directement ?
+
+A) fuite
+B) perdre accès
+C) lent
+D) style
+
+Réponse : B
+
+---
+
+## 43)
+
+Que fait lstsize ?
+
+A) free
+B) compter
+C) trier
+D) malloc
+
+Réponse : B
+
+---
+
+## 44)
+
+Pourquoi next doit être NULL au dernier ?
+
+A) style
+B) arrêt parcours
+C) norme
+D) toutes
+
+Réponse : D
+
+---
+
+## 45)
+
+Quel est le danger principal des listes ?
+
+A) lenteur
+B) erreurs pointeurs
+C) malloc
+D) style
+
+Réponse : B
+
+---
+
+## 46)
+
+Pourquoi ne pas utiliser récursion en exam ?
+
+A) style
+B) pile
+C) interdit
+D) lent
+
+Réponse : B
+
+---
+
+## 47)
+
+Quand arrêter remove_if ?
+
+A) cur == NULL
+B) cur->next == NULL
+C) begin == NULL
+D) swapped
+
+Réponse : B
+
+---
+
+## 48)
+
+Pourquoi nettoyer la tête d’abord ?
+
+A) style
+B) absence de précédent
+C) performance
+D) norme
+
+Réponse : B
+
+---
+
+## 49)
+
+Quel est le pattern universel ?
+
+A) for
+B) while(ptr)
+C) recursion
+D) goto
+
+Réponse : B
+
+---
+
+## 50)
+
+Quel est le piège le plus courant en listes ?
+
+A) malloc
+B) oublier free
+C) avancer au mauvais moment
+D) style
+
+Réponse : C
+
+---
+
+Voici **50 questions de quiz sur le thème “Conditions limites”**, toutes en QCM avec **A, B, C, D**, ciblées exam C / 42 : cas extrêmes, entrées atypiques mais valides, pièges classiques.
+
+---
+
+## 1)
+
+Dans itoa, quel est le cas limite principal ?
+
+A) 1
+B) -5
+C) INT_MIN
+D) 42
+
+Réponse : C
+
+---
+
+## 2)
+
+Que doit faire split avec une string vide ?
+
+A) crash
+B) retourner NULL
+C) retourner tableau avec NULL
+D) afficher
+
+Réponse : C
+
+---
+
+## 3)
+
+Que doit renvoyer ft_range(0,0) ?
+
+A) NULL
+B) tableau vide
+C) {0}
+D) segfault
+
+Réponse : C
+
+---
+
+## 4)
+
+Dans wdmatch, que faire si argv[1] est vide ?
+
+A) afficher argv[2]
+B) afficher argv[1]
+C) juste '\n'
+D) segfault
+
+Réponse : B
+
+---
+
+## 5)
+
+Que vaut begin_list si la liste est vide ?
+
+A) malloc
+B) -1
+C) NULL
+D) free
+
+Réponse : C
+
+---
+
+## 6)
+
+Dans remove_if, si tous les éléments correspondent ?
+
+A) liste inchangée
+B) begin pointe dernier
+C) begin devient NULL
+D) segfault
+
+Réponse : C
+
+---
+
+## 7)
+
+Que doit faire atoi("") ?
+
+A) crash
+B) 0
+C) -1
+D) undefined
+
+Réponse : B
+
+---
+
+## 8)
+
+Que doit faire split si la string ne contient que des séparateurs ?
+
+A) NULL
+B) tableau vide
+C) tableau avec NULL
+D) segfault
+
+Réponse : C
+
+---
+
+## 9)
+
+Quel est le cas limite d’une liste à un seul élément dans sort_list ?
+
+A) crash
+B) tri inutile
+C) swap obligatoire
+D) free
+
+Réponse : B
+
+---
+
+## 10)
+
+Que doit faire wdmatch si un caractère manque ?
+
+A) afficher argv[1]
+B) afficher argv[2]
+C) afficher '\n'
+D) free
+
+Réponse : C
+
+---
+
+## 11)
+
+Dans ft_range(start,end), si start > end ?
+
+A) NULL
+B) tableau décroissant
+C) segfault
+D) malloc(0)
+
+Réponse : B
+
+---
+
+## 12)
+
+Que vaut len dans itoa(0) ?
+
+A) 0
+B) 1
+C) 2
+D) -1
+
+Réponse : B
+
+---
+
+## 13)
+
+Que se passe-t-il si begin_list == NULL dans foreach ?
+
+A) crash
+B) rien
+C) segfault
+D) free
+
+Réponse : B
+
+---
+
+## 14)
+
+Que doit faire remove_if si aucune data ne correspond ?
+
+A) vider
+B) crash
+C) ne rien changer
+D) free tout
+
+Réponse : C
+
+---
+
+## 15)
+
+Que doit contenir le tableau retourné par split ?
+
+A) '\0'
+B) EOF
+C) NULL final
+D) free
+
+Réponse : C
+
+---
+
+## 16)
+
+Que vaut atoi("-0") ?
+
+A) 0
+B) -0
+C) -1
+D) erreur
+
+Réponse : A
+
+---
+
+## 17)
+
+Dans union, que faire avec string vide ?
+
+A) crash
+B) afficher rien
+C) afficher '\n'
+D) free
+
+Réponse : B
+
+---
+
+## 18)
+
+Dans itoa, si n = 0 ?
+
+A) NULL
+B) "0"
+C) ""
+D) segfault
+
+Réponse : B
+
+---
+
+## 19)
+
+Que vaut *begin si la liste devient vide ?
+
+A) dernier
+B) malloc
+C) NULL
+D) free
+
+Réponse : C
+
+---
+
+## 20)
+
+Que doit faire ft_range(-3,0) ?
+
+A) {0,-1,-2,-3}
+B) {-3,-2,-1,0}
+C) NULL
+D) segfault
+
+Réponse : B
+
+---
+
+## 21)
+
+Que doit afficher un programme si argc est incorrect ?
+
+A) erreur
+B) rien
+C) '\n'
+D) exit
+
+Réponse : C
+
+---
+
+## 22)
+
+Que doit faire split si un seul mot sans séparateurs ?
+
+A) NULL
+B) tableau avec ce mot + NULL
+C) segfault
+D) free
+
+Réponse : B
+
+---
+
+## 23)
+
+Dans remove_if, si seule la tête correspond ?
+
+A) supprimer tête
+B) crash
+C) rien
+D) free tout
+
+Réponse : A
+
+---
+
+## 24)
+
+Que se passe-t-il si une liste n’a qu’un élément et qu’on le supprime ?
+
+A) begin reste
+B) begin devient NULL
+C) segfault
+D) fuite
+
+Réponse : B
+
+---
+
+## 25)
+
+Dans sort_list, une liste vide ?
+
+A) crash
+B) retourner NULL
+C) free
+D) malloc
+
+Réponse : B
+
+---
+
+## 26)
+
+Que doit faire atoi avec espaces au début ?
+
+A) crash
+B) 0
+C) ignorer
+D) erreur
+
+Réponse : C
+
+---
+
+## 27)
+
+Que doit faire split avec "\n\t " ?
+
+A) NULL
+B) tableau NULL
+C) crash
+D) free
+
+Réponse : B
+
+---
+
+## 28)
+
+Que se passe-t-il si wdmatch reçoit 3 arguments ?
+
+A) afficher erreur
+B) ignorer
+C) '\n'
+D) segfault
+
+Réponse : C
+
+---
+
+## 29)
+
+Que vaut ft_range(5,5) ?
+
+A) NULL
+B) {5}
+C) {}
+D) segfault
+
+Réponse : B
+
+---
+
+## 30)
+
+Que doit faire remove_if si begin_list est NULL ?
+
+A) crash
+B) rien
+C) free
+D) malloc
+
+Réponse : B
+
+---
+
+## 31)
+
+Que doit faire split si str == NULL ? (si non précisé)
+
+A) crash
+B) retourner NULL
+C) comportement indéfini
+D) free
+
+Réponse : C
+
+---
+
+## 32)
+
+Que doit faire atoi avec "+" ?
+
+A) 0
+B) erreur
+C) segfault
+D) undefined
+
+Réponse : D
+
+---
+
+## 33)
+
+Que se passe-t-il si seen n’est pas réinitialisé ?
+
+A) crash
+B) doublons supprimés à tort
+C) fuite
+D) segfault
+
+Réponse : B
+
+---
+
+## 34)
+
+Que vaut ft_range(-1,-1) ?
+
+A) NULL
+B) {-1}
+C) {}
+D) segfault
+
+Réponse : B
+
+---
+
+## 35)
+
+Que doit faire sort_list avec 1 élément ?
+
+A) crash
+B) free
+C) retourner tel quel
+D) swap
+
+Réponse : C
+
+---
+
+## 36)
+
+Dans itoa, que vaut "-1" ?
+
+A) impossible
+B) "-1"
+C) "1-"
+D) "-01"
+
+Réponse : B
+
+---
+
+## 37)
+
+Que doit faire union si aucun caractère commun ?
+
+A) NULL
+B) afficher rien
+C) afficher '\n'
+D) segfault
+
+Réponse : B
+
+---
+
+## 38)
+
+Dans split, que faire si dernier mot sans séparateur ?
+
+A) ignorer
+B) perdre mot
+C) ajouter mot
+D) crash
+
+Réponse : C
+
+---
+
+## 39)
+
+Dans remove_if, si seul dernier correspond ?
+
+A) ne rien faire
+B) crash
+C) supprimer dernier
+D) free tout
+
+Réponse : C
+
+---
+
+## 40)
+
+Que doit faire foreach sur liste vide ?
+
+A) crash
+B) free
+C) rien
+D) malloc
+
+Réponse : C
+
+---
+
+## 41)
+
+Que vaut atoi("-2147483648") ?
+
+A) overflow
+B) crash
+C) dépend implémentation
+D) undefined
+
+Réponse : C
+
+---
+
+## 42)
+
+Que doit faire wdmatch si argv[1] == "" ?
+
+A) afficher rien
+B) afficher "\n"
+C) afficher argv[2]
+D) segfault
+
+Réponse : A
+
+---
+
+## 43)
+
+Que vaut ft_range(0,-3) ?
+
+A) {0,-1,-2,-3}
+B) {-3,-2,-1,0}
+C) NULL
+D) segfault
+
+Réponse : A
+
+---
+
+## 44)
+
+Dans split, si malloc échoue à mi-chemin ?
+
+A) continuer
+B) fuite
+C) free ce qui a été alloué
+D) segfault
+
+Réponse : C
+
+---
+
+## 45)
+
+Que doit faire itoa avec n = 10 ?
+
+A) "01"
+B) "10"
+C) "010"
+D) "-10"
+
+Réponse : B
+
+---
+
+## 46)
+
+Dans remove_if, que faire si begin_list == NULL ?
+
+A) crash
+B) free
+C) return
+D) malloc
+
+Réponse : C
+
+---
+
+## 47)
+
+Que doit faire sort_list si tous les éléments sont égaux ?
+
+A) crash
+B) trier
+C) laisser tel quel
+D) B et C
+
+Réponse : D
+
+---
+
+## 48)
+
+Que vaut atoi("   42") ?
+
+A) 0
+B) segfault
+C) 42
+D) erreur
+
+Réponse : C
+
+---
+
+## 49)
+
+Que faire si string contient seulement '\0' ?
+
+A) crash
+B) un mot
+C) zéro mot
+D) segfault
+
+Réponse : C
+
+---
+
+## 50)
+
+Pourquoi tester les conditions limites en premier ?
+
+A) style
+B) gagner du temps
+C) éviter crash
+D) C et B
+
+Réponse : D
+
+---
+
+Voici **50 questions de quiz sur le thème “Règles implicites des énoncés”**, toutes en QCM avec **A, B, C, D**, ciblées exam C / 42 : ce que l’énoncé ne répète pas mais que les tests attendent strictement.
+
+---
+
+## 1)
+
+Si argc est incorrect, que faut-il afficher dans beaucoup d’exos ?
+
+A) message d’erreur
+B) rien
+C) juste `\n`
+D) exit(1)
+
+Réponse : C
+
+---
+
+## 2)
+
+Que se passe-t-il si le nom du fichier est faux ?
+
+A) warning
+B) OK
+C) compilation refusée
+D) runtime error
+
+Réponse : C
+
+---
+
+## 3)
+
+Si write est la seule fonction autorisée, utiliser printf est :
+
+A) toléré
+B) lent
+C) interdit
+D) optionnel
+
+Réponse : C
+
+---
+
+## 4)
+
+Pourquoi la sortie doit être *exactement* conforme ?
+
+A) style
+B) optimisation
+C) tests stricts
+D) lisibilité
+
+Réponse : C
+
+---
+
+## 5)
+
+Quand l’énoncé dit “display a \n”, cela signifie :
+
+A) afficher espace
+B) afficher rien
+C) afficher un retour ligne
+D) free
+
+Réponse : C
+
+---
+
+## 6)
+
+Que signifie “Expected files : wdmatch.c” ?
+
+A) un fichier optionnel
+B) plusieurs fichiers
+C) un seul fichier nommé ainsi
+D) n’importe quel nom
+
+Réponse : C
+
+---
+
+## 7)
+
+Que faire si un include n’est pas autorisé ?
+
+A) l’utiliser quand même
+B) commenter
+C) ne pas l’utiliser
+D) remplacer printf
+
+Réponse : C
+
+---
+
+## 8)
+
+Si le prototype ne correspond pas exactement ?
+
+A) warning
+B) runtime
+C) compile pas
+D) free
+
+Réponse : C
+
+---
+
+## 9)
+
+Quand l’énoncé dit “Do not turn in list.h”, cela veut dire :
+
+A) ne pas l’inclure
+B) l’écrire mais pas rendre
+C) l’ignorer
+D) l’éditer
+
+Réponse : B
+
+---
+
+## 10)
+
+Si l’énoncé impose une structure, peut-on la modifier ?
+
+A) oui
+B) oui si mieux
+C) non
+D) parfois
+
+Réponse : C
+
+---
+
+## 11)
+
+Si rien n’est précisé sur malloc qui échoue, que faire ?
+
+A) ignorer
+B) crash
+C) protéger
+D) printf
+
+Réponse : C
+
+---
+
+## 12)
+
+Que faut-il faire quand une fonction est interdite ?
+
+A) la cacher
+B) la remplacer
+C) l’utiliser quand même
+D) macro
+
+Réponse : B
+
+---
+
+## 13)
+
+Quand l’énoncé ne parle pas d’affichage d’erreur, on affiche :
+
+A) un message
+B) stderr
+C) rien ou juste \n
+D) exit
+
+Réponse : C
+
+---
+
+## 14)
+
+Si “Inputs will always be consistent”, cela signifie :
+
+A) pas de malloc
+B) pas besoin de vérifier pointeurs
+C) pas d’entrées invalides
+D) pas de NULL
+
+Réponse : C
+
+---
+
+## 15)
+
+Que signifie “Duplications must remain” ?
+
+A) supprimer doublons
+B) conserver doublons
+C) trier unique
+D) free
+
+Réponse : B
+
+---
+
+## 16)
+
+Si une fonction autorisée n’est pas listée ?
+
+A) OK
+B) autorisée
+C) interdite
+D) warning
+
+Réponse : C
+
+---
+
+## 17)
+
+Que faire si argc est différent de ce qui est demandé ?
+
+A) continuer
+B) segfault
+C) afficher \n
+D) free
+
+Réponse : C
+
+---
+
+## 18)
+
+Quand un tableau de strings est attendu, il doit finir par :
+
+A) '\0'
+B) EOF
+C) NULL
+D) free
+
+Réponse : C
+
+---
+
+## 19)
+
+Pourquoi ne pas afficher d’espaces en trop ?
+
+A) style
+B) tests échouent
+C) lent
+D) norme
+
+Réponse : B
+
+---
+
+## 20)
+
+Quand l’énoncé donne un exemple avec `| cat -e`, ça sert à :
+
+A) debug
+B) montrer caractères invisibles
+C) compiler
+D) free
+
+Réponse : B
+
+---
+
+## 21)
+
+Si on imprime plus que demandé :
+
+A) OK
+B) warning
+C) tests KO
+D) bonus
+
+Réponse : C
+
+---
+
+## 22)
+
+Quand une fonction doit retourner un pointeur, on retourne :
+
+A) copie
+B) adresse valide
+C) variable locale
+D) NULL
+
+Réponse : B
+
+---
+
+## 23)
+
+Que faire avec une variable locale renvoyée par adresse ?
+
+A) OK
+B) warning
+C) interdit
+D) segfault futur
+
+Réponse : D
+
+---
+
+## 24)
+
+Quand l’énoncé précise un type exact, on peut le changer ?
+
+A) oui
+B) oui si logique
+C) non
+D) parfois
+
+Réponse : C
+
+---
+
+## 25)
+
+Si l’énoncé n’autorise que malloc, utiliser calloc est :
+
+A) OK
+B) mieux
+C) interdit
+D) warning
+
+Réponse : C
+
+---
+
+## 26)
+
+Que signifie “You must include list.h but must not turn it in” ?
+
+A) ignorer
+B) copier
+C) compiler avec, pas rendre
+D) modifier
+
+Réponse : C
+
+---
+
+## 27)
+
+Pourquoi ne pas ajouter de debug prints ?
+
+A) style
+B) tests stricts
+C) lent
+D) norme
+
+Réponse : B
+
+---
+
+## 28)
+
+Quand l’énoncé demande “returns pointer to first element” ?
+
+A) dernier
+B) milieu
+C) tête
+D) free
+
+Réponse : C
+
+---
+
+## 29)
+
+Quand argc est bon mais argv vide ?
+
+A) undefined
+B) traiter normalement
+C) segfault
+D) free
+
+Réponse : B
+
+---
+
+## 30)
+
+Que signifie “Allowed functions: write” ?
+
+A) write + printf
+B) toutes
+C) uniquement write
+D) aucune
+
+Réponse : C
+
+---
+
+## 31)
+
+Quand l’énoncé ne mentionne pas free, doit-on libérer ?
+
+A) jamais
+B) parfois
+C) oui si nécessaire
+D) interdit
+
+Réponse : C
+
+---
+
+## 32)
+
+Pourquoi ne pas changer l’ordre d’affichage ?
+
+A) style
+B) lisibilité
+C) tests
+D) norme
+
+Réponse : C
+
+---
+
+## 33)
+
+Quand une fonction doit afficher et retourner, on :
+
+A) affiche seulement
+B) retourne seulement
+C) fait les deux
+D) free
+
+Réponse : C
+
+---
+
+## 34)
+
+Quand l’énoncé parle d’arguments, cela inclut :
+
+A) argv[0]
+B) programme
+C) argv[1..]
+D) free
+
+Réponse : C
+
+---
+
+## 35)
+
+Si rien n’est dit sur les erreurs internes ?
+
+A) afficher
+B) ignorer
+C) rester silencieux
+D) exit
+
+Réponse : C
+
+---
+
+## 36)
+
+Pourquoi ne pas utiliser des macros interdites ?
+
+A) style
+B) norme
+C) règles exam
+D) free
+
+Réponse : C
+
+---
+
+## 37)
+
+Quand on dit “returns NULL-terminated array” :
+
+A) '\0' final
+B) EOF
+C) pointeur NULL
+D) free
+
+Réponse : C
+
+---
+
+## 38)
+
+Si le sujet dit “do not print anything else”, on :
+
+A) ajoute debug
+B) affiche erreurs
+C) respecte strictement
+D) free
+
+Réponse : C
+
+---
+
+## 39)
+
+Quand l’énoncé dit “Inputs will always be consistent”, peut-on ignorer argc ?
+
+A) oui
+B) parfois
+C) non
+D) free
+
+Réponse : C
+
+---
+
+## 40)
+
+Pourquoi lire l’énoncé deux fois ?
+
+A) style
+B) comprendre pièges
+C) lent
+D) norme
+
+Réponse : B
+
+---
+
+## 41)
+
+Si l’énoncé demande un retour ligne final, l’oublier provoque :
+
+A) warning
+B) OK
+C) test KO
+D) free
+
+Réponse : C
+
+---
+
+## 42)
+
+Quand une fonction est interdite, peut-on l’implémenter soi-même ?
+
+A) non
+B) oui
+C) parfois
+D) free
+
+Réponse : B
+
+---
+
+## 43)
+
+Quand l’énoncé donne un exemple précis, il est :
+
+A) indicatif
+B) décoratif
+C) contractuel
+D) free
+
+Réponse : C
+
+---
+
+## 44)
+
+Si on affiche dans stderr au lieu de stdout ?
+
+A) OK
+B) mieux
+C) tests KO
+D) free
+
+Réponse : C
+
+---
+
+## 45)
+
+Que faire si une fonction autorisée est absente ?
+
+A) inventer
+B) coder autrement
+C) utiliser printf
+D) free
+
+Réponse : B
+
+---
+
+## 46)
+
+Quand un comportement n’est pas précisé ?
+
+A) inventer
+B) faire ce qu’on veut
+C) rester minimal
+D) free
+
+Réponse : C
+
+---
+
+## 47)
+
+Pourquoi ne pas ajouter de texte explicatif ?
+
+A) style
+B) tests stricts
+C) lent
+D) norme
+
+Réponse : B
+
+---
+
+## 48)
+
+Quand l’énoncé dit “returns pointer”, renvoyer malloc est :
+
+A) faux
+B) correct
+C) interdit
+D) lent
+
+Réponse : B
+
+---
+
+## 49)
+
+Pourquoi respecter noms de fonctions ?
+
+A) style
+B) linker
+C) compilation
+D) B et C
+
+Réponse : D
+
+---
+
+## 50)
+
+La règle implicite numéro un à l’exam :
+
+A) coder vite
+B) relire l’énoncé
+C) optimiser
+D) commenter
+
+Réponse : B
+
+---
+
+Tu as maintenant **les 7 thèmes complets** :
+
+• Patterns
+• Pièges
+• Réflexes mémoire
+• Pointeurs & malloc
+• Listes chaînées
+• Conditions limites
+• Règles implicites
+
