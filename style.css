@@ -641,6 +641,18 @@ main {
   background: var(--paper-1);
 }
 
+.flashcard-steps {
+  margin: 8px 0 0;
+  padding: 8px 8px 8px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-4);
+}
+
+.flashcard-steps li {
+  margin: 4px 0;
+}
+
 .hidden {
   display: none !important;
 }

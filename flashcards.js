@@ -80,7 +80,8 @@ const ui = {
   flashcardContainer: null,
   cardQuestion: null,
   answerBlock: null,
-  cardAnswer: null,
+  cardAnswerTitle: null,
+  cardAnswerSteps: null,
   cardExplanation: null,
   flipBtn: null,
   knownBtn: null,
@@ -112,7 +113,8 @@ function selectUi() {
   ui.flashcardContainer = document.querySelector("#flashcardContainer");
   ui.cardQuestion = document.querySelector("#cardQuestion");
   ui.answerBlock = document.querySelector("#answerBlock");
-  ui.cardAnswer = document.querySelector("#cardAnswer");
+  ui.cardAnswerTitle = document.querySelector("#cardAnswerTitle");
+  ui.cardAnswerSteps = document.querySelector("#cardAnswerSteps");
   ui.cardExplanation = document.querySelector("#cardExplanation");
   ui.flipBtn = document.querySelector("#flipBtn");
   ui.knownBtn = document.querySelector("#knownBtn");
@@ -290,6 +292,37 @@ function renderHistory() {
   });
 }
 
+function parseAnswer(answerText) {
+  const text = String(answerText || "").trim();
+  const out = { title: "Réponse attendue", steps: [], objective: "" };
+  if (!text) {
+    return out;
+  }
+
+  const objectiveMatch = text.match(/Objectif\\s*:\\s*(.+)$/i);
+  if (objectiveMatch) {
+    out.objective = objectiveMatch[1].trim();
+  }
+
+  const checklist = text
+    .replace(/^Checklist(?: opérationnelle)?\\s*:\\s*/i, "")
+    .replace(/Objectif\\s*:.+$/i, "")
+    .trim();
+
+  if (checklist.length > 0) {
+    out.steps = checklist
+      .split("|")
+      .map((step) => step.replace(/^\\s*\\d+\\)\\s*/, "").trim())
+      .filter(Boolean);
+  }
+
+  if (out.objective) {
+    out.title = `Réponse attendue - ${out.objective}`;
+  }
+
+  return out;
+}
+
 function renderCard() {
   updateProgressUi();
 
@@ -312,7 +345,20 @@ function renderCard() {
 
   ui.cardCategory.textContent = `${record.category} | ${record.difficulty}`;
   ui.cardQuestion.textContent = record.question;
-  ui.cardAnswer.textContent = record.answer;
+  const parsedAnswer = parseAnswer(record.answer);
+  ui.cardAnswerTitle.textContent = parsedAnswer.title;
+  ui.cardAnswerSteps.innerHTML = "";
+  if (parsedAnswer.steps.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Aucune étape définie.";
+    ui.cardAnswerSteps.appendChild(li);
+  } else {
+    parsedAnswer.steps.forEach((step) => {
+      const li = document.createElement("li");
+      li.textContent = step;
+      ui.cardAnswerSteps.appendChild(li);
+    });
+  }
   ui.cardExplanation.textContent = record.explanation;
   ui.masteryBadge.textContent = `Maîtrise: ${mastery}%`;
   ui.nextDueBadge.textContent = `Prochaine apparition: ${relativeTimeFromNow(record.nextDue)}`;

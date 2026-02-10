@@ -1,0 +1,1 @@
+• les patterns • les pièges • les réflexes mémoire • les pointeurs • malloc • listes • conditions limites • règles implicites des énoncés
