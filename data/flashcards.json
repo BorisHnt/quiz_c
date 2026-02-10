@@ -1,0 +1,86 @@
+[
+  {
+    "id": "fc-001",
+    "category": "Pointers",
+    "front": "Quelle est la différence entre `int *p` et `int p` ?",
+    "back": "`int *p` déclare un pointeur vers int. `int p` déclare un entier. Le pointeur stocke une adresse mémoire, pas la valeur entière elle-même.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fc-002",
+    "category": "Memory",
+    "front": "Que fait `malloc` et que faut-il vérifier juste après l'appel ?",
+    "back": "`malloc` alloue dynamiquement un bloc mémoire et renvoie un pointeur vers ce bloc. Il faut vérifier que le résultat n'est pas `NULL` avant utilisation.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fc-003",
+    "category": "Memory",
+    "front": "Pourquoi faut-il éviter les fuites mémoire ?",
+    "back": "Une fuite mémoire conserve des blocs non libérés et augmente la consommation RAM. Dans des programmes longs, cela peut dégrader les performances ou provoquer un échec d'allocation.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fc-004",
+    "category": "Strings",
+    "front": "Pourquoi `strcpy(dest, src)` peut être dangereux ?",
+    "back": "`strcpy` ne vérifie pas la taille du buffer de destination. Si `src` est plus long que `dest`, on provoque un dépassement de tampon.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fc-005",
+    "category": "Compilation",
+    "front": "À quoi sert `-Wall -Wextra -Werror` avec `gcc` ?",
+    "back": "Ces options activent les avertissements fréquents et traitent les avertissements comme des erreurs pour forcer un code plus propre et plus sûr.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fc-006",
+    "category": "Pointers",
+    "front": "Que représente l'opérateur `*` dans `*p = 42;` ?",
+    "back": "Ici `*` déréférence le pointeur `p`, donc on écrit `42` à l'adresse mémoire pointée par `p`.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fc-007",
+    "category": "Arrays",
+    "front": "Pourquoi un tableau passé à une fonction se comporte comme un pointeur ?",
+    "back": "Le nom du tableau décroit en pointeur vers son premier élément lors de l'appel. La fonction reçoit donc une adresse, pas une copie complète du tableau.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fc-008",
+    "category": "I/O",
+    "front": "Que renvoie `read(fd, buf, size)` en cas d'erreur, fin de fichier et succès ?",
+    "back": "Erreur: `-1`. Fin de fichier: `0`. Succès: nombre d'octets lus, potentiellement inférieur à `size`.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fc-009",
+    "category": "Struct",
+    "front": "Différence entre `s.member` et `p->member` ?",
+    "back": "`s.member` accède à un champ sur une variable structure. `p->member` accède à un champ via un pointeur sur structure.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fc-010",
+    "category": "Functions",
+    "front": "Quel est le risque d'utiliser une variable locale non initialisée ?",
+    "back": "Elle contient une valeur indéterminée. L'utiliser mène à un comportement non défini et des bugs difficiles à reproduire.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fc-011",
+    "category": "Files",
+    "front": "Quand utiliser `open` avec le flag `O_CREAT` ?",
+    "back": "`O_CREAT` sert à créer le fichier s'il n'existe pas. Il faut alors fournir un mode de permission comme troisième argument.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fc-012",
+    "category": "Pointers",
+    "front": "Que se passe-t-il si on déréférence un pointeur `NULL` ?",
+    "back": "Déréférencer `NULL` provoque un comportement indéfini, souvent un crash. Toujours tester le pointeur avant usage si son origine est incertaine.",
+    "difficulty": "easy"
+  }
+]

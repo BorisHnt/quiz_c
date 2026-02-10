@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Que renvoie `malloc` si l'allocation échoue ?",
+    "choices": ["Une adresse valide", "0 uniquement sur Linux", "NULL", "-1"],
+    "answerIndex": 2,
+    "explanation": "La bibliothèque standard définit un retour `NULL` en cas d'échec de `malloc`."
+  },
+  {
+    "question": "Quel format de boucle parcourt un tableau de `n` éléments sans dépassement ?",
+    "choices": ["for (i = 0; i <= n; i++)", "for (i = 1; i < n; i++)", "for (i = 0; i < n; i++)", "for (i = n; i >= 0; i--)"],
+    "answerIndex": 2,
+    "explanation": "Les indices valides vont de `0` à `n - 1`, donc la condition doit être `i < n`."
+  },
+  {
+    "question": "Quelle instruction libère correctement un bloc alloué avec `malloc` ?",
+    "choices": ["delete ptr;", "free(ptr);", "release(ptr);", "remove(ptr);"],
+    "answerIndex": 1,
+    "explanation": "En C, on utilise `free` pour libérer la mémoire allouée dynamiquement."
+  },
+  {
+    "question": "Que signifie l'opérateur `->` ?",
+    "choices": ["Accès à un champ via un pointeur de structure", "Déplacement de pointeur", "Comparaison de deux pointeurs", "Passage par référence"],
+    "answerIndex": 0,
+    "explanation": "`ptr->field` est équivalent à `(*ptr).field`."
+  },
+  {
+    "question": "Quel en-tête inclut la déclaration de `printf` ?",
+    "choices": ["<unistd.h>", "<stdlib.h>", "<stdio.h>", "<string.h>"],
+    "answerIndex": 2,
+    "explanation": "`printf` est déclaré dans `<stdio.h>`."
+  },
+  {
+    "question": "Quelle situation provoque un comportement non défini ?",
+    "choices": ["Tester `ptr == NULL`", "Lire une variable locale non initialisée", "Utiliser `sizeof(int)`", "Comparer deux entiers"],
+    "answerIndex": 1,
+    "explanation": "Une variable locale non initialisée contient une valeur indéterminée."
+  },
+  {
+    "question": "Que renvoie `read` à la fin d'un fichier ?",
+    "choices": ["-1", "0", "1", "EOF"],
+    "answerIndex": 1,
+    "explanation": "`read` renvoie `0` lorsqu'il n'y a plus de données à lire."
+  },
+  {
+    "question": "Quel est l'effet de `-Werror` lors de la compilation ?",
+    "choices": ["Ignore les warnings", "Transforme les warnings en erreurs", "Optimise le binaire", "Ajoute des symboles de debug"],
+    "answerIndex": 1,
+    "explanation": "`-Werror` force la correction des avertissements en interrompant la compilation."
+  },
+  {
+    "question": "Pourquoi éviter `strcpy` sans contrôle de taille ?",
+    "choices": ["Elle est trop lente", "Elle supprime le terminator `\\0`", "Elle peut déborder le buffer destination", "Elle modifie `src`"],
+    "answerIndex": 2,
+    "explanation": "`strcpy` copie jusqu'au `\\0` sans vérifier la capacité de destination."
+  },
+  {
+    "question": "Quelle expression déréférence un pointeur `p` vers int ?",
+    "choices": ["&p", "*p", "p[]", "p->"],
+    "answerIndex": 1,
+    "explanation": "`*p` permet d'accéder à la valeur pointée par `p`."
+  },
+  {
+    "question": "Quelle est la signature correcte de `main` en C standard ?",
+    "choices": ["void main()", "int main(void)", "main()", "char main()"],
+    "answerIndex": 1,
+    "explanation": "`int main(void)` ou `int main(int argc, char **argv)` sont les formes standard."
+  },
+  {
+    "question": "Quelle fonction compare deux chaînes C ?",
+    "choices": ["strmatch", "cmp", "strcmp", "streq"],
+    "answerIndex": 2,
+    "explanation": "`strcmp` compare lexicalement deux chaînes terminées par `\\0`."
+  }
+]

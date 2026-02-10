@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Révision C | Quiz</title>
+    <meta
+      name="description"
+      content="Quiz chronométré en C avec score, feedback immédiat et historique des erreurs."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="quiz">
+    <header class="site-header" role="banner">
+      <div class="nav-wrap">
+        <a class="brand" href="index.html">C Revision Lab</a>
+        <button
+          id="navToggle"
+          class="nav-toggle"
+          type="button"
+          aria-label="Ouvrir le menu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+        >
+          <span class="bar" aria-hidden="true"></span>
+          <span class="bar" aria-hidden="true"></span>
+          <span class="bar" aria-hidden="true"></span>
+        </button>
+        <nav aria-label="Navigation principale">
+          <ul id="navMenu" class="nav-menu">
+            <li><a class="nav-link" href="index.html">Accueil</a></li>
+            <li><a class="nav-link" href="flashcards.html">Flashcards</a></li>
+            <li><a class="nav-link" href="quiz.html" aria-current="page">Quiz</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="centered" aria-labelledby="quizTitle">
+        <article id="quizView" class="card" aria-live="polite">
+          <h1 id="quizTitle" class="page-title">Quiz C chronométré</h1>
+          <div class="quiz-top" role="list" aria-label="Informations de session">
+            <div class="quiz-stat" role="listitem">
+              <p class="quiz-stat-label">Progression</p>
+              <p id="quizProgress" class="quiz-stat-value">0 / 0</p>
+            </div>
+            <div class="quiz-stat" role="listitem">
+              <p class="quiz-stat-label">Temps restant</p>
+              <p id="quizTimer" class="quiz-stat-value timer-value">00:00</p>
+            </div>
+            <div class="quiz-stat" role="listitem">
+              <p class="quiz-stat-label">Score</p>
+              <p id="quizScore" class="quiz-stat-value">0</p>
+            </div>
+          </div>
+
+          <p id="quizQuestion" class="question-text">Chargement des questions...</p>
+          <div id="answersContainer" class="answer-grid" role="list"></div>
+
+          <div id="quizFeedback" class="panel hidden" aria-live="polite"></div>
+
+          <div class="footer-actions">
+            <button id="nextQuestionBtn" class="btn btn-primary hidden" type="button">Question suivante</button>
+          </div>
+        </article>
+
+        <article id="quizFinalView" class="card hidden" aria-live="polite">
+          <h2 class="page-title">Résultat de la session</h2>
+          <p id="finalScore" class="page-subtitle"></p>
+          <div class="panel">
+            <p id="finalSummary" class="page-subtitle"></p>
+            <ul id="mistakesList" class="summary-list"></ul>
+          </div>
+          <div class="button-row">
+            <button id="restartQuizBtn" class="btn btn-primary" type="button">Recommencer</button>
+            <a class="btn btn-secondary" href="index.html">Retour à l'accueil</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script type="module" src="quiz.js"></script>
+  </body>
+</html>

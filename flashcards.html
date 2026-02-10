@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Révision C | Flashcards</title>
+    <meta
+      name="description"
+      content="Cartes de révision du langage C avec répétition espacée et progression sauvegardée."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="flashcards">
+    <header class="site-header" role="banner">
+      <div class="nav-wrap">
+        <a class="brand" href="index.html">C Revision Lab</a>
+        <button
+          id="navToggle"
+          class="nav-toggle"
+          type="button"
+          aria-label="Ouvrir le menu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+        >
+          <span class="bar" aria-hidden="true"></span>
+          <span class="bar" aria-hidden="true"></span>
+          <span class="bar" aria-hidden="true"></span>
+        </button>
+        <nav aria-label="Navigation principale">
+          <ul id="navMenu" class="nav-menu">
+            <li><a class="nav-link" href="index.html">Accueil</a></li>
+            <li><a class="nav-link" href="flashcards.html" aria-current="page">Flashcards</a></li>
+            <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="centered" aria-labelledby="flashcardsTitle">
+        <div class="card">
+          <h1 id="flashcardsTitle" class="page-title">Flashcards C</h1>
+          <p class="page-subtitle">
+            Cliquez sur la carte ou appuyez sur Espace pour retourner. Flèche droite: je savais. Flèche gauche: je ne savais pas.
+          </p>
+        </div>
+
+        <article class="card" aria-live="polite">
+          <div class="meta-row">
+            <span id="categoryBadge" class="badge">Chargement...</span>
+            <span id="progressText" class="progress">0 / 0</span>
+          </div>
+
+          <div class="flashcard-shell">
+            <button
+              id="flashcardElement"
+              class="flashcard"
+              type="button"
+              aria-label="Retourner la carte"
+            >
+              <span class="flashcard-face front">
+                <span class="card-label">Question</span>
+                <span id="flashcardFront" class="card-content">Chargement des cartes...</span>
+              </span>
+              <span class="flashcard-face back">
+                <span class="card-label">Réponse et explication</span>
+                <span id="flashcardBack" class="card-content"></span>
+              </span>
+            </button>
+          </div>
+
+          <div class="button-row">
+            <button id="unknownBtn" class="btn btn-danger" type="button" disabled>Je ne savais pas</button>
+            <button id="knownBtn" class="btn btn-success" type="button" disabled>Je savais</button>
+            <button id="restartSessionBtn" class="btn btn-secondary hidden" type="button">Recommencer une session</button>
+          </div>
+
+          <p id="flashcardFeedback" class="feedback" aria-live="polite"></p>
+        </article>
+      </section>
+    </main>
+
+    <script type="module" src="flashcards.js"></script>
+  </body>
+</html>
