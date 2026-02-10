@@ -1,354 +1,5252 @@
 [
   {
     "theme": "patterns",
-    "question": "Quel pattern est utilisé dans ft_split avant d'appeler malloc pour le tableau ?",
+    "question": "Quel pattern est utilisé dans `ft_split` avant d’appeler malloc pour le tableau ?",
     "choices": [
-      "remplir -> compter -> terminer",
-      "compter -> malloc -> remplir -> terminer",
-      "malloc -> remplir -> compter",
-      "free -> malloc -> remplir"
+      "remplir → compter → terminer",
+      "compter → malloc → remplir → terminer",
+      "malloc → remplir → compter",
+      "free → malloc → remplir"
     ],
     "correct": 1,
-    "explanation": "On compte d'abord pour allouer la taille exacte, puis on remplit.",
-    "tags": ["split", "allocation", "pattern"]
+    "explanation": "Réponse correcte: B) compter → malloc → remplir → terminer",
+    "tags": [
+      "patterns"
+    ]
   },
   {
     "theme": "patterns",
-    "question": "Quel pattern classique est utilisé dans itoa ?",
+    "question": "Quel est le pattern classique pour convertir un int en string (itoa) ?",
     "choices": [
-      "remplir puis malloc",
-      "malloc puis compter",
-      "gerer signe -> compter -> malloc -> remplir a l'envers",
-      "copier puis trier"
+      "remplir → malloc → compter",
+      "compter → remplir → malloc",
+      "gérer signe → compter → malloc → remplir à l’envers",
+      "malloc → signe → remplir"
     ],
     "correct": 2,
-    "explanation": "Le remplissage se fait souvent de droite a gauche apres le comptage.",
-    "tags": ["itoa", "conversion", "pattern"]
+    "explanation": "Réponse correcte: C) gérer signe → compter → malloc → remplir à l’envers",
+    "tags": [
+      "patterns"
+    ]
   },
   {
     "theme": "patterns",
-    "question": "Dans union/inter, quel pattern evite les doublons ?",
-    "choices": ["tri", "liste chainee", "tableau seen[256]", "calloc global"],
+    "question": "Dans `union`, quel pattern évite les doublons ?",
+    "choices": [
+      "tri préalable",
+      "compteur global",
+      "tableau seen[256]",
+      "malloc dynamique"
+    ],
     "correct": 2,
-    "explanation": "seen permet de marquer les caracteres deja affiches.",
-    "tags": ["union", "inter", "ascii"]
+    "explanation": "Réponse correcte: C) tableau seen[256]",
+    "tags": [
+      "patterns"
+    ]
   },
   {
     "theme": "patterns",
-    "question": "Quel pattern sert a ignorer les separateurs ?",
-    "choices": ["while(is_sep) avancer", "break direct", "free puis retry", "strlen"],
+    "question": "Quel pattern sert à parcourir une liste chaînée ?",
+    "choices": [
+      "for(i=0;i<n;i++)",
+      "while(node) node = node->next",
+      "do while",
+      "récursion obligatoire"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while(node) node = node->next",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Dans `ft_list_remove_if`, quel pattern gère la tête ?",
+    "choices": [
+      "cur = begin",
+      "boucle while sur *begin",
+      "for",
+      "swap data"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) boucle while sur *begin",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern permet d’éviter de perdre l’adresse d’un maillon supprimé ?",
+    "choices": [
+      "tmp = cur",
+      "tmp = cur->next",
+      "free(cur)",
+      "continue"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tmp = cur->next",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel est le pattern pour remplir une string terminée ?",
+    "choices": [
+      "'\\n' au début",
+      "'\\0' à la fin",
+      "'\\t' au milieu",
+      "free à la fin"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) '\\0' à la fin",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern permet de gérer INT_MIN dans itoa ?",
+    "choices": [
+      "cast en float",
+      "cast en long",
+      "malloc double",
+      "memcpy"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) cast en long",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à ignorer les séparateurs ?",
+    "choices": [
+      "if unique",
+      "while(is_sep) avancer",
+      "break",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while(is_sep) avancer",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Dans `sort_list`, quel pattern indique la fin du tri ?",
+    "choices": [
+      "i == n",
+      "cmp == 0",
+      "swapped == 0",
+      "cur == NULL"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) swapped == 0",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour compter des chiffres ?",
+    "choices": [
+      "while(n) { n/=10; }",
+      "for(i=0;i<n;i++)",
+      "malloc",
+      "strcpy"
+    ],
     "correct": 0,
-    "explanation": "On avance tant qu'on est sur un separateur.",
-    "tags": ["split", "parsing"]
+    "explanation": "Réponse correcte: A) while(n) { n/=10; }",
+    "tags": [
+      "patterns"
+    ]
   },
   {
     "theme": "patterns",
-    "question": "Quel pattern indique la fin d'un tri bubble sort ?",
-    "choices": ["i == n", "cmp == 0", "swapped == 0", "cur == NULL"],
+    "question": "Quel pattern est commun à strdup et split ?",
+    "choices": [
+      "strcpy direct",
+      "compter longueur → malloc → copier",
+      "free",
+      "sort"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) compter longueur → malloc → copier",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern garantit la fin d’un tableau de strings ?",
+    "choices": [
+      "'\\0'",
+      "NULL final",
+      "free",
+      "sizeof"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) NULL final",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern empêche une boucle infinie lors d’un comptage ?",
+    "choices": [
+      "continue",
+      "break",
+      "modifier la variable testée",
+      "malloc"
+    ],
     "correct": 2,
-    "explanation": "Si aucun swap n'a eu lieu, le tri est termine.",
-    "tags": ["sort", "list"]
+    "explanation": "Réponse correcte: C) modifier la variable testée",
+    "tags": [
+      "patterns"
+    ]
   },
   {
     "theme": "patterns",
-    "question": "Quel pattern est commun aux parcours robustes ?",
-    "choices": ["condition + avancement", "malloc + free", "goto + break", "printf + return"],
+    "question": "Dans wdmatch, quel pattern est utilisé ?",
+    "choices": [
+      "deux boucles imbriquées inversées",
+      "parcourir argv[1] seulement",
+      "parcourir argv[2] en avançant dans argv[1]",
+      "tri préalable"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) parcourir argv[2] en avançant dans argv[1]",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour supprimer plusieurs têtes successives ?",
+    "choices": [
+      "if",
+      "while",
+      "for",
+      "goto"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est commun à atoi et itoa ?",
+    "choices": [
+      "modulo",
+      "strlen",
+      "memcpy",
+      "sort"
+    ],
     "correct": 0,
-    "explanation": "Une boucle fiable teste la condition et avance systematiquement.",
-    "tags": ["loop", "parcours"]
+    "explanation": "Réponse correcte: A) modulo",
+    "tags": [
+      "patterns"
+    ]
   },
-
   {
-    "theme": "pieges",
-    "question": "Quel oubli provoque souvent un depassement lors d'une copie de string ?",
-    "choices": ["sizeof", "terminateur nul", "argc", "free"],
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour swap deux data dans sort_list ?",
+    "choices": [
+      "malloc",
+      "tmp variable",
+      "free",
+      "break"
+    ],
     "correct": 1,
-    "explanation": "Sans terminateur nul, les fonctions string depassent la zone allouee.",
-    "tags": ["string", "overflow"]
+    "explanation": "Réponse correcte: B) tmp variable",
+    "tags": [
+      "patterns"
+    ]
   },
   {
-    "theme": "pieges",
-    "question": "En exam, que faut-il afficher quand argc est incorrect ?",
-    "choices": ["message detaille", "rien", "seulement newline", "exit(1)"],
+    "theme": "patterns",
+    "question": "Quel pattern permet de gérer start > end dans ft_range ?",
+    "choices": [
+      "for fixe",
+      "step = +1 ou -1",
+      "free",
+      "goto"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) step = +1 ou -1",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern permet d’allouer un tableau d’int ?",
+    "choices": [
+      "malloc(n)",
+      "malloc(sizeof(int))",
+      "malloc(sizeof(int) * n)",
+      "calloc(1)"
+    ],
     "correct": 2,
-    "explanation": "Les tests attendent generalement uniquement un retour ligne.",
-    "tags": ["exam", "output"]
+    "explanation": "Réponse correcte: C) malloc(sizeof(int) * n)",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour détecter la fin d’une string ?",
+    "choices": [
+      "'\\n'",
+      "'\\t'",
+      "'\\0'",
+      "EOF"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) '\\0'",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour compter les mots ?",
+    "choices": [
+      "while(str)",
+      "transitions séparateur → lettre",
+      "strlen",
+      "atoi"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) transitions séparateur → lettre",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à protéger malloc ?",
+    "choices": [
+      "if(ptr) free",
+      "if(!ptr) return NULL",
+      "break",
+      "exit obligatoire"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) if(!ptr) return NULL",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour remplir une string depuis la droite ?",
+    "choices": [
+      "index croissant",
+      "index décroissant",
+      "memcpy",
+      "strcpy"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) index décroissant",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à éviter de sauter un élément après suppression ?",
+    "choices": [
+      "avancer toujours",
+      "ne pas avancer après unlink",
+      "free double",
+      "goto"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) ne pas avancer après unlink",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est commun à union et inter ?",
+    "choices": [
+      "bubble sort",
+      "seen[256]",
+      "recursion",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) seen[256]",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à gérer argc ?",
+    "choices": [
+      "strcmp",
+      "if(argc != attendu)",
+      "malloc",
+      "break"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) if(argc != attendu)",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour remplir un tableau avec une suite ?",
+    "choices": [
+      "while",
+      "step + incrément",
+      "recursion",
+      "goto"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) step + incrément",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour parcourir argv ?",
+    "choices": [
+      "argv++",
+      "while(argv[i])",
+      "strcpy",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while(argv[i])",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est commun à toutes les fonctions avec sortie texte ?",
+    "choices": [
+      "printf",
+      "write + '\\n'",
+      "scanf",
+      "fgets"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) write + '\\n'",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour stocker l’état des cartes ratées ?",
+    "choices": [
+      "tableau fixe",
+      "compteur par carte",
+      "free",
+      "strcpy"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) compteur par carte",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à calculer une taille inclusive ?",
+    "choices": [
+      "end-start",
+      "abs(end-start)",
+      "abs(end-start)+1",
+      "sizeof"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) abs(end-start)+1",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à parcourir jusqu’à NULL ?",
+    "choices": [
+      "while(ptr)",
+      "for",
+      "if",
+      "break"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) while(ptr)",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour repérer un début de mot ?",
+    "choices": [
+      "lettre + lettre",
+      "séparateur + lettre",
+      "lettre + séparateur",
+      "EOF"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) séparateur + lettre",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour remplir un tableau dynamique ?",
+    "choices": [
+      "malloc puis indexation",
+      "realloc constant",
+      "recursion",
+      "goto"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) malloc puis indexation",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à convertir un char chiffre en int ?",
+    "choices": [
+      "c * 10",
+      "c + '0'",
+      "c - '0'",
+      "atoi"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) c - '0'",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à convertir un int en char chiffre ?",
+    "choices": [
+      "n + '0'",
+      "n - '0'",
+      "n * '0'",
+      "atoi"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) n + '0'",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour nettoyer un pointeur après free ?",
+    "choices": [
+      "ptr++",
+      "ptr = NULL",
+      "malloc",
+      "break"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) ptr = NULL",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est commun à tous les parcours ?",
+    "choices": [
+      "condition + avancement",
+      "malloc",
+      "free",
+      "sizeof"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) condition + avancement",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour stocker temporairement une valeur ?",
+    "choices": [
+      "static",
+      "tmp",
+      "free",
+      "sizeof"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tmp",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour parcourir une string ?",
+    "choices": [
+      "for sans condition",
+      "while(str[i])",
+      "free",
+      "malloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while(str[i])",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à s’arrêter sur un séparateur ?",
+    "choices": [
+      "while(!sep)",
+      "break",
+      "free",
+      "goto"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) while(!sep)",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à copier un mot ?",
+    "choices": [
+      "strcpy",
+      "boucle char par char",
+      "memcpy uniquement",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) boucle char par char",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est commun à toutes les allocations ?",
+    "choices": [
+      "malloc + free",
+      "sizeof",
+      "if(!ptr)",
+      "A + C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) A + C",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour tester la fin d’un tableau de strings ?",
+    "choices": [
+      "'\\0'",
+      "NULL",
+      "EOF",
+      "0xFF"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) NULL",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern sert à gérer un cas spécial ?",
+    "choices": [
+      "if initial",
+      "free",
+      "malloc",
+      "goto"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) if initial",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour inverser une string ?",
+    "choices": [
+      "malloc",
+      "deux indices i/j",
+      "recursion",
+      "sizeof"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) deux indices i/j",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour faire un tri simple ?",
+    "choices": [
+      "quicksort",
+      "bubble sort",
+      "mergesort",
+      "heapsort"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) bubble sort",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est utilisé pour stocker une erreur ?",
+    "choices": [
+      "flag",
+      "free",
+      "sizeof",
+      "goto"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) flag",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "theme": "patterns",
+    "question": "Quel pattern est commun à tous les exos d’exam réussis ?",
+    "choices": [
+      "vitesse",
+      "écrire direct",
+      "checklist mentale",
+      "copier internet"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) checklist mentale",
+    "tags": [
+      "patterns"
+    ]
   },
   {
     "theme": "pieges",
-    "question": "Pourquoi seen[256] doit etre indexe avec unsigned char ?",
-    "choices": ["style", "eviter indices negatifs", "performance", "norme 42"],
+    "question": "Quel oubli provoque le plus souvent un dépassement mémoire lors d’une copie de string ?",
+    "choices": [
+      "oublier sizeof",
+      "oublier '\\0'",
+      "oublier free",
+      "oublier argc"
+    ],
     "correct": 1,
-    "explanation": "Avec char signe, certaines valeurs peuvent devenir negatives.",
-    "tags": ["ascii", "index"]
+    "explanation": "Réponse correcte: B) oublier '\\0'",
+    "tags": [
+      "pieges"
+    ]
   },
   {
     "theme": "pieges",
-    "question": "Que se passe-t-il si on ne traite pas INT_MIN dans itoa ?",
-    "choices": ["warning", "overflow", "fuite", "rien"],
+    "question": "Dans un exo d’exam, que faut-il afficher si argc est incorrect ?",
+    "choices": [
+      "message d’erreur",
+      "rien",
+      "juste '\\n'",
+      "exit(1)"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) juste '\\n'",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel est le piège principal dans wdmatch ?",
+    "choices": [
+      "malloc",
+      "mauvais sens de parcours",
+      "tri",
+      "free"
+    ],
     "correct": 1,
-    "explanation": "La negation de INT_MIN depasse la plage int.",
-    "tags": ["itoa", "int_min"]
+    "explanation": "Réponse correcte: B) mauvais sens de parcours",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel est le piège classique dans split ?",
+    "choices": [
+      "free trop tôt",
+      "ne pas compter les mots",
+      "malloc trop grand",
+      "utiliser printf"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) ne pas compter les mots",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi seen[256] doit être indexé avec unsigned char ?",
+    "choices": [
+      "optimisation",
+      "éviter indices négatifs",
+      "style",
+      "tri"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) éviter indices négatifs",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège survient si on avance cur après avoir supprimé cur->next ?",
+    "choices": [
+      "double free",
+      "fuite",
+      "saut d’élément",
+      "segfault immédiat"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) saut d’élément",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Dans itoa, que se passe-t-il si on ne traite pas INT_MIN ?",
+    "choices": [
+      "fuite",
+      "overflow",
+      "boucle infinie",
+      "segmentation fault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) overflow",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège arrive si on oublie de vérifier malloc ?",
+    "choices": [
+      "warning",
+      "free manquant",
+      "segfault",
+      "compilation impossible"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) segfault",
+    "tags": [
+      "pieges"
+    ]
   },
   {
     "theme": "pieges",
     "question": "Pourquoi dst[i] = \"\\0\" est faux ?",
-    "choices": ["chaine trop longue", "type incorrect", "malloc invalide", "free manquant"],
+    "choices": [
+      "trop long",
+      "type incorrect",
+      "compile mais bug",
+      "lent"
+    ],
     "correct": 1,
-    "explanation": "\"\\0\" est une chaine, pas un caractere. Il faut '\\0'.",
-    "tags": ["string", "syntaxe"]
+    "explanation": "Réponse correcte: B) type incorrect",
+    "tags": [
+      "pieges"
+    ]
   },
   {
     "theme": "pieges",
-    "question": "Quel piege avec for(i <= len) ?",
-    "choices": ["boucle saute", "depassement", "tri inverse", "aucun"],
-    "correct": 1,
-    "explanation": "La borne <= len ecrit hors limites si len est la taille utile.",
-    "tags": ["off_by_one", "loop"]
-  },
-
-  {
-    "theme": "reflexes_memoire",
-    "question": "Pourquoi malloc(len + 1) pour une string ?",
-    "choices": ["pour newline", "pour style", "pour terminateur nul", "pour alignement"],
+    "question": "Quel est le piège avec while(n) quand n vaut 0 ?",
+    "choices": [
+      "crash",
+      "boucle infinie",
+      "boucle ignorée",
+      "double free"
+    ],
     "correct": 2,
-    "explanation": "Il faut la place pour les caracteres et le '\\0'.",
-    "tags": ["malloc", "string"]
+    "explanation": "Réponse correcte: C) boucle ignorée",
+    "tags": [
+      "pieges"
+    ]
   },
   {
-    "theme": "reflexes_memoire",
-    "question": "Quel est le premier reflexe apres malloc ?",
-    "choices": ["ecrire", "free", "verifier NULL", "trier"],
+    "theme": "pieges",
+    "question": "Quel oubli cause une boucle infinie ?",
+    "choices": [
+      "break",
+      "incrément",
+      "free",
+      "malloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) incrément",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec start > end dans ft_range ?",
+    "choices": [
+      "segfault",
+      "rien",
+      "oublier step négatif",
+      "malloc"
+    ],
     "correct": 2,
-    "explanation": "Toujours verifier l'echec d'allocation avant usage.",
-    "tags": ["malloc", "safety"]
+    "explanation": "Réponse correcte: C) oublier step négatif",
+    "tags": [
+      "pieges"
+    ]
   },
   {
-    "theme": "reflexes_memoire",
-    "question": "Qui doit free une allocation retournee par une fonction ?",
-    "choices": ["la fonction allocatrice", "le compilateur", "l'appelant", "le noyau"],
+    "theme": "pieges",
+    "question": "Que se passe-t-il si on écrit malloc(len) au lieu de malloc(len + 1) ?",
+    "choices": [
+      "fuite",
+      "un caractère manquant",
+      "écriture hors limites",
+      "compile pas"
+    ],
     "correct": 2,
-    "explanation": "Le code qui recoit la ressource en devient responsable.",
-    "tags": ["ownership", "free"]
+    "explanation": "Réponse correcte: C) écriture hors limites",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi '\\n' final est obligatoire dans beaucoup d’exos ?",
+    "choices": [
+      "style",
+      "tests automatiques",
+      "malloc",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tests automatiques",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège survient si on ne remet pas à zéro seen[256] ?",
+    "choices": [
+      "crash",
+      "doublons ratés",
+      "faux positifs",
+      "segmentation fault"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) faux positifs",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi modifier directement nbr dans itoa est dangereux ?",
+    "choices": [
+      "fuite",
+      "on perd la valeur originale",
+      "segmentation fault",
+      "compile pas"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) on perd la valeur originale",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel est le piège avec char signé utilisé comme index ?",
+    "choices": [
+      "lent",
+      "overflow",
+      "index négatif",
+      "fuite"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) index négatif",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Que provoque un prototype différent de l’énoncé ?",
+    "choices": [
+      "warning",
+      "runtime error",
+      "compilation KO",
+      "fuite"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) compilation KO",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec printf quand write est imposé ?",
+    "choices": [
+      "lent",
+      "mauvais output",
+      "interdit",
+      "compile pas"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) interdit",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi il faut traiter le cas string vide ?",
+    "choices": [
+      "sinon crash",
+      "sinon sortie fausse",
+      "sinon warning",
+      "sinon tri"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) sinon sortie fausse",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège arrive si on free sans unlink ?",
+    "choices": [
+      "fuite",
+      "segfault",
+      "double free",
+      "corruption"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) corruption",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège si on oublie de mettre NULL dans un tableau de strings ?",
+    "choices": [
+      "fuite",
+      "parcours infini",
+      "compile pas",
+      "segmentation fault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) parcours infini",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi il faut travailler sur une copie pour compter ?",
+    "choices": [
+      "performance",
+      "éviter modifier l’original",
+      "style",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) éviter modifier l’original",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec while(ptr->next) ?",
+    "choices": [
+      "saute la tête",
+      "oublie dernier",
+      "segfault",
+      "fuite"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) oublie dernier",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec cmp mal utilisé ?",
+    "choices": [
+      "segfault",
+      "tri inversé",
+      "doublons",
+      "compile pas"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tri inversé",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Que se passe-t-il si on swap les pointeurs au lieu des data dans sort_list sans précaution ?",
+    "choices": [
+      "fuite",
+      "casse la liste",
+      "lent",
+      "rien"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) casse la liste",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi argc doit être strictement vérifié ?",
+    "choices": [
+      "style",
+      "sécurité",
+      "tests",
+      "compilation"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tests",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec free(tmp) avant reconnecter ?",
+    "choices": [
+      "fuite",
+      "segfault",
+      "corruption",
+      "rien"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) corruption",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi while(*begin_list) est nécessaire au début ?",
+    "choices": [
+      "performance",
+      "style",
+      "supprimer plusieurs têtes",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) supprimer plusieurs têtes",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec index mal initialisé ?",
+    "choices": [
+      "fuite",
+      "valeur indéfinie",
+      "lent",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) valeur indéfinie",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège si on oublie d’initialiser len ?",
+    "choices": [
+      "segmentation fault",
+      "fuite",
+      "taille aléatoire",
+      "compile pas"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) taille aléatoire",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi ne pas utiliser des guillemets typographiques ?",
+    "choices": [
+      "style",
+      "pas ASCII",
+      "compile pas",
+      "lent"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) compile pas",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec for(i<=len) ?",
+    "choices": [
+      "saute un",
+      "dépasse",
+      "boucle infinie",
+      "fuite"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) dépasse",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi il faut caster en unsigned char dans union ?",
+    "choices": [
+      "performance",
+      "norme",
+      "sécurité index",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) sécurité index",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège si on affiche trop de texte ?",
+    "choices": [
+      "style",
+      "compile pas",
+      "tests KO",
+      "lent"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tests KO",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi il ne faut pas avancer cur après suppression ?",
+    "choices": [
+      "fuite",
+      "sauter un",
+      "boucle infinie",
+      "compile pas"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) sauter un",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec return prématuré ?",
+    "choices": [
+      "fuite",
+      "style",
+      "optimisation",
+      "compile pas"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) fuite",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec malloc(sizeof(ptr) * n) ?",
+    "choices": [
+      "trop petit",
+      "trop grand",
+      "lent",
+      "segmentation fault"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) trop petit",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec while(str[i] != '\\n') ?",
+    "choices": [
+      "ignore '\\0'",
+      "segfault",
+      "fuite",
+      "compile pas"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) ignore '\\0'",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi ne pas oublier le free dans remove_if ?",
+    "choices": [
+      "style",
+      "performance",
+      "fuite mémoire",
+      "compile pas"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) fuite mémoire",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec un tableau global non remis à zéro ?",
+    "choices": [
+      "lent",
+      "pollution d’état",
+      "segfault",
+      "compile pas"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) pollution d’état",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi un include interdit peut faire rater ?",
+    "choices": [
+      "warning",
+      "runtime",
+      "règles exam",
+      "fuite"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) règles exam",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec strcmp au lieu de comparer chars ?",
+    "choices": [
+      "lent",
+      "hors sujet",
+      "interdit",
+      "segmentation fault"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) interdit",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi oublier le cast long peut casser ?",
+    "choices": [
+      "lent",
+      "overflow",
+      "fuite",
+      "compile pas"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) overflow",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec while(cur) au lieu de while(cur->next) dans remove_if ?",
+    "choices": [
+      "saute tête",
+      "impossible supprimer dernier",
+      "segfault",
+      "fuite"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) impossible supprimer dernier",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec free deux fois ?",
+    "choices": [
+      "fuite",
+      "segmentation fault",
+      "OK",
+      "style"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) segmentation fault",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Pourquoi oublier de gérer liste vide est dangereux ?",
+    "choices": [
+      "rien",
+      "crash",
+      "lent",
+      "compile pas"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) crash",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec printf en exam ?",
+    "choices": [
+      "lent",
+      "interdit",
+      "mauvais output",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel piège avec malloc(1000) “au hasard” ?",
+    "choices": [
+      "fuite",
+      "imprécis",
+      "tests limites ratés",
+      "tout"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) tout",
+    "tags": [
+      "pieges"
+    ]
+  },
+  {
+    "theme": "pieges",
+    "question": "Quel est le piège numéro un à l’exam ?",
+    "choices": [
+      "coder lentement",
+      "ne pas lire l’énoncé",
+      "trop commenter",
+      "optimiser"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) ne pas lire l’énoncé",
+    "tags": [
+      "pieges"
+    ]
   },
   {
     "theme": "reflexes_memoire",
-    "question": "Pourquoi separer allocation et remplissage ?",
-    "choices": ["aucune raison", "lisibilite et debug", "interdit de suite", "pour eviter while"],
-    "correct": 1,
-    "explanation": "La separation simplifie la verification et les erreurs intermediaires.",
-    "tags": ["pattern", "robustesse"]
+    "question": "Pourquoi écrit-on toujours malloc(len + 1) pour une string ?",
+    "choices": [
+      "performance",
+      "'\\n'",
+      "'\\0'",
+      "sizeof"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) '\\0'",
+    "tags": [
+      "reflexes_memoire"
+    ]
   },
   {
     "theme": "reflexes_memoire",
-    "question": "Quel reflexe apres free(ptr) ?",
-    "choices": ["ptr++", "ptr = NULL", "malloc immediat", "rien"],
-    "correct": 1,
-    "explanation": "Remettre a NULL limite les reutilisations invalides.",
-    "tags": ["free", "dangling"]
+    "question": "Pourquoi utiliser sizeof(type) * n ?",
+    "choices": [
+      "rapidité",
+      "lisibilité",
+      "octets corrects",
+      "norme"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) octets corrects",
+    "tags": [
+      "reflexes_memoire"
+    ]
   },
   {
     "theme": "reflexes_memoire",
-    "question": "Pourquoi compter avant malloc ?",
-    "choices": ["style", "taille exacte", "pour eviter if", "pour eviter strlen"],
-    "correct": 1,
-    "explanation": "On evite les buffers arbitraires et les depassements.",
-    "tags": ["allocation", "counting"]
+    "question": "Quel est le premier réflexe après malloc ?",
+    "choices": [
+      "écrire dedans",
+      "free",
+      "vérifier NULL",
+      "memset"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) vérifier NULL",
+    "tags": [
+      "reflexes_memoire"
+    ]
   },
-
+  {
+    "theme": "reflexes_memoire",
+    "question": "Quand faut-il free un maillon supprimé ?",
+    "choices": [
+      "avant unlink",
+      "après unlink",
+      "jamais",
+      "à la fin du programme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) après unlink",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi allouer len + sign + 1 dans itoa ?",
+    "choices": [
+      "padding",
+      "'\\0' + '-'",
+      "norme",
+      "vitesse"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) '\\0' + '-'",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Que doit contenir la dernière case d’un tableau de strings ?",
+    "choices": [
+      "'\\0'",
+      "EOF",
+      "NULL",
+      "0xFF"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) NULL",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi travailler sur une copie lors d’un comptage ?",
+    "choices": [
+      "performance",
+      "ne pas modifier l’original",
+      "malloc",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) ne pas modifier l’original",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Que fait if (!ptr) return NULL ?",
+    "choices": [
+      "fuite",
+      "protection",
+      "free",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) protection",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi ne pas free avant reconnecter une liste ?",
+    "choices": [
+      "fuite",
+      "segfault",
+      "corruption",
+      "double free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) corruption",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi ne pas oublier free après unlink ?",
+    "choices": [
+      "style",
+      "norme",
+      "fuite mémoire",
+      "compile"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) fuite mémoire",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi caster en long dans itoa ?",
+    "choices": [
+      "vitesse",
+      "éviter overflow",
+      "style",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) éviter overflow",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Que risque malloc(sizeof(ptr) * n) ?",
+    "choices": [
+      "trop petit",
+      "trop grand",
+      "correct",
+      "fuite"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) trop petit",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi initialiser len à 0 ?",
+    "choices": [
+      "style",
+      "éviter valeur indéfinie",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) éviter valeur indéfinie",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi remettre seen[256] à zéro ?",
+    "choices": [
+      "style",
+      "performance",
+      "éviter pollution",
+      "norme"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) éviter pollution",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Que doit-on faire après free(ptr) ?",
+    "choices": [
+      "rien",
+      "ptr++",
+      "ptr = NULL",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) ptr = NULL",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi utiliser unsigned char pour indexer ?",
+    "choices": [
+      "vitesse",
+      "sécurité",
+      "style",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) sécurité",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi ne pas écrire malloc(1000) “au hasard” ?",
+    "choices": [
+      "lent",
+      "imprécis",
+      "tests ratés",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Quand doit-on free un tableau retourné par split ?",
+    "choices": [
+      "dans split",
+      "jamais",
+      "appelant",
+      "OS"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) appelant",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi vérifier argc ?",
+    "choices": [
+      "norme",
+      "sécurité mémoire",
+      "tests",
+      "style"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) sécurité mémoire",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Que provoque une variable non initialisée ?",
+    "choices": [
+      "warning",
+      "valeur indéfinie",
+      "fuite",
+      "style"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) valeur indéfinie",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi mettre '\\0' à la fin d’une string ?",
+    "choices": [
+      "affichage",
+      "style",
+      "norme",
+      "A et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) A et C",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi malloc retourne void * ?",
+    "choices": [
+      "casting auto",
+      "générique",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) générique",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi vérifier malloc même en exam ?",
+    "choices": [
+      "style",
+      "norme",
+      "éviter crash",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) éviter crash",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi on ne free pas argv ?",
+    "choices": [
+      "static",
+      "OS",
+      "interdit",
+      "norme"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) static",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi malloc(sizeof(char) * n) reste recommandé ?",
+    "choices": [
+      "style",
+      "portabilité",
+      "norme",
+      "lent"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) portabilité",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi éviter les pointeurs sauvages ?",
+    "choices": [
+      "style",
+      "segfault",
+      "fuite",
+      "lent"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) segfault",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Que se passe-t-il si on oublie de free en boucle ?",
+    "choices": [
+      "crash immédiat",
+      "fuite mémoire",
+      "style",
+      "compile"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) fuite mémoire",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi ne pas écrire free(NULL) ?",
+    "choices": [
+      "interdit",
+      "crash",
+      "inutile mais sûr",
+      "lent"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) inutile mais sûr",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi séparer allocation et remplissage ?",
+    "choices": [
+      "style",
+      "lisibilité",
+      "débogage",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi un double pointeur implique vigilance mémoire ?",
+    "choices": [
+      "lent",
+      "risque de fuite",
+      "modification structure",
+      "C et B"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) C et B",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi malloc(sizeof(int)) est insuffisant pour n ints ?",
+    "choices": [
+      "lent",
+      "manque de place",
+      "style",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) manque de place",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi une string doit être terminée avant retour ?",
+    "choices": [
+      "affichage",
+      "norme",
+      "sécurité",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi vérifier la taille inclusive dans range ?",
+    "choices": [
+      "style",
+      "off-by-one",
+      "free",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) off-by-one",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi allouer un tableau de pointeurs avant les mots ?",
+    "choices": [
+      "style",
+      "pattern",
+      "mémoire structurée",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi free après unlink et pas avant ?",
+    "choices": [
+      "fuite",
+      "corruption",
+      "segfault",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi ne pas réutiliser un pointeur free ?",
+    "choices": [
+      "style",
+      "segfault",
+      "fuite",
+      "lent"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) segfault",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi toujours compter avant malloc ?",
+    "choices": [
+      "style",
+      "sécurité",
+      "taille exacte",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi allouer len + 2 pour \"-5\" ?",
+    "choices": [
+      "padding",
+      "'-'+ '\\0'",
+      "norme",
+      "style"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) '-'+ '\\0'",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi un tableau dynamique doit être NULL-terminé ?",
+    "choices": [
+      "affichage",
+      "parcours",
+      "norme",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi éviter de modifier l’argument original ?",
+    "choices": [
+      "style",
+      "lisibilité",
+      "bug potentiel",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi initialiser les pointeurs ?",
+    "choices": [
+      "style",
+      "crash",
+      "sécurité",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi sizeof(char) est souvent omis ?",
+    "choices": [
+      "toujours 1",
+      "norme",
+      "style",
+      "inutile"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) toujours 1",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi tester fin de liste avec NULL ?",
+    "choices": [
+      "style",
+      "norme",
+      "sécurité",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi malloc(len) pour une string est faux ?",
+    "choices": [
+      "trop petit",
+      "lent",
+      "style",
+      "free"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) trop petit",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi gérer le cas 0 séparément ?",
+    "choices": [
+      "style",
+      "boucle saute",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) boucle saute",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi libérer dans remove_if est obligatoire ?",
+    "choices": [
+      "style",
+      "tests",
+      "fuite",
+      "norme"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) fuite",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi ne pas allouer un buffer fixe ?",
+    "choices": [
+      "lent",
+      "imprécis",
+      "dangereux",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi utiliser long dans itoa ?",
+    "choices": [
+      "style",
+      "overflow",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) overflow",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi remettre à zéro des compteurs ?",
+    "choices": [
+      "style",
+      "sécurité",
+      "éviter faux calcul",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
+  {
+    "theme": "reflexes_memoire",
+    "question": "Pourquoi vérifier pointeur avant deref ?",
+    "choices": [
+      "style",
+      "crash",
+      "norme",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "reflexes_memoire"
+    ]
+  },
   {
     "theme": "pointeurs_malloc",
-    "question": "Que contient une variable int *p ?",
-    "choices": ["un int", "une adresse", "un tableau", "une taille"],
+    "question": "Que contient une variable de type `int *p` ?",
+    "choices": [
+      "un entier",
+      "une adresse",
+      "un tableau",
+      "une taille"
+    ],
     "correct": 1,
-    "explanation": "Un pointeur stocke une adresse memoire.",
-    "tags": ["pointeur", "base"]
+    "explanation": "Réponse correcte: B) une adresse",
+    "tags": [
+      "pointeurs_malloc"
+    ]
   },
   {
     "theme": "pointeurs_malloc",
-    "question": "Que fait *p ?",
-    "choices": ["donne l'adresse", "modifie p", "accede a la valeur pointee", "alloue"],
+    "question": "Que fait `*p` si `p` est un pointeur ?",
+    "choices": [
+      "donne l’adresse",
+      "modifie p",
+      "accède à la valeur pointée",
+      "alloue"
+    ],
     "correct": 2,
-    "explanation": "La dereference lit/ecrit la valeur ciblee.",
-    "tags": ["dereference"]
+    "explanation": "Réponse correcte: C) accède à la valeur pointée",
+    "tags": [
+      "pointeurs_malloc"
+    ]
   },
   {
     "theme": "pointeurs_malloc",
-    "question": "Pourquoi utiliser t_list **begin ?",
-    "choices": ["pour aller plus vite", "pour modifier la tete", "pour trier", "pour eviter malloc"],
+    "question": "Pourquoi utiliser `t_list **` ?",
+    "choices": [
+      "parcourir plus vite",
+      "modifier la tête",
+      "éviter malloc",
+      "trier"
+    ],
     "correct": 1,
-    "explanation": "Il faut un double pointeur pour changer la tete depuis la fonction.",
-    "tags": ["list", "double_pointer"]
+    "explanation": "Réponse correcte: B) modifier la tête",
+    "tags": [
+      "pointeurs_malloc"
+    ]
   },
   {
     "theme": "pointeurs_malloc",
-    "question": "Que retourne malloc en cas d'echec ?",
-    "choices": ["0", "-1", "NULL", "errno"],
+    "question": "Quelle ligne fait avancer dans une liste ?",
+    "choices": [
+      "`cur++`",
+      "`*cur = cur->next`",
+      "`cur = cur->next`",
+      "`cur.next`"
+    ],
     "correct": 2,
-    "explanation": "Le standard C definit un retour NULL.",
-    "tags": ["malloc", "error"]
+    "explanation": "Réponse correcte: C) `cur = cur->next`",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Après `free(ptr)`, que faut-il faire idéalement ?",
+    "choices": [
+      "ptr++",
+      "rien",
+      "ptr = NULL",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) ptr = NULL",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quelle erreur provoque `*p = NULL` quand p est un pointeur non initialisé ?",
+    "choices": [
+      "style",
+      "fuite",
+      "segfault",
+      "warning"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) segfault",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quelle est la différence entre `char *s` et `char s[10]` ?",
+    "choices": [
+      "aucune",
+      "l’un est dynamique",
+      "tableau vs pointeur",
+      "vitesse"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tableau vs pointeur",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quand faut-il utiliser un pointeur temporaire `tmp` ?",
+    "choices": [
+      "pour free après unlink",
+      "pour printf",
+      "pour trier",
+      "pour compter"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) pour free après unlink",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quel opérateur permet d’accéder à un champ struct via pointeur ?",
+    "choices": [
+      ".",
+      "*",
+      "->",
+      "&"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) ->",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait `&x` ?",
+    "choices": [
+      "copie",
+      "valeur",
+      "adresse",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) adresse",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quel est le danger d’un pointeur non initialisé ?",
+    "choices": [
+      "lent",
+      "fuite",
+      "comportement indéfini",
+      "warning"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) comportement indéfini",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi ne pas avancer cur après suppression ?",
+    "choices": [
+      "fuite",
+      "on saute un élément",
+      "segfault",
+      "compile"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) on saute un élément",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que signifie dereferencer ?",
+    "choices": [
+      "malloc",
+      "copier",
+      "accéder à la valeur pointée",
+      "libérer"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) accéder à la valeur pointée",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quelle ligne modifie la tête d’une liste ?",
+    "choices": [
+      "`begin = begin->next`",
+      "`*begin = (*begin)->next`",
+      "`begin++`",
+      "`cur->next`"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) `*begin = (*begin)->next`",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quel est le rôle de `NULL` dans un pointeur ?",
+    "choices": [
+      "valeur magique",
+      "fin",
+      "adresse invalide",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi ne pas utiliser un pointeur après free ?",
+    "choices": [
+      "lent",
+      "fuite",
+      "dangling pointer",
+      "warning"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) dangling pointer",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait `p = &x` ?",
+    "choices": [
+      "copie x",
+      "pointe sur x",
+      "alloue",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) pointe sur x",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait `*p = 42` ?",
+    "choices": [
+      "change l’adresse",
+      "modifie la valeur pointée",
+      "malloc",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) modifie la valeur pointée",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quelle est l’erreur dans `cur = *cur->next` ?",
+    "choices": [
+      "priorité opérateurs",
+      "fuite",
+      "free",
+      "style"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) priorité opérateurs",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi préférer swap des data plutôt que des liens ?",
+    "choices": [
+      "style",
+      "plus simple",
+      "rapide",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) plus simple",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait `void *` ?",
+    "choices": [
+      "interdit",
+      "pointeur générique",
+      "fuite",
+      "tableau"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) pointeur générique",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quand faut-il vérifier un pointeur avant deref ?",
+    "choices": [
+      "jamais",
+      "toujours",
+      "en debug",
+      "après free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) toujours",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi argv est un char ** ?",
+    "choices": [
+      "tableau dynamique",
+      "liste",
+      "tableau de strings",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tableau de strings",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quelle ligne est fausse ?",
+    "choices": [
+      "`p = &x;`",
+      "`*p = 3;`",
+      "`p = malloc(4);`",
+      "`*p = malloc(4);`"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) `*p = malloc(4);`",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quel est le danger principal d’un double pointeur ?",
+    "choices": [
+      "lent",
+      "fuite",
+      "modifier mauvaise adresse",
+      "compile"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) modifier mauvaise adresse",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que retourne malloc en cas d’échec ?",
+    "choices": [
+      "0",
+      "-1",
+      "NULL",
+      "errno"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) NULL",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi écrire malloc(sizeof(int) * n) ?",
+    "choices": [
+      "style",
+      "octets corrects",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) octets corrects",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi ajouter +1 pour une string ?",
+    "choices": [
+      "'\\n'",
+      "'\\0'",
+      "padding",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) '\\0'",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Qui doit free la mémoire retournée ?",
+    "choices": [
+      "malloc",
+      "OS",
+      "appelant",
+      "compilateur"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) appelant",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que provoque malloc(1000) “au hasard” ?",
+    "choices": [
+      "sécurité",
+      "imprécision",
+      "tests ratés",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi vérifier le retour de malloc ?",
+    "choices": [
+      "style",
+      "éviter crash",
+      "norme",
+      "lent"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) éviter crash",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait free(NULL) ?",
+    "choices": [
+      "segfault",
+      "interdit",
+      "rien",
+      "fuite"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) rien",
+    "tags": [
+      "pointeurs_malloc"
+    ]
   },
   {
     "theme": "pointeurs_malloc",
     "question": "Pourquoi malloc(sizeof(ptr) * n) est souvent faux ?",
-    "choices": ["trop petit", "trop grand", "interdit", "toujours juste"],
+    "choices": [
+      "trop petit",
+      "trop grand",
+      "lent",
+      "OK"
+    ],
     "correct": 0,
-    "explanation": "sizeof(ptr) mesure le pointeur, pas le type pointe.",
-    "tags": ["sizeof", "allocation"]
+    "explanation": "Réponse correcte: A) trop petit",
+    "tags": [
+      "pointeurs_malloc"
+    ]
   },
   {
     "theme": "pointeurs_malloc",
-    "question": "Quel est le reflexe absolu avec malloc ?",
-    "choices": ["caster", "verifier NULL", "free immediat", "incrementer"],
+    "question": "Pourquoi ne pas free avant unlink ?",
+    "choices": [
+      "fuite",
+      "corruption",
+      "segfault",
+      "norme"
+    ],
     "correct": 1,
-    "explanation": "Sans ce test, on risque un crash a la premiere dereference.",
-    "tags": ["malloc", "safety"]
+    "explanation": "Réponse correcte: B) corruption",
+    "tags": [
+      "pointeurs_malloc"
+    ]
   },
-
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi allouer tableau de pointeurs avant mots ?",
+    "choices": [
+      "style",
+      "pattern",
+      "structure",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quand libérer dans remove_if ?",
+    "choices": [
+      "avant",
+      "après unlink",
+      "jamais",
+      "à la fin"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) après unlink",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi malloc(len) pour string est faux ?",
+    "choices": [
+      "trop petit",
+      "lent",
+      "style",
+      "free"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) trop petit",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait realloc ?",
+    "choices": [
+      "free",
+      "agrandit/réduit",
+      "copie",
+      "malloc+free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) agrandit/réduit",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi éviter fuite mémoire ?",
+    "choices": [
+      "style",
+      "crash",
+      "consommation",
+      "C et B"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) C et B",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait sizeof(char) ?",
+    "choices": [
+      "dépend",
+      "1",
+      "4",
+      "8"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) 1",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi ne pas allouer buffer fixe ?",
+    "choices": [
+      "lent",
+      "imprécis",
+      "dangereux",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi vérifier taille inclusive ?",
+    "choices": [
+      "norme",
+      "off-by-one",
+      "style",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) off-by-one",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que devient un pointeur après free ?",
+    "choices": [
+      "valide",
+      "dangling",
+      "NULL",
+      "0"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) dangling",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi mettre ptr = NULL après free ?",
+    "choices": [
+      "style",
+      "éviter reuse",
+      "norme",
+      "debug"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) éviter reuse",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi malloc pour tableau 2D ?",
+    "choices": [
+      "style",
+      "dynamique",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) dynamique",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Que fait calloc ?",
+    "choices": [
+      "malloc",
+      "initialise à zéro",
+      "free",
+      "realloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) initialise à zéro",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi séparer allocation et remplissage ?",
+    "choices": [
+      "style",
+      "lisibilité",
+      "debug",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi libérer tout en cas d’erreur intermédiaire ?",
+    "choices": [
+      "style",
+      "fuite",
+      "norme",
+      "lent"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) fuite",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Pourquoi malloc retourne void * ?",
+    "choices": [
+      "style",
+      "générique",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) générique",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
+  {
+    "theme": "pointeurs_malloc",
+    "question": "Quel est le réflexe absolu avec malloc ?",
+    "choices": [
+      "écrire",
+      "free",
+      "vérifier NULL",
+      "cast"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) vérifier NULL",
+    "tags": [
+      "pointeurs_malloc"
+    ]
+  },
   {
     "theme": "listes_chainees",
-    "question": "A quoi sert le champ next d'un maillon ?",
-    "choices": ["stocker data", "stocker taille", "pointer le suivant", "allouer"],
+    "question": "À quoi sert le champ `next` dans un maillon ?",
+    "choices": [
+      "stocker la donnée",
+      "stocker la taille",
+      "pointer vers le suivant",
+      "allouer"
+    ],
     "correct": 2,
-    "explanation": "next chaine les maillons entre eux.",
-    "tags": ["list", "next"]
+    "explanation": "Réponse correcte: C) pointer vers le suivant",
+    "tags": [
+      "listes_chainees"
+    ]
   },
   {
     "theme": "listes_chainees",
-    "question": "Quel pattern de parcours est correct ?",
-    "choices": ["for(i<n)", "while(cur) cur = cur->next", "cur++", "malloc"],
+    "question": "Que signifie `t_list *cur` ?",
+    "choices": [
+      "un maillon",
+      "une adresse de maillon",
+      "un tableau",
+      "une taille"
+    ],
     "correct": 1,
-    "explanation": "Les listes ne sont pas contigues en memoire.",
-    "tags": ["list", "parcours"]
+    "explanation": "Réponse correcte: B) une adresse de maillon",
+    "tags": [
+      "listes_chainees"
+    ]
   },
   {
     "theme": "listes_chainees",
-    "question": "Pourquoi stocker tmp = cur->next avant unlink ?",
-    "choices": ["pour trier", "pour conserver l'adresse a free", "pour compter", "pour printf"],
+    "question": "Quand utilise-t-on `t_list **begin` ?",
+    "choices": [
+      "pour parcourir",
+      "pour modifier la tête",
+      "pour afficher",
+      "pour trier"
+    ],
     "correct": 1,
-    "explanation": "Sinon l'adresse du maillon retire peut etre perdue.",
-    "tags": ["remove_if", "free"]
+    "explanation": "Réponse correcte: B) pour modifier la tête",
+    "tags": [
+      "listes_chainees"
+    ]
   },
   {
     "theme": "listes_chainees",
-    "question": "Dans remove_if, pourquoi traiter la tete avec une boucle while ?",
-    "choices": ["style", "performance", "plusieurs tetes consecutives", "pour le tri"],
-    "correct": 2,
-    "explanation": "On peut avoir plusieurs premiers maillons a supprimer.",
-    "tags": ["remove_if", "head"]
+    "question": "Comment parcourt-on une liste ?",
+    "choices": [
+      "for(i<n)",
+      "while(cur) cur = cur->next",
+      "recursion obligatoire",
+      "malloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while(cur) cur = cur->next",
+    "tags": [
+      "listes_chainees"
+    ]
   },
   {
     "theme": "listes_chainees",
-    "question": "Quel etat represente une liste vide ?",
-    "choices": ["node->next == 0", "begin == NULL", "size == -1", "malloc(0)"],
+    "question": "Quelle ligne supprime le maillon suivant ?",
+    "choices": [
+      "free(cur->next)",
+      "cur->next = cur->next->next",
+      "cur = cur->next",
+      "begin = NULL"
+    ],
     "correct": 1,
-    "explanation": "La tete vaut NULL quand il n'y a aucun maillon.",
-    "tags": ["list", "null"]
+    "explanation": "Réponse correcte: B) cur->next = cur->next->next",
+    "tags": [
+      "listes_chainees"
+    ]
   },
   {
     "theme": "listes_chainees",
-    "question": "Pourquoi bubble sort est souvent choisi en exam sur liste ?",
-    "choices": ["optimal", "plus simple a coder", "obligatoire", "sans boucle"],
-    "correct": 1,
-    "explanation": "Il est facile a implementer rapidement sous pression.",
-    "tags": ["sort", "exam"]
+    "question": "Pourquoi stocker `tmp = cur->next` avant unlink ?",
+    "choices": [
+      "compter",
+      "afficher",
+      "free ensuite",
+      "trier"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) free ensuite",
+    "tags": [
+      "listes_chainees"
+    ]
   },
-
+  {
+    "theme": "listes_chainees",
+    "question": "Que devient la liste après suppression de B ? ``` A -> B -> C ```",
+    "choices": [
+      "A -> NULL",
+      "B -> C",
+      "A -> C",
+      "A -> B"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) A -> C",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi nettoyer la tête avec une boucle while ?",
+    "choices": [
+      "performance",
+      "style",
+      "supprimer plusieurs têtes",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) supprimer plusieurs têtes",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Après nettoyage de tête, quel pointeur sert au parcours ?",
+    "choices": [
+      "t_list **",
+      "t_list *",
+      "int *",
+      "char **"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) t_list *",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que se passe-t-il si on avance `cur` juste après suppression ?",
+    "choices": [
+      "rien",
+      "fuite",
+      "on saute un maillon",
+      "crash"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) on saute un maillon",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Comment tester fin de liste ?",
+    "choices": [
+      "cur->next == 0",
+      "cur == NULL",
+      "free",
+      "break"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) cur == NULL",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Dans remove_if, sur quel élément applique-t-on cmp ?",
+    "choices": [
+      "cur",
+      "cur->next",
+      "begin",
+      "tmp"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) cur->next",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quand faut-il free un maillon supprimé ?",
+    "choices": [
+      "avant unlink",
+      "après unlink",
+      "jamais",
+      "à la fin"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) après unlink",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel est le piège si on free avant reconnecter ?",
+    "choices": [
+      "fuite",
+      "segfault",
+      "corruption",
+      "warning"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) corruption",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que contient `*begin` ?",
+    "choices": [
+      "une adresse",
+      "la tête",
+      "un tableau",
+      "une taille"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) la tête",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quelle ligne fait changer la tête ?",
+    "choices": [
+      "begin = begin->next",
+      "*begin = (*begin)->next",
+      "cur = cur->next",
+      "free(begin)"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) *begin = (*begin)->next",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi utiliser bubble sort sur liste ?",
+    "choices": [
+      "optimal",
+      "simple à implémenter",
+      "rapide",
+      "récursif"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) simple à implémenter",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que swap-on dans sort_list exam ?",
+    "choices": [
+      "pointeurs",
+      "data",
+      "malloc",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) data",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quand le tri est-il terminé ?",
+    "choices": [
+      "cur == NULL",
+      "cmp toujours vrai",
+      "swapped == 0",
+      "fin premier tour"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) swapped == 0",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que représente une liste vide ?",
+    "choices": [
+      "malloc",
+      "pointeur NULL",
+      "tableau vide",
+      "erreur"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) pointeur NULL",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi vérifier begin_list avant deref ?",
+    "choices": [
+      "style",
+      "crash",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) crash",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel est le bug de while(cur->next) ?",
+    "choices": [
+      "saute tête",
+      "oublie dernier",
+      "segfault",
+      "fuite"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) oublie dernier",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Comment compter les éléments ?",
+    "choices": [
+      "strlen",
+      "while(lst) count++",
+      "malloc",
+      "cmp"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while(lst) count++",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi tmp est indispensable ?",
+    "choices": [
+      "style",
+      "éviter perdre adresse",
+      "free double",
+      "trier"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) éviter perdre adresse",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que se passe-t-il si tous les éléments sont supprimés ?",
+    "choices": [
+      "fuite",
+      "begin reste",
+      "begin devient NULL",
+      "crash"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) begin devient NULL",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi passer un double pointeur ?",
+    "choices": [
+      "vitesse",
+      "modifier structure",
+      "free",
+      "trier"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) modifier structure",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que fait cur = cur->next ?",
+    "choices": [
+      "supprime",
+      "avance",
+      "free",
+      "copie"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) avance",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi ne pas swap les liens facilement ?",
+    "choices": [
+      "lent",
+      "complexe",
+      "interdit",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) complexe",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel est le rôle du dernier maillon ?",
+    "choices": [
+      "stocker",
+      "next = NULL",
+      "data = NULL",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) next = NULL",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que signifie next == NULL ?",
+    "choices": [
+      "erreur",
+      "tête",
+      "fin",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) fin",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que se passe-t-il si begin vaut NULL ?",
+    "choices": [
+      "crash",
+      "liste vide",
+      "warning",
+      "malloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) liste vide",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi ne pas faire cur++ ?",
+    "choices": [
+      "interdit",
+      "liste pas contiguë",
+      "segfault",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) liste pas contiguë",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel piège avec cur->next->next sans test ?",
+    "choices": [
+      "lent",
+      "segfault",
+      "fuite",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) segfault",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi utiliser tmp ?",
+    "choices": [
+      "performance",
+      "style",
+      "libérer après",
+      "trier"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) libérer après",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que contient un maillon ?",
+    "choices": [
+      "next uniquement",
+      "data uniquement",
+      "data + next",
+      "taille"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) data + next",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel test protège l’accès suivant ?",
+    "choices": [
+      "if(cur)",
+      "if(cur->next)",
+      "free",
+      "break"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) if(cur->next)",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi une boucle infinie peut arriver ?",
+    "choices": [
+      "free",
+      "next jamais modifié",
+      "malloc",
+      "cmp"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) next jamais modifié",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi ne pas modifier data_ref ?",
+    "choices": [
+      "style",
+      "norme",
+      "comparaison",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) comparaison",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que se passe-t-il si cmp est inversé ?",
+    "choices": [
+      "tri faux",
+      "crash",
+      "fuite",
+      "compile"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) tri faux",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi vérifier cur->next avant cmp ?",
+    "choices": [
+      "style",
+      "sécurité",
+      "norme",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) sécurité",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Comment supprimer le premier maillon ?",
+    "choices": [
+      "free(begin)",
+      "*begin = (*begin)->next",
+      "cur->next = cur->next->next",
+      "begin++"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) *begin = (*begin)->next",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi on ne free pas begin directement ?",
+    "choices": [
+      "fuite",
+      "perdre accès",
+      "lent",
+      "style"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) perdre accès",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Que fait lstsize ?",
+    "choices": [
+      "free",
+      "compter",
+      "trier",
+      "malloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) compter",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi next doit être NULL au dernier ?",
+    "choices": [
+      "style",
+      "arrêt parcours",
+      "norme",
+      "toutes"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) toutes",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel est le danger principal des listes ?",
+    "choices": [
+      "lenteur",
+      "erreurs pointeurs",
+      "malloc",
+      "style"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) erreurs pointeurs",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi ne pas utiliser récursion en exam ?",
+    "choices": [
+      "style",
+      "pile",
+      "interdit",
+      "lent"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) pile",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quand arrêter remove_if ?",
+    "choices": [
+      "cur == NULL",
+      "cur->next == NULL",
+      "begin == NULL",
+      "swapped"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) cur->next == NULL",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Pourquoi nettoyer la tête d’abord ?",
+    "choices": [
+      "style",
+      "absence de précédent",
+      "performance",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) absence de précédent",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel est le pattern universel ?",
+    "choices": [
+      "for",
+      "while(ptr)",
+      "recursion",
+      "goto"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) while(ptr)",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
+  {
+    "theme": "listes_chainees",
+    "question": "Quel est le piège le plus courant en listes ?",
+    "choices": [
+      "malloc",
+      "oublier free",
+      "avancer au mauvais moment",
+      "style"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) avancer au mauvais moment",
+    "tags": [
+      "listes_chainees"
+    ]
+  },
   {
     "theme": "conditions_limites",
-    "question": "Quel cas limite principal doit etre gere dans itoa ?",
-    "choices": ["n=1", "n=-5", "INT_MIN", "n=42"],
+    "question": "Dans itoa, quel est le cas limite principal ?",
+    "choices": [
+      "1",
+      "-5",
+      "INT_MIN",
+      "42"
+    ],
     "correct": 2,
-    "explanation": "INT_MIN ne peut pas etre negue en int sans overflow.",
-    "tags": ["itoa", "int_min"]
+    "explanation": "Réponse correcte: C) INT_MIN",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
     "theme": "conditions_limites",
-    "question": "Que doit retourner split sur string vide ?",
-    "choices": ["NULL", "tableau avec NULL final", "segfault", "un mot vide"],
-    "correct": 1,
-    "explanation": "Le conteneur existe mais ne contient aucun mot.",
-    "tags": ["split", "edge_case"]
+    "question": "Que doit faire split avec une string vide ?",
+    "choices": [
+      "crash",
+      "retourner NULL",
+      "retourner tableau avec NULL",
+      "afficher"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) retourner tableau avec NULL",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
     "theme": "conditions_limites",
-    "question": "Que doit renvoyer ft_range(0, 0) ?",
-    "choices": ["NULL", "tableau vide", "{0}", "segfault"],
+    "question": "Que doit renvoyer ft_range(0,0) ?",
+    "choices": [
+      "NULL",
+      "tableau vide",
+      "{0}",
+      "segfault"
+    ],
     "correct": 2,
-    "explanation": "La plage inclusive contient un seul element.",
-    "tags": ["range", "edge_case"]
+    "explanation": "Réponse correcte: C) {0}",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
     "theme": "conditions_limites",
-    "question": "Que doit faire wdmatch si un caractere manque ?",
-    "choices": ["afficher argv[1]", "afficher argv[2]", "afficher seulement newline", "segfault"],
-    "correct": 2,
-    "explanation": "Aucune correspondance complete, donc sortie vide + newline.",
-    "tags": ["wdmatch", "output"]
+    "question": "Dans wdmatch, que faire si argv[1] est vide ?",
+    "choices": [
+      "afficher argv[2]",
+      "afficher argv[1]",
+      "juste '\\n'",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) afficher argv[1]",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
     "theme": "conditions_limites",
-    "question": "Que devient begin_list si tous les elements sont supprimes ?",
-    "choices": ["reste identique", "pointe le dernier", "devient NULL", "segfault"],
+    "question": "Que vaut begin_list si la liste est vide ?",
+    "choices": [
+      "malloc",
+      "-1",
+      "NULL",
+      "free"
+    ],
     "correct": 2,
-    "explanation": "La liste est vide apres suppression totale.",
-    "tags": ["list", "remove_if"]
+    "explanation": "Réponse correcte: C) NULL",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
     "theme": "conditions_limites",
-    "question": "Pourquoi traiter le cas 0 a part dans certains comptages ?",
-    "choices": ["pour aller plus vite", "sinon la boucle while(n) est sautee", "pour trier", "pour eviter malloc"],
-    "correct": 1,
-    "explanation": "while(n) ne passe pas quand n == 0.",
-    "tags": ["itoa", "counting"]
-  },
-
-  {
-    "theme": "regles_implicites",
-    "question": "Si argc est incorrect en exam, quelle sortie est souvent attendue ?",
-    "choices": ["message explicatif", "rien", "juste newline", "exit(1)"],
+    "question": "Dans remove_if, si tous les éléments correspondent ?",
+    "choices": [
+      "liste inchangée",
+      "begin pointe dernier",
+      "begin devient NULL",
+      "segfault"
+    ],
     "correct": 2,
-    "explanation": "Les sujets attendent une sortie minimale strictement precisee.",
-    "tags": ["exam", "output"]
+    "explanation": "Réponse correcte: C) begin devient NULL",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
-    "theme": "regles_implicites",
-    "question": "Si write est seule autorisee, printf est :",
-    "choices": ["tolere", "plus lent", "interdit", "equivalent"],
+    "theme": "conditions_limites",
+    "question": "Que doit faire atoi(\"\") ?",
+    "choices": [
+      "crash",
+      "0",
+      "-1",
+      "undefined"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) 0",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire split si la string ne contient que des séparateurs ?",
+    "choices": [
+      "NULL",
+      "tableau vide",
+      "tableau avec NULL",
+      "segfault"
+    ],
     "correct": 2,
-    "explanation": "Une fonction hors liste fait echouer la correction.",
-    "tags": ["allowed_functions", "exam"]
+    "explanation": "Réponse correcte: C) tableau avec NULL",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
-    "theme": "regles_implicites",
-    "question": "Pourquoi la sortie doit etre exactement conforme ?",
-    "choices": ["style", "tests stricts", "performance", "debug"],
+    "theme": "conditions_limites",
+    "question": "Quel est le cas limite d’une liste à un seul élément dans sort_list ?",
+    "choices": [
+      "crash",
+      "tri inutile",
+      "swap obligatoire",
+      "free"
+    ],
     "correct": 1,
-    "explanation": "Les tests comparent caractere par caractere.",
-    "tags": ["tests", "output"]
+    "explanation": "Réponse correcte: B) tri inutile",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
-    "theme": "regles_implicites",
-    "question": "Si le prototype ne correspond pas exactement a l'enonce :",
-    "choices": ["warning seulement", "runtime only", "compilation/liaison KO", "aucun impact"],
+    "theme": "conditions_limites",
+    "question": "Que doit faire wdmatch si un caractère manque ?",
+    "choices": [
+      "afficher argv[1]",
+      "afficher argv[2]",
+      "afficher '\\n'",
+      "free"
+    ],
     "correct": 2,
-    "explanation": "Le correcteur compile avec le prototype attendu.",
-    "tags": ["prototype", "compilation"]
+    "explanation": "Réponse correcte: C) afficher '\\n'",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans ft_range(start,end), si start > end ?",
+    "choices": [
+      "NULL",
+      "tableau décroissant",
+      "segfault",
+      "malloc(0)"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tableau décroissant",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut len dans itoa(0) ?",
+    "choices": [
+      "0",
+      "1",
+      "2",
+      "-1"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) 1",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que se passe-t-il si begin_list == NULL dans foreach ?",
+    "choices": [
+      "crash",
+      "rien",
+      "segfault",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) rien",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire remove_if si aucune data ne correspond ?",
+    "choices": [
+      "vider",
+      "crash",
+      "ne rien changer",
+      "free tout"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) ne rien changer",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit contenir le tableau retourné par split ?",
+    "choices": [
+      "'\\0'",
+      "EOF",
+      "NULL final",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) NULL final",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut atoi(\"-0\") ?",
+    "choices": [
+      "0",
+      "-0",
+      "-1",
+      "erreur"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) 0",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans union, que faire avec string vide ?",
+    "choices": [
+      "crash",
+      "afficher rien",
+      "afficher '\\n'",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) afficher rien",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans itoa, si n = 0 ?",
+    "choices": [
+      "NULL",
+      "\"0\"",
+      "\"\"",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) \"0\"",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut *begin si la liste devient vide ?",
+    "choices": [
+      "dernier",
+      "malloc",
+      "NULL",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) NULL",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire ft_range(-3,0) ?",
+    "choices": [
+      "{0,-1,-2,-3}",
+      "{-3,-2,-1,0}",
+      "NULL",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) {-3,-2,-1,0}",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit afficher un programme si argc est incorrect ?",
+    "choices": [
+      "erreur",
+      "rien",
+      "'\\n'",
+      "exit"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) '\\n'",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire split si un seul mot sans séparateurs ?",
+    "choices": [
+      "NULL",
+      "tableau avec ce mot + NULL",
+      "segfault",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tableau avec ce mot + NULL",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans remove_if, si seule la tête correspond ?",
+    "choices": [
+      "supprimer tête",
+      "crash",
+      "rien",
+      "free tout"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) supprimer tête",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que se passe-t-il si une liste n’a qu’un élément et qu’on le supprime ?",
+    "choices": [
+      "begin reste",
+      "begin devient NULL",
+      "segfault",
+      "fuite"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) begin devient NULL",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans sort_list, une liste vide ?",
+    "choices": [
+      "crash",
+      "retourner NULL",
+      "free",
+      "malloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) retourner NULL",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire atoi avec espaces au début ?",
+    "choices": [
+      "crash",
+      "0",
+      "ignorer",
+      "erreur"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) ignorer",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire split avec \"\\n\\t \" ?",
+    "choices": [
+      "NULL",
+      "tableau NULL",
+      "crash",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tableau NULL",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que se passe-t-il si wdmatch reçoit 3 arguments ?",
+    "choices": [
+      "afficher erreur",
+      "ignorer",
+      "'\\n'",
+      "segfault"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) '\\n'",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut ft_range(5,5) ?",
+    "choices": [
+      "NULL",
+      "{5}",
+      "{}",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) {5}",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire remove_if si begin_list est NULL ?",
+    "choices": [
+      "crash",
+      "rien",
+      "free",
+      "malloc"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) rien",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire split si str == NULL ? (si non précisé)",
+    "choices": [
+      "crash",
+      "retourner NULL",
+      "comportement indéfini",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) comportement indéfini",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire atoi avec \"+\" ?",
+    "choices": [
+      "0",
+      "erreur",
+      "segfault",
+      "undefined"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) undefined",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que se passe-t-il si seen n’est pas réinitialisé ?",
+    "choices": [
+      "crash",
+      "doublons supprimés à tort",
+      "fuite",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) doublons supprimés à tort",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut ft_range(-1,-1) ?",
+    "choices": [
+      "NULL",
+      "{-1}",
+      "{}",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) {-1}",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire sort_list avec 1 élément ?",
+    "choices": [
+      "crash",
+      "free",
+      "retourner tel quel",
+      "swap"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) retourner tel quel",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans itoa, que vaut \"-1\" ?",
+    "choices": [
+      "impossible",
+      "\"-1\"",
+      "\"1-\"",
+      "\"-01\""
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) \"-1\"",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire union si aucun caractère commun ?",
+    "choices": [
+      "NULL",
+      "afficher rien",
+      "afficher '\\n'",
+      "segfault"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) afficher rien",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans split, que faire si dernier mot sans séparateur ?",
+    "choices": [
+      "ignorer",
+      "perdre mot",
+      "ajouter mot",
+      "crash"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) ajouter mot",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans remove_if, si seul dernier correspond ?",
+    "choices": [
+      "ne rien faire",
+      "crash",
+      "supprimer dernier",
+      "free tout"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) supprimer dernier",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire foreach sur liste vide ?",
+    "choices": [
+      "crash",
+      "free",
+      "rien",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) rien",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut atoi(\"-2147483648\") ?",
+    "choices": [
+      "overflow",
+      "crash",
+      "dépend implémentation",
+      "undefined"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) dépend implémentation",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire wdmatch si argv[1] == \"\" ?",
+    "choices": [
+      "afficher rien",
+      "afficher \"\\n\"",
+      "afficher argv[2]",
+      "segfault"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) afficher rien",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut ft_range(0,-3) ?",
+    "choices": [
+      "{0,-1,-2,-3}",
+      "{-3,-2,-1,0}",
+      "NULL",
+      "segfault"
+    ],
+    "correct": 0,
+    "explanation": "Réponse correcte: A) {0,-1,-2,-3}",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans split, si malloc échoue à mi-chemin ?",
+    "choices": [
+      "continuer",
+      "fuite",
+      "free ce qui a été alloué",
+      "segfault"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) free ce qui a été alloué",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire itoa avec n = 10 ?",
+    "choices": [
+      "\"01\"",
+      "\"10\"",
+      "\"010\"",
+      "\"-10\""
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) \"10\"",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Dans remove_if, que faire si begin_list == NULL ?",
+    "choices": [
+      "crash",
+      "free",
+      "return",
+      "malloc"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) return",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que doit faire sort_list si tous les éléments sont égaux ?",
+    "choices": [
+      "crash",
+      "trier",
+      "laisser tel quel",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que vaut atoi(\" 42\") ?",
+    "choices": [
+      "0",
+      "segfault",
+      "42",
+      "erreur"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) 42",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Que faire si string contient seulement '\\0' ?",
+    "choices": [
+      "crash",
+      "un mot",
+      "zéro mot",
+      "segfault"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) zéro mot",
+    "tags": [
+      "conditions_limites"
+    ]
+  },
+  {
+    "theme": "conditions_limites",
+    "question": "Pourquoi tester les conditions limites en premier ?",
+    "choices": [
+      "style",
+      "gagner du temps",
+      "éviter crash",
+      "C et B"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) C et B",
+    "tags": [
+      "conditions_limites"
+    ]
   },
   {
     "theme": "regles_implicites",
-    "question": "Quand une fonction est interdite, la bonne strategie est :",
-    "choices": ["l'utiliser quand meme", "la remplacer par une version perso", "la cacher", "ignorer l'exo"],
-    "correct": 1,
-    "explanation": "Tu dois reimplementer le besoin avec les fonctions autorisees.",
-    "tags": ["constraints", "exam"]
+    "question": "Si argc est incorrect, que faut-il afficher dans beaucoup d’exos ?",
+    "choices": [
+      "message d’erreur",
+      "rien",
+      "juste `\\n`",
+      "exit(1)"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) juste `\\n`",
+    "tags": [
+      "regles_implicites"
+    ]
   },
   {
     "theme": "regles_implicites",
-    "question": "La regle implicite numero un en exam est :",
-    "choices": ["coder vite", "relire l'enonce", "optimiser", "commenter beaucoup"],
+    "question": "Que se passe-t-il si le nom du fichier est faux ?",
+    "choices": [
+      "warning",
+      "OK",
+      "compilation refusée",
+      "runtime error"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) compilation refusée",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si write est la seule fonction autorisée, utiliser printf est :",
+    "choices": [
+      "toléré",
+      "lent",
+      "interdit",
+      "optionnel"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) interdit",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi la sortie doit être *exactement* conforme ?",
+    "choices": [
+      "style",
+      "optimisation",
+      "tests stricts",
+      "lisibilité"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tests stricts",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé dit “display a \\n”, cela signifie :",
+    "choices": [
+      "afficher espace",
+      "afficher rien",
+      "afficher un retour ligne",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) afficher un retour ligne",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que signifie “Expected files : wdmatch.c” ?",
+    "choices": [
+      "un fichier optionnel",
+      "plusieurs fichiers",
+      "un seul fichier nommé ainsi",
+      "n’importe quel nom"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) un seul fichier nommé ainsi",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que faire si un include n’est pas autorisé ?",
+    "choices": [
+      "l’utiliser quand même",
+      "commenter",
+      "ne pas l’utiliser",
+      "remplacer printf"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) ne pas l’utiliser",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si le prototype ne correspond pas exactement ?",
+    "choices": [
+      "warning",
+      "runtime",
+      "compile pas",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) compile pas",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé dit “Do not turn in list.h”, cela veut dire :",
+    "choices": [
+      "ne pas l’inclure",
+      "l’écrire mais pas rendre",
+      "l’ignorer",
+      "l’éditer"
+    ],
     "correct": 1,
-    "explanation": "La plupart des erreurs viennent d'une lecture partielle du sujet.",
-    "tags": ["exam", "method"]
+    "explanation": "Réponse correcte: B) l’écrire mais pas rendre",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si l’énoncé impose une structure, peut-on la modifier ?",
+    "choices": [
+      "oui",
+      "oui si mieux",
+      "non",
+      "parfois"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) non",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si rien n’est précisé sur malloc qui échoue, que faire ?",
+    "choices": [
+      "ignorer",
+      "crash",
+      "protéger",
+      "printf"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) protéger",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que faut-il faire quand une fonction est interdite ?",
+    "choices": [
+      "la cacher",
+      "la remplacer",
+      "l’utiliser quand même",
+      "macro"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) la remplacer",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé ne parle pas d’affichage d’erreur, on affiche :",
+    "choices": [
+      "un message",
+      "stderr",
+      "rien ou juste \\n",
+      "exit"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) rien ou juste \\n",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si “Inputs will always be consistent”, cela signifie :",
+    "choices": [
+      "pas de malloc",
+      "pas besoin de vérifier pointeurs",
+      "pas d’entrées invalides",
+      "pas de NULL"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) pas d’entrées invalides",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que signifie “Duplications must remain” ?",
+    "choices": [
+      "supprimer doublons",
+      "conserver doublons",
+      "trier unique",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) conserver doublons",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si une fonction autorisée n’est pas listée ?",
+    "choices": [
+      "OK",
+      "autorisée",
+      "interdite",
+      "warning"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) interdite",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que faire si argc est différent de ce qui est demandé ?",
+    "choices": [
+      "continuer",
+      "segfault",
+      "afficher \\n",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) afficher \\n",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand un tableau de strings est attendu, il doit finir par :",
+    "choices": [
+      "'\\0'",
+      "EOF",
+      "NULL",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) NULL",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi ne pas afficher d’espaces en trop ?",
+    "choices": [
+      "style",
+      "tests échouent",
+      "lent",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tests échouent",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé donne un exemple avec `| cat -e`, ça sert à :",
+    "choices": [
+      "debug",
+      "montrer caractères invisibles",
+      "compiler",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) montrer caractères invisibles",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si on imprime plus que demandé :",
+    "choices": [
+      "OK",
+      "warning",
+      "tests KO",
+      "bonus"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tests KO",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand une fonction doit retourner un pointeur, on retourne :",
+    "choices": [
+      "copie",
+      "adresse valide",
+      "variable locale",
+      "NULL"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) adresse valide",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que faire avec une variable locale renvoyée par adresse ?",
+    "choices": [
+      "OK",
+      "warning",
+      "interdit",
+      "segfault futur"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) segfault futur",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé précise un type exact, on peut le changer ?",
+    "choices": [
+      "oui",
+      "oui si logique",
+      "non",
+      "parfois"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) non",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si l’énoncé n’autorise que malloc, utiliser calloc est :",
+    "choices": [
+      "OK",
+      "mieux",
+      "interdit",
+      "warning"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) interdit",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que signifie “You must include list.h but must not turn it in” ?",
+    "choices": [
+      "ignorer",
+      "copier",
+      "compiler avec, pas rendre",
+      "modifier"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) compiler avec, pas rendre",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi ne pas ajouter de debug prints ?",
+    "choices": [
+      "style",
+      "tests stricts",
+      "lent",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tests stricts",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé demande “returns pointer to first element” ?",
+    "choices": [
+      "dernier",
+      "milieu",
+      "tête",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tête",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand argc est bon mais argv vide ?",
+    "choices": [
+      "undefined",
+      "traiter normalement",
+      "segfault",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) traiter normalement",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que signifie “Allowed functions: write” ?",
+    "choices": [
+      "write + printf",
+      "toutes",
+      "uniquement write",
+      "aucune"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) uniquement write",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé ne mentionne pas free, doit-on libérer ?",
+    "choices": [
+      "jamais",
+      "parfois",
+      "oui si nécessaire",
+      "interdit"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) oui si nécessaire",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi ne pas changer l’ordre d’affichage ?",
+    "choices": [
+      "style",
+      "lisibilité",
+      "tests",
+      "norme"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tests",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand une fonction doit afficher et retourner, on :",
+    "choices": [
+      "affiche seulement",
+      "retourne seulement",
+      "fait les deux",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) fait les deux",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé parle d’arguments, cela inclut :",
+    "choices": [
+      "argv[0]",
+      "programme",
+      "argv[1..]",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) argv[1..]",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si rien n’est dit sur les erreurs internes ?",
+    "choices": [
+      "afficher",
+      "ignorer",
+      "rester silencieux",
+      "exit"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) rester silencieux",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi ne pas utiliser des macros interdites ?",
+    "choices": [
+      "style",
+      "norme",
+      "règles exam",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) règles exam",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand on dit “returns NULL-terminated array” :",
+    "choices": [
+      "'\\0' final",
+      "EOF",
+      "pointeur NULL",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) pointeur NULL",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si le sujet dit “do not print anything else”, on :",
+    "choices": [
+      "ajoute debug",
+      "affiche erreurs",
+      "respecte strictement",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) respecte strictement",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé dit “Inputs will always be consistent”, peut-on ignorer argc ?",
+    "choices": [
+      "oui",
+      "parfois",
+      "non",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) non",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi lire l’énoncé deux fois ?",
+    "choices": [
+      "style",
+      "comprendre pièges",
+      "lent",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) comprendre pièges",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si l’énoncé demande un retour ligne final, l’oublier provoque :",
+    "choices": [
+      "warning",
+      "OK",
+      "test KO",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) test KO",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand une fonction est interdite, peut-on l’implémenter soi-même ?",
+    "choices": [
+      "non",
+      "oui",
+      "parfois",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) oui",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé donne un exemple précis, il est :",
+    "choices": [
+      "indicatif",
+      "décoratif",
+      "contractuel",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) contractuel",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Si on affiche dans stderr au lieu de stdout ?",
+    "choices": [
+      "OK",
+      "mieux",
+      "tests KO",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) tests KO",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Que faire si une fonction autorisée est absente ?",
+    "choices": [
+      "inventer",
+      "coder autrement",
+      "utiliser printf",
+      "free"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) coder autrement",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand un comportement n’est pas précisé ?",
+    "choices": [
+      "inventer",
+      "faire ce qu’on veut",
+      "rester minimal",
+      "free"
+    ],
+    "correct": 2,
+    "explanation": "Réponse correcte: C) rester minimal",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi ne pas ajouter de texte explicatif ?",
+    "choices": [
+      "style",
+      "tests stricts",
+      "lent",
+      "norme"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) tests stricts",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Quand l’énoncé dit “returns pointer”, renvoyer malloc est :",
+    "choices": [
+      "faux",
+      "correct",
+      "interdit",
+      "lent"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) correct",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "Pourquoi respecter noms de fonctions ?",
+    "choices": [
+      "style",
+      "linker",
+      "compilation",
+      "B et C"
+    ],
+    "correct": 3,
+    "explanation": "Réponse correcte: D) B et C",
+    "tags": [
+      "regles_implicites"
+    ]
+  },
+  {
+    "theme": "regles_implicites",
+    "question": "La règle implicite numéro un à l’exam :",
+    "choices": [
+      "coder vite",
+      "relire l’énoncé",
+      "optimiser",
+      "commenter"
+    ],
+    "correct": 1,
+    "explanation": "Réponse correcte: B) relire l’énoncé",
+    "tags": [
+      "regles_implicites"
+    ]
   }
 ]

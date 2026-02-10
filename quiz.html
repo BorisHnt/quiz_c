@@ -73,6 +73,11 @@
           <button id="startQuizBtn" class="btn btn-primary" type="button">Démarrer</button>
           <a class="btn btn-secondary" href="flashcards.html">Aller aux flashcards</a>
         </div>
+
+        <article class="panel mt-16">
+          <h2 class="panel-title">Historique récent</h2>
+          <ul id="quizHistoryList" class="list"></ul>
+        </article>
       </section>
 
       <section id="quizSessionPanel" class="panel hidden" aria-live="polite">
@@ -112,6 +117,13 @@
           <p id="finalScoreText" class="panel-subtitle"></p>
           <p id="finalPenaltyText" class="panel-subtitle"></p>
         </div>
+
+        <article class="panel mt-16">
+          <h3 class="panel-title">Vue globale</h3>
+          <p class="panel-subtitle">Chaque case représente une question. Clique pour afficher le détail.</p>
+          <div id="quizResultGrid" class="result-grid" role="list"></div>
+          <div id="quizResultDetail" class="result-detail mt-16"></div>
+        </article>
 
         <article class="panel mt-16">
           <h3 class="panel-title">Erreurs de la session</h3>

@@ -33,7 +33,7 @@ const STORAGE_KEY = "c_revision_progress_v2";
       }
     },
     quiz: {
-      sessions: [{ date: string, mode: string, score: number, total: number, penalty: number, timer: number }],
+      sessions: [{ date: string, mode: string, theme: string, score: number, total: number, penalty: number, timer: number }],
       errors: [{ date: string, question: string, selected: string, correct: string, tags: string[], mode: string }]
     },
     ui: {
@@ -150,6 +150,7 @@ function normalizeProgress(input) {
             .map((s) => ({
               date: typeof s.date === "string" ? s.date : new Date().toISOString(),
               mode: typeof s.mode === "string" ? s.mode : "training",
+              theme: typeof s.theme === "string" ? s.theme : "random",
               score: safeNumber(s.score, 0),
               total: safeNumber(s.total, 0),
               penalty: safeNumber(s.penalty, 0),
