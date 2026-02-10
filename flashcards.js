@@ -1,59 +1,139 @@
-import { loadProgress, saveProgress, shuffleArray } from "./main.js";
+import {
+  initCommon,
+  loadProgress,
+  saveProgress,
+  upsertFlashcardRecords,
+  relativeTimeFromNow,
+  recordPerformance,
+} from "./main.js";
 
-const REVIEW_INTERVALS_DAYS = {
-  1: 1,
-  2: 2,
-  3: 4,
-  4: 7,
-  5: 14,
+const QUICK_RETRY_MINUTES = 3;
+const KNOWN_INTERVAL_MINUTES = {
+  1: 10,
+  2: 60,
+  3: 360,
+  4: 1440,
+  5: 4320,
 };
 
-const UNKNOWN_DELAY_MS = 15 * 60 * 1000;
+const Scheduler = {
+  mastery(record) {
+    const total = record.successCount + record.failCount;
+    if (total <= 0) {
+      return 0;
+    }
+    return record.successCount / total;
+  },
+
+  difficultyWeight(difficulty) {
+    if (difficulty === "hard") {
+      return 1.8;
+    }
+    if (difficulty === "medium") {
+      return 1.4;
+    }
+    return 1;
+  },
+
+  priority(record, now, sortMode) {
+    const dueWeight = now >= record.nextDue ? 2.5 : 0.8;
+    const failPressure = 1 + record.failCount * 0.35;
+    const masteryPenalty = 1 + (1 - Scheduler.mastery(record));
+    const diffWeight = Scheduler.difficultyWeight(record.difficulty);
+
+    if (sortMode === "due") {
+      return dueWeight * failPressure;
+    }
+
+    return dueWeight * failPressure * masteryPenalty * diffWeight;
+  },
+
+  scheduleAfterAnswer(record, knew, now) {
+    const out = { ...record };
+    out.lastSeen = now;
+
+    if (knew) {
+      out.successCount += 1;
+      out.box = Math.min(5, out.box + 1);
+      const minutes = KNOWN_INTERVAL_MINUTES[out.box] || 10;
+      out.nextDue = now + minutes * 60 * 1000;
+    } else {
+      out.failCount += 1;
+      out.box = Math.max(1, out.box - 1);
+      out.nextDue = now + QUICK_RETRY_MINUTES * 60 * 1000;
+    }
+
+    return out;
+  },
+};
 
 const ui = {
-  category: null,
-  progress: null,
-  card: null,
-  front: null,
-  back: null,
+  categoryFilter: null,
+  queueSizeSelect: null,
+  sortModeSelect: null,
+  errorsOnlyToggle: null,
+  applyFiltersBtn: null,
+  restartSessionBtn: null,
+  cardCategory: null,
+  cardProgress: null,
+  cardProgressBar: null,
+  flashcardContainer: null,
+  cardQuestion: null,
+  answerBlock: null,
+  cardAnswer: null,
+  cardExplanation: null,
+  flipBtn: null,
+  knownBtn: null,
+  unknownBtn: null,
+  masteryBadge: null,
+  nextDueBadge: null,
   feedback: null,
-  knownButton: null,
-  unknownButton: null,
-  restartButton: null,
+  historyList: null,
 };
 
 const state = {
   cards: [],
-  currentIndex: 0,
-  isFlipped: false,
-  isComplete: false,
-  isTransitioning: false,
+  queueIds: [],
+  cursor: 0,
+  flipped: false,
   progress: null,
 };
 
-function selectElements() {
-  ui.category = document.querySelector("#categoryBadge");
-  ui.progress = document.querySelector("#progressText");
-  ui.card = document.querySelector("#flashcardElement");
-  ui.front = document.querySelector("#flashcardFront");
-  ui.back = document.querySelector("#flashcardBack");
-  ui.feedback = document.querySelector("#flashcardFeedback");
-  ui.knownButton = document.querySelector("#knownBtn");
-  ui.unknownButton = document.querySelector("#unknownBtn");
-  ui.restartButton = document.querySelector("#restartSessionBtn");
+function selectUi() {
+  ui.categoryFilter = document.querySelector("#categoryFilter");
+  ui.queueSizeSelect = document.querySelector("#queueSizeSelect");
+  ui.sortModeSelect = document.querySelector("#sortModeSelect");
+  ui.errorsOnlyToggle = document.querySelector("#errorsOnlyToggle");
+  ui.applyFiltersBtn = document.querySelector("#applyFiltersBtn");
+  ui.restartSessionBtn = document.querySelector("#restartSessionBtn");
+  ui.cardCategory = document.querySelector("#cardCategory");
+  ui.cardProgress = document.querySelector("#cardProgress");
+  ui.cardProgressBar = document.querySelector("#cardProgressBar");
+  ui.flashcardContainer = document.querySelector("#flashcardContainer");
+  ui.cardQuestion = document.querySelector("#cardQuestion");
+  ui.answerBlock = document.querySelector("#answerBlock");
+  ui.cardAnswer = document.querySelector("#cardAnswer");
+  ui.cardExplanation = document.querySelector("#cardExplanation");
+  ui.flipBtn = document.querySelector("#flipBtn");
+  ui.knownBtn = document.querySelector("#knownBtn");
+  ui.unknownBtn = document.querySelector("#unknownBtn");
+  ui.masteryBadge = document.querySelector("#masteryBadge");
+  ui.nextDueBadge = document.querySelector("#nextDueBadge");
+  ui.feedback = document.querySelector("#flashcardsFeedback");
+  ui.historyList = document.querySelector("#historyList");
 
   return Object.values(ui).every((node) => node !== null);
 }
 
 function setFeedback(message, type = "") {
   ui.feedback.textContent = message;
-  ui.feedback.classList.remove("success", "error");
+  ui.feedback.classList.remove("is-success", "is-error");
   if (type) {
     ui.feedback.classList.add(type);
   }
 }
 
-function sanitizeCards(payload) {
+function sanitizeFlashcards(payload) {
   if (!Array.isArray(payload)) {
     return [];
   }
@@ -64,15 +144,22 @@ function sanitizeCards(payload) {
       (item) =>
         typeof item.id === "string" &&
         typeof item.category === "string" &&
-        typeof item.front === "string" &&
-        typeof item.back === "string"
+        typeof item.question === "string" &&
+        typeof item.answer === "string" &&
+        typeof item.explanation === "string"
     )
     .map((item) => ({
       id: item.id,
       category: item.category,
-      front: item.front,
-      back: item.back,
-      difficulty: typeof item.difficulty === "string" ? item.difficulty : "medium",
+      question: item.question,
+      answer: item.answer,
+      explanation: item.explanation,
+      difficulty: item.difficulty === "hard" || item.difficulty === "easy" ? item.difficulty : "medium",
+      successCount: Number.isFinite(item.successCount) ? item.successCount : 0,
+      failCount: Number.isFinite(item.failCount) ? item.failCount : 0,
+      lastSeen: Number.isFinite(item.lastSeen) ? item.lastSeen : 0,
+      nextDue: Number.isFinite(item.nextDue) ? item.nextDue : 0,
+      box: 1,
     }));
 }
 
@@ -81,226 +168,338 @@ async function fetchFlashcards() {
   if (!response.ok) {
     throw new Error("Impossible de charger les flashcards.");
   }
-  return sanitizeCards(await response.json());
+
+  const payload = await response.json();
+  return sanitizeFlashcards(payload);
 }
 
-function nextReviewFromBox(box, knew) {
-  if (!knew) {
-    return Date.now() + UNKNOWN_DELAY_MS;
-  }
-  const days = REVIEW_INTERVALS_DAYS[box] ?? 1;
-  return Date.now() + days * 24 * 60 * 60 * 1000;
+function renderCategoryFilter(cards) {
+  const categories = [...new Set(cards.map((card) => card.category))].sort((a, b) => a.localeCompare(b));
+  const currentValue = ui.categoryFilter.value;
+
+  ui.categoryFilter.innerHTML = "";
+
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "Toutes";
+  ui.categoryFilter.appendChild(allOption);
+
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    ui.categoryFilter.appendChild(option);
+  });
+
+  ui.categoryFilter.value = categories.includes(currentValue) ? currentValue : "all";
 }
 
-function isCardDue(cardId, progress, nowTimestamp) {
-  const record = progress.flashcards.cards[cardId];
-  if (!record) {
-    return true;
-  }
-  return Number(record.nextReviewAt) <= nowTimestamp;
-}
+function getFilteredCards() {
+  const category = ui.categoryFilter.value;
+  const errorsOnly = ui.errorsOnlyToggle.checked;
 
-function buildSession(allCards, progress) {
-  const search = new URLSearchParams(window.location.search);
-  const wantsResume = search.get("resume") === "1";
-
-  if (wantsResume && Array.isArray(progress.flashcards.lastSessionIds) && progress.flashcards.lastSessionIds.length > 0) {
-    const mapped = progress.flashcards.lastSessionIds
-      .map((id) => allCards.find((card) => card.id === id))
-      .filter(Boolean);
-
-    if (mapped.length > 0) {
-      state.currentIndex = Math.max(0, Math.min(progress.flashcards.sessionCursor, mapped.length));
-      return mapped;
+  return state.cards.filter((card) => {
+    if (category !== "all" && card.category !== category) {
+      return false;
     }
-  }
 
-  const nowTimestamp = Date.now();
-  const dueCards = allCards.filter((card) => isCardDue(card.id, progress, nowTimestamp));
-  const cards = shuffleArray(dueCards.length > 0 ? dueCards : allCards);
+    if (errorsOnly) {
+      const rec = state.progress.flashcards.records[card.id];
+      if (!rec) {
+        return false;
+      }
+      return rec.failCount > 0;
+    }
 
-  progress.flashcards.lastSessionIds = cards.map((card) => card.id);
-  progress.flashcards.sessionCursor = 0;
-  progress.flashcards.lastSessionAt = new Date().toISOString();
-  state.currentIndex = 0;
-  state.progress = saveProgress(progress);
-
-  return cards;
+    return true;
+  });
 }
 
-function setActionButtonsEnabled(enabled) {
-  ui.knownButton.disabled = !enabled;
-  ui.unknownButton.disabled = !enabled;
+function buildQueue() {
+  const now = Date.now();
+  const filtered = getFilteredCards();
+  const sortMode = ui.sortModeSelect.value;
+  const queueSize = Number.parseInt(ui.queueSizeSelect.value, 10);
+
+  const ranked = filtered
+    .map((card) => ({
+      id: card.id,
+      record: state.progress.flashcards.records[card.id],
+      priority: Scheduler.priority(state.progress.flashcards.records[card.id], now, sortMode),
+    }))
+    .sort((a, b) => {
+      if (sortMode === "due") {
+        const dueDiff = a.record.nextDue - b.record.nextDue;
+        if (dueDiff !== 0) {
+          return dueDiff;
+        }
+      }
+      return b.priority - a.priority;
+    });
+
+  const chosen = ranked.slice(0, Math.max(1, queueSize)).map((entry) => entry.id);
+
+  state.queueIds = chosen;
+  state.cursor = 0;
+
+  state.progress.flashcards.session = {
+    queueIds: [...state.queueIds],
+    cursor: state.cursor,
+    category: ui.categoryFilter.value,
+    errorsOnly: ui.errorsOnlyToggle.checked,
+    sortMode: ui.sortModeSelect.value,
+    queueSize,
+  };
+
+  state.progress = saveProgress(state.progress);
+}
+
+function currentRecord() {
+  const id = state.queueIds[state.cursor];
+  if (!id) {
+    return null;
+  }
+  return state.progress.flashcards.records[id] || null;
+}
+
+function updateProgressUi() {
+  const total = state.queueIds.length;
+  const current = Math.min(state.cursor + 1, total);
+  ui.cardProgress.textContent = `${current} / ${total}`;
+
+  const width = total > 0 ? Math.round((Math.min(state.cursor, total) / total) * 100) : 0;
+  ui.cardProgressBar.style.width = `${width}%`;
+}
+
+function renderHistory() {
+  const recent = [...state.progress.flashcards.history].slice(-10).reverse();
+  ui.historyList.innerHTML = "";
+
+  if (recent.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Aucun historique enregistré.";
+    ui.historyList.appendChild(li);
+    return;
+  }
+
+  recent.forEach((item) => {
+    const li = document.createElement("li");
+    const date = new Date(item.at).toLocaleString("fr-FR");
+    li.textContent = `${date} | ${item.category} | ${item.result === "known" ? "connu" : "inconnu"}`;
+    ui.historyList.appendChild(li);
+  });
 }
 
 function renderCard() {
-  const total = state.cards.length;
+  updateProgressUi();
 
-  if (total === 0) {
-    state.isComplete = true;
-    ui.category.textContent = "Aucune donnée";
-    ui.progress.textContent = "0 / 0";
-    ui.front.textContent = "Aucune flashcard valide n'a été trouvée.";
-    ui.back.textContent = "Ajoute des cartes dans data/flashcards.json.";
-    setActionButtonsEnabled(false);
-    ui.restartButton.classList.remove("hidden");
+  const record = currentRecord();
+  if (!record) {
+    ui.cardCategory.textContent = "Session terminée";
+    ui.cardQuestion.textContent = "Session terminée. Lance une nouvelle session ou modifie les filtres.";
+    ui.answerBlock.classList.add("hidden");
+    ui.knownBtn.disabled = true;
+    ui.unknownBtn.disabled = true;
+    ui.flipBtn.disabled = true;
+    ui.masteryBadge.textContent = "Maîtrise: -";
+    ui.nextDueBadge.textContent = "Prochaine apparition: -";
+    setFeedback("Aucune autre carte dans la session.");
     return;
   }
 
-  if (state.currentIndex >= total) {
-    state.isComplete = true;
-    ui.category.textContent = "Session terminée";
-    ui.progress.textContent = `${total} / ${total}`;
-    ui.card.classList.remove("is-flipped");
-    ui.front.textContent = "Toutes les cartes de la session ont été traitées.";
-    ui.back.textContent = "Lance une nouvelle session pour continuer la révision.";
-    setFeedback("Session sauvegardée.", "success");
-    setActionButtonsEnabled(false);
-    ui.restartButton.classList.remove("hidden");
+  const totalAttempts = record.successCount + record.failCount;
+  const mastery = totalAttempts > 0 ? Math.round((record.successCount / totalAttempts) * 100) : 0;
 
-    if (state.progress) {
-      state.progress.flashcards.sessionCursor = state.cards.length;
-      state.progress = saveProgress(state.progress);
-    }
+  ui.cardCategory.textContent = `${record.category} | ${record.difficulty}`;
+  ui.cardQuestion.textContent = record.question;
+  ui.cardAnswer.textContent = record.answer;
+  ui.cardExplanation.textContent = record.explanation;
+  ui.masteryBadge.textContent = `Maîtrise: ${mastery}%`;
+  ui.nextDueBadge.textContent = `Prochaine apparition: ${relativeTimeFromNow(record.nextDue)}`;
 
-    return;
+  ui.knownBtn.disabled = !state.flipped;
+  ui.unknownBtn.disabled = !state.flipped;
+  ui.flipBtn.disabled = false;
+
+  if (state.flipped) {
+    ui.answerBlock.classList.remove("hidden");
+  } else {
+    ui.answerBlock.classList.add("hidden");
   }
-
-  state.isComplete = false;
-  state.isFlipped = false;
-  ui.card.classList.remove("is-flipped");
-  ui.restartButton.classList.add("hidden");
-
-  const currentCard = state.cards[state.currentIndex];
-  ui.category.textContent = `${currentCard.category} · ${currentCard.difficulty}`;
-  ui.progress.textContent = `${state.currentIndex + 1} / ${total}`;
-  ui.front.textContent = currentCard.front;
-  ui.back.textContent = currentCard.back;
-  setActionButtonsEnabled(false);
-  setFeedback("");
 }
 
 function flipCard() {
-  if (state.isComplete || state.isTransitioning) {
+  if (!currentRecord()) {
     return;
   }
 
-  state.isFlipped = !state.isFlipped;
-  ui.card.classList.toggle("is-flipped", state.isFlipped);
-  setActionButtonsEnabled(state.isFlipped);
+  state.flipped = !state.flipped;
+  ui.answerBlock.classList.toggle("hidden", !state.flipped);
+  ui.knownBtn.disabled = !state.flipped;
+  ui.unknownBtn.disabled = !state.flipped;
 }
 
-function persistAnswer(card, knew) {
-  const progress = state.progress ?? loadProgress();
-  const records = progress.flashcards.cards;
-
-  const currentRecord = records[card.id] ?? {
-    box: 1,
-    nextReviewAt: 0,
-    lastSeen: 0,
-    stats: { known: 0, unknown: 0 },
-  };
-
-  const previousBox = Number.isFinite(currentRecord.box) ? currentRecord.box : 1;
-  const nextBox = knew ? Math.min(5, previousBox + 1) : Math.max(1, previousBox - 1);
-
-  records[card.id] = {
-    box: nextBox,
-    nextReviewAt: nextReviewFromBox(nextBox, knew),
-    lastSeen: Date.now(),
-    stats: {
-      known: (currentRecord.stats?.known ?? 0) + (knew ? 1 : 0),
-      unknown: (currentRecord.stats?.unknown ?? 0) + (knew ? 0 : 1),
-    },
-  };
-
-  progress.flashcards.reviewedCount += 1;
-  progress.flashcards.streak = knew ? progress.flashcards.streak + 1 : 0;
-  progress.flashcards.bestStreak = Math.max(progress.flashcards.bestStreak, progress.flashcards.streak);
-  progress.flashcards.sessionCursor = state.currentIndex + 1;
-  progress.flashcards.lastSessionAt = new Date().toISOString();
-
-  state.progress = saveProgress(progress);
+function requeueFailedCard(cardId) {
+  const insertIndex = Math.min(state.cursor + 2, state.queueIds.length);
+  state.queueIds.splice(insertIndex, 0, cardId);
 }
 
-function answerCard(knew) {
-  if (state.isComplete || state.isTransitioning || !state.isFlipped) {
+function pushHistory(card, result) {
+  state.progress.flashcards.history.push({
+    id: card.id,
+    result,
+    at: Date.now(),
+    category: card.category,
+  });
+  state.progress.flashcards.history = state.progress.flashcards.history.slice(-200);
+}
+
+function applyAnswer(knew) {
+  const record = currentRecord();
+  if (!record || !state.flipped) {
     return;
   }
 
-  const card = state.cards[state.currentIndex];
-  state.isTransitioning = true;
-  setActionButtonsEnabled(false);
-  persistAnswer(card, knew);
+  const now = Date.now();
+  const updated = Scheduler.scheduleAfterAnswer(record, knew, now);
 
+  state.progress.flashcards.records[record.id] = updated;
   if (knew) {
-    setFeedback("Réponse enregistrée: juste.", "success");
+    state.progress.flashcards.streak += 1;
+    state.progress.flashcards.bestStreak = Math.max(
+      state.progress.flashcards.bestStreak,
+      state.progress.flashcards.streak
+    );
   } else {
-    setFeedback("Réponse enregistrée: à revoir.", "error");
+    state.progress.flashcards.streak = 0;
+    requeueFailedCard(record.id);
   }
 
-  window.setTimeout(() => {
-    state.currentIndex += 1;
-    state.isTransitioning = false;
-    renderCard();
-  }, 460);
+  pushHistory(record, knew ? "known" : "unknown");
+  recordPerformance(state.progress, knew);
+
+  state.cursor += 1;
+  state.progress.flashcards.session.queueIds = [...state.queueIds];
+  state.progress.flashcards.session.cursor = state.cursor;
+
+  state.progress = saveProgress(state.progress);
+  state.flipped = false;
+
+  setFeedback(
+    knew
+      ? `Validé. Nouvelle apparition ${relativeTimeFromNow(updated.nextDue)}.`
+      : `Carte ratée. Retour rapide ${relativeTimeFromNow(updated.nextDue)}.`,
+    knew ? "is-success" : "is-error"
+  );
+
+  renderHistory();
+  renderCard();
+}
+
+function restoreSessionFromQuery() {
+  const params = new URLSearchParams(window.location.search);
+  const wantsResume = params.get("resume") === "1";
+  const errorsOnlyFromQuery = params.get("errors") === "1";
+
+  if (errorsOnlyFromQuery) {
+    ui.errorsOnlyToggle.checked = true;
+  }
+
+  if (!wantsResume) {
+    return false;
+  }
+
+  const session = state.progress.flashcards.session;
+  if (!Array.isArray(session.queueIds) || session.queueIds.length === 0) {
+    return false;
+  }
+
+  ui.categoryFilter.value = session.category || "all";
+  ui.errorsOnlyToggle.checked = Boolean(session.errorsOnly);
+  ui.sortModeSelect.value = session.sortMode === "due" ? "due" : "weak";
+  ui.queueSizeSelect.value = String(session.queueSize || 20);
+
+  state.queueIds = [...session.queueIds].filter((id) => state.progress.flashcards.records[id]);
+  state.cursor = Math.max(0, Math.min(session.cursor || 0, state.queueIds.length));
+  return state.queueIds.length > 0;
 }
 
 function bindEvents() {
-  ui.card.addEventListener("click", flipCard);
-  ui.knownButton.addEventListener("click", () => answerCard(true));
-  ui.unknownButton.addEventListener("click", () => answerCard(false));
+  ui.flipBtn.addEventListener("click", flipCard);
+  ui.knownBtn.addEventListener("click", () => applyAnswer(true));
+  ui.unknownBtn.addEventListener("click", () => applyAnswer(false));
 
-  ui.restartButton.addEventListener("click", () => {
-    window.location.href = "flashcards.html";
+  ui.flashcardContainer.addEventListener("click", flipCard);
+  ui.flashcardContainer.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      flipCard();
+    }
+  });
+
+  ui.applyFiltersBtn.addEventListener("click", () => {
+    state.flipped = false;
+    buildQueue();
+    renderCard();
+    setFeedback("Filtres appliqués. Nouvelle file de révision.");
+  });
+
+  ui.restartSessionBtn.addEventListener("click", () => {
+    state.flipped = false;
+    buildQueue();
+    renderCard();
+    setFeedback("Nouvelle session démarrée.");
   });
 
   document.addEventListener("keydown", (event) => {
-    if (state.isComplete) {
+    const tag = document.activeElement?.tagName || "";
+    if (["INPUT", "SELECT", "TEXTAREA"].includes(tag)) {
       return;
     }
 
-    const activeTag = document.activeElement?.tagName || "";
-    const isFormTarget = ["INPUT", "TEXTAREA", "SELECT", "BUTTON", "A"].includes(activeTag);
-
-    if (event.code === "Space" && !isFormTarget) {
+    if (event.code === "Space") {
       event.preventDefault();
       flipCard();
       return;
     }
 
-    if (event.code === "ArrowRight") {
+    if (event.key.toLowerCase() === "k" || event.code === "ArrowRight") {
       event.preventDefault();
-      answerCard(true);
+      applyAnswer(true);
       return;
     }
 
-    if (event.code === "ArrowLeft") {
+    if (event.key.toLowerCase() === "i" || event.code === "ArrowLeft") {
       event.preventDefault();
-      answerCard(false);
+      applyAnswer(false);
     }
   });
 }
 
 async function initFlashcardsPage() {
-  if (!selectElements()) {
+  if (!selectUi()) {
     return;
   }
 
   try {
-    const cards = await fetchFlashcards();
-    state.progress = loadProgress();
-    state.cards = buildSession(cards, state.progress);
+    state.progress = initCommon("flashcards", "flashcards.html?resume=1");
+    const dataCards = await fetchFlashcards();
+    state.cards = upsertFlashcardRecords(dataCards, state.progress);
+    state.progress = saveProgress(state.progress);
 
+    renderCategoryFilter(state.cards);
     bindEvents();
+
+    const restored = restoreSessionFromQuery();
+    if (!restored) {
+      buildQueue();
+    }
+
+    renderHistory();
     renderCard();
+    setFeedback("Session prête. Retourne une carte pour commencer.");
   } catch (_error) {
-    ui.category.textContent = "Erreur de chargement";
-    ui.progress.textContent = "0 / 0";
-    ui.front.textContent = "Les flashcards n'ont pas pu être chargées.";
-    ui.back.textContent = "Vérifie le fichier data/flashcards.json.";
-    setActionButtonsEnabled(false);
-    setFeedback("Impossible d'initialiser la session.", "error");
+    setFeedback("Erreur de chargement des flashcards.", "is-error");
   }
 }
 

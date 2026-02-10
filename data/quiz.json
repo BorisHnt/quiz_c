@@ -1,74 +1,142 @@
 [
   {
-    "question": "Que renvoie `malloc` si l'allocation échoue ?",
-    "choices": ["Une adresse valide", "0 uniquement sur Linux", "NULL", "-1"],
-    "answerIndex": 2,
-    "explanation": "La bibliothèque standard définit un retour `NULL` en cas d'échec de `malloc`."
+    "question": "Que renvoie `malloc` en cas d'échec ?",
+    "choices": ["0 sur certains OS", "NULL", "-1", "Une zone vide"],
+    "correct": 1,
+    "explanation": "`malloc` renvoie `NULL` quand l'allocation échoue.",
+    "tags": ["memory", "pointers"]
   },
   {
-    "question": "Quel format de boucle parcourt un tableau de `n` éléments sans dépassement ?",
-    "choices": ["for (i = 0; i <= n; i++)", "for (i = 1; i < n; i++)", "for (i = 0; i < n; i++)", "for (i = n; i >= 0; i--)"],
-    "answerIndex": 2,
-    "explanation": "Les indices valides vont de `0` à `n - 1`, donc la condition doit être `i < n`."
-  },
-  {
-    "question": "Quelle instruction libère correctement un bloc alloué avec `malloc` ?",
-    "choices": ["delete ptr;", "free(ptr);", "release(ptr);", "remove(ptr);"],
-    "answerIndex": 1,
-    "explanation": "En C, on utilise `free` pour libérer la mémoire allouée dynamiquement."
-  },
-  {
-    "question": "Que signifie l'opérateur `->` ?",
-    "choices": ["Accès à un champ via un pointeur de structure", "Déplacement de pointeur", "Comparaison de deux pointeurs", "Passage par référence"],
-    "answerIndex": 0,
-    "explanation": "`ptr->field` est équivalent à `(*ptr).field`."
-  },
-  {
-    "question": "Quel en-tête inclut la déclaration de `printf` ?",
+    "question": "Quel en-tête contient `printf` ?",
     "choices": ["<unistd.h>", "<stdlib.h>", "<stdio.h>", "<string.h>"],
-    "answerIndex": 2,
-    "explanation": "`printf` est déclaré dans `<stdio.h>`."
+    "correct": 2,
+    "explanation": "`printf` est déclaré dans `<stdio.h>`.",
+    "tags": ["io", "compilation"]
   },
   {
-    "question": "Quelle situation provoque un comportement non défini ?",
-    "choices": ["Tester `ptr == NULL`", "Lire une variable locale non initialisée", "Utiliser `sizeof(int)`", "Comparer deux entiers"],
-    "answerIndex": 1,
-    "explanation": "Une variable locale non initialisée contient une valeur indéterminée."
+    "question": "Quelle boucle parcourt correctement un tableau de taille `n` ?",
+    "choices": ["for(i=0;i<=n;i++)", "for(i=1;i<n;i++)", "for(i=0;i<n;i++)", "for(i=n;i>0;i--)"],
+    "correct": 2,
+    "explanation": "Les indices valides vont de 0 à n-1.",
+    "tags": ["arrays"]
+  },
+  {
+    "question": "Que signifie `p->value` ?",
+    "choices": ["Comparaison de pointeurs", "Accès à un champ via pointeur", "Incrémentation", "Adressage"],
+    "correct": 1,
+    "explanation": "`p->value` équivaut à `(*p).value`.",
+    "tags": ["struct", "pointers"]
+  },
+  {
+    "question": "Quelle fonction libère un bloc alloué dynamiquement ?",
+    "choices": ["delete", "release", "free", "drop"],
+    "correct": 2,
+    "explanation": "En C, la libération se fait avec `free`.",
+    "tags": ["memory"]
   },
   {
     "question": "Que renvoie `read` à la fin d'un fichier ?",
-    "choices": ["-1", "0", "1", "EOF"],
-    "answerIndex": 1,
-    "explanation": "`read` renvoie `0` lorsqu'il n'y a plus de données à lire."
+    "choices": ["-1", "0", "EOF", "1"],
+    "correct": 1,
+    "explanation": "Le retour `0` indique qu'il n'y a plus de données.",
+    "tags": ["io", "files"]
   },
   {
-    "question": "Quel est l'effet de `-Werror` lors de la compilation ?",
-    "choices": ["Ignore les warnings", "Transforme les warnings en erreurs", "Optimise le binaire", "Ajoute des symboles de debug"],
-    "answerIndex": 1,
-    "explanation": "`-Werror` force la correction des avertissements en interrompant la compilation."
+    "question": "Pourquoi `strcpy` peut provoquer un bug critique ?",
+    "choices": ["Elle enlève `\\0`", "Elle copie trop lentement", "Elle ne vérifie pas la taille du buffer destination", "Elle convertit en UTF-8"],
+    "correct": 2,
+    "explanation": "`strcpy` ne limite pas la copie selon la capacité de destination.",
+    "tags": ["strings", "memory"]
   },
   {
-    "question": "Pourquoi éviter `strcpy` sans contrôle de taille ?",
-    "choices": ["Elle est trop lente", "Elle supprime le terminator `\\0`", "Elle peut déborder le buffer destination", "Elle modifie `src`"],
-    "answerIndex": 2,
-    "explanation": "`strcpy` copie jusqu'au `\\0` sans vérifier la capacité de destination."
+    "question": "Quel effet de `-Werror` ?",
+    "choices": ["Ignore les warnings", "Transforme warnings en erreurs", "Ajoute des optimisations", "Active le debug"],
+    "correct": 1,
+    "explanation": "La compilation échoue au moindre warning.",
+    "tags": ["compilation"]
   },
   {
-    "question": "Quelle expression déréférence un pointeur `p` vers int ?",
-    "choices": ["&p", "*p", "p[]", "p->"],
-    "answerIndex": 1,
-    "explanation": "`*p` permet d'accéder à la valeur pointée par `p`."
+    "question": "Que fait `*p` si `p` est un pointeur valide vers int ?",
+    "choices": ["Retourne l'adresse", "Retourne la valeur pointée", "Libère la mémoire", "Cast en int"],
+    "correct": 1,
+    "explanation": "`*` déréférence le pointeur.",
+    "tags": ["pointers"]
   },
   {
-    "question": "Quelle est la signature correcte de `main` en C standard ?",
-    "choices": ["void main()", "int main(void)", "main()", "char main()"],
-    "answerIndex": 1,
-    "explanation": "`int main(void)` ou `int main(int argc, char **argv)` sont les formes standard."
+    "question": "Quel comportement pour une variable locale non initialisée ?",
+    "choices": ["Valeur 0", "Valeur aléatoire garantie", "Comportement non défini", "Erreur de compilation"],
+    "correct": 2,
+    "explanation": "Lire une variable non initialisée est non défini en C.",
+    "tags": ["functions", "memory"]
   },
   {
-    "question": "Quelle fonction compare deux chaînes C ?",
-    "choices": ["strmatch", "cmp", "strcmp", "streq"],
-    "answerIndex": 2,
-    "explanation": "`strcmp` compare lexicalement deux chaînes terminées par `\\0`."
+    "question": "Quelle signature standard de `main` est correcte ?",
+    "choices": ["void main()", "int main(void)", "char main()", "main(int)"],
+    "correct": 1,
+    "explanation": "`int main(void)` est une forme standard valide.",
+    "tags": ["compilation", "functions"]
+  },
+  {
+    "question": "Que fait `sizeof(char)` en C standard ?",
+    "choices": ["Renvoie 0", "Renvoie 1", "Renvoie 2", "Dépend toujours du CPU"],
+    "correct": 1,
+    "explanation": "La norme fixe `sizeof(char)` à 1.",
+    "tags": ["types"]
+  },
+  {
+    "question": "Pourquoi comparer le retour de `open` à `-1` ?",
+    "choices": ["`open` renvoie -1 en erreur", "`open` renvoie toujours -1", "`open` renvoie 0 en erreur", "`open` ne renvoie rien"],
+    "correct": 0,
+    "explanation": "`open` renvoie un descripteur >=0 en succès et -1 en échec.",
+    "tags": ["files", "io"]
+  },
+  {
+    "question": "Quel risque si on écrit hors limites d'un tableau ?",
+    "choices": ["Aucun", "Comportement non défini", "Compilation bloquée", "Nettoyage automatique"],
+    "correct": 1,
+    "explanation": "L'accès hors limites peut corrompre la mémoire.",
+    "tags": ["arrays", "memory"]
+  },
+  {
+    "question": "Pourquoi utiliser `const` dans les paramètres chaîne en lecture ?",
+    "choices": ["Pour accélérer automatiquement", "Pour empêcher la modification accidentelle", "Pour allouer plus vite", "Pour éviter `malloc`"],
+    "correct": 1,
+    "explanation": "`const` protège le contrat de non-modification.",
+    "tags": ["strings", "functions"]
+  },
+  {
+    "question": "Quel opérateur récupère l'adresse d'une variable ?",
+    "choices": ["*", "&", "->", "%"],
+    "correct": 1,
+    "explanation": "`&var` produit l'adresse de `var`.",
+    "tags": ["pointers"]
+  },
+  {
+    "question": "Que faire après `free(ptr)` pour limiter les usages invalides ?",
+    "choices": ["Rien", "`ptr = NULL`", "`ptr++`", "`delete ptr`"],
+    "correct": 1,
+    "explanation": "Remettre à NULL aide à éviter un double usage d'adresse invalide.",
+    "tags": ["memory", "pointers"]
+  },
+  {
+    "question": "`strcmp(a,b)` renvoie 0 quand ?",
+    "choices": ["Quand `a` est plus court", "Quand `a` et `b` sont identiques", "Quand `a` vaut NULL", "Quand `b` est vide"],
+    "correct": 1,
+    "explanation": "0 indique égalité lexicographique des chaînes.",
+    "tags": ["strings"]
+  },
+  {
+    "question": "Pourquoi vérifier le nombre d'octets réellement lus par `read` ?",
+    "choices": ["Parce qu'il est toujours égal à la taille demandée", "Parce qu'il peut être partiel", "Parce qu'il est en bits", "Parce qu'il dépend de `malloc`"],
+    "correct": 1,
+    "explanation": "`read` peut renvoyer moins que demandé, sans erreur.",
+    "tags": ["io", "files"]
+  },
+  {
+    "question": "Quel est l'effet d'un pointeur non initialisé déréférencé ?",
+    "choices": ["Comportement sûr", "Comportement non défini", "Retourne NULL", "Compile mais sans risque"],
+    "correct": 1,
+    "explanation": "Un pointeur non initialisé ne pointe pas vers une zone valide connue.",
+    "tags": ["pointers", "memory"]
   }
 ]

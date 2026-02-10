@@ -3,28 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Révision C | Flashcards</title>
-    <meta
-      name="description"
-      content="Cartes de révision du langage C avec répétition espacée et progression sauvegardée."
-    />
+    <title>Révision C - Flashcards</title>
+    <meta name="description" content="Flashcards en répétition espacée simplifiée pour le C." />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body data-page="flashcards">
     <header class="site-header" role="banner">
       <div class="nav-wrap">
-        <a class="brand" href="index.html">C Revision Lab</a>
-        <button
-          id="navToggle"
-          class="nav-toggle"
-          type="button"
-          aria-label="Ouvrir le menu"
-          aria-controls="navMenu"
-          aria-expanded="false"
-        >
-          <span class="bar" aria-hidden="true"></span>
-          <span class="bar" aria-hidden="true"></span>
-          <span class="bar" aria-hidden="true"></span>
+        <a class="brand" href="index.html">C Active Recall</a>
+        <button id="navToggle" class="nav-toggle" type="button" aria-label="Menu" aria-controls="navMenu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
         <nav aria-label="Navigation principale">
           <ul id="navMenu" class="nav-menu">
@@ -37,45 +27,85 @@
     </header>
 
     <main>
-      <section class="centered" aria-labelledby="flashcardsTitle">
-        <div class="card">
-          <h1 id="flashcardsTitle" class="page-title">Flashcards C</h1>
-          <p class="page-subtitle">
-            Cliquez sur la carte ou appuyez sur Espace pour retourner. Flèche droite: je savais. Flèche gauche: je ne savais pas.
-          </p>
+      <section class="panel">
+        <h1 class="panel-title">Flashcards - Rappel actif</h1>
+        <div class="control-grid">
+          <div class="field">
+            <label for="categoryFilter">Catégorie</label>
+            <select id="categoryFilter">
+              <option value="all">Toutes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="queueSizeSelect">Taille session</label>
+            <select id="queueSizeSelect">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="30">30</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sortModeSelect">Priorisation</label>
+            <select id="sortModeSelect">
+              <option value="weak">Faiblesses d'abord</option>
+              <option value="due">Échéances d'abord</option>
+            </select>
+          </div>
+          <div class="inline-check">
+            <input type="checkbox" id="errorsOnlyToggle" />
+            <label for="errorsOnlyToggle">Mode erreurs seulement</label>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button id="applyFiltersBtn" class="btn btn-primary" type="button">Appliquer</button>
+          <button id="restartSessionBtn" class="btn btn-secondary" type="button">Nouvelle session</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="flashcard-head">
+          <span id="cardCategory" class="badge">Catégorie</span>
+          <span id="cardProgress" class="badge">0 / 0</span>
+        </div>
+        <div class="progress-wrap" aria-hidden="true">
+          <div id="cardProgressBar" class="progress-bar"></div>
         </div>
 
-        <article class="card" aria-live="polite">
-          <div class="meta-row">
-            <span id="categoryBadge" class="badge">Chargement...</span>
-            <span id="progressText" class="progress">0 / 0</span>
+        <article id="flashcardContainer" class="flashcard" tabindex="0" aria-live="polite">
+          <p class="flashcard-question" id="cardQuestion">Chargement...</p>
+          <div id="answerBlock" class="hidden">
+            <p class="flashcard-answer" id="cardAnswer"></p>
+            <p class="flashcard-explanation" id="cardExplanation"></p>
           </div>
+        </article>
 
-          <div class="flashcard-shell">
-            <button
-              id="flashcardElement"
-              class="flashcard"
-              type="button"
-              aria-label="Retourner la carte"
-            >
-              <span class="flashcard-face front">
-                <span class="card-label">Question</span>
-                <span id="flashcardFront" class="card-content">Chargement des cartes...</span>
-              </span>
-              <span class="flashcard-face back">
-                <span class="card-label">Réponse et explication</span>
-                <span id="flashcardBack" class="card-content"></span>
-              </span>
-            </button>
-          </div>
+        <div class="btn-row">
+          <button id="flipBtn" class="btn btn-secondary" type="button">Retourner (Espace)</button>
+          <button id="knownBtn" class="btn btn-success" type="button" disabled>Connu (K / →)</button>
+          <button id="unknownBtn" class="btn btn-danger" type="button" disabled>Inconnu (I / ←)</button>
+        </div>
 
-          <div class="button-row">
-            <button id="unknownBtn" class="btn btn-danger" type="button" disabled>Je ne savais pas</button>
-            <button id="knownBtn" class="btn btn-success" type="button" disabled>Je savais</button>
-            <button id="restartSessionBtn" class="btn btn-secondary hidden" type="button">Recommencer une session</button>
-          </div>
+        <div class="btn-row">
+          <span id="masteryBadge" class="badge">Maîtrise: 0%</span>
+          <span id="nextDueBadge" class="badge">Prochaine apparition: -</span>
+        </div>
 
-          <p id="flashcardFeedback" class="feedback" aria-live="polite"></p>
+        <p id="flashcardsFeedback" class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="layout-two">
+        <article class="panel">
+          <h2 class="panel-title">Historique récent</h2>
+          <ul id="historyList" class="list" aria-live="polite"></ul>
+        </article>
+        <article class="panel">
+          <h2 class="panel-title">Raccourcis clavier</h2>
+          <ul class="kbd-list mono">
+            <li>Espace: retourner la carte</li>
+            <li>K ou flèche droite: marquer connu</li>
+            <li>I ou flèche gauche: marquer inconnu</li>
+            <li>Entrée: retourner la carte active</li>
+          </ul>
         </article>
       </section>
     </main>

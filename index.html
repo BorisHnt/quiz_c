@@ -3,28 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Révision C | Tableau de bord</title>
-    <meta
-      name="description"
-      content="Tableau de bord de révision du langage C avec flashcards et quiz type examen 42."
-    />
+    <title>Révision C - Tableau de bord</title>
+    <meta name="description" content="Tableau de bord de mémorisation active en langage C." />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body data-page="index">
     <header class="site-header" role="banner">
       <div class="nav-wrap">
-        <a class="brand" href="index.html">C Revision Lab</a>
-        <button
-          id="navToggle"
-          class="nav-toggle"
-          type="button"
-          aria-label="Ouvrir le menu"
-          aria-controls="navMenu"
-          aria-expanded="false"
-        >
-          <span class="bar" aria-hidden="true"></span>
-          <span class="bar" aria-hidden="true"></span>
-          <span class="bar" aria-hidden="true"></span>
+        <a class="brand" href="index.html">C Active Recall</a>
+        <button id="navToggle" class="nav-toggle" type="button" aria-label="Menu" aria-controls="navMenu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
         <nav aria-label="Navigation principale">
           <ul id="navMenu" class="nav-menu">
@@ -37,40 +27,69 @@
     </header>
 
     <main>
-      <div class="page-grid centered">
-        <section class="card" aria-labelledby="homeTitle">
-          <h1 id="homeTitle" class="page-title">Révision du langage C pour les examens style 42</h1>
-          <p class="page-subtitle">
-            Avance par cartes de mémorisation et sessions quiz chronométrées. Ta progression est sauvegardée localement sur cet appareil.
-          </p>
-          <div class="button-row">
-            <a class="btn btn-primary" href="flashcards.html">Ouvrir les flashcards</a>
-            <a class="btn btn-primary" href="quiz.html">Démarrer un quiz</a>
-            <a id="resumeSessionBtn" class="btn btn-secondary hidden" href="flashcards.html?resume=1">
-              Reprendre la dernière session
-            </a>
-          </div>
-        </section>
+      <section class="panel">
+        <h1 class="panel-title">Révision active du C</h1>
+        <p class="panel-subtitle">
+          Objectif: rappel actif, répétition espacée, correction rapide des lacunes et préparation examen blanc.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="flashcards.html">Lancer les flashcards</a>
+          <a class="btn btn-primary" href="quiz.html?mode=training">Mode entraînement chronométré</a>
+          <a class="btn btn-primary" href="quiz.html?mode=exam">Mode examen blanc</a>
+          <a id="resumeSessionBtn" class="btn btn-secondary hidden" href="flashcards.html?resume=1">Reprendre la session</a>
+        </div>
+      </section>
 
-        <section class="card" aria-labelledby="statsTitle">
-          <h2 id="statsTitle" class="page-title">Statistiques</h2>
-          <p class="page-subtitle">Indicateurs calculés à partir de tes sessions sauvegardées.</p>
-          <div class="stat-grid" role="list" aria-label="Indicateurs de progression">
-            <article class="stat-item" role="listitem">
-              <p class="stat-label">Cartes révisées</p>
-              <p id="cardsReviewedStat" class="stat-value">0</p>
-            </article>
-            <article class="stat-item" role="listitem">
-              <p class="stat-label">Taux de réussite</p>
-              <p id="successRateStat" class="stat-value">0%</p>
-            </article>
-            <article class="stat-item" role="listitem">
-              <p class="stat-label">Série en cours</p>
-              <p id="streakStat" class="stat-value">0</p>
-            </article>
+      <section class="panel">
+        <h2 class="panel-title">Statistiques globales</h2>
+        <div class="stat-grid">
+          <article class="stat-item">
+            <p class="stat-label">Cartes révisées</p>
+            <p id="statCardsReviewed" class="stat-value">0</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Taux de réussite</p>
+            <p id="statSuccessRate" class="stat-value">0%</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Série actuelle</p>
+            <p id="statStreak" class="stat-value">0</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Erreurs mémorisées</p>
+            <p id="statErrors" class="stat-value">0</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="layout-two">
+        <article class="panel">
+          <h2 class="panel-title">Cartes difficiles prioritaires</h2>
+          <ul id="difficultCardsList" class="list" aria-live="polite"></ul>
+        </article>
+
+        <article class="panel">
+          <h2 class="panel-title">Accès erreurs</h2>
+          <p class="panel-subtitle">Révision ciblée immédiate</p>
+          <div class="btn-row">
+            <a class="btn btn-danger" href="flashcards.html?errors=1">Flashcards erreurs</a>
+            <a class="btn btn-danger" href="quiz.html?mode=targeted">Quiz ciblé erreurs</a>
           </div>
-        </section>
-      </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2 class="panel-title">Heatmap performance (28 jours)</h2>
+        <div id="heatmapGrid" class="heatmap" aria-label="Heatmap performance"></div>
+        <div class="legend" aria-hidden="true">
+          <span class="legend-item"><span class="legend-swatch swatch-neutral"></span>Neutre</span>
+          <span class="legend-item"><span class="legend-swatch swatch-low"></span>Faible</span>
+          <span class="legend-item"><span class="legend-swatch swatch-drop"></span>En baisse</span>
+          <span class="legend-item"><span class="legend-swatch swatch-mid"></span>Moyen</span>
+          <span class="legend-item"><span class="legend-swatch swatch-good"></span>Bon</span>
+          <span class="legend-item"><span class="legend-swatch swatch-best"></span>Excellent</span>
+        </div>
+      </section>
     </main>
 
     <script type="module" src="main.js"></script>

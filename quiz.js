@@ -1,23 +1,28 @@
-import { loadProgress, saveProgress, shuffleArray } from "./main.js";
+import {
+  initCommon,
+  loadProgress,
+  saveProgress,
+  createSeededRng,
+  seedFromString,
+  todayKey,
+  recordPerformance,
+} from "./main.js";
 
-const QUESTION_TIME_SECONDS = 20;
-const LOW_TIME_THRESHOLD_SECONDS = 5;
-
-class CountdownTimer {
-  constructor(durationSeconds, onTick, onExpire) {
-    this.durationMs = durationSeconds * 1000;
-    this.remainingMs = this.durationMs;
+class QuestionTimer {
+  constructor(onTick, onExpire) {
     this.onTick = onTick;
     this.onExpire = onExpire;
     this.intervalId = null;
-    this.deadlineMs = 0;
+    this.deadline = 0;
+    this.remainingMs = 0;
   }
 
-  start() {
+  start(seconds) {
     this.stop();
-    this.deadlineMs = Date.now() + this.remainingMs;
+    this.remainingMs = Math.max(0, seconds * 1000);
+    this.deadline = Date.now() + this.remainingMs;
     this.tick();
-    this.intervalId = window.setInterval(() => this.tick(), 200);
+    this.intervalId = window.setInterval(() => this.tick(), 100);
   }
 
   stop() {
@@ -27,18 +32,8 @@ class CountdownTimer {
     }
   }
 
-  reset(durationSeconds = null) {
-    if (durationSeconds !== null) {
-      this.durationMs = durationSeconds * 1000;
-    }
-    this.remainingMs = this.durationMs;
-    this.stop();
-    this.onTick(Math.ceil(this.remainingMs / 1000));
-  }
-
   tick() {
-    const now = Date.now();
-    this.remainingMs = Math.max(0, this.deadlineMs - now);
+    this.remainingMs = Math.max(0, this.deadline - Date.now());
     const remainingSeconds = Math.ceil(this.remainingMs / 1000);
     this.onTick(remainingSeconds);
 
@@ -49,51 +44,7 @@ class CountdownTimer {
   }
 }
 
-const ui = {
-  quizView: null,
-  finalView: null,
-  progress: null,
-  timer: null,
-  score: null,
-  question: null,
-  answers: null,
-  feedback: null,
-  nextButton: null,
-  finalScore: null,
-  finalSummary: null,
-  mistakesList: null,
-  restartButton: null,
-};
-
-const state = {
-  loadedQuestions: [],
-  questions: [],
-  currentIndex: 0,
-  score: 0,
-  answered: false,
-  mistakes: [],
-  timer: null,
-};
-
-function selectElements() {
-  ui.quizView = document.querySelector("#quizView");
-  ui.finalView = document.querySelector("#quizFinalView");
-  ui.progress = document.querySelector("#quizProgress");
-  ui.timer = document.querySelector("#quizTimer");
-  ui.score = document.querySelector("#quizScore");
-  ui.question = document.querySelector("#quizQuestion");
-  ui.answers = document.querySelector("#answersContainer");
-  ui.feedback = document.querySelector("#quizFeedback");
-  ui.nextButton = document.querySelector("#nextQuestionBtn");
-  ui.finalScore = document.querySelector("#finalScore");
-  ui.finalSummary = document.querySelector("#finalSummary");
-  ui.mistakesList = document.querySelector("#mistakesList");
-  ui.restartButton = document.querySelector("#restartQuizBtn");
-
-  return Object.values(ui).every((node) => node !== null);
-}
-
-function sanitizeQuestions(payload) {
+function sanitizeQuizData(payload) {
   if (!Array.isArray(payload)) {
     return [];
   }
@@ -103,141 +54,285 @@ function sanitizeQuestions(payload) {
     .map((item) => ({
       question: typeof item.question === "string" ? item.question.trim() : "",
       choices: Array.isArray(item.choices) ? item.choices.filter((choice) => typeof choice === "string") : [],
-      answerIndex: Number.isInteger(item.answerIndex) ? item.answerIndex : -1,
+      correct: Number.isInteger(item.correct) ? item.correct : -1,
       explanation: typeof item.explanation === "string" ? item.explanation.trim() : "",
+      tags: Array.isArray(item.tags) ? item.tags.filter((tag) => typeof tag === "string") : [],
     }))
     .filter(
       (item) =>
         item.question.length > 0 &&
         item.choices.length >= 2 &&
-        item.answerIndex >= 0 &&
-        item.answerIndex < item.choices.length
+        item.correct >= 0 &&
+        item.correct < item.choices.length
     );
 }
 
-async function fetchQuizData() {
-  const response = await fetch("./data/quiz.json", { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error("Impossible de charger les questions de quiz.");
-  }
-  return sanitizeQuestions(await response.json());
-}
-
-function formatTime(seconds) {
+function formatTimer(seconds) {
   const safe = Math.max(0, seconds);
   const mm = String(Math.floor(safe / 60)).padStart(2, "0");
   const ss = String(safe % 60).padStart(2, "0");
   return `${mm}:${ss}`;
 }
 
-function updateTimerUI(seconds) {
-  ui.timer.textContent = formatTime(seconds);
-  ui.timer.classList.toggle("is-low", seconds <= LOW_TIME_THRESHOLD_SECONDS);
+function buildWeaknessMap(progress) {
+  const weaknessByTag = new Map();
+
+  Object.values(progress.flashcards.records).forEach((record) => {
+    const total = record.successCount + record.failCount;
+    const failRate = total > 0 ? record.failCount / total : 0;
+    const weakValue = failRate * 3 + Math.max(0, record.failCount - record.successCount) * 0.2;
+
+    if (weakValue > 0) {
+      const key = String(record.category || "").toLowerCase();
+      weaknessByTag.set(key, (weaknessByTag.get(key) || 0) + weakValue);
+    }
+  });
+
+  progress.quiz.errors.forEach((error) => {
+    error.tags.forEach((tag) => {
+      const key = String(tag || "").toLowerCase();
+      weaknessByTag.set(key, (weaknessByTag.get(key) || 0) + 1.2);
+    });
+  });
+
+  const questionMistakes = new Map();
+  progress.quiz.errors.forEach((error) => {
+    const key = error.question;
+    questionMistakes.set(key, (questionMistakes.get(key) || 0) + 1);
+  });
+
+  return { weaknessByTag, questionMistakes };
 }
 
-function clearFeedback() {
-  ui.feedback.classList.add("hidden");
-  ui.feedback.classList.remove("success", "error");
-  ui.feedback.textContent = "";
+function questionWeight(question, weaknessInfo) {
+  const { weaknessByTag, questionMistakes } = weaknessInfo;
+  let weight = 1;
+
+  question.tags.forEach((tag) => {
+    weight += weaknessByTag.get(String(tag).toLowerCase()) || 0;
+  });
+
+  weight += (questionMistakes.get(question.question) || 0) * 1.4;
+  return Math.max(0.1, weight);
 }
 
-function setFeedback(message, type) {
+function weightedOrder(items, weightFn, rng) {
+  const pool = items.map((item) => ({ item, weight: Math.max(0.001, weightFn(item)) }));
+  const out = [];
+
+  while (pool.length > 0) {
+    const totalWeight = pool.reduce((sum, entry) => sum + entry.weight, 0);
+    let pick = rng() * totalWeight;
+    let chosenIndex = 0;
+
+    for (let i = 0; i < pool.length; i += 1) {
+      pick -= pool[i].weight;
+      if (pick <= 0) {
+        chosenIndex = i;
+        break;
+      }
+    }
+
+    out.push(pool[chosenIndex].item);
+    pool.splice(chosenIndex, 1);
+  }
+
+  return out;
+}
+
+function pickModeDefaults(mode) {
+  if (mode === "rush") {
+    return { timer: 10, count: 10 };
+  }
+  if (mode === "targeted") {
+    return { timer: 15, count: 10 };
+  }
+  if (mode === "exam") {
+    return { timer: 20, count: 20 };
+  }
+  return { timer: 20, count: 20 };
+}
+
+function buildQuestionSet(allQuestions, mode, count, weaknessInfo, rng) {
+  const weighted = weightedOrder(allQuestions, (question) => questionWeight(question, weaknessInfo), rng);
+
+  if (mode === "targeted") {
+    const targeted = weighted.filter((question) => questionWeight(question, weaknessInfo) > 1.6);
+    if (targeted.length > 0) {
+      return targeted.slice(0, Math.min(count, targeted.length));
+    }
+    return weighted.slice(0, Math.min(count, weighted.length));
+  }
+
+  if (mode === "rush") {
+    return weighted.slice(0, Math.min(count, 10, weighted.length));
+  }
+
+  if (mode === "exam") {
+    const examCount = Math.max(20, count);
+    return weighted.slice(0, Math.min(examCount, weighted.length));
+  }
+
+  return weighted.slice(0, Math.min(count, weighted.length));
+}
+
+function modeLabel(mode) {
+  if (mode === "rush") {
+    return "Rush";
+  }
+  if (mode === "targeted") {
+    return "Ciblé erreurs";
+  }
+  if (mode === "exam") {
+    return "Examen blanc";
+  }
+  return "Entraînement";
+}
+
+const ui = {
+  setupPanel: null,
+  modeSelect: null,
+  timerSelect: null,
+  countSelect: null,
+  penaltySelect: null,
+  startBtn: null,
+  sessionPanel: null,
+  progress: null,
+  score: null,
+  penalty: null,
+  timer: null,
+  question: null,
+  choices: null,
+  feedback: null,
+  nextBtn: null,
+  finalPanel: null,
+  finalScore: null,
+  finalMode: null,
+  finalPenalty: null,
+  errorsList: null,
+  restartBtn: null,
+  exportBtn: null,
+};
+
+const state = {
+  progress: null,
+  allQuestions: [],
+  sessionQuestions: [],
+  index: 0,
+  score: 0,
+  answered: false,
+  sessionMode: "training",
+  timerPerQuestion: 20,
+  penaltySeconds: 3,
+  penaltyTotal: 0,
+  penaltyCarry: 0,
+  timer: null,
+  sessionErrors: [],
+};
+
+function selectUi() {
+  ui.setupPanel = document.querySelector("#quizSetupPanel");
+  ui.modeSelect = document.querySelector("#quizModeSelect");
+  ui.timerSelect = document.querySelector("#timerPerQuestionSelect");
+  ui.countSelect = document.querySelector("#questionCountSelect");
+  ui.penaltySelect = document.querySelector("#timePenaltySelect");
+  ui.startBtn = document.querySelector("#startQuizBtn");
+  ui.sessionPanel = document.querySelector("#quizSessionPanel");
+  ui.progress = document.querySelector("#quizProgress");
+  ui.score = document.querySelector("#quizScore");
+  ui.penalty = document.querySelector("#quizPenalty");
+  ui.timer = document.querySelector("#quizTimer");
+  ui.question = document.querySelector("#quizQuestion");
+  ui.choices = document.querySelector("#quizChoices");
+  ui.feedback = document.querySelector("#quizFeedback");
+  ui.nextBtn = document.querySelector("#nextQuestionBtn");
+  ui.finalPanel = document.querySelector("#quizFinalPanel");
+  ui.finalScore = document.querySelector("#finalScoreText");
+  ui.finalMode = document.querySelector("#finalModeText");
+  ui.finalPenalty = document.querySelector("#finalPenaltyText");
+  ui.errorsList = document.querySelector("#quizErrorsList");
+  ui.restartBtn = document.querySelector("#restartQuizBtn");
+  ui.exportBtn = document.querySelector("#exportErrorsBtn");
+
+  return Object.values(ui).every((node) => node !== null);
+}
+
+function setFeedback(message, type = "") {
   ui.feedback.textContent = message;
-  ui.feedback.classList.remove("hidden", "success", "error");
+  ui.feedback.classList.remove("is-success", "is-error");
   if (type) {
     ui.feedback.classList.add(type);
   }
 }
 
-function currentQuestion() {
-  return state.questions[state.currentIndex] ?? null;
+async function fetchQuiz() {
+  const response = await fetch("./data/quiz.json", { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error("Impossible de charger le quiz.");
+  }
+  return sanitizeQuizData(await response.json());
 }
 
-function setScoreUI() {
+function applyModeDefaults(mode) {
+  const defaults = pickModeDefaults(mode);
+  ui.timerSelect.value = String(defaults.timer);
+  ui.countSelect.value = String(defaults.count);
+}
+
+function updateTopStats() {
+  ui.progress.textContent = `${Math.min(state.index + 1, state.sessionQuestions.length)} / ${state.sessionQuestions.length}`;
   ui.score.textContent = String(state.score);
+  ui.penalty.textContent = `${state.penaltyTotal}s`;
 }
 
-function createAnswerButton(choiceText, index) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "answer-card";
-  button.setAttribute("role", "listitem");
-  button.dataset.index = String(index);
-  button.textContent = choiceText;
-  return button;
+function setTimerDisplay(seconds) {
+  ui.timer.textContent = formatTimer(seconds);
+  ui.timer.classList.toggle("is-critical", seconds <= 5);
 }
 
-function lockAnswerButtons() {
-  ui.answers.querySelectorAll("button").forEach((button) => {
+function getQuestionTime() {
+  const available = Math.max(5, state.timerPerQuestion - Math.min(state.penaltyCarry, state.timerPerQuestion - 5));
+  const used = state.timerPerQuestion - available;
+  state.penaltyCarry = Math.max(0, state.penaltyCarry - used);
+  return available;
+}
+
+function currentQuestion() {
+  return state.sessionQuestions[state.index] || null;
+}
+
+function disableChoices() {
+  ui.choices.querySelectorAll("button").forEach((button) => {
     button.disabled = true;
   });
 }
 
-function renderQuestion() {
-  const question = currentQuestion();
-
-  if (!question) {
-    finishQuiz();
-    return;
-  }
-
-  state.answered = false;
-  ui.progress.textContent = `${state.currentIndex + 1} / ${state.questions.length}`;
-  ui.question.textContent = question.question;
-  ui.answers.innerHTML = "";
-  clearFeedback();
-  ui.nextButton.classList.add("hidden");
-
-  question.choices.forEach((choice, index) => {
-    const button = createAnswerButton(choice, index);
-    button.addEventListener("click", () => {
-      evaluateAnswer(index);
-    });
-    ui.answers.appendChild(button);
-  });
-
-  state.timer.reset(QUESTION_TIME_SECONDS);
-  state.timer.start();
-}
-
 function markChoices(correctIndex, selectedIndex) {
-  const buttons = Array.from(ui.answers.querySelectorAll("button"));
-  buttons.forEach((button, index) => {
-    if (index === correctIndex) {
+  const buttons = Array.from(ui.choices.querySelectorAll("button"));
+  buttons.forEach((button, idx) => {
+    if (idx === correctIndex) {
       button.classList.add("is-correct");
     }
-    if (index === selectedIndex && selectedIndex !== correctIndex) {
-      button.classList.add("is-wrong", "shake");
+    if (idx === selectedIndex && selectedIndex !== correctIndex) {
+      button.classList.add("is-wrong");
     }
   });
 }
 
-function buildFeedbackText(question, isCorrect, selectedIndex, timeout) {
+function registerError(question, selectedIndex) {
   const selectedText = selectedIndex >= 0 ? question.choices[selectedIndex] : "Aucune réponse";
-  const correctText = question.choices[question.answerIndex];
-
-  if (isCorrect) {
-    return `Bonne réponse.\n${question.explanation}`;
-  }
-
-  if (timeout) {
-    return `Temps écoulé. Réponse attendue: ${correctText}.\n${question.explanation}`;
-  }
-
-  return `Réponse incorrecte: ${selectedText}. Réponse attendue: ${correctText}.\n${question.explanation}`;
-}
-
-function registerMistake(question, selectedIndex) {
-  const selectedAnswer = selectedIndex >= 0 ? question.choices[selectedIndex] : "Aucune réponse";
-  state.mistakes.push({
+  const errorEntry = {
     date: new Date().toISOString(),
     question: question.question,
-    correctAnswer: question.choices[question.answerIndex],
-    selectedAnswer,
-  });
+    selected: selectedText,
+    correct: question.choices[question.correct],
+    tags: [...question.tags],
+    mode: state.sessionMode,
+  };
+  state.sessionErrors.push(errorEntry);
 }
 
-function evaluateAnswer(selectedIndex, timeout = false) {
+function evaluateAnswer(selectedIndex, timedOut = false) {
   const question = currentQuestion();
   if (!question || state.answered) {
     return;
@@ -246,135 +341,226 @@ function evaluateAnswer(selectedIndex, timeout = false) {
   state.answered = true;
   state.timer.stop();
 
-  const isCorrect = selectedIndex === question.answerIndex;
+  const isCorrect = selectedIndex === question.correct;
   if (isCorrect) {
     state.score += 1;
+    recordPerformance(state.progress, true);
   } else {
-    registerMistake(question, selectedIndex);
+    registerError(question, selectedIndex);
+    state.penaltyTotal += state.penaltySeconds;
+    state.penaltyCarry += state.penaltySeconds;
+    recordPerformance(state.progress, false);
   }
 
-  lockAnswerButtons();
-  markChoices(question.answerIndex, selectedIndex);
+  updateTopStats();
+  disableChoices();
+  markChoices(question.correct, selectedIndex);
 
-  const feedback = buildFeedbackText(question, isCorrect, selectedIndex, timeout);
-  setFeedback(feedback, isCorrect ? "success" : "error");
+  if (isCorrect) {
+    setFeedback(`Bonne réponse. ${question.explanation}`, "is-success");
+  } else if (timedOut) {
+    setFeedback(`Temps écoulé. Réponse attendue: ${question.choices[question.correct]}. ${question.explanation}`, "is-error");
+  } else {
+    setFeedback(
+      `Réponse incorrecte. Attendu: ${question.choices[question.correct]}. ${question.explanation}`,
+      "is-error"
+    );
+  }
 
-  setScoreUI();
-  ui.nextButton.textContent =
-    state.currentIndex < state.questions.length - 1 ? "Question suivante" : "Voir le résultat";
-  ui.nextButton.classList.remove("hidden");
-  ui.nextButton.focus();
+  ui.nextBtn.classList.remove("hidden");
+  ui.nextBtn.textContent = state.index < state.sessionQuestions.length - 1 ? "Question suivante" : "Voir le résultat";
+  ui.nextBtn.focus();
 }
 
-function handleTimeout() {
-  evaluateAnswer(-1, true);
-}
-
-function persistQuizResult() {
-  const progress = loadProgress();
-  const total = state.questions.length;
-  const percent = total > 0 ? Math.round((state.score / total) * 100) : 0;
-
-  progress.quiz.sessions.push({
-    date: new Date().toISOString(),
-    correct: state.score,
-    total,
-    percent,
-  });
-  progress.quiz.sessions = progress.quiz.sessions.slice(-60);
-
-  const combinedMistakes = [...state.mistakes, ...progress.quiz.mistakes];
-  progress.quiz.mistakes = combinedMistakes.slice(0, 200);
-
-  return saveProgress(progress);
-}
-
-function renderMistakesList() {
-  ui.mistakesList.innerHTML = "";
-
-  if (state.mistakes.length === 0) {
-    const item = document.createElement("li");
-    item.textContent = "Aucune erreur sur cette session.";
-    ui.mistakesList.appendChild(item);
+function renderQuestion() {
+  const question = currentQuestion();
+  if (!question) {
     return;
   }
 
-  state.mistakes.slice(0, 8).forEach((mistake) => {
-    const item = document.createElement("li");
-    item.textContent = `${mistake.question} | attendu: ${mistake.correctAnswer} | choisi: ${mistake.selectedAnswer}`;
-    ui.mistakesList.appendChild(item);
+  state.answered = false;
+  updateTopStats();
+
+  ui.question.textContent = question.question;
+  ui.choices.innerHTML = "";
+  ui.nextBtn.classList.add("hidden");
+
+  question.choices.forEach((choice, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "choice";
+    button.setAttribute("role", "listitem");
+    button.textContent = `${index + 1}. ${choice}`;
+    button.addEventListener("click", () => evaluateAnswer(index));
+    ui.choices.appendChild(button);
   });
+
+  setFeedback("Sélectionne la meilleure réponse.");
+
+  const perQuestionTime = getQuestionTime();
+  state.timer.start(perQuestionTime);
 }
 
 function finishQuiz() {
   state.timer.stop();
-  const saved = persistQuizResult();
 
-  const total = state.questions.length;
-  const percent = total > 0 ? Math.round((state.score / total) * 100) : 0;
+  state.progress.quiz.sessions.push({
+    date: new Date().toISOString(),
+    mode: state.sessionMode,
+    score: state.score,
+    total: state.sessionQuestions.length,
+    penalty: state.penaltyTotal,
+    timer: state.timerPerQuestion,
+  });
+  state.progress.quiz.sessions = state.progress.quiz.sessions.slice(-150);
 
-  ui.quizView.classList.add("hidden");
-  ui.finalView.classList.remove("hidden");
+  state.progress.quiz.errors = [...state.sessionErrors, ...state.progress.quiz.errors].slice(0, 300);
+  state.progress = saveProgress(state.progress);
 
-  ui.finalScore.textContent = `Score: ${state.score} / ${total} (${percent}%)`;
-  ui.finalSummary.textContent =
-    `Erreurs de session: ${state.mistakes.length}. Historique total sauvegardé: ${saved.quiz.mistakes.length}.`;
+  ui.sessionPanel.classList.add("hidden");
+  ui.finalPanel.classList.remove("hidden");
 
-  renderMistakesList();
+  const adjustedScore = Math.max(0, state.score - Math.floor(state.penaltyTotal / Math.max(1, state.timerPerQuestion)));
+
+  ui.finalScore.textContent =
+    `Score brut: ${state.score}/${state.sessionQuestions.length} | Score ajusté pénalité: ${adjustedScore}/${state.sessionQuestions.length}`;
+  ui.finalMode.textContent = `Mode: ${modeLabel(state.sessionMode)} | Timer/question: ${state.timerPerQuestion}s`;
+  ui.finalPenalty.textContent = `Pénalité cumulée: ${state.penaltyTotal}s`;
+
+  ui.errorsList.innerHTML = "";
+  if (state.sessionErrors.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Aucune erreur sur cette session.";
+    ui.errorsList.appendChild(li);
+  } else {
+    state.sessionErrors.forEach((error) => {
+      const li = document.createElement("li");
+      li.textContent = `${error.question} | attendu: ${error.correct} | répondu: ${error.selected}`;
+      ui.errorsList.appendChild(li);
+    });
+  }
 }
 
-function startQuizSession() {
-  state.questions = shuffleArray(state.loadedQuestions);
-  state.currentIndex = 0;
-  state.score = 0;
-  state.answered = false;
-  state.mistakes = [];
+function startSession() {
+  const mode = ui.modeSelect.value;
+  const requestedTimer = Number.parseInt(ui.timerSelect.value, 10);
+  const requestedCount = Number.parseInt(ui.countSelect.value, 10);
+  const penaltySeconds = Number.parseInt(ui.penaltySelect.value, 10);
 
-  ui.quizView.classList.remove("hidden");
-  ui.finalView.classList.add("hidden");
-  setScoreUI();
-  clearFeedback();
+  state.sessionMode = mode;
+  state.timerPerQuestion = Number.isFinite(requestedTimer) ? requestedTimer : 20;
+  state.penaltySeconds = Number.isFinite(penaltySeconds) ? penaltySeconds : 3;
+  state.penaltyTotal = 0;
+  state.penaltyCarry = 0;
+  state.score = 0;
+  state.index = 0;
+  state.sessionErrors = [];
+
+  const weaknessInfo = buildWeaknessMap(state.progress);
+  const seed = seedFromString(`${todayKey()}-${mode}-${state.progress.quiz.errors.length}`);
+  const rng = createSeededRng(seed);
+  state.sessionQuestions = buildQuestionSet(state.allQuestions, mode, requestedCount, weaknessInfo, rng);
+
+  if (state.sessionQuestions.length === 0) {
+    setFeedback("Aucune question disponible pour ce mode.", "is-error");
+    return;
+  }
+
+  ui.setupPanel.classList.add("hidden");
+  ui.finalPanel.classList.add("hidden");
+  ui.sessionPanel.classList.remove("hidden");
+
   renderQuestion();
 }
 
+function goToNextQuestion() {
+  if (!state.answered) {
+    return;
+  }
+
+  state.index += 1;
+  if (state.index >= state.sessionQuestions.length) {
+    finishQuiz();
+    return;
+  }
+
+  renderQuestion();
+}
+
+function exportErrorsAsJson() {
+  const payload = JSON.stringify(state.progress.quiz.errors, null, 2);
+  const blob = new Blob([payload], { type: "application/json" });
+  const href = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = href;
+  link.download = `quiz-errors-${todayKey()}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(href);
+}
+
 function bindEvents() {
-  ui.nextButton.addEventListener("click", () => {
-    if (!state.answered) {
-      return;
-    }
-    state.currentIndex += 1;
-    renderQuestion();
+  ui.modeSelect.addEventListener("change", () => {
+    applyModeDefaults(ui.modeSelect.value);
   });
 
-  ui.restartButton.addEventListener("click", () => {
-    startQuizSession();
+  ui.startBtn.addEventListener("click", startSession);
+  ui.nextBtn.addEventListener("click", goToNextQuestion);
+
+  ui.restartBtn.addEventListener("click", () => {
+    ui.finalPanel.classList.add("hidden");
+    ui.setupPanel.classList.remove("hidden");
+  });
+
+  ui.exportBtn.addEventListener("click", exportErrorsAsJson);
+
+  document.addEventListener("keydown", (event) => {
+    if (ui.sessionPanel.classList.contains("hidden")) {
+      return;
+    }
+
+    if (state.answered) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        goToNextQuestion();
+      }
+      return;
+    }
+
+    if (/^[1-9]$/.test(event.key)) {
+      const idx = Number.parseInt(event.key, 10) - 1;
+      const button = ui.choices.querySelectorAll("button")[idx];
+      if (button) {
+        button.click();
+      }
+    }
   });
 }
 
 async function initQuizPage() {
-  if (!selectElements()) {
+  if (!selectUi()) {
     return;
   }
 
   try {
-    state.loadedQuestions = await fetchQuizData();
+    state.progress = initCommon("quiz", "quiz.html");
+    state.allQuestions = await fetchQuiz();
 
-    if (state.loadedQuestions.length === 0) {
-      ui.question.textContent = "Aucune question valide n'a été trouvée dans data/quiz.json.";
-      ui.answers.innerHTML = "";
-      ui.nextButton.classList.add("hidden");
-      return;
-    }
-
-    state.timer = new CountdownTimer(QUESTION_TIME_SECONDS, updateTimerUI, handleTimeout);
-
+    state.timer = new QuestionTimer(setTimerDisplay, () => evaluateAnswer(-1, true));
     bindEvents();
-    startQuizSession();
+
+    const params = new URLSearchParams(window.location.search);
+    const modeFromQuery = params.get("mode");
+
+    if (["training", "rush", "targeted", "exam"].includes(modeFromQuery)) {
+      ui.modeSelect.value = modeFromQuery;
+    }
+    applyModeDefaults(ui.modeSelect.value);
+
+    setFeedback("Configure le mode puis démarre le quiz.");
   } catch (_error) {
-    ui.question.textContent = "Le quiz n'a pas pu être chargé.";
-    ui.answers.innerHTML = "";
-    setFeedback("Vérifie le fichier data/quiz.json.", "error");
-    ui.nextButton.classList.add("hidden");
+    setFeedback("Erreur de chargement des questions.", "is-error");
   }
 }
 
