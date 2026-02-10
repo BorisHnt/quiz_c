@@ -407,9 +407,9 @@ function renderResultDetail(index) {
     return;
   }
 
-  const status = item.isCorrect ? "Correct" : item.timedOut ? "Temps écoulé" : "Incorrect";
+  const status = item.isCorrect ? "Correcte" : item.timedOut ? "Temps écoulé" : "A revoir";
   ui.resultDetail.textContent =
-    `Q${index + 1} | ${status} | Répondu: ${item.selected} | Attendu: ${item.correct} | ${item.explanation}`;
+    `Q${index + 1} | ${status} | Ta réponse: ${item.selected} | Réponse attendue: ${item.correct} | ${item.explanation}`;
 }
 
 function renderResultGrid() {
@@ -499,7 +499,7 @@ function setSelectedChoice(index) {
   }
   state.selectedChoice = index;
   highlightSelectedChoice();
-  setFeedback("Réponse sélectionnée. Clique sur Suivant pour valider.");
+  setFeedback("Top, réponse sélectionnée. Clique sur Suivant pour valider.");
 }
 
 function registerError(question, selectedIndex) {
@@ -553,17 +553,17 @@ function evaluateAnswer(selectedIndex, timedOut = false) {
   markChoices(question.correct, selectedIndex);
 
   if (isCorrect) {
-    setFeedback(`Bonne réponse. ${question.explanation}`, "is-success");
+    setFeedback(`Bien joué, c'est la bonne réponse. ${question.explanation}`, "is-success");
   } else if (timedOut) {
     setFeedback(
-      `Temps écoulé. Réponse attendue: ${correctText}. ${question.explanation}${
+      `Le temps est écoulé. La bonne réponse était: ${correctText}. ${question.explanation}${
         state.reviewPause ? " Clique sur Suivant pour continuer." : ""
       }`,
       "is-error"
     );
   } else {
     setFeedback(
-      `Réponse incorrecte. Attendu: ${correctText}. ${question.explanation}${
+      `Pas grave, tu progresses. La bonne réponse était: ${correctText}. ${question.explanation}${
         state.reviewPause ? " Clique sur Suivant pour continuer." : ""
       }`,
       "is-error"
@@ -599,12 +599,12 @@ function renderQuestion() {
     button.type = "button";
     button.className = "choice";
     button.setAttribute("role", "listitem");
-    button.textContent = `${index + 1}. ${choice}`;
+    button.textContent = `${String.fromCharCode(65 + index)}. ${choice}`;
     button.addEventListener("click", () => setSelectedChoice(index));
     ui.choices.appendChild(button);
   });
 
-  setFeedback("Sélectionne une réponse puis valide avec Suivant.");
+  setFeedback("Lis la question, choisis la meilleure option, puis valide.");
 
   const perQuestionTime = getQuestionTime();
   state.timer.start(perQuestionTime);
@@ -699,7 +699,7 @@ function submitCurrentQuestion(timedOut = false) {
   }
 
   if (!timedOut && state.selectedChoice < 0) {
-    setFeedback("Sélectionne une réponse avant de continuer.", "is-error");
+    setFeedback("Choisis une réponse avant de continuer.", "is-error");
     return false;
   }
 
@@ -760,7 +760,7 @@ function bindEvents() {
     state.progress.quiz.sessions = [];
     state.progress = saveProgress(state.progress);
     renderHistory();
-    setFeedback("Historique des sessions vidé.");
+    setFeedback("Historique vidé.");
   });
 
   ui.revisionBtn.addEventListener("click", () => {
@@ -800,6 +800,15 @@ function bindEvents() {
 
     if (/^[1-9]$/.test(event.key)) {
       const idx = Number.parseInt(event.key, 10) - 1;
+      const button = ui.choices.querySelectorAll("button")[idx];
+      if (button) {
+        button.click();
+      }
+      return;
+    }
+
+    if (/^[a-dA-D]$/.test(event.key)) {
+      const idx = event.key.toUpperCase().charCodeAt(0) - 65;
       const button = ui.choices.querySelectorAll("button")[idx];
       if (button) {
         button.click();
@@ -844,9 +853,9 @@ async function initQuizPage() {
       setActiveTheme(themeFromQuery);
     }
 
-    setFeedback("Configure le quiz puis démarre la session.");
+    setFeedback("Configure ta session puis lance le quiz.");
   } catch (_error) {
-    setFeedback("Erreur de chargement des questions.", "is-error");
+    setFeedback("Impossible de charger les questions pour le moment.", "is-error");
   }
 }
 
