@@ -488,6 +488,11 @@ main {
   background: var(--paper-2);
 }
 
+.choice.is-selected {
+  border-color: var(--blue);
+  background: var(--paper-2);
+}
+
 .choice.is-correct {
   background: var(--green);
   color: #ffffff;

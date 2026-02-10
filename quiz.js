@@ -8,6 +8,8 @@ import {
   recordPerformance,
 } from "./main.js";
 
+const REVISION_MODE_KEY = "c_revision_quiz_revision_mode_v1";
+
 class QuestionTimer {
   constructor(onTick, onExpire) {
     this.onTick = onTick;
@@ -189,8 +191,10 @@ const ui = {
   timerSelect: null,
   countSelect: null,
   penaltySelect: null,
+  revisionToggle: null,
   startBtn: null,
   historyList: null,
+  clearHistoryBtn: null,
   sessionPanel: null,
   progress: null,
   score: null,
@@ -218,6 +222,9 @@ const state = {
   index: 0,
   score: 0,
   answered: false,
+  selectedChoice: -1,
+  revisionMode: false,
+  reviewPause: false,
   selectedTheme: "random",
   timerPerQuestion: 20,
   penaltySeconds: 3,
@@ -235,8 +242,10 @@ function selectUi() {
   ui.timerSelect = document.querySelector("#timerPerQuestionSelect");
   ui.countSelect = document.querySelector("#questionCountSelect");
   ui.penaltySelect = document.querySelector("#timePenaltySelect");
+  ui.revisionToggle = document.querySelector("#revisionModeToggle");
   ui.startBtn = document.querySelector("#startQuizBtn");
   ui.historyList = document.querySelector("#quizHistoryList");
+  ui.clearHistoryBtn = document.querySelector("#clearQuizHistoryBtn");
   ui.sessionPanel = document.querySelector("#quizSessionPanel");
   ui.progress = document.querySelector("#quizProgress");
   ui.score = document.querySelector("#quizScore");
@@ -395,6 +404,22 @@ function markChoices(correctIndex, selectedIndex) {
   });
 }
 
+function highlightSelectedChoice() {
+  const buttons = Array.from(ui.choices.querySelectorAll("button"));
+  buttons.forEach((button, idx) => {
+    button.classList.toggle("is-selected", idx === state.selectedChoice && !state.answered);
+  });
+}
+
+function setSelectedChoice(index) {
+  if (state.answered || state.reviewPause) {
+    return;
+  }
+  state.selectedChoice = index;
+  highlightSelectedChoice();
+  setFeedback("Réponse sélectionnée. Clique sur Suivant pour valider.");
+}
+
 function registerError(question, selectedIndex) {
   const selectedText = selectedIndex >= 0 ? question.choices[selectedIndex] : "Aucune réponse";
   const errorEntry = {
@@ -420,6 +445,7 @@ function evaluateAnswer(selectedIndex, timedOut = false) {
   const isCorrect = selectedIndex === question.correct;
   const selectedText = selectedIndex >= 0 ? question.choices[selectedIndex] : "Aucune réponse";
   const correctText = question.choices[question.correct];
+  state.reviewPause = state.revisionMode && !isCorrect;
 
   state.sessionResults[state.index] = {
     question: question.question,
@@ -447,13 +473,26 @@ function evaluateAnswer(selectedIndex, timedOut = false) {
   if (isCorrect) {
     setFeedback(`Bonne réponse. ${question.explanation}`, "is-success");
   } else if (timedOut) {
-    setFeedback(`Temps écoulé. Réponse attendue: ${correctText}. ${question.explanation}`, "is-error");
+    setFeedback(
+      `Temps écoulé. Réponse attendue: ${correctText}. ${question.explanation}${
+        state.reviewPause ? " Clique sur Suivant pour continuer." : ""
+      }`,
+      "is-error"
+    );
   } else {
-    setFeedback(`Réponse incorrecte. Attendu: ${correctText}. ${question.explanation}`, "is-error");
+    setFeedback(
+      `Réponse incorrecte. Attendu: ${correctText}. ${question.explanation}${
+        state.reviewPause ? " Clique sur Suivant pour continuer." : ""
+      }`,
+      "is-error"
+    );
   }
 
-  ui.nextBtn.classList.remove("hidden");
-  ui.nextBtn.textContent = state.index < state.sessionQuestions.length - 1 ? "Question suivante" : "Voir le résultat";
+  if (state.reviewPause) {
+    ui.nextBtn.textContent = "Continuer";
+  } else {
+    ui.nextBtn.textContent = state.index < state.sessionQuestions.length - 1 ? "Question suivante" : "Voir le résultat";
+  }
   ui.nextBtn.focus();
 }
 
@@ -464,11 +503,14 @@ function renderQuestion() {
   }
 
   state.answered = false;
+  state.selectedChoice = -1;
+  state.reviewPause = false;
   updateTopStats();
 
   ui.question.textContent = question.question;
   ui.choices.innerHTML = "";
-  ui.nextBtn.classList.add("hidden");
+  ui.nextBtn.classList.remove("hidden");
+  ui.nextBtn.textContent = state.index < state.sessionQuestions.length - 1 ? "Valider" : "Terminer";
 
   question.choices.forEach((choice, index) => {
     const button = document.createElement("button");
@@ -476,11 +518,11 @@ function renderQuestion() {
     button.className = "choice";
     button.setAttribute("role", "listitem");
     button.textContent = `${index + 1}. ${choice}`;
-    button.addEventListener("click", () => evaluateAnswer(index));
+    button.addEventListener("click", () => setSelectedChoice(index));
     ui.choices.appendChild(button);
   });
 
-  setFeedback("Sélectionne la meilleure réponse.");
+  setFeedback("Sélectionne une réponse puis valide avec Suivant.");
 
   const perQuestionTime = getQuestionTime();
   state.timer.start(perQuestionTime);
@@ -534,17 +576,23 @@ function startSession() {
   const requestedTimer = Number.parseInt(ui.timerSelect.value, 10);
   const requestedCount = Number.parseInt(ui.countSelect.value, 10);
   const penaltySeconds = Number.parseInt(ui.penaltySelect.value, 10);
+  const revisionMode = Boolean(ui.revisionToggle.checked);
 
   state.selectedTheme = selectedTheme;
+  state.revisionMode = revisionMode;
   state.timerPerQuestion = Number.isFinite(requestedTimer) ? requestedTimer : 20;
   state.penaltySeconds = Number.isFinite(penaltySeconds) ? penaltySeconds : 3;
   state.penaltyTotal = 0;
   state.penaltyCarry = 0;
   state.score = 0;
   state.index = 0;
+  state.answered = false;
+  state.selectedChoice = -1;
+  state.reviewPause = false;
   state.sessionErrors = [];
   state.sessionResults = [];
   state.selectedResultIndex = -1;
+  localStorage.setItem(REVISION_MODE_KEY, revisionMode ? "1" : "0");
 
   const weaknessInfo = buildWeaknessMap(state.progress);
   const seed = seedFromString(`${todayKey()}-quiz-${state.selectedTheme}-${state.progress.quiz.errors.length}`);
@@ -568,7 +616,34 @@ function startSession() {
   renderQuestion();
 }
 
+function submitCurrentQuestion(timedOut = false) {
+  if (state.answered) {
+    return true;
+  }
+
+  if (!timedOut && state.selectedChoice < 0) {
+    setFeedback("Sélectionne une réponse avant de continuer.", "is-error");
+    return false;
+  }
+
+  evaluateAnswer(timedOut ? -1 : state.selectedChoice, timedOut);
+  return true;
+}
+
 function goToNextQuestion() {
+  if (!state.answered) {
+    if (!submitCurrentQuestion(false)) {
+      return;
+    }
+    if (state.reviewPause) {
+      return;
+    }
+  }
+
+  if (state.reviewPause) {
+    state.reviewPause = false;
+  }
+
   if (!state.answered) {
     return;
   }
@@ -604,6 +679,17 @@ function bindEvents() {
     ui.setupPanel.classList.remove("hidden");
   });
 
+  ui.clearHistoryBtn.addEventListener("click", () => {
+    state.progress.quiz.sessions = [];
+    state.progress = saveProgress(state.progress);
+    renderHistory();
+    setFeedback("Historique des sessions vidé.");
+  });
+
+  ui.revisionToggle.addEventListener("change", () => {
+    localStorage.setItem(REVISION_MODE_KEY, ui.revisionToggle.checked ? "1" : "0");
+  });
+
   ui.exportBtn.addEventListener("click", exportErrorsAsJson);
 
   document.addEventListener("keydown", (event) => {
@@ -611,11 +697,9 @@ function bindEvents() {
       return;
     }
 
-    if (state.answered) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        goToNextQuestion();
-      }
+    if (event.key === "Enter") {
+      event.preventDefault();
+      goToNextQuestion();
       return;
     }
 
@@ -637,8 +721,12 @@ async function initQuizPage() {
   try {
     state.progress = initCommon("quiz", "quiz.html");
     state.allQuestions = await fetchQuiz();
+    ui.revisionToggle.checked = localStorage.getItem(REVISION_MODE_KEY) === "1";
+    state.revisionMode = ui.revisionToggle.checked;
 
-    state.timer = new QuestionTimer(setTimerDisplay, () => evaluateAnswer(-1, true));
+    state.timer = new QuestionTimer(setTimerDisplay, () => {
+      submitCurrentQuestion(true);
+    });
     bindEvents();
     renderHistory();
     const params = new URLSearchParams(window.location.search);

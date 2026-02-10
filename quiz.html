@@ -68,6 +68,10 @@
               <option value="5">5s</option>
             </select>
           </div>
+          <div class="inline-check">
+            <input type="checkbox" id="revisionModeToggle" />
+            <label for="revisionModeToggle">Mode révision: pause sur erreur</label>
+          </div>
         </div>
         <div class="btn-row">
           <button id="startQuizBtn" class="btn btn-primary" type="button">Démarrer</button>
@@ -77,6 +81,9 @@
         <article class="panel mt-16">
           <h2 class="panel-title">Historique récent</h2>
           <ul id="quizHistoryList" class="list"></ul>
+          <div class="btn-row">
+            <button id="clearQuizHistoryBtn" class="btn btn-secondary" type="button">Vider l'historique</button>
+          </div>
         </article>
       </section>
 
