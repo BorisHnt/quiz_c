@@ -187,13 +187,17 @@ function themeLabel(theme) {
 
 const ui = {
   setupPanel: null,
-  themeSelect: null,
+  themeSelector: null,
+  themeButtons: [],
+  sessionSizeSelector: null,
+  sessionButtons: [],
   timerSelect: null,
-  countSelect: null,
   penaltySelect: null,
-  revisionToggle: null,
+  revisionBtn: null,
   startBtn: null,
+  dataStatus: null,
   historyList: null,
+  historyCount: null,
   clearHistoryBtn: null,
   sessionPanel: null,
   progress: null,
@@ -223,6 +227,7 @@ const state = {
   score: 0,
   answered: false,
   selectedChoice: -1,
+  sessionSize: 20,
   revisionMode: false,
   reviewPause: false,
   selectedTheme: "random",
@@ -238,13 +243,17 @@ const state = {
 
 function selectUi() {
   ui.setupPanel = document.querySelector("#quizSetupPanel");
-  ui.themeSelect = document.querySelector("#quizThemeSelect");
+  ui.themeSelector = document.querySelector("#quizThemeSelector");
+  ui.themeButtons = Array.from(document.querySelectorAll("#quizThemeSelector .theme-btn"));
+  ui.sessionSizeSelector = document.querySelector("#sessionSizeSelector");
+  ui.sessionButtons = Array.from(document.querySelectorAll("#sessionSizeSelector .session-btn"));
   ui.timerSelect = document.querySelector("#timerPerQuestionSelect");
-  ui.countSelect = document.querySelector("#questionCountSelect");
   ui.penaltySelect = document.querySelector("#timePenaltySelect");
-  ui.revisionToggle = document.querySelector("#revisionModeToggle");
+  ui.revisionBtn = document.querySelector("#revisionModeBtn");
   ui.startBtn = document.querySelector("#startQuizBtn");
+  ui.dataStatus = document.querySelector("#quizDataStatus");
   ui.historyList = document.querySelector("#quizHistoryList");
+  ui.historyCount = document.querySelector("#quizHistoryCount");
   ui.clearHistoryBtn = document.querySelector("#clearQuizHistoryBtn");
   ui.sessionPanel = document.querySelector("#quizSessionPanel");
   ui.progress = document.querySelector("#quizProgress");
@@ -265,7 +274,11 @@ function selectUi() {
   ui.restartBtn = document.querySelector("#restartQuizBtn");
   ui.exportBtn = document.querySelector("#exportErrorsBtn");
 
-  return Object.values(ui).every((node) => node !== null);
+  return (
+    Object.values(ui).every((node) => node !== null) &&
+    ui.themeButtons.length > 0 &&
+    ui.sessionButtons.length > 0
+  );
 }
 
 function setFeedback(message, type = "") {
@@ -291,9 +304,78 @@ function sessionPercent(session) {
   return Math.round((session.score / session.total) * 100);
 }
 
+function availableSessionSizes(theme) {
+  if (theme === "random") {
+    return [10, 20, 40];
+  }
+  return [10, 20];
+}
+
+function questionPoolCount(theme) {
+  if (theme === "random") {
+    return state.allQuestions.length;
+  }
+  return state.allQuestions.filter((question) => question.theme === theme).length;
+}
+
+function syncSessionButtons() {
+  const allowed = availableSessionSizes(state.selectedTheme);
+  if (!allowed.includes(state.sessionSize)) {
+    state.sessionSize = allowed[allowed.length - 1];
+  }
+
+  ui.sessionButtons.forEach((button) => {
+    const size = Number.parseInt(button.dataset.size, 10);
+    const isAllowed = allowed.includes(size);
+    button.classList.toggle("hidden", !isAllowed);
+    button.classList.toggle("is-active", isAllowed && size === state.sessionSize);
+  });
+}
+
+function setActiveTheme(theme) {
+  const allowed = new Set([
+    "random",
+    "patterns",
+    "pieges",
+    "reflexes_memoire",
+    "pointeurs_malloc",
+    "listes_chainees",
+    "conditions_limites",
+    "regles_implicites",
+  ]);
+  const next = allowed.has(theme) ? theme : "random";
+  state.selectedTheme = next;
+
+  ui.themeButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.theme === next);
+  });
+
+  syncSessionButtons();
+  renderDataStatus();
+}
+
+function setSessionSize(size) {
+  const parsed = Number.parseInt(String(size), 10);
+  const allowed = availableSessionSizes(state.selectedTheme);
+  const next = allowed.includes(parsed) ? parsed : 20;
+  state.sessionSize = next;
+  syncSessionButtons();
+}
+
+function renderRevisionButton() {
+  ui.revisionBtn.classList.toggle("is-active", state.revisionMode);
+  ui.revisionBtn.setAttribute("aria-pressed", String(state.revisionMode));
+}
+
+function renderDataStatus() {
+  const count = questionPoolCount(state.selectedTheme);
+  ui.dataStatus.textContent = `${count} questions prêtes.`;
+}
+
 function renderHistory() {
   ui.historyList.innerHTML = "";
   const history = [...state.progress.quiz.sessions].slice(-8).reverse();
+  ui.historyCount.textContent = String(state.progress.quiz.sessions.length);
 
   if (history.length === 0) {
     const li = document.createElement("li");
@@ -307,7 +389,7 @@ function renderHistory() {
     const date = new Date(session.date).toLocaleString("fr-FR");
     const percent = sessionPercent(session);
     li.textContent =
-      `${date} | ${themeLabel(session.theme || "random")} | ${session.score}/${session.total} (${percent}%) | pénalité ${session.penalty}s`;
+      `${themeLabel(session.theme || "random")} | ${session.score}/${session.total} (${percent}%) | pénalité ${session.penalty}s | ${date}`;
     ui.historyList.appendChild(li);
   });
 }
@@ -572,14 +654,9 @@ function finishQuiz() {
 }
 
 function startSession() {
-  const selectedTheme = ui.themeSelect.value;
   const requestedTimer = Number.parseInt(ui.timerSelect.value, 10);
-  const requestedCount = Number.parseInt(ui.countSelect.value, 10);
+  const requestedCount = state.sessionSize;
   const penaltySeconds = Number.parseInt(ui.penaltySelect.value, 10);
-  const revisionMode = Boolean(ui.revisionToggle.checked);
-
-  state.selectedTheme = selectedTheme;
-  state.revisionMode = revisionMode;
   state.timerPerQuestion = Number.isFinite(requestedTimer) ? requestedTimer : 20;
   state.penaltySeconds = Number.isFinite(penaltySeconds) ? penaltySeconds : 3;
   state.penaltyTotal = 0;
@@ -592,7 +669,7 @@ function startSession() {
   state.sessionErrors = [];
   state.sessionResults = [];
   state.selectedResultIndex = -1;
-  localStorage.setItem(REVISION_MODE_KEY, revisionMode ? "1" : "0");
+  localStorage.setItem(REVISION_MODE_KEY, state.revisionMode ? "1" : "0");
 
   const weaknessInfo = buildWeaknessMap(state.progress);
   const seed = seedFromString(`${todayKey()}-quiz-${state.selectedTheme}-${state.progress.quiz.errors.length}`);
@@ -686,8 +763,26 @@ function bindEvents() {
     setFeedback("Historique des sessions vidé.");
   });
 
-  ui.revisionToggle.addEventListener("change", () => {
-    localStorage.setItem(REVISION_MODE_KEY, ui.revisionToggle.checked ? "1" : "0");
+  ui.revisionBtn.addEventListener("click", () => {
+    state.revisionMode = !state.revisionMode;
+    localStorage.setItem(REVISION_MODE_KEY, state.revisionMode ? "1" : "0");
+    renderRevisionButton();
+  });
+
+  ui.themeSelector.addEventListener("click", (event) => {
+    const button = event.target.closest(".theme-btn");
+    if (!button) {
+      return;
+    }
+    setActiveTheme(button.dataset.theme || "random");
+  });
+
+  ui.sessionSizeSelector.addEventListener("click", (event) => {
+    const button = event.target.closest(".session-btn");
+    if (!button) {
+      return;
+    }
+    setSessionSize(button.dataset.size || "20");
   });
 
   ui.exportBtn.addEventListener("click", exportErrorsAsJson);
@@ -721,8 +816,11 @@ async function initQuizPage() {
   try {
     state.progress = initCommon("quiz", "quiz.html");
     state.allQuestions = await fetchQuiz();
-    ui.revisionToggle.checked = localStorage.getItem(REVISION_MODE_KEY) === "1";
-    state.revisionMode = ui.revisionToggle.checked;
+    state.revisionMode = localStorage.getItem(REVISION_MODE_KEY) === "1";
+    renderRevisionButton();
+    renderDataStatus();
+    setActiveTheme(state.selectedTheme);
+    setSessionSize(state.sessionSize);
 
     state.timer = new QuestionTimer(setTimerDisplay, () => {
       submitCurrentQuestion(true);
@@ -743,7 +841,7 @@ async function initQuizPage() {
         "regles_implicites",
       ].includes(themeFromQuery)
     ) {
-      ui.themeSelect.value = themeFromQuery;
+      setActiveTheme(themeFromQuery);
     }
 
     setFeedback("Configure le quiz puis démarre la session.");

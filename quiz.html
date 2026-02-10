@@ -27,22 +27,69 @@
     </header>
 
     <main>
-      <section class="panel" id="quizSetupPanel">
-        <h1 class="panel-title">Quiz chronométré</h1>
-        <div class="control-grid">
-          <div class="field">
-            <label for="quizThemeSelect">Thème</label>
-            <select id="quizThemeSelect">
-              <option value="random" selected>Random</option>
-              <option value="patterns">Patterns</option>
-              <option value="pieges">Pièges</option>
-              <option value="reflexes_memoire">Réflexes mémoire</option>
-              <option value="pointeurs_malloc">Pointeurs & malloc</option>
-              <option value="listes_chainees">Listes chaînées</option>
-              <option value="conditions_limites">Conditions limites</option>
-              <option value="regles_implicites">Règles implicites</option>
-            </select>
+      <section class="panel quiz-setup-panel" id="quizSetupPanel">
+        <p class="quiz-eyebrow">Sessions de quiz</p>
+        <h1 class="panel-title quiz-main-title">Quiz de révision C</h1>
+        <p class="panel-subtitle">Choisissez un thème puis lancez 10 ou 20 questions (40 en mode mix).</p>
+
+        <div class="quiz-controls">
+          <p class="quiz-control-label">Thèmes</p>
+          <div id="quizThemeSelector" class="theme-selector" role="group" aria-label="Choix du thème">
+            <button type="button" class="theme-btn is-active" data-theme="random">
+              <span class="theme-dot dot-random"></span>
+              <span>Mix des thèmes</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="patterns">
+              <span class="theme-dot dot-patterns"></span>
+              <span>Patterns</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="pieges">
+              <span class="theme-dot dot-pieges"></span>
+              <span>Pièges</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="reflexes_memoire">
+              <span class="theme-dot dot-reflexes"></span>
+              <span>Réflexes mémoire</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="pointeurs_malloc">
+              <span class="theme-dot dot-pointeurs"></span>
+              <span>Pointeurs & malloc</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="listes_chainees">
+              <span class="theme-dot dot-listes"></span>
+              <span>Listes chaînées</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="conditions_limites">
+              <span class="theme-dot dot-conditions"></span>
+              <span>Conditions limites</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="regles_implicites">
+              <span class="theme-dot dot-regles"></span>
+              <span>Règles implicites</span>
+            </button>
           </div>
+
+          <p class="quiz-control-label">Mode fiches de révision</p>
+          <button id="revisionModeBtn" class="pill-toggle" type="button" aria-pressed="false">
+            Mode fiches de révision
+          </button>
+
+          <p class="quiz-control-label">Nombre de questions</p>
+          <div id="sessionSizeSelector" class="session-selector" role="group" aria-label="Choix du nombre de questions">
+            <button type="button" class="session-btn" data-size="10">10</button>
+            <button type="button" class="session-btn is-active" data-size="20">20</button>
+            <button type="button" class="session-btn" data-size="40">40</button>
+          </div>
+
+          <div class="btn-row quiz-start-row">
+            <button id="startQuizBtn" class="btn btn-primary cta-start" type="button">Lancer une session</button>
+            <a class="btn btn-secondary" href="flashcards.html">Aller aux flashcards</a>
+          </div>
+
+          <p id="quizDataStatus" class="quiz-status">0 questions prêtes.</p>
+        </div>
+
+        <div class="control-grid quiz-advanced-grid mt-16">
           <div class="field">
             <label for="timerPerQuestionSelect">Timer par question</label>
             <select id="timerPerQuestionSelect">
@@ -53,14 +100,6 @@
             </select>
           </div>
           <div class="field">
-            <label for="questionCountSelect">Nombre de questions</label>
-            <select id="questionCountSelect">
-              <option value="10">10</option>
-              <option value="20" selected>20</option>
-              <option value="30">30</option>
-            </select>
-          </div>
-          <div class="field">
             <label for="timePenaltySelect">Pénalité temps erreur</label>
             <select id="timePenaltySelect">
               <option value="2">2s</option>
@@ -68,24 +107,24 @@
               <option value="5">5s</option>
             </select>
           </div>
-          <div class="inline-check">
-            <input type="checkbox" id="revisionModeToggle" />
-            <label for="revisionModeToggle">Mode révision: pause sur erreur</label>
-          </div>
         </div>
-        <div class="btn-row">
-          <button id="startQuizBtn" class="btn btn-primary" type="button">Démarrer</button>
-          <a class="btn btn-secondary" href="flashcards.html">Aller aux flashcards</a>
-        </div>
-
-        <article class="panel mt-16">
-          <h2 class="panel-title">Historique récent</h2>
-          <ul id="quizHistoryList" class="list"></ul>
-          <div class="btn-row">
-            <button id="clearQuizHistoryBtn" class="btn btn-secondary" type="button">Vider l'historique</button>
-          </div>
-        </article>
       </section>
+
+      <article class="panel quiz-history-panel">
+        <div class="quiz-history-head">
+          <div>
+            <p class="quiz-eyebrow">Historique</p>
+            <h2 class="panel-title">Vos dernières notes</h2>
+          </div>
+          <span id="quizHistoryCount" class="history-count">0</span>
+          <button id="clearQuizHistoryBtn" class="btn btn-secondary btn-square" type="button" aria-label="Vider l'historique">
+            Vider
+          </button>
+        </div>
+        <div class="mt-16">
+          <ul id="quizHistoryList" class="list"></ul>
+        </div>
+      </article>
 
       <section id="quizSessionPanel" class="panel hidden" aria-live="polite">
         <div class="quiz-top">

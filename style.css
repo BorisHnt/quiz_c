@@ -344,10 +344,224 @@ main {
   margin: 4px 0;
 }
 
+.quiz-setup-panel {
+  background: var(--paper-2);
+}
+
+.quiz-main-title {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.quiz-eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: var(--dark);
+}
+
+.quiz-controls {
+  margin-top: 24px;
+  display: grid;
+  gap: 8px;
+}
+
+.quiz-control-label {
+  margin: 8px 0 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.theme-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.theme-btn {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+  color: var(--dark);
+  min-height: 40px;
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.theme-btn:hover,
+.theme-btn:focus-visible {
+  background: var(--paper-4);
+}
+
+.theme-btn.is-active {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--paper-1);
+}
+
+.theme-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.dot-random {
+  background: var(--light-blue);
+}
+
+.dot-patterns {
+  background: var(--blue);
+}
+
+.dot-pieges {
+  background: var(--red-2);
+}
+
+.dot-reflexes {
+  background: var(--green);
+}
+
+.dot-pointeurs {
+  background: var(--red-3);
+}
+
+.dot-listes {
+  background: var(--red-4);
+}
+
+.dot-conditions {
+  background: var(--paper-3);
+}
+
+.dot-regles {
+  background: var(--dark);
+}
+
+.pill-toggle {
+  border: 1px solid var(--blue);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+  color: var(--blue);
+  min-height: 40px;
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 700;
+  width: 100%;
+  cursor: pointer;
+}
+
+.pill-toggle:hover,
+.pill-toggle:focus-visible {
+  background: var(--paper-4);
+}
+
+.pill-toggle.is-active {
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.session-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.session-btn {
+  border: 1px solid var(--blue);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+  color: var(--blue);
+  min-height: 40px;
+  min-width: 48px;
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.session-btn:hover,
+.session-btn:focus-visible {
+  background: var(--light-blue);
+  color: var(--dark);
+}
+
+.session-btn.is-active {
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.quiz-start-row {
+  margin-top: 8px;
+}
+
+.cta-start {
+  min-width: 216px;
+}
+
+.quiz-status {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.quiz-history-panel {
+  margin-top: 16px;
+  max-width: 560px;
+}
+
+.quiz-history-head {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-count {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-4);
+  padding: 8px 12px;
+  font-weight: 700;
+}
+
+.btn-square {
+  min-width: 64px;
+  padding: 0 8px;
+}
+
+.quiz-history-panel .list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.quiz-history-panel .list li {
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+}
+
+.quiz-history-panel .list li + li {
+  margin-top: 8px;
+}
+
 .control-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
+}
+
+.quiz-advanced-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .field {
@@ -579,9 +793,17 @@ main {
     grid-template-columns: 1fr 1fr;
   }
 
+  .quiz-advanced-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .quiz-top,
   .stat-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .quiz-main-title {
+    font-size: 1.6rem;
   }
 }
 
@@ -619,6 +841,19 @@ main {
   .quiz-top,
   .stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .quiz-advanced-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-history-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .btn-square {
+    min-width: 96px;
   }
 
   .result-grid {
