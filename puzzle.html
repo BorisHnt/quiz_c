@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Révision C - Puzzle</title>
+    <meta
+      name="description"
+      content="Puzzle de code C: remettre les blocs dans le bon ordre pour reconstruire une fonction valide."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="puzzle">
+    <header class="site-header" role="banner">
+      <div class="nav-wrap">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">
+            <span class="brand-overline">Langage C</span>
+            <span class="brand-name">Révisions Exam 42</span>
+          </span>
+        </a>
+        <button
+          id="navToggle"
+          class="nav-toggle"
+          type="button"
+          aria-label="Menu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav aria-label="Navigation principale">
+          <ul id="navMenu" class="nav-menu">
+            <li><a class="nav-link" href="index.html">Accueil</a></li>
+            <li><a class="nav-link" href="flashcards.html">Flashcards</a></li>
+            <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+            <li><a class="nav-link" href="puzzle.html" aria-current="page">Puzzle</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel puzzle-setup-panel">
+        <h1 class="panel-title">Puzzle de code C</h1>
+        <p class="panel-subtitle">
+          Réorganise les lignes du code pour reconstruire une version fonctionnelle. Déplace les blocs de haut en bas
+          par glisser-déposer, ou avec les boutons monter/descendre.
+        </p>
+
+        <div class="control-grid puzzle-control-grid mt-16">
+          <div class="field">
+            <label for="puzzleSelect">Exercice</label>
+            <select id="puzzleSelect"></select>
+          </div>
+          <div class="btn-row">
+            <button id="loadPuzzleBtn" class="btn btn-primary" type="button">Charger</button>
+            <button id="nextPuzzleBtn" class="btn btn-secondary" type="button">Puzzle suivant</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="quiz-top puzzle-top">
+          <article class="quiz-card">
+            <p class="stat-label">Résolus</p>
+            <p id="puzzleSolved" class="stat-value">0</p>
+          </article>
+          <article class="quiz-card">
+            <p class="stat-label">Tentatives</p>
+            <p id="puzzleAttempts" class="stat-value">0</p>
+          </article>
+          <article class="quiz-card">
+            <p class="stat-label">Série</p>
+            <p id="puzzleStreak" class="stat-value">0</p>
+          </article>
+          <article class="quiz-card">
+            <p class="stat-label">Meilleure série</p>
+            <p id="puzzleBestStreak" class="stat-value">0</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel puzzle-workspace" aria-live="polite">
+        <h2 id="puzzleTitle" class="panel-title">Chargement du puzzle...</h2>
+        <p id="puzzleGoal" class="panel-subtitle"></p>
+        <p id="puzzleHint" class="badge"></p>
+
+        <ol id="puzzleLines" class="puzzle-lines" aria-label="Lignes à réordonner"></ol>
+
+        <p id="puzzleFeedback" class="feedback">Réordonne les lignes, puis valide.</p>
+
+        <div class="btn-row">
+          <button id="shufflePuzzleBtn" class="btn btn-secondary" type="button">Mélanger</button>
+          <button id="verifyPuzzleBtn" class="btn btn-primary" type="button">Vérifier</button>
+          <button id="showSolutionBtn" class="btn btn-danger" type="button">Afficher la solution</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="panel-title">Historique puzzle</h2>
+        <ul id="puzzleHistoryList" class="list"></ul>
+      </section>
+    </main>
+
+    <script type="module" src="puzzle.js"></script>
+  </body>
+</html>

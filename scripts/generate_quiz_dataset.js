@@ -144,6 +144,148 @@ const profiles = [
 
 const listProfiles = profiles.filter((p) => p.fn === 'ft_list_remove_if' || p.fn === 'sort_list');
 const functionNames = profiles.map((p) => p.fn);
+const generalProfiles = [
+  {
+    fn: 'ft_split',
+    context: 'tu découpes une phrase avec des séparateurs simples',
+    guardPrompt: 'la chaîne peut être vide ou contenir uniquement des séparateurs',
+    guardGood: 'Compter les mots avant toute allocation, puis retourner un tableau terminé par NULL si aucun mot n’est trouvé.',
+    actionPrompt: 'tu viens d’allouer le tableau de pointeurs',
+    actionGood: 'Copier les mots un par un avec un index stable, puis écrire `tab[index] = NULL` pour terminer la structure.',
+    sizePrompt: 'tu alloues le tableau principal de pointeurs',
+    sizeGood: 'Allouer `(nb_mots + 1) * sizeof(char *)` pour réserver la case de terminaison NULL.',
+    edgePrompt: 'le dernier mot n’est pas suivi par un séparateur',
+    edgeGood: 'Traiter explicitement la fin de chaîne comme une fin de mot pour ne pas perdre le dernier segment.',
+    outputPrompt: 'la fonction retourne un tableau alloué dynamiquement',
+    outputGood: 'L’appelant doit libérer chaque mot puis le tableau, sinon la mémoire reste allouée.',
+  },
+  {
+    fn: 'ft_range',
+    context: 'tu génères une suite d’entiers de start vers end',
+    guardPrompt: 'start peut être supérieur à end',
+    guardGood: 'Calculer un `step` à +1 ou -1 avant la boucle pour couvrir les parcours croissants et décroissants.',
+    actionPrompt: 'la taille du tableau est calculée',
+    actionGood: 'Remplir le tableau avec une valeur courante qui avance de `step` à chaque itération.',
+    sizePrompt: 'tu calcules la taille d’allocation',
+    sizeGood: 'Utiliser `abs(end - start) + 1` pour éviter le off-by-one sur les bornes inclusives.',
+    edgePrompt: 'start et end sont identiques',
+    edgeGood: 'Retourner un tableau de taille 1 contenant exactement cette valeur.',
+    outputPrompt: 'la fonction retourne un pointeur',
+    outputGood: 'Retourner le pointeur de base du tableau, jamais un pointeur déjà avancé pendant le remplissage.',
+  },
+  {
+    fn: 'ft_list_remove_if',
+    context: 'tu supprimes des maillons d’une liste chaînée',
+    guardPrompt: 'la liste peut être vide au début',
+    guardGood: 'Vérifier `begin_list` et `*begin_list` avant toute déréférence pour éviter un crash immédiat.',
+    actionPrompt: 'un maillon correspond au critère de suppression',
+    actionGood: 'Sauvegarder le maillon cible dans `tmp`, reconnecter les liens, puis faire `free(tmp)`.',
+    sizePrompt: 'tu hésites à utiliser malloc pour simplifier la suppression',
+    sizeGood: 'Aucune allocation n’est nécessaire: la suppression se fait en place avec reconnection des pointeurs.',
+    edgePrompt: 'plusieurs maillons en tête doivent être supprimés',
+    edgeGood: 'Nettoyer la tête avec une boucle `while` avant de passer au parcours classique avec `cur`.',
+    outputPrompt: 'la tête de liste peut changer',
+    outputGood: 'Mettre à jour `*begin_list` pour conserver la nouvelle tête après les suppressions.',
+  },
+  {
+    fn: 'sort_list',
+    context: 'tu fais un tri simple sur une liste chaînée',
+    guardPrompt: 'la liste est vide ou contient un seul élément',
+    guardGood: 'Retourner immédiatement sans entrer dans le tri, car aucun échange n’est nécessaire.',
+    actionPrompt: 'deux valeurs sont dans le mauvais ordre',
+    actionGood: 'Échanger les `data` via une variable temporaire, puis continuer le passage.',
+    sizePrompt: 'tu envisages de recréer une nouvelle liste triée',
+    sizeGood: 'Le tri exam se fait en place, sans malloc ni copie complète de la liste.',
+    edgePrompt: 'un passage complet ne réalise aucun échange',
+    edgeGood: 'Arrêter le tri quand `swapped` reste à 0, c’est le signal de fin attendu.',
+    outputPrompt: 'la fonction doit renvoyer la liste triée',
+    outputGood: 'Retourner la tête de liste reçue en entrée, après les échanges en place.',
+  },
+  {
+    fn: 'itoa',
+    context: 'tu convertis un entier signé en chaîne',
+    guardPrompt: 'la valeur peut être `0` ou négative',
+    guardGood: 'Gérer le signe et le cas `0` dès le début pour dimensionner la chaîne correctement.',
+    actionPrompt: 'tu dois écrire les chiffres dans la chaîne',
+    actionGood: 'Remplir la chaîne depuis la fin vers le début avec `% 10`, puis finir sur l’index 0.',
+    sizePrompt: 'tu calcules la taille de la chaîne',
+    sizeGood: 'Allouer `digits + sign + 1` caractères pour inclure les chiffres, le signe éventuel et `\\0`.',
+    edgePrompt: 'tu traites `INT_MIN`',
+    edgeGood: 'Caster en `long` avant négation pour éviter un overflow en `int`.',
+    outputPrompt: 'malloc peut échouer avant le remplissage',
+    outputGood: 'Tester le pointeur retourné et renvoyer NULL immédiatement si l’allocation échoue.',
+  },
+  {
+    fn: 'wdmatch',
+    context: 'tu dois vérifier si argv[1] est inclus dans argv[2] dans le bon ordre',
+    guardPrompt: 'le programme peut être lancé avec un argc invalide',
+    guardGood: 'Tester `argc` en premier et écrire seulement `\\n` si le contrat d’arguments n’est pas respecté.',
+    actionPrompt: 'tu parcours argv[2] caractère par caractère',
+    actionGood: 'Avancer l’index de argv[1] uniquement quand un caractère correspondant est trouvé.',
+    sizePrompt: 'tu hésites à allouer de la mémoire pour comparer',
+    sizeGood: 'Aucune allocation n’est nécessaire: deux index suffisent pour faire la vérification.',
+    edgePrompt: 'argv[1] est une chaîne vide',
+    edgeGood: 'Considérer ce cas comme valide, donc afficher une ligne vide conforme au sujet.',
+    outputPrompt: 'la sortie doit rester compatible avec la moulinette',
+    outputGood: 'Afficher uniquement le résultat attendu suivi de `\\n`, sans message annexe.',
+  },
+  {
+    fn: 'union',
+    context: 'tu affiches les caractères uniques de deux chaînes',
+    guardPrompt: 'les arguments peuvent être absents',
+    guardGood: 'Vérifier `argc` avant accès aux chaînes, puis produire uniquement `\\n` si besoin.',
+    actionPrompt: 'tu veux éviter les doublons à l’affichage',
+    actionGood: 'Utiliser `seen[256]` et marquer chaque caractère dès sa première apparition.',
+    sizePrompt: 'tu dimensionnes la structure de suivi des caractères',
+    sizeGood: 'Un tableau fixe de 256 cases suffit pour suivre tous les octets possibles.',
+    edgePrompt: 'char peut être signé selon la plateforme',
+    edgeGood: 'Indexer `seen` avec `(unsigned char)c` pour éviter les indices négatifs.',
+    outputPrompt: 'tu termines la fonction après le parcours',
+    outputGood: 'Ajouter un unique `\\n` final, car la sortie est comparée caractère par caractère.',
+  },
+  {
+    fn: 'atoi',
+    context: 'tu convertis une chaîne utilisateur en entier',
+    guardPrompt: 'la chaîne peut commencer par des espaces',
+    guardGood: 'Ignorer les espaces initiaux avant de traiter le signe et les chiffres.',
+    actionPrompt: 'tu lis la suite de caractères numériques',
+    actionGood: 'Accumuler `result = result * 10 + (c - \'0\')` tant que le caractère est un chiffre.',
+    sizePrompt: 'tu te demandes s’il faut malloc pour le calcul',
+    sizeGood: 'Aucune allocation n’est nécessaire: la conversion se fait avec des variables locales.',
+    edgePrompt: 'la chaîne contient un caractère non numérique après des chiffres',
+    edgeGood: 'Arrêter la conversion au premier caractère invalide et retourner la valeur accumulée.',
+    outputPrompt: 'la chaîne est vide ou contient seulement un signe',
+    outputGood: 'Retourner 0 dans ce cas standard pour rester cohérent avec le comportement attendu.',
+  },
+  {
+    fn: 'ft_split',
+    context: 'tu sécurises le chemin d’erreur en cas de malloc partiel',
+    guardPrompt: 'une allocation de mot échoue en milieu de traitement',
+    guardGood: 'Libérer tous les mots déjà alloués, libérer le tableau, puis retourner NULL proprement.',
+    actionPrompt: 'tu entres dans la boucle de copie de chaque mot',
+    actionGood: 'Conserver un index de mot fiable pour savoir exactement quoi libérer en cas d’échec.',
+    sizePrompt: 'tu alloues chaque mot individuel',
+    sizeGood: 'Allouer `len_mot + 1` caractères pour inclure le `\\0` final sans débordement.',
+    edgePrompt: 'plusieurs séparateurs se suivent',
+    edgeGood: 'Sauter tous les séparateurs avant de démarrer la copie du mot suivant.',
+    outputPrompt: 'la fonction se termine en succès',
+    outputGood: 'Retourner une structure complète et NULL-terminée, directement exploitable par l’appelant.',
+  },
+  {
+    fn: 'itoa',
+    context: 'tu veux une version claire et fiable pour les bases',
+    guardPrompt: 'tu initialises la conversion pour un nombre négatif',
+    guardGood: 'Stocker le signe, convertir la valeur absolue dans un type sûr, puis positionner `-` au bon index.',
+    actionPrompt: 'tu remplis les caractères de la chaîne',
+    actionGood: 'Décrémenter l’index après chaque chiffre écrit pour éviter les trous ou les écrasements.',
+    sizePrompt: 'tu calcules le nombre de chiffres',
+    sizeGood: 'Compter les divisions par 10 sur une copie de la valeur pour ne pas perdre l’original.',
+    edgePrompt: 'la valeur d’entrée vaut exactement 0',
+    edgeGood: 'Retourner la chaîne \"0\" avec son terminateur, sans passer par la boucle des divisions.',
+    outputPrompt: 'tu finalises la chaîne avant return',
+    outputGood: 'Poser le `\\0` de fin explicitement, puis retourner le pointeur alloué.',
+  },
+];
 
 function normalizeText(value) {
   return String(value || '')
@@ -197,16 +339,94 @@ function hasActionContext(question, choices) {
 
 function explanation(theme, fn, decision) {
   const byTheme = {
-    patterns: `En ${fn}, l’ordre des étapes est évalué directement par les tests de l’exam. ${decision}`,
-    pieges: `Ce choix évite un piège classique qui compile mais échoue en correction automatique sur ${fn}. ${decision}`,
-    reflexes_memoire: `À l’exam, ce réflexe mémoire sécurise ${fn} sans ajouter de complexité inutile. ${decision}`,
-    pointeurs: `Ici, la décision de pointeur conditionne la stabilité de ${fn} sur les cas réels. ${decision}`,
-    malloc: `Sur ${fn}, cette décision d’allocation évite les crashs et les fuites pendant les tests limites. ${decision}`,
-    listes_chainees: `En listes chaînées, l’ordre pointeur/reconnexion/free fait la différence dans ${fn}. ${decision}`,
-    conditions_limites: `La correction de ${fn} cible d’abord ce cas limite. ${decision}`,
-    regles_implicites: `Même avec une bonne logique dans ${fn}, la non-conformité au sujet fait tomber la note. ${decision}`,
+    patterns: `Sur ${fn}, les tests vérifient surtout l’ordre des étapes. ${decision}`,
+    pieges: `Ce choix évite un piège fréquent qui passe en local mais casse en correction automatique sur ${fn}. ${decision}`,
+    reflexes_memoire: `En exam, ce réflexe mémoire rend ${fn} plus stable sans complexifier le code. ${decision}`,
+    pointeurs: `Ici, la gestion des pointeurs décide directement de la stabilité de ${fn}. ${decision}`,
+    malloc: `Pour ${fn}, cette décision d’allocation protège des crashs et des fuites sur les cas limites. ${decision}`,
+    listes_chainees: `En liste chaînée, l’ordre pointeur/reconnexion/free est critique dans ${fn}. ${decision}`,
+    conditions_limites: `Sur ${fn}, ce cas limite est souvent testé en premier. ${decision}`,
+    regles_implicites: `Même si ${fn} fonctionne, une non-conformité au sujet fait perdre des points. ${decision}`,
+    general: `Sur ${fn}, l’objectif est de poser un réflexe clair et réutilisable. ${decision}`,
   };
   return byTheme[theme];
+}
+
+function makeGeneralQuestion(profile, templateIndex) {
+  const fn = profile.fn;
+
+  if (templateIndex === 0) {
+    return {
+      question: `${fn} : contexte ${profile.context}. Quelle vérification fais-tu d’abord quand ${profile.guardPrompt} ?`,
+      choices: [
+        profile.guardGood,
+        'Lancer directement la boucle principale, puis corriger après le premier crash observé.',
+        'Ajouter des valeurs fixes pour forcer un comportement acceptable sur les tests visibles.',
+        'Supprimer les conditions d’entrée pour réduire la taille du code et aller plus vite.',
+      ],
+      correct: 0,
+      explanation: explanation('general', fn, 'Commencer par la garde d’entrée évite les erreurs les plus coûteuses sur les cas simples.'),
+      tags: ['general', fn, 'bases_guard'],
+    };
+  }
+
+  if (templateIndex === 1) {
+    return {
+      question: `${fn} : dans ce contexte (${profile.context}), quelle action est la plus sûre juste après l’étape principale ?`,
+      choices: [
+        'Ignorer l’état intermédiaire et avancer vers le return sans vérifier la cohérence des données.',
+        profile.actionGood,
+        'Changer le prototype pour contourner les contraintes de l’énoncé.',
+        'Forcer un parcours récursif même quand une boucle simple suffit.',
+      ],
+      correct: 1,
+      explanation: explanation('general', fn, 'Cette action stabilise la fonction et réduit les erreurs de logique en conditions normales.'),
+      tags: ['general', fn, 'bases_action'],
+    };
+  }
+
+  if (templateIndex === 2) {
+    return {
+      question: `${fn} : dans ce contexte (${profile.context}), quelle décision de taille ou de structure est la plus propre pour débuter ?`,
+      choices: [
+        'Allouer une taille arbitraire pour passer vite aux tests suivants.',
+        'Dimensionner selon le nombre de cas moyens observés en local uniquement.',
+        profile.sizeGood,
+        'Écrire d’abord les résultats, puis ajuster la taille après coup.',
+      ],
+      correct: 2,
+      explanation: explanation('general', fn, 'Un dimensionnement clair évite les débordements et simplifie le débogage.'),
+      tags: ['general', fn, 'bases_size'],
+    };
+  }
+
+  if (templateIndex === 3) {
+    return {
+      question: `${fn} : dans ce contexte (${profile.context}), quel test limite doit être géré explicitement pour éviter une erreur bête ?`,
+      choices: [
+        profile.edgeGood,
+        'Ignorer le cas limite tant que les cas nominaux semblent fonctionner en local.',
+        'Remplacer le cas limite par une valeur codée en dur pour éviter une branche supplémentaire.',
+        'Retourner une adresse locale temporaire pour contourner le traitement complet.',
+      ],
+      correct: 0,
+      explanation: explanation('general', fn, 'Gérer ce bord dès le départ évite des échecs faciles à la moulinette.'),
+      tags: ['general', fn, 'bases_edge'],
+    };
+  }
+
+  return {
+    question: `${fn} : dans ce contexte (${profile.context}), quelle sortie finale respecte le mieux le contrat de base ?`,
+    choices: [
+      'Ajouter des messages de debug dans la sortie pour documenter le raisonnement.',
+      'Retourner une valeur partielle en espérant que l’appelant complète le traitement.',
+      'Libérer systématiquement la mémoire juste avant le return, même quand elle doit être renvoyée.',
+      profile.outputGood,
+    ],
+    correct: 3,
+    explanation: explanation('general', fn, 'Une sortie contractuelle claire rend le comportement prévisible et facile à tester.'),
+    tags: ['general', fn, 'bases_output'],
+  };
 }
 
 function makeQuestion(theme, profile, templateIndex) {
@@ -919,6 +1139,20 @@ function buildDataset() {
     }
   }
 
+  for (const profile of generalProfiles) {
+    for (let templateIndex = 0; templateIndex < 5; templateIndex += 1) {
+      const q = makeGeneralQuestion(profile, templateIndex);
+      dataset.push({
+        theme: 'general',
+        question: q.question,
+        choices: q.choices,
+        correct: q.correct,
+        explanation: q.explanation,
+        tags: q.tags,
+      });
+    }
+  }
+
   const unique = new Set();
   const uniqueNormalized = new Set();
   const filtered = dataset.filter((item) => {
@@ -932,8 +1166,8 @@ function buildDataset() {
     return true;
   });
 
-  if (filtered.length !== 320) {
-    throw new Error(`Dataset inattendu: ${filtered.length} questions (attendu: 320)`);
+  if (filtered.length !== 370) {
+    throw new Error(`Dataset inattendu: ${filtered.length} questions (attendu: 370)`);
   }
 
   for (const item of filtered) {

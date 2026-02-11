@@ -613,6 +613,102 @@ body[data-page="index"] .list li {
   background: var(--paper-2);
 }
 
+.puzzle-setup-panel {
+  background: var(--paper-2);
+}
+
+.puzzle-control-grid {
+  grid-template-columns: 2fr 1fr;
+  align-items: end;
+}
+
+.puzzle-top .quiz-card {
+  background: var(--paper-4);
+}
+
+.puzzle-workspace {
+  background: var(--paper-2);
+}
+
+.puzzle-lines {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.puzzle-line {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: start;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-4);
+}
+
+.puzzle-line-pos {
+  min-height: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  background: var(--paper-1);
+}
+
+.puzzle-code-line {
+  margin: 0;
+  padding: 8px;
+  min-height: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9rem;
+}
+
+.puzzle-line-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.line-move-btn {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+  color: var(--dark);
+  font: inherit;
+  font-size: 0.86rem;
+  cursor: pointer;
+}
+
+.line-move-btn:hover,
+.line-move-btn:focus-visible {
+  background: var(--light-blue);
+}
+
+.line-move-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.puzzle-line.is-dragging {
+  opacity: 0.5;
+}
+
+.puzzle-line.is-drop-target {
+  border-color: var(--blue);
+  background: var(--paper-3);
+}
+
 .quiz-main-title {
   font-size: 2rem;
   margin-bottom: 8px;
@@ -680,6 +776,10 @@ body[data-page="index"] .list li {
 
 .dot-random {
   background: var(--light-blue);
+}
+
+.dot-general {
+  background: var(--paper-3);
 }
 
 .dot-patterns {
@@ -1077,6 +1177,10 @@ body[data-page="index"] .list li {
     grid-template-columns: 1fr 1fr;
   }
 
+  .puzzle-control-grid {
+    grid-template-columns: 1fr;
+  }
+
   .quiz-top,
   .stat-grid {
     grid-template-columns: 1fr 1fr;
@@ -1152,6 +1256,14 @@ body[data-page="index"] .list li {
 
   .quiz-advanced-grid {
     grid-template-columns: 1fr;
+  }
+
+  .puzzle-line {
+    grid-template-columns: 1fr;
+  }
+
+  .puzzle-line-actions {
+    grid-template-columns: 1fr 1fr;
   }
 
   .quiz-history-head {

@@ -208,6 +208,9 @@ function remapQuestionChoices(question, rng) {
 }
 
 function themeLabel(theme) {
+  if (theme === "general") {
+    return "General";
+  }
   if (theme === "patterns") {
     return "Patterns";
   }
@@ -380,6 +383,9 @@ function availableSessionSizes(theme) {
   if (theme === "random") {
     return [10, 20, 40];
   }
+  if (theme === "general") {
+    return [10, 20, 50];
+  }
   return [10, 20];
 }
 
@@ -420,6 +426,7 @@ function syncSessionButtons() {
 function setActiveTheme(theme) {
   const allowed = new Set([
     "random",
+    "general",
     "patterns",
     "pieges",
     "reflexes_memoire",
@@ -961,6 +968,7 @@ async function initQuizPage() {
     if (
       [
         "random",
+        "general",
         "patterns",
         "pieges",
         "reflexes_memoire",

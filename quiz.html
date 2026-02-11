@@ -27,6 +27,7 @@
             <li><a class="nav-link" href="index.html">Accueil</a></li>
             <li><a class="nav-link" href="flashcards.html">Flashcards</a></li>
             <li><a class="nav-link" href="quiz.html" aria-current="page">Quiz</a></li>
+            <li><a class="nav-link" href="puzzle.html">Puzzle</a></li>
           </ul>
         </nav>
       </div>
@@ -36,7 +37,7 @@
       <section class="panel quiz-setup-panel" id="quizSetupPanel">
         <p class="quiz-eyebrow">Sessions de quiz</p>
         <h1 class="panel-title quiz-main-title">Quiz de révision C</h1>
-        <p class="panel-subtitle">Choisissez un thème puis lancez 10 ou 20 questions (40 en mode mix).</p>
+        <p class="panel-subtitle">Choisissez un thème puis lancez 10 ou 20 questions (40 en mix, 50 en General).</p>
 
         <div class="quiz-controls">
           <p class="quiz-control-label">Thèmes</p>
@@ -44,6 +45,10 @@
             <button type="button" class="theme-btn is-active" data-theme="random">
               <span class="theme-dot dot-random"></span>
               <span>Mix des thèmes</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="general">
+              <span class="theme-dot dot-general"></span>
+              <span>General</span>
             </button>
             <button type="button" class="theme-btn" data-theme="patterns">
               <span class="theme-dot dot-patterns"></span>
@@ -89,6 +94,7 @@
             <button type="button" class="session-btn" data-size="10">10</button>
             <button type="button" class="session-btn is-active" data-size="20">20</button>
             <button type="button" class="session-btn" data-size="40">40</button>
+            <button type="button" class="session-btn" data-size="50">50</button>
           </div>
 
           <div class="btn-row quiz-start-row">
