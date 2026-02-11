@@ -1,1794 +1,1920 @@
-Voici **20 flashcards “Patterns”**, prêtes à être utilisées dans ton futur site.
-Elles sont formulées pour déclencher **le raisonnement exam**, pas réciter du code.
+CARD 001 — Patterns
 
-Chaque carte contient : situation → réflexe → étapes.
+Face :
+ft_split : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
----
-
-## 🟦 CARD 1 — itoa
+Dos :
+• Commencer par la garde d’entrée : ignorer les séparateurs avant de marquer un mot
+• Ordre de travail : compter les mots avant toute allocation
+• Plan de sortie mémoire : allouer (words + 1) pointeurs puis chaque mot en len + 1
+• Validation finale : poser tab[word_count] = NULL avant return
 
-**Face :**
-Tu dois convertir un int en string. Quel pattern appliquer ?
-
-**Dos :**
-• gérer le signe
-• caster en long
-• compter chiffres
-• malloc taille +1 (+1 si négatif)
-• '\0' final
-• remplir à l’envers
-• poser '-' si besoin
-
 ---
-
-## 🟦 CARD 2 — split
+CARD 002 — Patterns
 
-**Face :**
-Avant de coder split, quel pattern préparer ?
+Face :
+ft_split : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Dos :**
-• définir séparateurs
-• ignorer séparateurs
-• compter mots
-• malloc tableau (mots + NULL)
-• pour chaque mot : compter lettres
-• malloc mot +1
-• copier
-• NULL final
+Dos :
+• Action clé : compter les mots avant toute allocation
+• Chemin d’échec prêt : free les mots déjà alloués, free le tableau, return NULL
+• Parcours maîtrisé : avancer index caractère sans sauter le dernier mot
+• Retour conforme : poser tab[word_count] = NULL avant return
 
 ---
+CARD 003 — Patterns
 
-## 🟦 CARD 3 — ft_range
+Face :
+ft_range : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Face :**
-Quel est le pattern pour remplir un tableau de start à end ?
+Dos :
+• Commencer par la garde d’entrée : définir step à +1 ou -1 selon start/end
+• Ordre de travail : calculer size = abs(end - start) + 1
+• Plan de sortie mémoire : malloc(size * sizeof(int))
+• Validation finale : retourner le pointeur de base, jamais un pointeur avancé
 
-**Dos :**
-• calculer taille = abs(end-start)+1
-• step = +1 ou -1
-• malloc
-• boucle de remplissage
-• return ptr
-
 ---
+CARD 004 — Patterns
 
-## 🟦 CARD 4 — union/inter
+Face :
+ft_range : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Face :**
-Comment éviter les doublons de caractères ?
+Dos :
+• Action clé : calculer size = abs(end - start) + 1
+• Chemin d’échec prêt : if (!arr) return NULL immédiatement
+• Parcours maîtrisé : écrire arr[i], puis value += step
+• Retour conforme : retourner le pointeur de base, jamais un pointeur avancé
 
-**Dos :**
-• tableau seen[256]
-• indexer avec unsigned char
-• afficher si seen == 0
-• marquer seen = 1
-
 ---
-
-## 🟦 CARD 5 — wdmatch
+CARD 005 — Patterns
 
-**Face :**
-Quel est le pattern de wdmatch ?
+Face :
+ft_list_remove_if : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Dos :**
-• parcourir string 2
-• avancer index string 1 quand match
-• fin si index1 == fin
-• afficher string 1 si réussi
+Dos :
+• Commencer par la garde d’entrée : tester begin_list et *begin_list avant déréférence
+• Ordre de travail : nettoyer la tête avec while(*begin_list && cmp(...) == 0)
+• Plan de sortie mémoire : aucun malloc, suppression en place
+• Validation finale : laisser *begin_list cohérent après toutes suppressions
 
 ---
+CARD 006 — Patterns
 
-## 🟦 CARD 6 — strdup
+Face :
+ft_list_remove_if : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Face :**
-Quel est le pattern de strdup ?
+Dos :
+• Action clé : nettoyer la tête avec while(*begin_list && cmp(...) == 0)
+• Chemin d’échec prêt : si liste vide, return sans toucher aux pointeurs
+• Parcours maîtrisé : tmp = cur->next, unlink, free(tmp), puis décider si cur avance
+• Retour conforme : laisser *begin_list cohérent après toutes suppressions
 
-**Dos :**
-• compter longueur
-• malloc len +1
-• copier
-• '\0'
-
 ---
+CARD 007 — Patterns
 
-## 🟦 CARD 7 — list_foreach
+Face :
+sort_list : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Face :**
-Comment parcourir une liste ?
+Dos :
+• Commencer par la garde d’entrée : si la liste est vide ou à un maillon, return lst
+• Ordre de travail : boucler tant que swapped == 1
+• Plan de sortie mémoire : aucun malloc, tri en place
+• Validation finale : arrêter après un passage complet sans swap
 
-**Dos :**
-• cur = begin
-• while(cur)
-• appliquer f(cur->data)
-• cur = cur->next
-
 ---
-
-## 🟦 CARD 8 — list_remove_if
+CARD 008 — Patterns
 
-**Face :**
-Quel est le pattern général ?
+Face :
+sort_list : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Dos :**
-• nettoyer tête avec while
-• utiliser double pointeur
-• parcourir avec cur
-• tmp = cur->next
-• unlink
-• free(tmp)
+Dos :
+• Action clé : boucler tant que swapped == 1
+• Chemin d’échec prêt : si cmp est instable, ne pas casser les liens
+• Parcours maîtrisé : swap data avec tmp, pas les liens des maillons
+• Retour conforme : arrêter après un passage complet sans swap
 
 ---
+CARD 009 — Patterns
 
-## 🟦 CARD 9 — sort_list
+Face :
+itoa : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Face :**
-Quel pattern simple pour trier une liste ?
+Dos :
+• Commencer par la garde d’entrée : gérer explicitement le cas n == 0
+• Ordre de travail : caster n en long avant traitement du signe
+• Plan de sortie mémoire : malloc(digits + sign + 1)
+• Validation finale : poser str[len] = '\0' avant return
 
-**Dos :**
-• bubble sort
-• flag swapped
-• parcourir
-• swap data
-• recommencer si swapped
-
 ---
+CARD 010 — Patterns
 
-## 🟦 CARD 10 — atoi
+Face :
+itoa : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Face :**
-Pattern classique pour atoi ?
+Dos :
+• Action clé : caster n en long avant traitement du signe
+• Chemin d’échec prêt : if (!str) return NULL
+• Parcours maîtrisé : remplir depuis la fin puis placer le signe
+• Retour conforme : poser str[len] = '\0' avant return
 
-**Dos :**
-• ignorer espaces
-• gérer signe
-• accumuler n = n*10 + digit
-• return résultat
-
 ---
-
-## 🟦 CARD 11 — last_word
+CARD 011 — Patterns
 
-**Face :**
-Pattern pour trouver le dernier mot ?
+Face :
+wdmatch : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Dos :**
-• aller en fin
-• reculer sur séparateurs
-• marquer fin
-• reculer lettres
-• afficher segment
+Dos :
+• Commencer par la garde d’entrée : if (argc != 3) écrire uniquement un retour ligne
+• Ordre de travail : parcourir argv[2] et avancer argv[1] uniquement en cas de match
+• Plan de sortie mémoire : aucun malloc dans la solution standard
+• Validation finale : afficher argv[1] seulement si tout est consommé dans l’ordre
 
 ---
+CARD 012 — Patterns
 
-## 🟦 CARD 12 — strrev
+Face :
+wdmatch : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Face :**
-Comment inverser une string ?
+Dos :
+• Action clé : parcourir argv[2] et avancer argv[1] uniquement en cas de match
+• Chemin d’échec prêt : si un caractère manque, ne pas afficher argv[1]
+• Parcours maîtrisé : i2 avance toujours, i1 avance seulement sur match
+• Retour conforme : afficher argv[1] seulement si tout est consommé dans l’ordre
 
-**Dos :**
-• deux indices i/j
-• swap
-• i++ / j--
-• stop quand i >= j
-
 ---
+CARD 013 — Patterns
 
-## 🟦 CARD 13 — search and replace
+Face :
+union : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Face :**
-Pattern de remplacement simple ?
+Dos :
+• Commencer par la garde d’entrée : caster chaque char en unsigned char avant indexation
+• Ordre de travail : utiliser seen[256] initialisé à 0
+• Plan de sortie mémoire : aucun malloc, tableau local seen
+• Validation finale : écrire un caractère inédit une seule fois
 
-**Dos :**
-• parcourir string
-• if char == cible → remplacer
-• write char
-
 ---
-
-## 🟦 CARD 14 — lstsize
+CARD 014 — Patterns
 
-**Face :**
-Comment compter les maillons ?
+Face :
+union : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Dos :**
-• count = 0
-• while(lst)
-• count++
-• lst = lst->next
+Dos :
+• Action clé : utiliser seen[256] initialisé à 0
+• Chemin d’échec prêt : argc invalide, écrire un retour ligne et sortir
+• Parcours maîtrisé : parcourir la première string puis la seconde
+• Retour conforme : écrire un caractère inédit une seule fois
 
 ---
+CARD 015 — Patterns
 
-## 🟦 CARD 15 — putstr
+Face :
+atoi : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Face :**
-Pattern pour afficher une string ?
+Dos :
+• Commencer par la garde d’entrée : arrêter au premier caractère non numérique
+• Ordre de travail : ignorer espaces, lire signe, accumuler chiffre par chiffre
+• Plan de sortie mémoire : aucun malloc nécessaire
+• Validation finale : return sign * result sans affichage
 
-**Dos :**
-• parcourir
-• write(1,&c,1)
-• '\n' si demandé
-
 ---
+CARD 016 — Patterns
 
-## 🟦 CARD 16 — rot13 / rotone
+Face :
+atoi : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Face :**
-Pattern de rotation de lettres ?
+Dos :
+• Action clé : ignorer espaces, lire signe, accumuler chiffre par chiffre
+• Chemin d’échec prêt : entrée vide ou signe seul, retourner la valeur prévue par le sujet
+• Parcours maîtrisé : incrémenter l’index dans toutes les branches de lecture
+• Retour conforme : return sign * result sans affichage
 
-**Dos :**
-• tester plage a-z / A-Z
-• décaler
-• wrap si dépasse
-• écrire char
-
 ---
-
-## 🟦 CARD 17 — foreach argv
+CARD 017 — Patterns
 
-**Face :**
-Pattern pour parcourir argv ?
+Face :
+last_word : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Dos :**
-• i = 1
-• while(argv[i])
-• traiter
-• i++
+Dos :
+• Commencer par la garde d’entrée : if (argc != 2), écrire seulement un retour ligne
+• Ordre de travail : aller en fin de string puis reculer sur séparateurs
+• Plan de sortie mémoire : aucun malloc, affichage direct
+• Validation finale : écrire exactement le dernier mot puis un retour ligne
 
 ---
+CARD 018 — Patterns
 
-## 🟦 CARD 18 — ft_list_remove_if tête
+Face :
+last_word : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Face :**
-Comment supprimer plusieurs têtes ?
+Dos :
+• Action clé : aller en fin de string puis reculer sur séparateurs
+• Chemin d’échec prêt : si aucun mot trouvé, écrire seulement un retour ligne
+• Parcours maîtrisé : reculer jusqu’au début du mot puis afficher le segment
+• Retour conforme : écrire exactement le dernier mot puis un retour ligne
 
-**Dos :**
-• while(*begin && cmp(...)==0)
-• tmp = *begin
-• *begin = tmp->next
-• free(tmp)
-
 ---
+CARD 019 — Patterns
 
-## 🟦 CARD 19 — split : détecter mot
+Face :
+inter : tu lances l’exercice. Quelle checklist exécuter avant la première boucle ?
 
-**Face :**
-Comment repérer un début de mot ?
+Dos :
+• Commencer par la garde d’entrée : if (argc != 3), sortie minimale avec retour ligne
+• Ordre de travail : vérifier l’appartenance dans argv[2] avant d’afficher
+• Plan de sortie mémoire : aucun malloc, logique en parcours
+• Validation finale : n’afficher chaque caractère commun qu’une seule fois
 
-**Dos :**
-• caractère non séparateur
-• précédé par séparateur ou début
-• start index
-
 ---
-
-## 🟦 CARD 20 — affichage exam
+CARD 020 — Patterns
 
-**Face :**
-Pattern d’affichage à l’exam ?
+Face :
+inter : tu hésites au milieu du code. Quelle action immédiate te remet dans le bon pattern ?
 
-**Dos :**
-• respecter strictement
-• write only
-• newline final
-• rien en trop
+Dos :
+• Action clé : vérifier l’appartenance dans argv[2] avant d’afficher
+• Chemin d’échec prêt : pas de caractère commun, afficher seulement un retour ligne
+• Parcours maîtrisé : parcourir argv[1], scanner argv[2], marquer les déjà affichés
+• Retour conforme : n’afficher chaque caractère commun qu’une seule fois
 
 ---
+CARD 021 — Pièges
 
-Voici **20 flashcards “Pièges”**, écrites pour provoquer le réflexe exam immédiat : *“attention, danger ici”*.
+Face :
+ft_split : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
----
-
-## 🟥 CARD 1 — string sans '\0'
+Dos :
+• Piège fréquent : oublier poser tab[word_count] = null avant return
+• Vérification prioritaire : ignorer les séparateurs avant de marquer un mot
+• Ordre sûr : avancer index caractère sans sauter le dernier mot
+• Si erreur : free les mots déjà alloués, free le tableau, return NULL
 
-**Face :**
-Tu copies une string sans ajouter '\0'. Que risque-tu ?
-
-**Dos :**
-• lecture hors limites
-• affichage aléatoire
-• crash possible
-• tests KO
-
 ---
-
-## 🟥 CARD 2 — malloc trop petit
+CARD 022 — Pièges
 
-**Face :**
-Tu fais malloc(len) pour une string. Problème ?
+Face :
+ft_split : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Dos :**
-• pas de place pour '\0'
-• écriture hors tableau
-• comportement indéfini
+Dos :
+• Rejouer le cas limite : string vide ou composée uniquement de séparateurs
+• Confirmer la garde : ignorer les séparateurs avant de marquer un mot
+• Contrôler la sortie exacte : poser tab[word_count] = NULL avant return
+• Écarter les effets de bord : avancer index caractère sans sauter le dernier mot
 
 ---
+CARD 023 — Pièges
 
-## 🟥 CARD 3 — argc incorrect
+Face :
+ft_range : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Face :**
-argc n’est pas celui attendu. Que faire ?
+Dos :
+• Piège fréquent : oublier retourner le pointeur de base, jamais un pointeur avancé
+• Vérification prioritaire : définir step à +1 ou -1 selon start/end
+• Ordre sûr : écrire arr[i], puis value += step
+• Si erreur : if (!arr) return NULL immédiatement
 
-**Dos :**
-• afficher seulement '\n'
-• rien d’autre
-
 ---
+CARD 024 — Pièges
 
-## 🟥 CARD 4 — char signé
+Face :
+ft_range : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Face :**
-Tu utilises char comme index dans seen[256]. Danger ?
+Dos :
+• Rejouer le cas limite : start == end doit retourner un tableau de taille 1
+• Confirmer la garde : définir step à +1 ou -1 selon start/end
+• Contrôler la sortie exacte : retourner le pointeur de base, jamais un pointeur avancé
+• Écarter les effets de bord : écrire arr[i], puis value += step
 
-**Dos :**
-• valeur négative possible
-• accès hors tableau
-• caster unsigned char
-
 ---
-
-## 🟥 CARD 5 — avancer après suppression
+CARD 025 — Pièges
 
-**Face :**
-Dans remove_if, tu avances cur après unlink. Risque ?
+Face :
+ft_list_remove_if : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Dos :**
-• sauter un maillon
-• suppression incomplète
+Dos :
+• Piège fréquent : oublier laisser *begin_list cohérent après toutes suppressions
+• Vérification prioritaire : tester begin_list et *begin_list avant déréférence
+• Ordre sûr : tmp = cur->next, unlink, free(tmp), puis décider si cur avance
+• Si erreur : si liste vide, return sans toucher aux pointeurs
 
 ---
+CARD 026 — Pièges
 
-## 🟥 CARD 6 — INT_MIN
+Face :
+ft_list_remove_if : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Face :**
-itoa sans gérer INT_MIN ?
+Dos :
+• Rejouer le cas limite : plusieurs suppressions consécutives
+• Confirmer la garde : tester begin_list et *begin_list avant déréférence
+• Contrôler la sortie exacte : laisser *begin_list cohérent après toutes suppressions
+• Écarter les effets de bord : tmp = cur->next, unlink, free(tmp), puis décider si cur avance
 
-**Dos :**
-• overflow
-• valeur fausse
-• tests ratés
-
 ---
+CARD 027 — Pièges
 
-## 🟥 CARD 7 — printf interdit
+Face :
+sort_list : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Face :**
-write est imposé mais tu utilises printf.
+Dos :
+• Piège fréquent : oublier arrêter après un passage complet sans swap
+• Vérification prioritaire : si la liste est vide ou à un maillon, return lst
+• Ordre sûr : swap data avec tmp, pas les liens des maillons
+• Si erreur : si cmp est instable, ne pas casser les liens
 
-**Dos :**
-• interdit
-• note = 0
-• tests KO
-
 ---
-
-## 🟥 CARD 8 — free avant unlink
+CARD 028 — Pièges
 
-**Face :**
-Tu free un maillon avant de reconnecter la liste.
+Face :
+sort_list : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Dos :**
-• corruption
-• accès mémoire invalide
+Dos :
+• Rejouer le cas limite : liste vide, liste à un maillon, éléments égaux
+• Confirmer la garde : si la liste est vide ou à un maillon, return lst
+• Contrôler la sortie exacte : arrêter après un passage complet sans swap
+• Écarter les effets de bord : swap data avec tmp, pas les liens des maillons
 
 ---
+CARD 029 — Pièges
 
-## 🟥 CARD 9 — NULL oublié
+Face :
+itoa : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Face :**
-Tu oublies le NULL final dans split.
+Dos :
+• Piège fréquent : oublier poser str[len] = '\0' avant return
+• Vérification prioritaire : gérer explicitement le cas n == 0
+• Ordre sûr : remplir depuis la fin puis placer le signe
+• Si erreur : if (!str) return NULL
 
-**Dos :**
-• parcours infini
-• segfault
-
 ---
+CARD 030 — Pièges
 
-## 🟥 CARD 10 — variable non initialisée
+Face :
+itoa : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Face :**
-len non initialisé avant comptage.
+Dos :
+• Rejouer le cas limite : INT_MIN doit rester correct sans overflow
+• Confirmer la garde : gérer explicitement le cas n == 0
+• Contrôler la sortie exacte : poser str[len] = '\0' avant return
+• Écarter les effets de bord : remplir depuis la fin puis placer le signe
 
-**Dos :**
-• taille aléatoire
-• malloc faux
-• crash
-
 ---
-
-## 🟥 CARD 11 — double free
+CARD 031 — Pièges
 
-**Face :**
-Tu free deux fois le même pointeur.
+Face :
+wdmatch : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Dos :**
-• segfault
-• corruption heap
+Dos :
+• Piège fréquent : oublier afficher argv[1] seulement si tout est consommé dans l’ordre
+• Vérification prioritaire : if (argc != 3) écrire uniquement un retour ligne
+• Ordre sûr : i2 avance toujours, i1 avance seulement sur match
+• Si erreur : si un caractère manque, ne pas afficher argv[1]
 
 ---
+CARD 032 — Pièges
 
-## 🟥 CARD 12 — mauvais pointeur
+Face :
+wdmatch : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Face :**
-Tu écris `*p = malloc(10)` alors que p est `char *`.
+Dos :
+• Rejouer le cas limite : argv[1] vide doit être géré proprement
+• Confirmer la garde : if (argc != 3) écrire uniquement un retour ligne
+• Contrôler la sortie exacte : afficher argv[1] seulement si tout est consommé dans l’ordre
+• Écarter les effets de bord : i2 avance toujours, i1 avance seulement sur match
 
-**Dos :**
-• type invalide
-• écrasement mémoire
-
 ---
+CARD 033 — Pièges
 
-## 🟥 CARD 13 — return local
+Face :
+union : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Face :**
-Tu retournes l’adresse d’une variable locale.
+Dos :
+• Piège fréquent : oublier écrire un caractère inédit une seule fois
+• Vérification prioritaire : caster chaque char en unsigned char avant indexation
+• Ordre sûr : parcourir la première string puis la seconde
+• Si erreur : argc invalide, écrire un retour ligne et sortir
 
-**Dos :**
-• dangling pointer
-• crash futur
-
 ---
-
-## 🟥 CARD 14 — off-by-one
+CARD 034 — Pièges
 
-**Face :**
-Boucle i <= len au lieu de i < len.
+Face :
+union : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Dos :**
-• dépassement
-• corruption
+Dos :
+• Rejouer le cas limite : char signé négatif sur caractères étendus
+• Confirmer la garde : caster chaque char en unsigned char avant indexation
+• Contrôler la sortie exacte : écrire un caractère inédit une seule fois
+• Écarter les effets de bord : parcourir la première string puis la seconde
 
 ---
+CARD 035 — Pièges
 
-## 🟥 CARD 15 — skip séparateurs
+Face :
+atoi : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Face :**
-Tu oublies d’ignorer les séparateurs dans split.
+Dos :
+• Piège fréquent : oublier return sign * result sans affichage
+• Vérification prioritaire : arrêter au premier caractère non numérique
+• Ordre sûr : incrémenter l’index dans toutes les branches de lecture
+• Si erreur : entrée vide ou signe seul, retourner la valeur prévue par le sujet
 
-**Dos :**
-• mots vides
-• mauvaise sortie
-
 ---
+CARD 036 — Pièges
 
-## 🟥 CARD 16 — malloc non testé
+Face :
+atoi : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Face :**
-Tu ne vérifies pas malloc.
+Dos :
+• Rejouer le cas limite : gérer correctement -0 et les espaces initiaux
+• Confirmer la garde : arrêter au premier caractère non numérique
+• Contrôler la sortie exacte : return sign * result sans affichage
+• Écarter les effets de bord : incrémenter l’index dans toutes les branches de lecture
 
-**Dos :**
-• segfault si NULL
-
 ---
-
-## 🟥 CARD 17 — seen pas remis à zéro
+CARD 037 — Pièges
 
-**Face :**
-seen[256] non initialisé.
+Face :
+last_word : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Dos :**
-• faux doublons
-• comportement aléatoire
+Dos :
+• Piège fréquent : oublier écrire exactement le dernier mot puis un retour ligne
+• Vérification prioritaire : if (argc != 2), écrire seulement un retour ligne
+• Ordre sûr : reculer jusqu’au début du mot puis afficher le segment
+• Si erreur : si aucun mot trouvé, écrire seulement un retour ligne
 
 ---
+CARD 038 — Pièges
 
-## 🟥 CARD 18 — avancer mauvais pointeur
+Face :
+last_word : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Face :**
-Dans une liste, tu avances cur au mauvais moment.
+Dos :
+• Rejouer le cas limite : espaces et tabulations en fin de chaîne
+• Confirmer la garde : if (argc != 2), écrire seulement un retour ligne
+• Contrôler la sortie exacte : écrire exactement le dernier mot puis un retour ligne
+• Écarter les effets de bord : reculer jusqu’au début du mot puis afficher le segment
 
-**Dos :**
-• élément ignoré
-• bug logique
-
 ---
+CARD 039 — Pièges
 
-## 🟥 CARD 19 — '\n' oublié
+Face :
+inter : le code compile mais la moulinette casse. Quel piège corriges-tu en premier ?
 
-**Face :**
-L’énoncé demande un newline final, tu l’oublies.
+Dos :
+• Piège fréquent : oublier n’afficher chaque caractère commun qu’une seule fois
+• Vérification prioritaire : if (argc != 3), sortie minimale avec retour ligne
+• Ordre sûr : parcourir argv[1], scanner argv[2], marquer les déjà affichés
+• Si erreur : pas de caractère commun, afficher seulement un retour ligne
 
-**Dos :**
-• tests automatiques échouent
-
 ---
-
-## 🟥 CARD 20 — malloc arbitraire
+CARD 040 — Pièges
 
-**Face :**
-Tu fais malloc(1000) “pour être large”.
+Face :
+inter : tu vois un comportement aléatoire. Quel test concret lève le doute rapidement ?
 
-**Dos :**
-• pas robuste
-• tests limites ratés
-• mauvaise pratique
+Dos :
+• Rejouer le cas limite : doublons multiples dans argv[1]
+• Confirmer la garde : if (argc != 3), sortie minimale avec retour ligne
+• Contrôler la sortie exacte : n’afficher chaque caractère commun qu’une seule fois
+• Écarter les effets de bord : parcourir argv[1], scanner argv[2], marquer les déjà affichés
 
 ---
+CARD 041 — Réflexes mémoire
 
-Voici **20 flashcards “Réflexes mémoire”**, conçues pour automatiser les bons gestes en exam C : tailles, malloc, free, NULL, ownership, protection, comptage.
+Face :
+ft_split : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
----
-
-## 🟩 CARD 1 — string malloc
+Dos :
+• Allocation exacte : allouer (words + 1) pointeurs puis chaque mot en len + 1
+• Test immédiat : free les mots déjà alloués, free le tableau, return NULL
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : poser tab[word_count] = NULL avant return
 
-**Face :**
-Tu alloues une string copiée. Quelle taille minimale ?
-
-**Dos :**
-• longueur + 1
-• place pour '\0'
-
 ---
-
-## 🟩 CARD 2 — malloc check
+CARD 042 — Réflexes mémoire
 
-**Face :**
-Quel est le premier test après malloc ?
+Face :
+ft_split : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Dos :**
-• if (!ptr) return NULL;
+Dos :
+• Ne jamais continuer après échec : free les mots déjà alloués, free le tableau, return NULL
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
 ---
+CARD 043 — Réflexes mémoire
 
-## 🟩 CARD 3 — tableau de strings
+Face :
+ft_range : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Face :**
-Comment doit se terminer un tableau de strings ?
+Dos :
+• Allocation exacte : malloc(size * sizeof(int))
+• Test immédiat : if (!arr) return NULL immédiatement
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : retourner le pointeur de base, jamais un pointeur avancé
 
-**Dos :**
-• pointeur NULL final
-
 ---
+CARD 044 — Réflexes mémoire
 
-## 🟩 CARD 4 — free après unlink
+Face :
+ft_range : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Face :**
-Quand libérer un maillon supprimé ?
+Dos :
+• Ne jamais continuer après échec : if (!arr) return NULL immédiatement
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
-**Dos :**
-• après avoir reconnecté la liste
-
 ---
-
-## 🟩 CARD 5 — sizeof
+CARD 045 — Réflexes mémoire
 
-**Face :**
-Pourquoi écrire sizeof(type) * n ?
+Face :
+ft_list_remove_if : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Dos :**
-• nombre d’octets correct
+Dos :
+• Allocation exacte : aucun malloc, suppression en place
+• Test immédiat : si liste vide, return sans toucher aux pointeurs
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : laisser *begin_list cohérent après toutes suppressions
 
 ---
+CARD 046 — Réflexes mémoire
 
-## 🟩 CARD 6 — itoa taille
+Face :
+ft_list_remove_if : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Face :**
-Quelle taille malloc pour "-42" ?
+Dos :
+• Ne jamais continuer après échec : si liste vide, return sans toucher aux pointeurs
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
-**Dos :**
-• 4 caractères : '-', '4', '2', '\0'
-
 ---
+CARD 047 — Réflexes mémoire
 
-## 🟩 CARD 7 — pointeur après free
+Face :
+sort_list : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Face :**
-Que faire après free(ptr) ?
+Dos :
+• Allocation exacte : aucun malloc, tri en place
+• Test immédiat : si cmp est instable, ne pas casser les liens
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : arrêter après un passage complet sans swap
 
-**Dos :**
-• ptr = NULL (si possible)
-
 ---
-
-## 🟩 CARD 8 — compter avant malloc
+CARD 048 — Réflexes mémoire
 
-**Face :**
-Pourquoi compter avant malloc ?
+Face :
+sort_list : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Dos :**
-• allouer juste
-• éviter dépassement
+Dos :
+• Ne jamais continuer après échec : si cmp est instable, ne pas casser les liens
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
 ---
+CARD 049 — Réflexes mémoire
 
-## 🟩 CARD 9 — seen[256]
+Face :
+itoa : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Face :**
-Pourquoi initialiser seen[256] ?
+Dos :
+• Allocation exacte : malloc(digits + sign + 1)
+• Test immédiat : if (!str) return NULL
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : poser str[len] = '\0' avant return
 
-**Dos :**
-• éviter faux positifs
-• état propre
-
 ---
+CARD 050 — Réflexes mémoire
 
-## 🟩 CARD 10 — owner mémoire
+Face :
+itoa : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Face :**
-Qui doit free la mémoire retournée par une fonction ?
+Dos :
+• Ne jamais continuer après échec : if (!str) return NULL
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
-**Dos :**
-• l’appelant
-
 ---
-
-## 🟩 CARD 11 — tableau 2D
+CARD 051 — Réflexes mémoire
 
-**Face :**
-Comment allouer un tableau de pointeurs vers mots ?
+Face :
+wdmatch : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Dos :**
-• malloc(nb_mots + 1)
-• NULL final
+Dos :
+• Allocation exacte : aucun malloc dans la solution standard
+• Test immédiat : si un caractère manque, ne pas afficher argv[1]
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : afficher argv[1] seulement si tout est consommé dans l’ordre
 
 ---
+CARD 052 — Réflexes mémoire
 
-## 🟩 CARD 12 — long cast
+Face :
+wdmatch : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Face :**
-Pourquoi caster en long dans itoa ?
+Dos :
+• Ne jamais continuer après échec : si un caractère manque, ne pas afficher argv[1]
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
-**Dos :**
-• éviter overflow (INT_MIN)
-
 ---
+CARD 053 — Réflexes mémoire
 
-## 🟩 CARD 13 — index unsigned
+Face :
+union : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Face :**
-Pourquoi caster en unsigned char ?
+Dos :
+• Allocation exacte : aucun malloc, tableau local seen
+• Test immédiat : argc invalide, écrire un retour ligne et sortir
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : écrire un caractère inédit une seule fois
 
-**Dos :**
-• éviter index négatif
-
 ---
-
-## 🟩 CARD 14 — variable init
+CARD 054 — Réflexes mémoire
 
-**Face :**
-Pourquoi initialiser len = 0 ?
+Face :
+union : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Dos :**
-• éviter valeur aléatoire
+Dos :
+• Ne jamais continuer après échec : argc invalide, écrire un retour ligne et sortir
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
 ---
+CARD 055 — Réflexes mémoire
 
-## 🟩 CARD 15 — free en erreur
+Face :
+atoi : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Face :**
-Si malloc échoue au milieu de split ?
+Dos :
+• Allocation exacte : aucun malloc nécessaire
+• Test immédiat : entrée vide ou signe seul, retourner la valeur prévue par le sujet
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : return sign * result sans affichage
 
-**Dos :**
-• free ce qui est déjà alloué
-
 ---
+CARD 056 — Réflexes mémoire
 
-## 🟩 CARD 16 — buffer fixe
+Face :
+atoi : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Face :**
-Pourquoi éviter malloc(1000) arbitraire ?
+Dos :
+• Ne jamais continuer après échec : entrée vide ou signe seul, retourner la valeur prévue par le sujet
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
-**Dos :**
-• imprécis
-• fragile
-
 ---
-
-## 🟩 CARD 17 — '\0' final
+CARD 057 — Réflexes mémoire
 
-**Face :**
-Pourquoi ajouter '\0' ?
+Face :
+last_word : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Dos :**
-• terminaison string
-• affichage correct
+Dos :
+• Allocation exacte : aucun malloc, affichage direct
+• Test immédiat : si aucun mot trouvé, écrire seulement un retour ligne
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : écrire exactement le dernier mot puis un retour ligne
 
 ---
+CARD 058 — Réflexes mémoire
 
-## 🟩 CARD 18 — double pointeur
+Face :
+last_word : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Face :**
-Pourquoi t_list ** dans remove_if ?
+Dos :
+• Ne jamais continuer après échec : si aucun mot trouvé, écrire seulement un retour ligne
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
-**Dos :**
-• modifier la tête
-• éviter perdre accès
-
 ---
+CARD 059 — Réflexes mémoire
 
-## 🟩 CARD 19 — sizeof(ptr)
+Face :
+inter : tu retournes une donnée allouée. Quel réflexe mémoire appliquer tout de suite ?
 
-**Face :**
-Pourquoi sizeof(ptr) est souvent faux ?
+Dos :
+• Allocation exacte : aucun malloc, logique en parcours
+• Test immédiat : pas de caractère commun, afficher seulement un retour ligne
+• Contrat de libération : appelant responsable du free
+• Sortie sûre : n’afficher chaque caractère commun qu’une seule fois
 
-**Dos :**
-• taille pointeur
-• pas taille élément
-
 ---
-
-## 🟩 CARD 20 — free(NULL)
+CARD 060 — Réflexes mémoire
 
-**Face :**
-Que fait free(NULL) ?
+Face :
+inter : une allocation intermédiaire échoue. Quelle séquence de cleanup exécuter ?
 
-**Dos :**
-• rien
-• sûr
+Dos :
+• Ne jamais continuer après échec : pas de caractère commun, afficher seulement un retour ligne
+• Libérer ce qui est déjà possédé
+• Ne pas free une zone jamais allouée
+• Retourner NULL de façon explicite
 
 ---
+CARD 061 — Pointeurs
 
-Voici **20 flashcards “Pointeurs”**, écrites pour ancrer les mécanismes essentiels en exam C : adresse, déréférencement, double pointeur, listes, erreurs classiques.
+Face :
+ft_split : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
----
-
-## 🟨 CARD 1 — définition
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : ignorer les séparateurs avant de marquer un mot
+• Avancer selon la règle : avancer index caractère sans sauter le dernier mot
+• Éviter toute adresse locale au return
 
-**Face :**
-Qu’est-ce qu’un pointeur en C ?
-
-**Dos :**
-• une variable qui contient une adresse mémoire
-
 ---
-
-## 🟨 CARD 2 — deref
+CARD 062 — Pointeurs
 
-**Face :**
-Que fait `*p` ?
+Face :
+ft_split : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Dos :**
-• accède à la valeur pointée
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : poser tab[word_count] = NULL avant return
 
 ---
+CARD 063 — Pointeurs
 
-## 🟨 CARD 3 — &
+Face :
+ft_range : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Face :**
-Que fait `&x` ?
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : définir step à +1 ou -1 selon start/end
+• Avancer selon la règle : écrire arr[i], puis value += step
+• Éviter toute adresse locale au return
 
-**Dos :**
-• donne l’adresse de x
-
 ---
+CARD 064 — Pointeurs
 
-## 🟨 CARD 4 — simple vs double
+Face :
+ft_range : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Face :**
-Pourquoi utiliser `t_list **` ?
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : retourner le pointeur de base, jamais un pointeur avancé
 
-**Dos :**
-• modifier la tête
-• changer un pointeur
-
 ---
-
-## 🟨 CARD 5 — avancer liste
+CARD 065 — Pointeurs
 
-**Face :**
-Quelle ligne fait avancer dans une liste ?
+Face :
+ft_list_remove_if : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Dos :**
-• cur = cur->next
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : tester begin_list et *begin_list avant déréférence
+• Avancer selon la règle : tmp = cur->next, unlink, free(tmp), puis décider si cur avance
+• Éviter toute adresse locale au return
 
 ---
+CARD 066 — Pointeurs
 
-## 🟨 CARD 6 — opérateur
+Face :
+ft_list_remove_if : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Face :**
-Quel opérateur pour accéder à un champ via pointeur ?
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : laisser *begin_list cohérent après toutes suppressions
 
-**Dos :**
-• ->
-
 ---
+CARD 067 — Pointeurs
 
-## 🟨 CARD 7 — pointeur non init
+Face :
+sort_list : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Face :**
-Danger d’un pointeur non initialisé ?
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : si la liste est vide ou à un maillon, return lst
+• Avancer selon la règle : swap data avec tmp, pas les liens des maillons
+• Éviter toute adresse locale au return
 
-**Dos :**
-• comportement indéfini
-• segfault
-
 ---
-
-## 🟨 CARD 8 — après free
+CARD 068 — Pointeurs
 
-**Face :**
-Peut-on utiliser un pointeur après free ?
+Face :
+sort_list : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Dos :**
-• non
-• dangling pointer
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : arrêter après un passage complet sans swap
 
 ---
+CARD 069 — Pointeurs
 
-## 🟨 CARD 9 — argv
+Face :
+itoa : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Face :**
-Pourquoi argv est un char ** ?
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : gérer explicitement le cas n == 0
+• Avancer selon la règle : remplir depuis la fin puis placer le signe
+• Éviter toute adresse locale au return
 
-**Dos :**
-• tableau de strings
-
 ---
+CARD 070 — Pointeurs
 
-## 🟨 CARD 10 — tmp
+Face :
+itoa : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Face :**
-Pourquoi utiliser un pointeur tmp en liste ?
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : poser str[len] = '\0' avant return
 
-**Dos :**
-• garder adresse
-• free ensuite
-
 ---
-
-## 🟨 CARD 11 — changer tête
+CARD 071 — Pointeurs
 
-**Face :**
-Quelle ligne modifie la tête ?
+Face :
+wdmatch : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Dos :**
-• *begin = (*begin)->next
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : if (argc != 3) écrire uniquement un retour ligne
+• Avancer selon la règle : i2 avance toujours, i1 avance seulement sur match
+• Éviter toute adresse locale au return
 
 ---
+CARD 072 — Pointeurs
 
-## 🟨 CARD 12 — deref NULL
+Face :
+wdmatch : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Face :**
-Que se passe-t-il si on deref NULL ?
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : afficher argv[1] seulement si tout est consommé dans l’ordre
 
-**Dos :**
-• segfault
-
 ---
+CARD 073 — Pointeurs
 
-## 🟨 CARD 13 — swap
+Face :
+union : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Face :**
-Pourquoi swap data plutôt que liens ?
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : caster chaque char en unsigned char avant indexation
+• Avancer selon la règle : parcourir la première string puis la seconde
+• Éviter toute adresse locale au return
 
-**Dos :**
-• plus simple
-• moins risqué
-
 ---
-
-## 🟨 CARD 14 — priorité opérateurs
+CARD 074 — Pointeurs
 
-**Face :**
-Pourquoi `*cur->next` est piégeux ?
+Face :
+union : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Dos :**
-• -> avant *
-• parenthèses nécessaires
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : écrire un caractère inédit une seule fois
 
 ---
+CARD 075 — Pointeurs
 
-## 🟨 CARD 15 — type void *
+Face :
+atoi : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Face :**
-Que représente void * ?
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : arrêter au premier caractère non numérique
+• Avancer selon la règle : incrémenter l’index dans toutes les branches de lecture
+• Éviter toute adresse locale au return
 
-**Dos :**
-• pointeur générique
-
 ---
+CARD 076 — Pointeurs
 
-## 🟨 CARD 16 — vérification
+Face :
+atoi : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Face :**
-Quand vérifier un pointeur ?
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : return sign * result sans affichage
 
-**Dos :**
-• avant deref
-
 ---
-
-## 🟨 CARD 17 — tableau vs pointeur
+CARD 077 — Pointeurs
 
-**Face :**
-Différence char s[10] / char *s ?
+Face :
+last_word : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Dos :**
-• tableau vs adresse
-• stockage différent
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : if (argc != 2), écrire seulement un retour ligne
+• Avancer selon la règle : reculer jusqu’au début du mot puis afficher le segment
+• Éviter toute adresse locale au return
 
 ---
+CARD 078 — Pointeurs
 
-## 🟨 CARD 18 — return local
+Face :
+last_word : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Face :**
-Pourquoi ne pas retourner &local ?
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : écrire exactement le dernier mot puis un retour ligne
 
-**Dos :**
-• pointeur mort
-• stack détruite
-
 ---
+CARD 079 — Pointeurs
 
-## 🟨 CARD 19 — ++ interdit
+Face :
+inter : avant un unlink ou une écriture, quel pointeur dois-tu sécuriser ?
 
-**Face :**
-Pourquoi ne pas faire cur++ sur une liste ?
+Dos :
+• Conserver l’adresse utile dans un temporaire
+• Déréférencer seulement après garde : if (argc != 3), sortie minimale avec retour ligne
+• Avancer selon la règle : parcourir argv[1], scanner argv[2], marquer les déjà affichés
+• Éviter toute adresse locale au return
 
-**Dos :**
-• pas contigu
-• mémoire arbitraire
-
 ---
-
-## 🟨 CARD 20 — double pointeur danger
+CARD 080 — Pointeurs
 
-**Face :**
-Risque principal avec ** ?
+Face :
+inter : tu modifies la structure puis return. Quel réflexe pointeur évite un pointeur mort ?
 
-**Dos :**
-• modifier mauvaise adresse
-• perdre tête
+Dos :
+• Conserver le pointeur de base pour le return
+• Ne jamais retourner l’adresse d’une variable locale
+• Vérifier la validité avant chaque -> ou *
+• Finaliser avec une sortie cohérente : n’afficher chaque caractère commun qu’une seule fois
 
 ---
+CARD 081 — Malloc
 
-Voici **20 flashcards “malloc”**, conçues pour automatiser les bons réflexes d’allocation en exam C : tailles exactes, protection, ownership, erreurs classiques.
+Face :
+ft_split : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
----
-
-## 🟪 CARD 1 — définition
+Dos :
+• Formule exacte : allouer (words + 1) pointeurs puis chaque mot en len + 1
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : free les mots déjà alloués, free le tableau, return NULL
 
-**Face :**
-À quoi sert malloc ?
-
-**Dos :**
-• allouer dynamiquement en heap
-• renvoie un pointeur
-
 ---
-
-## 🟪 CARD 2 — échec
+CARD 082 — Malloc
 
-**Face :**
-Que retourne malloc en cas d’échec ?
+Face :
+ft_split : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Dos :**
-• NULL
+Dos :
+• Sortir proprement : free les mots déjà alloués, free le tableau, return NULL
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
 ---
+CARD 083 — Malloc
 
-## 🟪 CARD 3 — taille string
+Face :
+ft_range : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Face :**
-Quelle taille malloc pour copier une string ?
+Dos :
+• Formule exacte : malloc(size * sizeof(int))
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : if (!arr) return NULL immédiatement
 
-**Dos :**
-• longueur + 1
-• '\0'
-
 ---
+CARD 084 — Malloc
 
-## 🟪 CARD 4 — sizeof
+Face :
+ft_range : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Face :**
-Pourquoi sizeof(type) * n ?
+Dos :
+• Sortir proprement : if (!arr) return NULL immédiatement
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
-**Dos :**
-• nombre d’octets correct
-
 ---
-
-## 🟪 CARD 5 — test
+CARD 085 — Malloc
 
-**Face :**
-Quel test immédiat après malloc ?
+Face :
+ft_list_remove_if : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Dos :**
-• if (!ptr) return NULL
+Dos :
+• Formule exacte : aucun malloc, suppression en place
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : si liste vide, return sans toucher aux pointeurs
 
 ---
+CARD 086 — Malloc
 
-## 🟪 CARD 6 — ownership
+Face :
+ft_list_remove_if : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Face :**
-Qui doit free la mémoire retournée ?
+Dos :
+• Sortir proprement : si liste vide, return sans toucher aux pointeurs
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
-**Dos :**
-• l’appelant
-
 ---
+CARD 087 — Malloc
 
-## 🟪 CARD 7 — free(NULL)
+Face :
+sort_list : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Face :**
-Que fait free(NULL) ?
+Dos :
+• Formule exacte : aucun malloc, tri en place
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : si cmp est instable, ne pas casser les liens
 
-**Dos :**
-• rien
-• sûr
-
 ---
-
-## 🟪 CARD 8 — buffer fixe
+CARD 088 — Malloc
 
-**Face :**
-Pourquoi éviter malloc(1000) arbitraire ?
+Face :
+sort_list : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Dos :**
-• fragile
-• imprécis
+Dos :
+• Sortir proprement : si cmp est instable, ne pas casser les liens
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
 ---
+CARD 089 — Malloc
 
-## 🟪 CARD 9 — sizeof(ptr)
+Face :
+itoa : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Face :**
-Pourquoi sizeof(ptr) est faux pour tableau ?
+Dos :
+• Formule exacte : malloc(digits + sign + 1)
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : if (!str) return NULL
 
-**Dos :**
-• taille pointeur
-• pas élément
-
 ---
+CARD 090 — Malloc
 
-## 🟪 CARD 10 — 2D
+Face :
+itoa : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Face :**
-Comment allouer un tableau de mots ?
+Dos :
+• Sortir proprement : if (!str) return NULL
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
-**Dos :**
-• malloc(nb + 1)
-• NULL final
-
 ---
-
-## 🟪 CARD 11 — libérer après unlink
+CARD 091 — Malloc
 
-**Face :**
-Quand free un maillon supprimé ?
+Face :
+wdmatch : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Dos :**
-• après reconnecter
+Dos :
+• Formule exacte : aucun malloc dans la solution standard
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : si un caractère manque, ne pas afficher argv[1]
 
 ---
+CARD 092 — Malloc
 
-## 🟪 CARD 12 — erreur intermédiaire
+Face :
+wdmatch : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Face :**
-malloc échoue dans split à mi-chemin ?
+Dos :
+• Sortir proprement : si un caractère manque, ne pas afficher argv[1]
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
-**Dos :**
-• free ce qui est déjà alloué
-
 ---
+CARD 093 — Malloc
 
-## 🟪 CARD 13 — calloc
+Face :
+union : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Face :**
-Que fait calloc ?
+Dos :
+• Formule exacte : aucun malloc, tableau local seen
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : argc invalide, écrire un retour ligne et sortir
 
-**Dos :**
-• malloc + mise à zéro
-
 ---
-
-## 🟪 CARD 14 — realloc
+CARD 094 — Malloc
 
-**Face :**
-À quoi sert realloc ?
+Face :
+union : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Dos :**
-• agrandir / réduire
-• conserve contenu
+Dos :
+• Sortir proprement : argc invalide, écrire un retour ligne et sortir
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
 ---
+CARD 095 — Malloc
 
-## 🟪 CARD 15 — fuite
+Face :
+atoi : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Face :**
-Qu’est-ce qu’une fuite mémoire ?
+Dos :
+• Formule exacte : aucun malloc nécessaire
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : entrée vide ou signe seul, retourner la valeur prévue par le sujet
 
-**Dos :**
-• mémoire jamais free
-
 ---
+CARD 096 — Malloc
 
-## 🟪 CARD 16 — après free
+Face :
+atoi : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Face :**
-Pourquoi mettre ptr = NULL après free ?
+Dos :
+• Sortir proprement : entrée vide ou signe seul, retourner la valeur prévue par le sujet
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
-**Dos :**
-• éviter réutilisation
-
 ---
-
-## 🟪 CARD 17 — taille inclusive
+CARD 097 — Malloc
 
-**Face :**
-Pourquoi +1 dans ft_range ?
+Face :
+last_word : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Dos :**
-• inclure start et end
+Dos :
+• Formule exacte : aucun malloc, affichage direct
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : si aucun mot trouvé, écrire seulement un retour ligne
 
 ---
+CARD 098 — Malloc
 
-## 🟪 CARD 18 — itoa
+Face :
+last_word : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Face :**
-Pourquoi malloc len + sign + 1 ?
+Dos :
+• Sortir proprement : si aucun mot trouvé, écrire seulement un retour ligne
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
-**Dos :**
-• '-'
-• '\0'
-
 ---
+CARD 099 — Malloc
 
-## 🟪 CARD 19 — check arguments
+Face :
+inter : quelle taille malloc dois-tu poser pour passer les tests limites ?
 
-**Face :**
-Pourquoi vérifier argc avant malloc ?
+Dos :
+• Formule exacte : aucun malloc, logique en parcours
+• Inclure toujours la terminaison nécessaire
+• Éviter les tailles arbitraires
+• Tester l’échec avant toute écriture : pas de caractère commun, afficher seulement un retour ligne
 
-**Dos :**
-• éviter allocation inutile
-
 ---
-
-## 🟪 CARD 20 — règle absolue
+CARD 100 — Malloc
 
-**Face :**
-Réflexe numéro un avec malloc ?
+Face :
+inter : tu as un NULL de malloc en plein run. Quelle décision immédiate prendre ?
 
-**Dos :**
-• vérifier NULL
+Dos :
+• Sortir proprement : pas de caractère commun, afficher seulement un retour ligne
+• Nettoyer les allocations déjà faites
+• Ne jamais écrire dans un pointeur NULL
+• Retourner un état d’échec explicite
 
 ---
+CARD 101 — Listes chaînées
 
-Voici **20 flashcards “Listes chaînées”**, conçues pour fixer les mécanismes indispensables en exam C : parcours, suppression, double pointeur, tri, erreurs classiques.
+Face :
+ft_list_remove_if : tu supprimes en tête. Quel enchaînement évite de perdre la liste ?
 
----
-
-## 🟫 CARD 1 — rôle next
+Dos :
+• Stocker la tête cible dans tmp
+• Repointer *begin_list vers le suivant
+• Free(tmp) après reconnexion
+• Reboucler tant que la tête match
 
-**Face :**
-À quoi sert le champ next ?
-
-**Dos :**
-• pointer vers le maillon suivant
-
 ---
-
-## 🟫 CARD 2 — tête
+CARD 102 — Listes chaînées
 
-**Face :**
-Que représente begin_list ?
+Face :
+ft_list_remove_if : deux maillons consécutifs doivent disparaître. Quel réflexe d’avancement ?
 
-**Dos :**
-• pointeur vers la tête
+Dos :
+• Ne pas avancer cur après suppression
+• Rester sur le même cur pour retester cur->next
+• Utiliser tmp pour unlink puis free
+• Avancer cur seulement si aucun unlink
 
 ---
+CARD 103 — Listes chaînées
 
-## 🟫 CARD 3 — double pointeur
+Face :
+ft_list_remove_if : avant d’accéder à cur->next->next, quel test est obligatoire ?
 
-**Face :**
-Pourquoi passer t_list ** ?
+Dos :
+• Vérifier cur et cur->next
+• Ne jamais déréférencer sans garde
+• Sortir proprement si la chaîne est courte
+• Reprendre la boucle avec un état sûr
 
-**Dos :**
-• modifier la tête
-• relier après suppression
-
 ---
+CARD 104 — Listes chaînées
 
-## 🟫 CARD 4 — parcourir
+Face :
+ft_list_remove_if : suppression du dernier maillon. Que fais-tu dans l’ordre ?
 
-**Face :**
-Comment parcourir une liste ?
+Dos :
+• Trouver le maillon précédent
+• Mettre previous->next à NULL
+• Free le dernier maillon
+• Conserver la tête inchangée
 
-**Dos :**
-• cur = begin
-• while(cur)
-• cur = cur->next
-
 ---
-
-## 🟫 CARD 5 — supprimer suivant
+CARD 105 — Listes chaînées
 
-**Face :**
-Comment retirer cur->next ?
+Face :
+ft_list_remove_if : liste vide en entrée. Quel comportement attendu à l’exam ?
 
-**Dos :**
-• tmp = cur->next
-• cur->next = tmp->next
-• free(tmp)
+Dos :
+• Retour immédiat sans déréférence
+• Aucun free hors contexte
+• Aucun accès à ->next
+• Fonction stable et silencieuse
 
 ---
+CARD 106 — Listes chaînées
 
-## 🟫 CARD 6 — nettoyer tête
+Face :
+ft_list_remove_if : dans sort_list, quand arrêtes-tu les passes de tri ?
 
-**Face :**
-Comment supprimer plusieurs têtes ?
+Dos :
+• Initialiser swapped à 0 en début de passe
+• Mettre swapped à 1 sur chaque échange
+• Arrêter quand une passe finit sans swap
+• Ne pas casser les liens pendant le tri
 
-**Dos :**
-• while(*begin && cmp(...))
-• tmp = *begin
-• *begin = tmp->next
-• free(tmp)
-
 ---
+CARD 107 — Listes chaînées
 
-## 🟫 CARD 7 — avancer
+Face :
+ft_list_remove_if : swap des maillons ou swap des data ? Quelle décision rapide prend-tu ?
 
-**Face :**
-Quand avancer cur ?
+Dos :
+• Privilégier le swap de data en exam
+• Utiliser tmp pour échanger proprement
+• Éviter de relier les next sans plan complet
+• Valider cmp avant chaque échange
 
-**Dos :**
-• seulement si pas supprimé
-
 ---
-
-## 🟫 CARD 8 — fin liste
+CARD 108 — Listes chaînées
 
-**Face :**
-Comment détecter la fin ?
+Face :
+ft_list_remove_if : après unlink d’un maillon, quel ordre garde l’intégrité mémoire ?
 
-**Dos :**
-• cur == NULL
+Dos :
+• Reconnexion des liens en premier
+• Free du maillon supprimé ensuite
+• Aucun accès au maillon après free
+• Poursuite du parcours avec pointeur valide
 
 ---
+CARD 109 — Listes chaînées
 
-## 🟫 CARD 9 — liste vide
+Face :
+ft_list_remove_if : tous les éléments sont égaux. Quel résultat est correct ?
 
-**Face :**
-Que vaut une liste vide ?
+Dos :
+• Aucun swap inutile
+• swapped reste à 0 sur la passe
+• La liste reste stable
+• La fonction se termine sans boucle infinie
 
-**Dos :**
-• pointeur NULL
-
 ---
+CARD 110 — Listes chaînées
 
-## 🟫 CARD 10 — tmp
+Face :
+ft_list_remove_if : tu nettoies plusieurs têtes d’affilée. Quel test pilote la boucle ?
 
-**Face :**
-Pourquoi tmp est indispensable ?
+Dos :
+• while (*begin_list && cmp(...) == 0)
+• tmp = *begin_list avant unlink
+• *begin_list = tmp->next puis free(tmp)
+• Répéter jusqu’à première tête conservée
 
-**Dos :**
-• garder adresse
-• free après
-
 ---
-
-## 🟫 CARD 11 — sort_list
+CARD 111 — Listes chaînées
 
-**Face :**
-Quel tri simple utiliser à l’exam ?
+Face :
+sort_list : tu supprimes en tête. Quel enchaînement évite de perdre la liste ?
 
-**Dos :**
-• bubble sort
-• swap data
+Dos :
+• Stocker la tête cible dans tmp
+• Repointer *begin_list vers le suivant
+• Free(tmp) après reconnexion
+• Reboucler tant que la tête match
 
 ---
+CARD 112 — Listes chaînées
 
-## 🟫 CARD 12 — swapped
+Face :
+sort_list : deux maillons consécutifs doivent disparaître. Quel réflexe d’avancement ?
 
-**Face :**
-À quoi sert swapped ?
+Dos :
+• Ne pas avancer cur après suppression
+• Rester sur le même cur pour retester cur->next
+• Utiliser tmp pour unlink puis free
+• Avancer cur seulement si aucun unlink
 
-**Dos :**
-• savoir si encore des échanges
-
 ---
+CARD 113 — Listes chaînées
 
-## 🟫 CARD 13 — cmp
+Face :
+sort_list : avant d’accéder à cur->next->next, quel test est obligatoire ?
 
-**Face :**
-Que fait cmp dans sort_list ?
+Dos :
+• Vérifier cur et cur->next
+• Ne jamais déréférencer sans garde
+• Sortir proprement si la chaîne est courte
+• Reprendre la boucle avec un état sûr
 
-**Dos :**
-• indique ordre correct
-
 ---
-
-## 🟫 CARD 14 — lstsize
+CARD 114 — Listes chaînées
 
-**Face :**
-Comment compter les maillons ?
+Face :
+sort_list : suppression du dernier maillon. Que fais-tu dans l’ordre ?
 
-**Dos :**
-• while(lst) count++
+Dos :
+• Trouver le maillon précédent
+• Mettre previous->next à NULL
+• Free le dernier maillon
+• Conserver la tête inchangée
 
 ---
+CARD 115 — Listes chaînées
 
-## 🟫 CARD 15 — dernier
+Face :
+sort_list : liste vide en entrée. Quel comportement attendu à l’exam ?
 
-**Face :**
-Que vaut next du dernier ?
+Dos :
+• Retour immédiat sans déréférence
+• Aucun free hors contexte
+• Aucun accès à ->next
+• Fonction stable et silencieuse
 
-**Dos :**
-• NULL
-
 ---
+CARD 116 — Listes chaînées
 
-## 🟫 CARD 16 — unlink avant free
+Face :
+sort_list : dans sort_list, quand arrêtes-tu les passes de tri ?
 
-**Face :**
-Pourquoi unlink avant free ?
+Dos :
+• Initialiser swapped à 0 en début de passe
+• Mettre swapped à 1 sur chaque échange
+• Arrêter quand une passe finit sans swap
+• Ne pas casser les liens pendant le tri
 
-**Dos :**
-• éviter corruption
-
 ---
-
-## 🟫 CARD 17 — accès sécurisé
+CARD 117 — Listes chaînées
 
-**Face :**
-Quel test avant cur->next ?
+Face :
+sort_list : swap des maillons ou swap des data ? Quelle décision rapide prend-tu ?
 
-**Dos :**
-• if(cur->next)
+Dos :
+• Privilégier le swap de data en exam
+• Utiliser tmp pour échanger proprement
+• Éviter de relier les next sans plan complet
+• Valider cmp avant chaque échange
 
 ---
+CARD 118 — Listes chaînées
 
-## 🟫 CARD 18 — supprimer dernier
+Face :
+sort_list : après unlink d’un maillon, quel ordre garde l’intégrité mémoire ?
 
-**Face :**
-Comment supprimer le dernier ?
+Dos :
+• Reconnexion des liens en premier
+• Free du maillon supprimé ensuite
+• Aucun accès au maillon après free
+• Poursuite du parcours avec pointeur valide
 
-**Dos :**
-• parcourir jusqu’à avant dernier
-• unlink
-• free
-
 ---
+CARD 119 — Listes chaînées
 
-## 🟫 CARD 19 — récursion
+Face :
+sort_list : tous les éléments sont égaux. Quel résultat est correct ?
 
-**Face :**
-Pourquoi éviter récursion à l’exam ?
+Dos :
+• Aucun swap inutile
+• swapped reste à 0 sur la passe
+• La liste reste stable
+• La fonction se termine sans boucle infinie
 
-**Dos :**
-• stack
-• complexité
-
 ---
-
-## 🟫 CARD 20 — danger principal
+CARD 120 — Listes chaînées
 
-**Face :**
-Piège majeur avec les listes ?
+Face :
+sort_list : tu nettoies plusieurs têtes d’affilée. Quel test pilote la boucle ?
 
-**Dos :**
-• avancer au mauvais moment
-• perdre un lien
+Dos :
+• while (*begin_list && cmp(...) == 0)
+• tmp = *begin_list avant unlink
+• *begin_list = tmp->next puis free(tmp)
+• Répéter jusqu’à première tête conservée
 
 ---
+CARD 121 — Conditions limites
 
-Voici **20 flashcards “Conditions limites”**, faites pour entraîner ton réflexe *“et si c’est le cas bizarre ?”* avant de coder : chaînes vides, listes à 1 élément, 0, négatif, malloc qui échoue.
+Face :
+ft_split : quel cas limite testes-tu en premier avant de valider la fonction ?
 
----
-
-## 🟦 CARD 1 — itoa INT_MIN
+Dos :
+• Cas critique : string vide ou composée uniquement de séparateurs
+• Confirmer la garde : ignorer les séparateurs avant de marquer un mot
+• Contrôler la sortie : poser tab[word_count] = NULL avant return
+• Vérifier le comportement en erreur : free les mots déjà alloués, free le tableau, return NULL
 
-**Face :**
-Quel est le cas limite majeur de itoa ?
-
-**Dos :**
-• INT_MIN
-• overflow si non géré
-• caster en long
-
 ---
-
-## 🟦 CARD 2 — split vide
+CARD 122 — Conditions limites
 
-**Face :**
-split("") doit retourner quoi ?
+Face :
+ft_split : en entrée minimale, quel comportement doit rester stable ?
 
-**Dos :**
-• tableau contenant seulement NULL
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
 ---
+CARD 123 — Conditions limites
 
-## 🟦 CARD 3 — ft_range égalité
+Face :
+ft_range : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Face :**
-ft_range(5,5) ?
+Dos :
+• Cas critique : start == end doit retourner un tableau de taille 1
+• Confirmer la garde : définir step à +1 ou -1 selon start/end
+• Contrôler la sortie : retourner le pointeur de base, jamais un pointeur avancé
+• Vérifier le comportement en erreur : if (!arr) return NULL immédiatement
 
-**Dos :**
-• tableau {5}
-
 ---
+CARD 124 — Conditions limites
 
-## 🟦 CARD 4 — liste vide
+Face :
+ft_range : en entrée minimale, quel comportement doit rester stable ?
 
-**Face :**
-Que vaut begin_list si la liste est vide ?
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
-**Dos :**
-• NULL
-
 ---
-
-## 🟦 CARD 5 — supprimer tout
+CARD 125 — Conditions limites
 
-**Face :**
-remove_if supprime tous les éléments. Résultat ?
+Face :
+ft_list_remove_if : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Dos :**
-• *begin devient NULL
+Dos :
+• Cas critique : plusieurs suppressions consécutives
+• Confirmer la garde : tester begin_list et *begin_list avant déréférence
+• Contrôler la sortie : laisser *begin_list cohérent après toutes suppressions
+• Vérifier le comportement en erreur : si liste vide, return sans toucher aux pointeurs
 
 ---
+CARD 126 — Conditions limites
 
-## 🟦 CARD 6 — atoi zéro
+Face :
+ft_list_remove_if : en entrée minimale, quel comportement doit rester stable ?
 
-**Face :**
-atoi("0") ?
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
-**Dos :**
-• 0
-
 ---
+CARD 127 — Conditions limites
 
-## 🟦 CARD 7 — only spaces
+Face :
+sort_list : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Face :**
-split("   ") doit produire ?
+Dos :
+• Cas critique : liste vide, liste à un maillon, éléments égaux
+• Confirmer la garde : si la liste est vide ou à un maillon, return lst
+• Contrôler la sortie : arrêter après un passage complet sans swap
+• Vérifier le comportement en erreur : si cmp est instable, ne pas casser les liens
 
-**Dos :**
-• tableau NULL
-
 ---
-
-## 🟦 CARD 8 — un seul élément
+CARD 128 — Conditions limites
 
-**Face :**
-sort_list avec un seul maillon ?
+Face :
+sort_list : en entrée minimale, quel comportement doit rester stable ?
 
-**Dos :**
-• inchangé
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
 ---
+CARD 129 — Conditions limites
 
-## 🟦 CARD 9 — wdmatch raté
+Face :
+itoa : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Face :**
-wdmatch ne trouve pas tous les caractères.
+Dos :
+• Cas critique : INT_MIN doit rester correct sans overflow
+• Confirmer la garde : gérer explicitement le cas n == 0
+• Contrôler la sortie : poser str[len] = '\0' avant return
+• Vérifier le comportement en erreur : if (!str) return NULL
 
-**Dos :**
-• afficher '\n'
-
 ---
+CARD 130 — Conditions limites
 
-## 🟦 CARD 10 — start > end
+Face :
+itoa : en entrée minimale, quel comportement doit rester stable ?
 
-**Face :**
-ft_range(3,0) ?
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
-**Dos :**
-• {3,2,1,0}
-
 ---
-
-## 🟦 CARD 11 — itoa(0)
+CARD 131 — Conditions limites
 
-**Face :**
-itoa(0) retourne ?
+Face :
+wdmatch : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Dos :**
-• "0"
+Dos :
+• Cas critique : argv[1] vide doit être géré proprement
+• Confirmer la garde : if (argc != 3) écrire uniquement un retour ligne
+• Contrôler la sortie : afficher argv[1] seulement si tout est consommé dans l’ordre
+• Vérifier le comportement en erreur : si un caractère manque, ne pas afficher argv[1]
 
 ---
+CARD 132 — Conditions limites
 
-## 🟦 CARD 12 — foreach vide
+Face :
+wdmatch : en entrée minimale, quel comportement doit rester stable ?
 
-**Face :**
-ft_list_foreach sur liste vide ?
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
-**Dos :**
-• rien
-
 ---
+CARD 133 — Conditions limites
 
-## 🟦 CARD 13 — aucun match
+Face :
+union : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Face :**
-remove_if ne trouve rien.
+Dos :
+• Cas critique : char signé négatif sur caractères étendus
+• Confirmer la garde : caster chaque char en unsigned char avant indexation
+• Contrôler la sortie : écrire un caractère inédit une seule fois
+• Vérifier le comportement en erreur : argc invalide, écrire un retour ligne et sortir
 
-**Dos :**
-• liste inchangée
-
 ---
-
-## 🟦 CARD 14 — tableau final
+CARD 134 — Conditions limites
 
-**Face :**
-Comment doit se terminer un tableau de strings ?
+Face :
+union : en entrée minimale, quel comportement doit rester stable ?
 
-**Dos :**
-• NULL
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
 ---
+CARD 135 — Conditions limites
 
-## 🟦 CARD 15 — atoi espaces
+Face :
+atoi : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Face :**
-atoi("   42") ?
+Dos :
+• Cas critique : gérer correctement -0 et les espaces initiaux
+• Confirmer la garde : arrêter au premier caractère non numérique
+• Contrôler la sortie : return sign * result sans affichage
+• Vérifier le comportement en erreur : entrée vide ou signe seul, retourner la valeur prévue par le sujet
 
-**Dos :**
-• 42
-
 ---
+CARD 136 — Conditions limites
 
-## 🟦 CARD 16 — union vide
+Face :
+atoi : en entrée minimale, quel comportement doit rester stable ?
 
-**Face :**
-union("", "") ?
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
-**Dos :**
-• rien afficher
-
 ---
-
-## 🟦 CARD 17 — dernier mot
+CARD 137 — Conditions limites
 
-**Face :**
-Dernier mot sans séparateur ?
+Face :
+last_word : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Dos :**
-• inclure quand même
+Dos :
+• Cas critique : espaces et tabulations en fin de chaîne
+• Confirmer la garde : if (argc != 2), écrire seulement un retour ligne
+• Contrôler la sortie : écrire exactement le dernier mot puis un retour ligne
+• Vérifier le comportement en erreur : si aucun mot trouvé, écrire seulement un retour ligne
 
 ---
+CARD 138 — Conditions limites
 
-## 🟦 CARD 18 — supprimer dernier
+Face :
+last_word : en entrée minimale, quel comportement doit rester stable ?
 
-**Face :**
-remove_if supprime dernier maillon ?
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
-**Dos :**
-• unlink
-• free
-
 ---
+CARD 139 — Conditions limites
 
-## 🟦 CARD 19 — argc faux
+Face :
+inter : quel cas limite testes-tu en premier avant de valider la fonction ?
 
-**Face :**
-argc incorrect.
+Dos :
+• Cas critique : doublons multiples dans argv[1]
+• Confirmer la garde : if (argc != 3), sortie minimale avec retour ligne
+• Contrôler la sortie : n’afficher chaque caractère commun qu’une seule fois
+• Vérifier le comportement en erreur : pas de caractère commun, afficher seulement un retour ligne
 
-**Dos :**
-• afficher '\n'
-
 ---
-
-## 🟦 CARD 20 — malloc échoue
+CARD 140 — Conditions limites
 
-**Face :**
-malloc échoue dans split ?
+Face :
+inter : en entrée minimale, quel comportement doit rester stable ?
 
-**Dos :**
-• free déjà alloué
-• return NULL
+Dos :
+• Aucune déréférence sans garde
+• Aucune allocation inutile
+• Retour déterministe et conforme
+• Sortie attendue strictement respectée
 
 ---
+CARD 141 — Règles implicites des énoncés
 
-Voici **20 flashcards “Règles implicites des énoncés”**, pensées pour t’éviter les zéros bêtes à l’exam : sorties exactes, fonctions autorisées, prototypes stricts, fichiers imposés.
+Face :
+ft_split : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
----
-
-## 🟪 CARD 1 — argc incorrect
-
-**Face :**
-argc n’est pas celui attendu. Que faire ?
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
-**Dos :**
-• afficher uniquement `\n`
-• rien d’autre
-
 ---
+CARD 142 — Règles implicites des énoncés
 
-## 🟪 CARD 2 — fonctions autorisées
+Face :
+ft_split : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Face :**
-Une fonction n’est pas listée dans “Allowed functions”.
+Dos :
+• Règle d’énoncé : si argc invalide dans un main test, écrire seulement un retour ligne
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
-**Dos :**
-• interdite
-• ne pas l’utiliser
-
 ---
-
-## 🟪 CARD 3 — write imposé
+CARD 143 — Règles implicites des énoncés
 
-**Face :**
-write est la seule fonction autorisée.
+Face :
+ft_range : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Dos :**
-• pas printf
-• pas puts
-• pas perror
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
 ---
+CARD 144 — Règles implicites des énoncés
 
-## 🟪 CARD 4 — sortie exacte
+Face :
+ft_range : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Face :**
-Pourquoi l’output doit être strict ?
+Dos :
+• Règle d’énoncé : respecter exactement le prototype demandé
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
-**Dos :**
-• tests automatiques
-• comparaison exacte
-
 ---
+CARD 145 — Règles implicites des énoncés
 
-## 🟪 CARD 5 — newline final
+Face :
+ft_list_remove_if : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Face :**
-L’énoncé montre un `\n` final.
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
-**Dos :**
-• obligatoire
-• sinon tests KO
-
 ---
-
-## 🟪 CARD 6 — nom de fichier
+CARD 146 — Règles implicites des énoncés
 
-**Face :**
-“Expected files : wdmatch.c”.
+Face :
+ft_list_remove_if : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Dos :**
-• un seul fichier
-• nom exact
+Dos :
+• Règle d’énoncé : garder la signature imposée avec free_fct
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
 ---
+CARD 147 — Règles implicites des énoncés
 
-## 🟪 CARD 7 — prototype
+Face :
+sort_list : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Face :**
-Le prototype doit correspondre exactement ?
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
-**Dos :**
-• oui
-• sinon compilation refusée
-
 ---
+CARD 148 — Règles implicites des énoncés
 
-## 🟪 CARD 8 — include fourni
+Face :
+sort_list : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Face :**
-“include list.h but do not turn it in”.
+Dos :
+• Règle d’énoncé : respecter la convention cmp(a, b) > 0 pour swap
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
-**Dos :**
-• utiliser le header
-• ne pas rendre le fichier
-
 ---
-
-## 🟪 CARD 9 — structure imposée
+CARD 149 — Règles implicites des énoncés
 
-**Face :**
-Une struct est fournie dans l’énoncé.
+Face :
+itoa : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Dos :**
-• ne pas modifier
-• utiliser telle quelle
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
 ---
+CARD 150 — Règles implicites des énoncés
 
-## 🟪 CARD 10 — pas de debug
+Face :
+itoa : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Face :**
-Peut-on laisser des printf de debug ?
+Dos :
+• Règle d’énoncé : la fonction retourne une string, elle ne doit rien afficher
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
-**Dos :**
-• non
-• sortie strictement contrôlée
-
 ---
+CARD 151 — Règles implicites des énoncés
 
-## 🟪 CARD 11 — affichage erreur
+Face :
+wdmatch : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Face :**
-L’énoncé ne demande pas d’erreur explicite.
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
-**Dos :**
-• rester silencieux
-• ou seulement `\n`
-
 ---
-
-## 🟪 CARD 12 — return malloc
+CARD 152 — Règles implicites des énoncés
 
-**Face :**
-Une fonction doit retourner un pointeur.
+Face :
+wdmatch : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Dos :**
-• retourner une adresse valide
-• pas une variable locale
+Dos :
+• Règle d’énoncé : sortie stricte sans texte additionnel
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
 ---
+CARD 153 — Règles implicites des énoncés
 
-## 🟪 CARD 13 — Allowed functions: malloc
+Face :
+union : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Face :**
-calloc est autorisé ?
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
-**Dos :**
-• non
-• pas listé
-
 ---
+CARD 154 — Règles implicites des énoncés
 
-## 🟪 CARD 14 — exemples
+Face :
+union : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Face :**
-Les exemples fournis servent à quoi ?
+Dos :
+• Règle d’énoncé : respecter le format exact de sortie demandé
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
-**Dos :**
-• contrat exact
-• format à respecter
-
 ---
-
-## 🟪 CARD 15 — stderr
+CARD 155 — Règles implicites des énoncés
 
-**Face :**
-Afficher sur stderr au lieu de stdout ?
+Face :
+atoi : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Dos :**
-• tests ratés
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
 ---
+CARD 156 — Règles implicites des énoncés
 
-## 🟪 CARD 16 — afficher trop
+Face :
+atoi : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Face :**
-Tu affiches plus que demandé.
+Dos :
+• Règle d’énoncé : pas de sortie texte dans la fonction
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
-**Dos :**
-• tests KO
-
 ---
+CARD 157 — Règles implicites des énoncés
 
-## 🟪 CARD 17 — comportement non précisé
+Face :
+last_word : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Face :**
-Un cas n’est pas décrit.
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
-**Dos :**
-• rester minimal
-• ne rien inventer
-
 ---
-
-## 🟪 CARD 18 — noms fonctions
+CARD 158 — Règles implicites des énoncés
 
-**Face :**
-Pourquoi respecter les noms exacts ?
+Face :
+last_word : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Dos :**
-• linker
-• compilation
+Dos :
+• Règle d’énoncé : aucun espace en trop dans la sortie
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
 ---
+CARD 159 — Règles implicites des énoncés
 
-## 🟪 CARD 19 — ordre affichage
+Face :
+inter : l’énoncé impose un prototype strict. Quelle vérification fais-tu avant rendu ?
 
-**Face :**
-Changer l’ordre d’affichage ?
+Dos :
+• Signature identique au sujet
+• Fonctions autorisées uniquement
+• Aucun print de debug
+• Sortie formatée exactement comme demandé
 
-**Dos :**
-• interdit
-• tests KO
-
 ---
+CARD 160 — Règles implicites des énoncés
 
-## 🟪 CARD 20 — règle absolue
+Face :
+inter : argc est invalide dans le main de test. Quel comportement conforme appliques-tu ?
 
-**Face :**
-Règle implicite numéro un ?
+Dos :
+• Règle d’énoncé : sortie stricte sans message de debug
+• Ne pas ajouter de message personnel
+• Conserver stdout conforme
+• Quitter proprement sans effet de bord
 
-**Dos :**
-• relire l’énoncé
-• respecter chaque mot
-
 ---
-
