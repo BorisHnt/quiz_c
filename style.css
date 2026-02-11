@@ -618,7 +618,7 @@ body[data-page="index"] .list li {
 }
 
 .puzzle-control-grid {
-  grid-template-columns: 2fr 1fr auto;
+  grid-template-columns: 2fr 1.2fr 1fr auto;
   align-items: end;
 }
 

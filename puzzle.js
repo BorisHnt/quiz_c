@@ -237,6 +237,7 @@ const PUZZLES = [
 
 const ui = {
   puzzleSelect: null,
+  variantSelect: null,
   levelSelect: null,
   loadBtn: null,
   nextBtn: null,
@@ -260,6 +261,8 @@ const state = {
   progress: null,
   puzzleState: null,
   currentPuzzle: null,
+  currentVariant: "script",
+  currentSourceLines: [],
   currentOrder: [],
   currentLevel: 1,
   currentPartCount: 0,
@@ -271,7 +274,14 @@ function clampLevel(value) {
   if (!Number.isFinite(level)) {
     return 1;
   }
-  return Math.max(1, Math.min(4, level));
+  return Math.max(1, Math.min(5, level));
+}
+
+function clampVariant(value) {
+  if (value === "full") {
+    return "full";
+  }
+  return "script";
 }
 
 function defaultPuzzleState() {
@@ -284,6 +294,7 @@ function defaultPuzzleState() {
     history: [],
     lastPuzzleId: "",
     lastLevel: 1,
+    lastVariant: "script",
   };
 }
 
@@ -320,6 +331,7 @@ function loadPuzzleState() {
       history,
       lastPuzzleId: typeof parsed.lastPuzzleId === "string" ? parsed.lastPuzzleId : "",
       lastLevel: clampLevel(parsed.lastLevel),
+      lastVariant: clampVariant(parsed.lastVariant),
     };
   } catch (_error) {
     return defaultPuzzleState();
@@ -332,6 +344,7 @@ function savePuzzleState() {
 
 function selectUi() {
   ui.puzzleSelect = document.querySelector("#puzzleSelect");
+  ui.variantSelect = document.querySelector("#puzzleVariantSelect");
   ui.levelSelect = document.querySelector("#puzzleLevelSelect");
   ui.loadBtn = document.querySelector("#loadPuzzleBtn");
   ui.nextBtn = document.querySelector("#nextPuzzleBtn");
@@ -409,6 +422,10 @@ function puzzleFromId(puzzleId) {
   return PUZZLES.find((puzzle) => puzzle.id === puzzleId) || null;
 }
 
+function selectedVariant() {
+  return clampVariant(ui.variantSelect.value);
+}
+
 function selectedLevel() {
   return clampLevel(ui.levelSelect.value);
 }
@@ -416,14 +433,16 @@ function selectedLevel() {
 function partTargets(totalLines) {
   const maxParts = Math.max(1, totalLines);
   const clampParts = (value) => Math.max(1, Math.min(maxParts, value));
-  const level1 = clampParts(Math.max(2, Math.floor(totalLines * 0.45)));
-  const level2 = clampParts(Math.max(level1 + 1, Math.floor(totalLines * 0.65)));
-  const level3 = clampParts(Math.max(level2 + 1, Math.floor(totalLines * 0.85)));
+  const level1 = clampParts(Math.max(2, Math.floor(totalLines * 0.22)));
+  const level2 = clampParts(Math.max(level1 + 1, Math.floor(totalLines * 0.4)));
+  const level3 = clampParts(Math.max(level2 + 1, Math.floor(totalLines * 0.58)));
+  const level4 = clampParts(Math.max(level3 + 1, Math.floor(totalLines * 0.8)));
   return {
     1: level1,
     2: level2,
     3: level3,
-    4: maxParts,
+    4: level4,
+    5: maxParts,
   };
 }
 
@@ -444,12 +463,146 @@ function splitLinesIntoParts(lines, wantedParts) {
   return groups;
 }
 
-function buildChunksForLevel(puzzle, level) {
-  const targets = partTargets(puzzle.lines.length);
-  const partCount = targets[level] || puzzle.lines.length;
-  const groups = splitLinesIntoParts(puzzle.lines, partCount);
+const FULL_FUNCTION_TEMPLATES = {
+  ft_split_words: {
+    before: [
+      "char **ft_split(char const *s, char c)",
+      "{",
+      "    char **tab;",
+      "    int words;",
+      "    int i;",
+      "    int len;",
+      "",
+      "    if (s == NULL)",
+      "        return (NULL);",
+    ],
+    after: ["}"],
+  },
+  ft_range_core: {
+    before: [
+      "int *ft_range(int start, int end)",
+      "{",
+      "    int *tab;",
+      "    int size;",
+      "    int step;",
+      "    int i;",
+      "    int value;",
+      "",
+    ],
+    after: ["}"],
+  },
+  list_remove_if: {
+    before: [
+      "void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *))",
+      "{",
+      "    t_list *cur;",
+      "    t_list *tmp;",
+      "",
+      "    if (begin_list == NULL || cmp == NULL || free_fct == NULL)",
+      "        return ;",
+      "    if (*begin_list == NULL)",
+      "        return ;",
+    ],
+    after: ["}"],
+  },
+  sort_list_pass: {
+    before: [
+      "t_list *sort_list(t_list *lst, int (*cmp)(int, int))",
+      "{",
+      "    t_list *cur;",
+      "    int tmp;",
+      "    int swapped;",
+      "",
+    ],
+    after: ["}"],
+  },
+  itoa_safe: {
+    before: [
+      "char *ft_itoa(int nbr)",
+      "{",
+      "    long n;",
+      "    int sign;",
+      "    int len;",
+      "    char *str;",
+      "",
+    ],
+    after: ["}"],
+  },
+  wdmatch_flow: {
+    before: [
+      "int main(int argc, char **argv)",
+      "{",
+      "    int i;",
+      "    int j;",
+      "",
+    ],
+    after: ["    return (0);", "}"],
+  },
+  union_seen: {
+    before: [
+      "int main(int argc, char **argv)",
+      "{",
+      "    unsigned char seen[256];",
+      "    unsigned char c;",
+      "    int i;",
+      "",
+      "    if (argc != 3)",
+      "    {",
+      "        write(1, \"\\n\", 1);",
+      "        return (0);",
+      "    }",
+    ],
+    after: ["    return (0);", "}"],
+  },
+  atoi_core: {
+    before: [
+      "int ft_atoi(const char *str)",
+      "{",
+      "    int i;",
+      "    int sign;",
+      "    int result;",
+      "",
+    ],
+    after: ["}"],
+  },
+};
+
+function linesForVariant(puzzle, variant) {
+  if (variant !== "full") {
+    return puzzle.lines;
+  }
+
+  const template = FULL_FUNCTION_TEMPLATES[puzzle.id];
+  if (!template) {
+    return puzzle.lines;
+  }
+
+  const fullLines = [];
+  template.before.forEach((line) => {
+    fullLines.push(line);
+  });
+  puzzle.lines.forEach((line) => {
+    fullLines.push(line);
+  });
+  template.after.forEach((line) => {
+    fullLines.push(line);
+  });
+  return fullLines;
+}
+
+function variantLabel(variant) {
+  if (variant === "full") {
+    return "Fonction complète 42-style";
+  }
+  return "Script";
+}
+
+function buildChunksForLevel(puzzleId, lines, level, variant) {
+  const targets = partTargets(lines.length);
+  const partCount = targets[level] || lines.length;
+  const groups = splitLinesIntoParts(lines, partCount);
   return groups.map((group, index) => ({
-    lineId: `${puzzle.id}-l${level}-${index}`,
+    lineId: `${puzzleId}-${variant}-l${level}-${index}`,
     originalIndex: index,
     text: group.join("\n"),
   }));
@@ -460,7 +613,7 @@ function renderLevelBadge() {
     ui.levelBadge.textContent = "Niveau -";
     return;
   }
-  ui.levelBadge.textContent = `Niveau ${state.currentLevel} | ${state.currentPartCount} blocs`;
+  ui.levelBadge.textContent = `${variantLabel(state.currentVariant)} | Niveau ${state.currentLevel} | ${state.currentPartCount} blocs`;
 }
 
 function pickRandomPuzzle(avoidId = "") {
@@ -485,7 +638,7 @@ function shuffleCurrentOrder() {
   }
 
   const seed = seedFromString(
-    `${Date.now()}-${state.currentPuzzle.id}-l${state.currentLevel}-${state.puzzleState.attempts}`
+    `${Date.now()}-${state.currentPuzzle.id}-${state.currentVariant}-l${state.currentLevel}-${state.puzzleState.attempts}`
   );
   const rng = createSeededRng(seed);
   let shuffled = shuffleArray(state.currentOrder, rng);
@@ -498,7 +651,9 @@ function shuffleCurrentOrder() {
 
   state.currentOrder = shuffled;
   renderLines();
-  setFeedback(`Niveau ${state.currentLevel}: ${state.currentPartCount} blocs mélangés. Réorganise de haut en bas.`);
+  setFeedback(
+    `${variantLabel(state.currentVariant)} - niveau ${state.currentLevel}: ${state.currentPartCount} blocs mélangés.`
+  );
 }
 
 function loadPuzzle(puzzle) {
@@ -507,12 +662,17 @@ function loadPuzzle(puzzle) {
   }
 
   const level = selectedLevel();
+  const variant = selectedVariant();
+  const sourceLines = linesForVariant(puzzle, variant);
   state.currentPuzzle = puzzle;
+  state.currentVariant = variant;
+  state.currentSourceLines = sourceLines;
   state.currentLevel = level;
-  state.currentOrder = buildChunksForLevel(puzzle, level);
+  state.currentOrder = buildChunksForLevel(puzzle.id, sourceLines, level, variant);
   state.currentPartCount = state.currentOrder.length;
   state.puzzleState.lastPuzzleId = puzzle.id;
   state.puzzleState.lastLevel = level;
+  state.puzzleState.lastVariant = variant;
   savePuzzleState();
 
   ui.title.textContent = puzzle.title;
@@ -645,7 +805,7 @@ function checkPuzzle() {
 
   if (success) {
     setFeedback(
-      `Correct. Niveau ${state.currentLevel} validé avec ${state.currentPartCount} blocs dans le bon ordre.`,
+      `Correct. ${variantLabel(state.currentVariant)} niveau ${state.currentLevel} validé avec ${state.currentPartCount} blocs.`,
       "is-success"
     );
     return;
@@ -653,7 +813,7 @@ function checkPuzzle() {
 
   const wrongIndex = state.currentOrder.findIndex((line, idx) => line.originalIndex !== idx);
   setFeedback(
-    `Pas encore. Niveau ${state.currentLevel}: vérifie d'abord le bloc ${wrongIndex + 1}.`,
+    `Pas encore. ${variantLabel(state.currentVariant)} niveau ${state.currentLevel}: vérifie le bloc ${wrongIndex + 1}.`,
     "is-error"
   );
 }
@@ -663,11 +823,18 @@ function showSolution() {
     return;
   }
 
-  state.currentOrder = buildChunksForLevel(state.currentPuzzle, state.currentLevel);
+  state.currentOrder = buildChunksForLevel(
+    state.currentPuzzle.id,
+    state.currentSourceLines,
+    state.currentLevel,
+    state.currentVariant
+  );
   state.currentPartCount = state.currentOrder.length;
   renderLines();
   renderLevelBadge();
-  setFeedback(`Solution affichée pour le niveau ${state.currentLevel}. Relance un puzzle pour t'entraîner.`);
+  setFeedback(
+    `Solution affichée (${variantLabel(state.currentVariant)}, niveau ${state.currentLevel}). Relance un puzzle pour t'entraîner.`
+  );
 }
 
 function loadSelectedPuzzle(avoidCurrent = false) {
@@ -804,6 +971,14 @@ function bindEvents() {
   ui.shuffleBtn.addEventListener("click", shuffleCurrentOrder);
   ui.verifyBtn.addEventListener("click", checkPuzzle);
   ui.solutionBtn.addEventListener("click", showSolution);
+  ui.variantSelect.addEventListener("change", () => {
+    const variant = selectedVariant();
+    state.puzzleState.lastVariant = variant;
+    savePuzzleState();
+    if (state.currentPuzzle) {
+      loadPuzzle(state.currentPuzzle);
+    }
+  });
   ui.levelSelect.addEventListener("change", () => {
     const level = selectedLevel();
     state.puzzleState.lastLevel = level;
@@ -822,8 +997,10 @@ function initPuzzlePage() {
 
   state.progress = initCommon("puzzle", "puzzle.html");
   state.puzzleState = loadPuzzleState();
+  state.currentVariant = clampVariant(state.puzzleState.lastVariant);
   state.currentLevel = clampLevel(state.puzzleState.lastLevel);
   buildSelectOptions();
+  ui.variantSelect.value = state.currentVariant;
   ui.levelSelect.value = String(state.currentLevel);
   renderStats();
   renderHistory();
@@ -836,7 +1013,7 @@ function initPuzzlePage() {
     loadPuzzle(initialPuzzle);
   }
 
-  setFeedback(`Niveau ${state.currentLevel}: réordonne les lignes pour reconstruire le code.`);
+  setFeedback(`${variantLabel(state.currentVariant)} niveau ${state.currentLevel}: réordonne les blocs.`);
 }
 
 if (document.readyState === "loading") {
