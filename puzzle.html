@@ -56,6 +56,15 @@
             <label for="puzzleSelect">Exercice</label>
             <select id="puzzleSelect"></select>
           </div>
+          <div class="field">
+            <label for="puzzleLevelSelect">Niveau</label>
+            <select id="puzzleLevelSelect">
+              <option value="1">Level 1</option>
+              <option value="2">Level 2</option>
+              <option value="3">Level 3</option>
+              <option value="4">Level 4</option>
+            </select>
+          </div>
           <div class="btn-row">
             <button id="loadPuzzleBtn" class="btn btn-primary" type="button">Charger</button>
             <button id="nextPuzzleBtn" class="btn btn-secondary" type="button">Puzzle suivant</button>
@@ -87,7 +96,10 @@
       <section class="panel puzzle-workspace" aria-live="polite">
         <h2 id="puzzleTitle" class="panel-title">Chargement du puzzle...</h2>
         <p id="puzzleGoal" class="panel-subtitle"></p>
-        <p id="puzzleHint" class="badge"></p>
+        <div class="btn-row puzzle-meta-row">
+          <p id="puzzleHint" class="badge"></p>
+          <p id="puzzleLevelBadge" class="badge">Niveau 1</p>
+        </div>
 
         <ol id="puzzleLines" class="puzzle-lines" aria-label="Lignes à réordonner"></ol>
 

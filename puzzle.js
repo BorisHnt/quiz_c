@@ -18,12 +18,13 @@ const PUZZLES = [
     goal: "Remettre dans l’ordre la logique principale pour extraire les mots et terminer le tableau.",
     hint: "Pense à la case NULL finale du tableau.",
     lines: [
-      "int words = count_words(s, c);",
-      "char **tab = malloc(sizeof(char *) * (words + 1));",
-      "if (!tab) return NULL;",
+      "words = count_words(s, c);",
+      "tab = (char **)malloc(sizeof(char *) * (words + 1));",
+      "if (tab == NULL)",
+      "    return (NULL);",
       "fill_words(tab, s, c);",
       "tab[words] = NULL;",
-      "return tab;",
+      "return (tab);",
     ],
   },
   {
@@ -32,13 +33,22 @@ const PUZZLES = [
     goal: "Reconstituer le flux qui gère start <= end et start > end sans off-by-one.",
     hint: "Le step doit être défini avant la boucle.",
     lines: [
-      "int size = abs(end - start) + 1;",
-      "int step = (start <= end) ? 1 : -1;",
-      "int *tab = malloc(sizeof(int) * size);",
-      "if (!tab) return NULL;",
-      "for (int i = 0, value = start; i < size; i++, value += step)",
-      "  tab[i] = value;",
-      "return tab;",
+      "size = ft_abs(end - start) + 1;",
+      "step = 1;",
+      "if (start > end)",
+      "    step = -1;",
+      "tab = (int *)malloc(sizeof(int) * size);",
+      "if (tab == NULL)",
+      "    return (NULL);",
+      "i = 0;",
+      "value = start;",
+      "while (i < size)",
+      "{",
+      "    tab[i] = value;",
+      "    value = value + step;",
+      "    i++;",
+      "}",
+      "return (tab);",
     ],
   },
   {
@@ -47,12 +57,26 @@ const PUZZLES = [
     goal: "Remettre l’ordre qui évite la corruption de liste lors d’une suppression.",
     hint: "Sauvegarder, reconnecter, puis free.",
     lines: [
-      "tmp = cur->next;",
-      "cur->next = cur->next->next;",
-      "free_fct(tmp->data);",
-      "free(tmp);",
-      "if (!cur->next) break;",
-      "cur = cur->next;",
+      "while (*begin_list && cmp((*begin_list)->data, data_ref) == 0)",
+      "{",
+      "    tmp = *begin_list;",
+      "    *begin_list = (*begin_list)->next;",
+      "    free_fct(tmp->data);",
+      "    free(tmp);",
+      "}",
+      "cur = *begin_list;",
+      "while (cur && cur->next)",
+      "{",
+      "    if (cmp(cur->next->data, data_ref) == 0)",
+      "    {",
+      "        tmp = cur->next;",
+      "        cur->next = cur->next->next;",
+      "        free_fct(tmp->data);",
+      "        free(tmp);",
+      "    }",
+      "    else",
+      "        cur = cur->next;",
+      "}",
     ],
   },
   {
@@ -61,14 +85,26 @@ const PUZZLES = [
     goal: "Reconstruire un passage de tri en place avec indicateur swapped.",
     hint: "Le swap se fait sur data, pas sur les liens.",
     lines: [
-      "swapped = 0;",
-      "cur = lst;",
-      "while (cur && cur->next)",
+      "if (!lst || !lst->next)",
+      "    return (lst);",
+      "swapped = 1;",
+      "while (swapped)",
       "{",
-      "  if (cmp(cur->data, cur->next->data) > 0)",
-      "  { tmp = cur->data; cur->data = cur->next->data; cur->next->data = tmp; swapped = 1; }",
-      "  cur = cur->next;",
+      "    swapped = 0;",
+      "    cur = lst;",
+      "    while (cur->next)",
+      "    {",
+      "        if (cmp(cur->data, cur->next->data) > 0)",
+      "        {",
+      "            tmp = cur->data;",
+      "            cur->data = cur->next->data;",
+      "            cur->next->data = tmp;",
+      "            swapped = 1;",
+      "        }",
+      "        cur = cur->next;",
+      "    }",
       "}",
+      "return (lst);",
     ],
   },
   {
@@ -77,14 +113,22 @@ const PUZZLES = [
     goal: "Remettre les étapes clés pour une conversion robuste, y compris INT_MIN.",
     hint: "Le cast en long évite l’overflow sur INT_MIN.",
     lines: [
-      "long n = nbr;",
-      "int sign = (n < 0);",
-      "if (n < 0) n = -n;",
+      "n = (long)nbr;",
+      "sign = 0;",
+      "if (n < 0)",
+      "{",
+      "    sign = 1;",
+      "    n = -n;",
+      "}",
       "len = count_digits(n) + sign;",
-      "str = malloc(sizeof(char) * (len + 1));",
-      "if (!str) return NULL;",
+      "str = (char *)malloc(sizeof(char) * (len + 1));",
+      "if (str == NULL)",
+      "    return (NULL);",
       "str[len] = '\\0';",
-      "fill_digits_from_right(str, len - 1, n, sign);",
+      "fill_digits_from_right(str, len - 1, n);",
+      "if (sign == 1)",
+      "    str[0] = '-';",
+      "return (str);",
     ],
   },
   {
@@ -93,15 +137,21 @@ const PUZZLES = [
     goal: "Retrouver le parcours qui respecte l’ordre de argv[1] dans argv[2].",
     hint: "On scanne argv[2] en avançant l’index de argv[1] seulement sur match.",
     lines: [
-      "if (argc != 3) { write(1, \"\\n\", 1); return; }",
+      "if (argc != 3)",
+      "{",
+      "    write(1, \"\\n\", 1);",
+      "    return ;",
+      "}",
       "i = 0;",
       "j = 0;",
       "while (argv[2][j])",
       "{",
-      "  if (argv[1][i] == argv[2][j]) i++;",
-      "  j++;",
+      "    if (argv[1][i] == argv[2][j])",
+      "        i++;",
+      "    j++;",
       "}",
-      "if (argv[1][i] == '\\0') write(1, argv[1], ft_strlen(argv[1]));",
+      "if (argv[1][i] == '\\0')",
+      "    write(1, argv[1], ft_strlen(argv[1]));",
       "write(1, \"\\n\", 1);",
     ],
   },
@@ -111,19 +161,35 @@ const PUZZLES = [
     goal: "Remettre l’ordre pour afficher sans doublons sur deux chaînes.",
     hint: "Caste en unsigned char pour indexer seen.",
     lines: [
-      "unsigned char seen[256] = {0};",
+      "i = 0;",
+      "while (i < 256)",
+      "{",
+      "    seen[i] = 0;",
+      "    i++;",
+      "}",
       "i = 0;",
       "while (argv[1][i])",
       "{",
-      "  c = (unsigned char)argv[1][i++];",
-      "  if (!seen[c]) { seen[c] = 1; write(1, (char *)&c, 1); }",
+      "    c = (unsigned char)argv[1][i];",
+      "    if (seen[c] == 0)",
+      "    {",
+      "        seen[c] = 1;",
+      "        write(1, (char *)&argv[1][i], 1);",
+      "    }",
+      "    i++;",
       "}",
       "i = 0;",
       "while (argv[2][i])",
       "{",
-      "  c = (unsigned char)argv[2][i++];",
-      "  if (!seen[c]) { seen[c] = 1; write(1, (char *)&c, 1); }",
+      "    c = (unsigned char)argv[2][i];",
+      "    if (seen[c] == 0)",
+      "    {",
+      "        seen[c] = 1;",
+      "        write(1, (char *)&argv[2][i], 1);",
+      "    }",
+      "    i++;",
       "}",
+      "write(1, \"\\n\", 1);",
     ],
   },
   {
@@ -133,14 +199,22 @@ const PUZZLES = [
     hint: "Accumulation: result = result * 10 + chiffre.",
     lines: [
       "i = 0;",
-      "while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)) i++;",
+      "while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))",
+      "    i++;",
       "sign = 1;",
-      "if (str[i] == '+' || str[i] == '-') { if (str[i] == '-') sign = -1; i++; }",
+      "if (str[i] == '-')",
+      "{",
+      "    sign = -1;",
+      "    i++;",
+      "}",
+      "else if (str[i] == '+')",
+      "    i++;",
       "result = 0;",
       "while (str[i] >= '0' && str[i] <= '9')",
       "{",
-      "  result = result * 10 + (str[i] - '0');",
-      "  i++;",
+      "    result = result * 10;",
+      "    result = result + (str[i] - '0');",
+      "    i++;",
       "}",
       "return result * sign;",
     ],
@@ -149,6 +223,7 @@ const PUZZLES = [
 
 const ui = {
   puzzleSelect: null,
+  levelSelect: null,
   loadBtn: null,
   nextBtn: null,
   shuffleBtn: null,
@@ -157,6 +232,7 @@ const ui = {
   title: null,
   goal: null,
   hint: null,
+  levelBadge: null,
   lines: null,
   feedback: null,
   solved: null,
@@ -171,8 +247,18 @@ const state = {
   puzzleState: null,
   currentPuzzle: null,
   currentOrder: [],
+  currentLevel: 1,
+  currentPartCount: 0,
   draggingLineId: "",
 };
+
+function clampLevel(value) {
+  const level = Number.parseInt(String(value), 10);
+  if (!Number.isFinite(level)) {
+    return 1;
+  }
+  return Math.max(1, Math.min(4, level));
+}
 
 function defaultPuzzleState() {
   return {
@@ -183,6 +269,7 @@ function defaultPuzzleState() {
     bestStreak: 0,
     history: [],
     lastPuzzleId: "",
+    lastLevel: 1,
   };
 }
 
@@ -218,6 +305,7 @@ function loadPuzzleState() {
       bestStreak: Number.isFinite(parsed.bestStreak) ? Math.max(0, parsed.bestStreak) : 0,
       history,
       lastPuzzleId: typeof parsed.lastPuzzleId === "string" ? parsed.lastPuzzleId : "",
+      lastLevel: clampLevel(parsed.lastLevel),
     };
   } catch (_error) {
     return defaultPuzzleState();
@@ -230,6 +318,7 @@ function savePuzzleState() {
 
 function selectUi() {
   ui.puzzleSelect = document.querySelector("#puzzleSelect");
+  ui.levelSelect = document.querySelector("#puzzleLevelSelect");
   ui.loadBtn = document.querySelector("#loadPuzzleBtn");
   ui.nextBtn = document.querySelector("#nextPuzzleBtn");
   ui.shuffleBtn = document.querySelector("#shufflePuzzleBtn");
@@ -238,6 +327,7 @@ function selectUi() {
   ui.title = document.querySelector("#puzzleTitle");
   ui.goal = document.querySelector("#puzzleGoal");
   ui.hint = document.querySelector("#puzzleHint");
+  ui.levelBadge = document.querySelector("#puzzleLevelBadge");
   ui.lines = document.querySelector("#puzzleLines");
   ui.feedback = document.querySelector("#puzzleFeedback");
   ui.solved = document.querySelector("#puzzleSolved");
@@ -305,6 +395,60 @@ function puzzleFromId(puzzleId) {
   return PUZZLES.find((puzzle) => puzzle.id === puzzleId) || null;
 }
 
+function selectedLevel() {
+  return clampLevel(ui.levelSelect.value);
+}
+
+function partTargets(totalLines) {
+  const maxParts = Math.max(1, totalLines);
+  const clampParts = (value) => Math.max(1, Math.min(maxParts, value));
+  const level1 = clampParts(Math.max(2, Math.floor(totalLines * 0.45)));
+  const level2 = clampParts(Math.max(level1 + 1, Math.floor(totalLines * 0.65)));
+  const level3 = clampParts(Math.max(level2 + 1, Math.floor(totalLines * 0.85)));
+  return {
+    1: level1,
+    2: level2,
+    3: level3,
+    4: maxParts,
+  };
+}
+
+function splitLinesIntoParts(lines, wantedParts) {
+  const safeParts = Math.max(1, Math.min(wantedParts, lines.length));
+  const groups = [];
+  let cursor = 0;
+  const baseSize = Math.floor(lines.length / safeParts);
+  let remainder = lines.length % safeParts;
+
+  for (let i = 0; i < safeParts; i += 1) {
+    const size = baseSize + (remainder > 0 ? 1 : 0);
+    remainder = Math.max(0, remainder - 1);
+    groups.push(lines.slice(cursor, cursor + size));
+    cursor += size;
+  }
+
+  return groups;
+}
+
+function buildChunksForLevel(puzzle, level) {
+  const targets = partTargets(puzzle.lines.length);
+  const partCount = targets[level] || puzzle.lines.length;
+  const groups = splitLinesIntoParts(puzzle.lines, partCount);
+  return groups.map((group, index) => ({
+    lineId: `${puzzle.id}-l${level}-${index}`,
+    originalIndex: index,
+    text: group.join("\n"),
+  }));
+}
+
+function renderLevelBadge() {
+  if (!state.currentPuzzle) {
+    ui.levelBadge.textContent = "Niveau -";
+    return;
+  }
+  ui.levelBadge.textContent = `Niveau ${state.currentLevel} | ${state.currentPartCount} blocs`;
+}
+
 function pickRandomPuzzle(avoidId = "") {
   const solved = new Set(state.puzzleState.solvedIds);
   const candidates = PUZZLES.filter((puzzle) => puzzle.id !== avoidId);
@@ -326,7 +470,9 @@ function shuffleCurrentOrder() {
     return;
   }
 
-  const seed = seedFromString(`${Date.now()}-${state.currentPuzzle.id}-${state.puzzleState.attempts}`);
+  const seed = seedFromString(
+    `${Date.now()}-${state.currentPuzzle.id}-l${state.currentLevel}-${state.puzzleState.attempts}`
+  );
   const rng = createSeededRng(seed);
   let shuffled = shuffleArray(state.currentOrder, rng);
 
@@ -338,7 +484,7 @@ function shuffleCurrentOrder() {
 
   state.currentOrder = shuffled;
   renderLines();
-  setFeedback("Lignes mélangées. Réorganise de haut en bas.");
+  setFeedback(`Niveau ${state.currentLevel}: ${state.currentPartCount} blocs mélangés. Réorganise de haut en bas.`);
 }
 
 function loadPuzzle(puzzle) {
@@ -346,18 +492,19 @@ function loadPuzzle(puzzle) {
     return;
   }
 
+  const level = selectedLevel();
   state.currentPuzzle = puzzle;
-  state.currentOrder = puzzle.lines.map((text, index) => ({
-    lineId: `${puzzle.id}-${index}`,
-    originalIndex: index,
-    text,
-  }));
+  state.currentLevel = level;
+  state.currentOrder = buildChunksForLevel(puzzle, level);
+  state.currentPartCount = state.currentOrder.length;
   state.puzzleState.lastPuzzleId = puzzle.id;
+  state.puzzleState.lastLevel = level;
   savePuzzleState();
 
   ui.title.textContent = puzzle.title;
   ui.goal.textContent = puzzle.goal;
   ui.hint.textContent = `Indice: ${puzzle.hint}`;
+  renderLevelBadge();
 
   shuffleCurrentOrder();
 }
@@ -483,13 +630,16 @@ function checkPuzzle() {
   renderHistory();
 
   if (success) {
-    setFeedback("Correct. Le flux de code est cohérent.", "is-success");
+    setFeedback(
+      `Correct. Niveau ${state.currentLevel} validé avec ${state.currentPartCount} blocs dans le bon ordre.`,
+      "is-success"
+    );
     return;
   }
 
   const wrongIndex = state.currentOrder.findIndex((line, idx) => line.originalIndex !== idx);
   setFeedback(
-    `Pas encore. Commence par vérifier la ligne ${wrongIndex + 1} et les dépendances autour de malloc/free.`,
+    `Pas encore. Niveau ${state.currentLevel}: vérifie d'abord le bloc ${wrongIndex + 1}.`,
     "is-error"
   );
 }
@@ -499,13 +649,11 @@ function showSolution() {
     return;
   }
 
-  state.currentOrder = state.currentPuzzle.lines.map((text, index) => ({
-    lineId: `${state.currentPuzzle.id}-${index}`,
-    originalIndex: index,
-    text,
-  }));
+  state.currentOrder = buildChunksForLevel(state.currentPuzzle, state.currentLevel);
+  state.currentPartCount = state.currentOrder.length;
   renderLines();
-  setFeedback("Solution affichée. Relance un puzzle pour t'entraîner en conditions réelles.");
+  renderLevelBadge();
+  setFeedback(`Solution affichée pour le niveau ${state.currentLevel}. Relance un puzzle pour t'entraîner.`);
 }
 
 function loadSelectedPuzzle(avoidCurrent = false) {
@@ -642,6 +790,14 @@ function bindEvents() {
   ui.shuffleBtn.addEventListener("click", shuffleCurrentOrder);
   ui.verifyBtn.addEventListener("click", checkPuzzle);
   ui.solutionBtn.addEventListener("click", showSolution);
+  ui.levelSelect.addEventListener("change", () => {
+    const level = selectedLevel();
+    state.puzzleState.lastLevel = level;
+    savePuzzleState();
+    if (state.currentPuzzle) {
+      loadPuzzle(state.currentPuzzle);
+    }
+  });
   bindLineEvents();
 }
 
@@ -652,9 +808,12 @@ function initPuzzlePage() {
 
   state.progress = initCommon("puzzle", "puzzle.html");
   state.puzzleState = loadPuzzleState();
+  state.currentLevel = clampLevel(state.puzzleState.lastLevel);
   buildSelectOptions();
+  ui.levelSelect.value = String(state.currentLevel);
   renderStats();
   renderHistory();
+  renderLevelBadge();
   bindEvents();
 
   const initialPuzzle = puzzleFromId(state.puzzleState.lastPuzzleId) || pickRandomPuzzle();
@@ -663,7 +822,7 @@ function initPuzzlePage() {
     loadPuzzle(initialPuzzle);
   }
 
-  setFeedback("Réordonne les lignes pour reconstruire le code.");
+  setFeedback(`Niveau ${state.currentLevel}: réordonne les lignes pour reconstruire le code.`);
 }
 
 if (document.readyState === "loading") {

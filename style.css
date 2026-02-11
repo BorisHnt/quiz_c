@@ -618,7 +618,7 @@ body[data-page="index"] .list li {
 }
 
 .puzzle-control-grid {
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr 1fr auto;
   align-items: end;
 }
 
@@ -628,6 +628,10 @@ body[data-page="index"] .list li {
 
 .puzzle-workspace {
   background: var(--paper-2);
+}
+
+.puzzle-meta-row {
+  margin-top: 8px;
 }
 
 .puzzle-lines {
