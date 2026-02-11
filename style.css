@@ -704,6 +704,10 @@ body[data-page="index"] .list li {
   background: var(--red-3);
 }
 
+.dot-malloc {
+  background: var(--green);
+}
+
 .dot-listes {
   background: var(--red-4);
 }

@@ -170,6 +170,12 @@ function themeLabel(theme) {
   if (theme === "reflexes_memoire") {
     return "Réflexes mémoire";
   }
+  if (theme === "pointeurs") {
+    return "Pointeurs";
+  }
+  if (theme === "malloc") {
+    return "Malloc";
+  }
   if (theme === "pointeurs_malloc") {
     return "Pointeurs & malloc";
   }
@@ -311,11 +317,24 @@ function availableSessionSizes(theme) {
   return [10, 20];
 }
 
-function questionPoolCount(theme) {
-  if (theme === "random") {
-    return state.allQuestions.length;
+function matchesSelectedTheme(question, selectedTheme) {
+  if (selectedTheme === "random") {
+    return true;
   }
-  return state.allQuestions.filter((question) => question.theme === theme).length;
+
+  if (selectedTheme === "pointeurs_malloc") {
+    return (
+      question.theme === "pointeurs_malloc" ||
+      question.theme === "pointeurs" ||
+      question.theme === "malloc"
+    );
+  }
+
+  return question.theme === selectedTheme;
+}
+
+function questionPoolCount(theme) {
+  return state.allQuestions.filter((question) => matchesSelectedTheme(question, theme)).length;
 }
 
 function syncSessionButtons() {
@@ -338,6 +357,8 @@ function setActiveTheme(theme) {
     "patterns",
     "pieges",
     "reflexes_memoire",
+    "pointeurs",
+    "malloc",
     "pointeurs_malloc",
     "listes_chainees",
     "conditions_limites",
@@ -674,10 +695,9 @@ function startSession() {
   const weaknessInfo = buildWeaknessMap(state.progress);
   const seed = seedFromString(`${todayKey()}-quiz-${state.selectedTheme}-${state.progress.quiz.errors.length}`);
   const rng = createSeededRng(seed);
-  const themedQuestions =
-    state.selectedTheme === "random"
-      ? state.allQuestions
-      : state.allQuestions.filter((question) => question.theme === state.selectedTheme);
+  const themedQuestions = state.allQuestions.filter((question) =>
+    matchesSelectedTheme(question, state.selectedTheme)
+  );
   const selectedQuestions = buildQuestionSet(themedQuestions, requestedCount, weaknessInfo, rng);
   state.sessionQuestions = selectedQuestions.map((question) => remapQuestionChoices(question, rng));
 
@@ -844,6 +864,8 @@ async function initQuizPage() {
         "patterns",
         "pieges",
         "reflexes_memoire",
+        "pointeurs",
+        "malloc",
         "pointeurs_malloc",
         "listes_chainees",
         "conditions_limites",
