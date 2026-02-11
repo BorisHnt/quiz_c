@@ -225,18 +225,6 @@ body[data-page="index"] .home-hero {
   border-left: 6px solid var(--green);
 }
 
-body[data-page="index"] .home-hero::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 56px;
-  height: 56px;
-  border-left: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--paper-2);
-}
-
 body[data-page="index"] .panel-title {
   display: inline-flex;
   align-items: center;

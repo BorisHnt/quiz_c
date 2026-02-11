@@ -470,19 +470,30 @@ function renderResultGrid() {
 function updateTopStats() {
   ui.progress.textContent = `${Math.min(state.index + 1, state.sessionQuestions.length)} / ${state.sessionQuestions.length}`;
   ui.score.textContent = String(state.score);
-  ui.penalty.textContent = `${state.penaltyTotal}s`;
+  ui.penalty.textContent = state.timerPerQuestion > 0 ? `${state.penaltyTotal}s` : "Sans chrono";
 }
 
 function setTimerDisplay(seconds) {
+  if (!Number.isFinite(seconds)) {
+    ui.timer.textContent = "Sans chrono";
+    ui.timer.classList.remove("is-critical");
+    return;
+  }
   ui.timer.textContent = formatTimer(seconds);
   ui.timer.classList.toggle("is-critical", seconds <= 5);
 }
 
 function getQuestionTime() {
-  const available = Math.max(5, state.timerPerQuestion - Math.min(state.penaltyCarry, state.timerPerQuestion - 5));
-  const used = state.timerPerQuestion - available;
+  if (state.timerPerQuestion <= 0) {
+    return null;
+  }
+
+  const base = Math.max(1, state.timerPerQuestion);
+  const minTime = Math.min(5, base);
+  const maxReducible = Math.max(0, base - minTime);
+  const used = Math.min(state.penaltyCarry, maxReducible);
   state.penaltyCarry = Math.max(0, state.penaltyCarry - used);
-  return available;
+  return base - used;
 }
 
 function currentQuestion() {
@@ -564,8 +575,10 @@ function evaluateAnswer(selectedIndex, timedOut = false) {
     recordPerformance(state.progress, true);
   } else {
     registerError(question, selectedIndex);
-    state.penaltyTotal += state.penaltySeconds;
-    state.penaltyCarry += state.penaltySeconds;
+    if (state.timerPerQuestion > 0) {
+      state.penaltyTotal += state.penaltySeconds;
+      state.penaltyCarry += state.penaltySeconds;
+    }
     recordPerformance(state.progress, false);
   }
 
@@ -628,7 +641,12 @@ function renderQuestion() {
   setFeedback("Lis la question, choisis la meilleure option, puis valide.");
 
   const perQuestionTime = getQuestionTime();
-  state.timer.start(perQuestionTime);
+  if (Number.isFinite(perQuestionTime) && perQuestionTime > 0) {
+    state.timer.start(perQuestionTime);
+  } else {
+    state.timer.stop();
+    setTimerDisplay(Number.NaN);
+  }
 }
 
 function finishQuiz() {
@@ -652,12 +670,18 @@ function finishQuiz() {
   ui.sessionPanel.classList.add("hidden");
   ui.finalPanel.classList.remove("hidden");
 
-  const adjustedScore = Math.max(0, state.score - Math.floor(state.penaltyTotal / Math.max(1, state.timerPerQuestion)));
+  const timerEnabled = state.timerPerQuestion > 0;
+  const adjustedScore = timerEnabled
+    ? Math.max(0, state.score - Math.floor(state.penaltyTotal / Math.max(1, state.timerPerQuestion)))
+    : state.score;
 
   ui.finalTheme.textContent = `Thème: ${themeLabel(state.selectedTheme)}`;
-  ui.finalScore.textContent =
-    `Score brut: ${state.score}/${state.sessionQuestions.length} | Score ajusté pénalité: ${adjustedScore}/${state.sessionQuestions.length}`;
-  ui.finalPenalty.textContent = `Pénalité cumulée: ${state.penaltyTotal}s`;
+  ui.finalScore.textContent = timerEnabled
+    ? `Score brut: ${state.score}/${state.sessionQuestions.length} | Score ajusté pénalité: ${adjustedScore}/${state.sessionQuestions.length}`
+    : `Score: ${state.score}/${state.sessionQuestions.length} (sans chrono)`;
+  ui.finalPenalty.textContent = timerEnabled
+    ? `Pénalité cumulée: ${state.penaltyTotal}s`
+    : "Chrono désactivé: aucune pénalité temps.";
   renderResultGrid();
 
   ui.errorsList.innerHTML = "";
@@ -678,7 +702,7 @@ function startSession() {
   const requestedTimer = Number.parseInt(ui.timerSelect.value, 10);
   const requestedCount = state.sessionSize;
   const penaltySeconds = Number.parseInt(ui.penaltySelect.value, 10);
-  state.timerPerQuestion = Number.isFinite(requestedTimer) ? requestedTimer : 20;
+  state.timerPerQuestion = Number.isFinite(requestedTimer) && requestedTimer >= 0 ? requestedTimer : 20;
   state.penaltySeconds = Number.isFinite(penaltySeconds) ? penaltySeconds : 3;
   state.penaltyTotal = 0;
   state.penaltyCarry = 0;
@@ -767,9 +791,17 @@ function exportErrorsAsJson() {
   URL.revokeObjectURL(href);
 }
 
+function syncTimerControls() {
+  const timerValue = Number.parseInt(ui.timerSelect.value, 10);
+  const timerEnabled = Number.isFinite(timerValue) && timerValue > 0;
+  ui.penaltySelect.disabled = !timerEnabled;
+  ui.penaltySelect.setAttribute("aria-disabled", String(!timerEnabled));
+}
+
 function bindEvents() {
   ui.startBtn.addEventListener("click", startSession);
   ui.nextBtn.addEventListener("click", goToNextQuestion);
+  ui.timerSelect.addEventListener("change", syncTimerControls);
 
   ui.restartBtn.addEventListener("click", () => {
     ui.finalPanel.classList.add("hidden");
@@ -854,6 +886,7 @@ async function initQuizPage() {
     state.timer = new QuestionTimer(setTimerDisplay, () => {
       submitCurrentQuestion(true);
     });
+    syncTimerControls();
     bindEvents();
     renderHistory();
     const params = new URLSearchParams(window.location.search);

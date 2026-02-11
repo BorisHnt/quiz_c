@@ -337,7 +337,7 @@ function parseAnswer(answerText) {
       if (item.label.startsWith("méthode concrète")) {
         item.value
           .split("->")
-          .map((part) => part.replace(/^\\s*\\d+\\)\\s*/, "").trim())
+          .map((part) => part.replace(/^\s*\d+\)\s*/, "").trim())
           .filter(Boolean)
           .forEach((step) => out.steps.push(step));
         return;
@@ -348,14 +348,14 @@ function parseAnswer(answerText) {
     });
   } else {
     const checklist = text
-      .replace(/^Checklist(?: opérationnelle)?\\s*:\\s*/i, "")
-      .replace(/Objectif\\s*:.+$/i, "")
+      .replace(/^Checklist(?: opérationnelle)?\s*:\s*/i, "")
+      .replace(/Objectif\s*:.+$/i, "")
       .trim();
 
     if (checklist.length > 0) {
       out.steps = checklist
         .split("|")
-        .map((step) => step.replace(/^\\s*\\d+\\)\\s*/, "").trim())
+        .map((step) => step.replace(/^\s*\d+\)\s*/, "").trim())
         .filter(Boolean);
     }
   }
