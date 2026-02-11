@@ -287,6 +287,25 @@ function selectUi() {
   );
 }
 
+function ensureTimerSelectOptions() {
+  const allowedValues = new Set(["0", "10", "15", "20", "30"]);
+  if (!ui.timerSelect) {
+    return;
+  }
+
+  const hasNoTimer = Array.from(ui.timerSelect.options).some((option) => option.value === "0");
+  if (!hasNoTimer) {
+    const noTimerOption = document.createElement("option");
+    noTimerOption.value = "0";
+    noTimerOption.textContent = "Sans chrono";
+    ui.timerSelect.insertBefore(noTimerOption, ui.timerSelect.firstChild);
+  }
+
+  if (!allowedValues.has(ui.timerSelect.value)) {
+    ui.timerSelect.value = "20";
+  }
+}
+
 function setFeedback(message, type = "") {
   ui.feedback.textContent = message;
   ui.feedback.classList.remove("is-success", "is-error");
@@ -875,6 +894,7 @@ async function initQuizPage() {
   }
 
   try {
+    ensureTimerSelectOptions();
     state.progress = initCommon("quiz", "quiz.html");
     state.allQuestions = await fetchQuiz();
     state.revisionMode = localStorage.getItem(REVISION_MODE_KEY) === "1";
