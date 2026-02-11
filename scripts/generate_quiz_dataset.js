@@ -143,6 +143,57 @@ const profiles = [
 ];
 
 const listProfiles = profiles.filter((p) => p.fn === 'ft_list_remove_if' || p.fn === 'sort_list');
+const functionNames = profiles.map((p) => p.fn);
+
+function normalizeText(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function sentenceCount(value) {
+  return String(value || '')
+    .split(/[.!?]+/)
+    .map((part) => part.trim())
+    .filter(Boolean).length;
+}
+
+function hasActionContext(question, choices) {
+  const haystack = `${question} ${choices.join(' ')}`.toLowerCase();
+  const actionWords = [
+    'action',
+    'decision',
+    'décision',
+    'malloc',
+    'free',
+    'unlink',
+    'retour',
+    'return',
+    'avancer',
+    'pointeur',
+    'supprimer',
+    'tester',
+    'null',
+    'swap',
+    'boucle',
+    'argc',
+    'prototype',
+    'segfault',
+    'off-by-one',
+    'cas limite',
+    'cas',
+    'erreur',
+    'sortie',
+    'allouer',
+    'taille',
+    'parcours',
+    'suppression',
+  ];
+  return actionWords.some((word) => haystack.includes(word));
+}
 
 function explanation(theme, fn, decision) {
   const byTheme = {
@@ -778,10 +829,10 @@ function makeListQuestion(profile, contextIndex, templateIndex) {
 }
 
 function validateQuestion(item) {
-  if (typeof item.question !== 'string' || !item.question.includes(':')) {
+  if (typeof item.question !== 'string' || !item.question.includes(':') || !item.question.includes('?')) {
     return false;
   }
-  if (!profiles.some((p) => item.question.includes(p.fn))) {
+  if (!functionNames.some((fn) => item.question.includes(fn))) {
     return false;
   }
   if (!Array.isArray(item.choices) || item.choices.length !== 4) {
@@ -790,12 +841,37 @@ function validateQuestion(item) {
   if (!Number.isInteger(item.correct) || item.correct < 0 || item.correct > 3) {
     return false;
   }
-  if (typeof item.explanation !== 'string' || item.explanation.length < 40) {
+  if (typeof item.explanation !== 'string' || item.explanation.length < 70) {
+    return false;
+  }
+  if (sentenceCount(item.explanation) > 3) {
     return false;
   }
   if (item.question.includes('Dans les règles implicites')) {
     return false;
   }
+  if (!/quel|quelle|quand|comment|qui|dois-tu|decision|décision/i.test(item.question)) {
+    return false;
+  }
+  if (!hasActionContext(item.question, item.choices)) {
+    return false;
+  }
+
+  const normalizedChoices = new Set();
+  for (const choice of item.choices) {
+    if (typeof choice !== 'string' || choice.trim().length < 25) {
+      return false;
+    }
+    if (/\b[ABCD]\s*et\s*[ABCD]\b/i.test(choice) || /\b[ABCD]\s*ou\s*[ABCD]\b/i.test(choice)) {
+      return false;
+    }
+    const key = normalizeText(choice);
+    if (normalizedChoices.has(key)) {
+      return false;
+    }
+    normalizedChoices.add(key);
+  }
+
   return true;
 }
 
@@ -844,12 +920,15 @@ function buildDataset() {
   }
 
   const unique = new Set();
+  const uniqueNormalized = new Set();
   const filtered = dataset.filter((item) => {
-    const key = `${item.theme}|${item.question}`;
-    if (unique.has(key)) {
+    const exactKey = `${item.theme}|${item.question}`;
+    const normalizedKey = `${item.theme}|${normalizeText(item.question)}`;
+    if (unique.has(exactKey) || uniqueNormalized.has(normalizedKey)) {
       return false;
     }
-    unique.add(key);
+    unique.add(exactKey);
+    uniqueNormalized.add(normalizedKey);
     return true;
   });
 
@@ -863,7 +942,10 @@ function buildDataset() {
     }
   }
 
-  return filtered;
+  return filtered.map((item, index) => ({
+    id: `q${String(index + 1).padStart(4, '0')}`,
+    ...item,
+  }));
 }
 
 function writeDataset(dataset) {

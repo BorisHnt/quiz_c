@@ -46,14 +46,24 @@ class QuestionTimer {
   }
 }
 
+function normalizeQuizText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
 function sanitizeQuizData(payload) {
   if (!Array.isArray(payload)) {
     return [];
   }
 
-  return payload
+  const sanitized = payload
     .filter((item) => item && typeof item === "object")
     .map((item) => ({
+      id: typeof item.id === "string" && item.id.trim().length > 0 ? item.id.trim() : "",
       question: typeof item.question === "string" ? item.question.trim() : "",
       choices: Array.isArray(item.choices) ? item.choices.filter((choice) => typeof choice === "string") : [],
       correct: Number.isInteger(item.correct) ? item.correct : -1,
@@ -68,6 +78,24 @@ function sanitizeQuizData(payload) {
         item.correct >= 0 &&
         item.correct < item.choices.length
     );
+
+  const seenIds = new Set();
+  const seenQuestions = new Set();
+
+  return sanitized.filter((item, index) => {
+    const normalizedQuestion = normalizeQuizText(item.question);
+    const fallbackId = `auto-${index + 1}-${normalizedQuestion}`;
+    const nextId = item.id || fallbackId;
+
+    if (seenIds.has(nextId) || seenQuestions.has(normalizedQuestion)) {
+      return false;
+    }
+
+    seenIds.add(nextId);
+    seenQuestions.add(normalizedQuestion);
+    item.id = nextId;
+    return true;
+  });
 }
 
 function formatTimer(seconds) {
@@ -145,7 +173,26 @@ function weightedOrder(items, weightFn, rng) {
 
 function buildQuestionSet(allQuestions, count, weaknessInfo, rng) {
   const weighted = weightedOrder(allQuestions, (question) => questionWeight(question, weaknessInfo), rng);
-  return weighted.slice(0, Math.min(count, weighted.length));
+  const seenIds = new Set();
+  const seenQuestions = new Set();
+  const unique = [];
+
+  for (const question of weighted) {
+    const idKey = String(question.id || "");
+    const questionKey = normalizeQuizText(question.question);
+    if (seenIds.has(idKey) || seenQuestions.has(questionKey)) {
+      continue;
+    }
+    seenIds.add(idKey);
+    seenQuestions.add(questionKey);
+    unique.push(question);
+
+    if (unique.length >= count) {
+      break;
+    }
+  }
+
+  return unique;
 }
 
 function remapQuestionChoices(question, rng) {

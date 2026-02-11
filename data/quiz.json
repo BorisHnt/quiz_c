@@ -1,5 +1,6 @@
 [
   {
+    "id": "q0001",
     "theme": "patterns",
     "question": "ft_split : tu dois produire un tableau de mots. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -17,6 +18,7 @@
     ]
   },
   {
+    "id": "q0002",
     "theme": "patterns",
     "question": "ft_split : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -34,6 +36,7 @@
     ]
   },
   {
+    "id": "q0003",
     "theme": "patterns",
     "question": "ft_split : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -51,6 +54,7 @@
     ]
   },
   {
+    "id": "q0004",
     "theme": "patterns",
     "question": "ft_split : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -68,6 +72,7 @@
     ]
   },
   {
+    "id": "q0005",
     "theme": "patterns",
     "question": "ft_split : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -85,6 +90,7 @@
     ]
   },
   {
+    "id": "q0006",
     "theme": "patterns",
     "question": "ft_range : tu dois produire un tableau d'int entre start et end. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -102,6 +108,7 @@
     ]
   },
   {
+    "id": "q0007",
     "theme": "patterns",
     "question": "ft_range : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -119,6 +126,7 @@
     ]
   },
   {
+    "id": "q0008",
     "theme": "patterns",
     "question": "ft_range : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -136,6 +144,7 @@
     ]
   },
   {
+    "id": "q0009",
     "theme": "patterns",
     "question": "ft_range : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -153,6 +162,7 @@
     ]
   },
   {
+    "id": "q0010",
     "theme": "patterns",
     "question": "ft_range : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -170,6 +180,7 @@
     ]
   },
   {
+    "id": "q0011",
     "theme": "patterns",
     "question": "ft_list_remove_if : tu dois produire une liste nettoyée des maillons à supprimer. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -187,6 +198,7 @@
     ]
   },
   {
+    "id": "q0012",
     "theme": "patterns",
     "question": "ft_list_remove_if : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -204,6 +216,7 @@
     ]
   },
   {
+    "id": "q0013",
     "theme": "patterns",
     "question": "ft_list_remove_if : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -221,6 +234,7 @@
     ]
   },
   {
+    "id": "q0014",
     "theme": "patterns",
     "question": "ft_list_remove_if : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -238,6 +252,7 @@
     ]
   },
   {
+    "id": "q0015",
     "theme": "patterns",
     "question": "ft_list_remove_if : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -255,6 +270,7 @@
     ]
   },
   {
+    "id": "q0016",
     "theme": "patterns",
     "question": "sort_list : tu dois produire une liste triée en place. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -272,6 +288,7 @@
     ]
   },
   {
+    "id": "q0017",
     "theme": "patterns",
     "question": "sort_list : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -289,6 +306,7 @@
     ]
   },
   {
+    "id": "q0018",
     "theme": "patterns",
     "question": "sort_list : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -306,6 +324,7 @@
     ]
   },
   {
+    "id": "q0019",
     "theme": "patterns",
     "question": "sort_list : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -323,6 +342,7 @@
     ]
   },
   {
+    "id": "q0020",
     "theme": "patterns",
     "question": "sort_list : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -340,6 +360,7 @@
     ]
   },
   {
+    "id": "q0021",
     "theme": "patterns",
     "question": "itoa : tu dois produire la chaîne représentant l’entier. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -357,6 +378,7 @@
     ]
   },
   {
+    "id": "q0022",
     "theme": "patterns",
     "question": "itoa : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -374,6 +396,7 @@
     ]
   },
   {
+    "id": "q0023",
     "theme": "patterns",
     "question": "itoa : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -391,6 +414,7 @@
     ]
   },
   {
+    "id": "q0024",
     "theme": "patterns",
     "question": "itoa : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -408,6 +432,7 @@
     ]
   },
   {
+    "id": "q0025",
     "theme": "patterns",
     "question": "itoa : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -425,6 +450,7 @@
     ]
   },
   {
+    "id": "q0026",
     "theme": "patterns",
     "question": "wdmatch : tu dois produire un affichage conditionnel de argv[1]. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -442,6 +468,7 @@
     ]
   },
   {
+    "id": "q0027",
     "theme": "patterns",
     "question": "wdmatch : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -459,6 +486,7 @@
     ]
   },
   {
+    "id": "q0028",
     "theme": "patterns",
     "question": "wdmatch : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -476,6 +504,7 @@
     ]
   },
   {
+    "id": "q0029",
     "theme": "patterns",
     "question": "wdmatch : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -493,6 +522,7 @@
     ]
   },
   {
+    "id": "q0030",
     "theme": "patterns",
     "question": "wdmatch : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -510,6 +540,7 @@
     ]
   },
   {
+    "id": "q0031",
     "theme": "patterns",
     "question": "union : tu dois produire une sortie sans doublons provenant de deux chaînes. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -527,6 +558,7 @@
     ]
   },
   {
+    "id": "q0032",
     "theme": "patterns",
     "question": "union : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -544,6 +576,7 @@
     ]
   },
   {
+    "id": "q0033",
     "theme": "patterns",
     "question": "union : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -561,6 +594,7 @@
     ]
   },
   {
+    "id": "q0034",
     "theme": "patterns",
     "question": "union : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -578,6 +612,7 @@
     ]
   },
   {
+    "id": "q0035",
     "theme": "patterns",
     "question": "union : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -595,6 +630,7 @@
     ]
   },
   {
+    "id": "q0036",
     "theme": "patterns",
     "question": "atoi : tu dois produire la valeur entière convertie. Quelle séquence est la plus robuste sous pression d’exam ?",
     "choices": [
@@ -612,6 +648,7 @@
     ]
   },
   {
+    "id": "q0037",
     "theme": "patterns",
     "question": "atoi : une étape intermédiaire échoue pendant l’implémentation. Quelle décision garde un état cohérent ?",
     "choices": [
@@ -629,6 +666,7 @@
     ]
   },
   {
+    "id": "q0038",
     "theme": "patterns",
     "question": "atoi : dans la boucle principale, quelle règle d’avancement évite les sauts de données et les boucles infinies ?",
     "choices": [
@@ -646,6 +684,7 @@
     ]
   },
   {
+    "id": "q0039",
     "theme": "patterns",
     "question": "atoi : quelle action termine correctement la sortie avant le return ?",
     "choices": [
@@ -663,6 +702,7 @@
     ]
   },
   {
+    "id": "q0040",
     "theme": "patterns",
     "question": "atoi : quel cas doit être traité avant le flux nominal pour éviter un comportement faux dès l’exam ?",
     "choices": [
@@ -680,6 +720,7 @@
     ]
   },
   {
+    "id": "q0041",
     "theme": "pieges",
     "question": "ft_split : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -697,6 +738,7 @@
     ]
   },
   {
+    "id": "q0042",
     "theme": "pieges",
     "question": "ft_split : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -714,6 +756,7 @@
     ]
   },
   {
+    "id": "q0043",
     "theme": "pieges",
     "question": "ft_split : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -731,6 +774,7 @@
     ]
   },
   {
+    "id": "q0044",
     "theme": "pieges",
     "question": "ft_split : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -748,6 +792,7 @@
     ]
   },
   {
+    "id": "q0045",
     "theme": "pieges",
     "question": "ft_split : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -765,6 +810,7 @@
     ]
   },
   {
+    "id": "q0046",
     "theme": "pieges",
     "question": "ft_range : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -782,6 +828,7 @@
     ]
   },
   {
+    "id": "q0047",
     "theme": "pieges",
     "question": "ft_range : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -799,6 +846,7 @@
     ]
   },
   {
+    "id": "q0048",
     "theme": "pieges",
     "question": "ft_range : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -816,6 +864,7 @@
     ]
   },
   {
+    "id": "q0049",
     "theme": "pieges",
     "question": "ft_range : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -833,6 +882,7 @@
     ]
   },
   {
+    "id": "q0050",
     "theme": "pieges",
     "question": "ft_range : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -850,6 +900,7 @@
     ]
   },
   {
+    "id": "q0051",
     "theme": "pieges",
     "question": "ft_list_remove_if : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -867,6 +918,7 @@
     ]
   },
   {
+    "id": "q0052",
     "theme": "pieges",
     "question": "ft_list_remove_if : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -884,6 +936,7 @@
     ]
   },
   {
+    "id": "q0053",
     "theme": "pieges",
     "question": "ft_list_remove_if : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -901,6 +954,7 @@
     ]
   },
   {
+    "id": "q0054",
     "theme": "pieges",
     "question": "ft_list_remove_if : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -918,6 +972,7 @@
     ]
   },
   {
+    "id": "q0055",
     "theme": "pieges",
     "question": "ft_list_remove_if : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -935,6 +990,7 @@
     ]
   },
   {
+    "id": "q0056",
     "theme": "pieges",
     "question": "sort_list : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -952,6 +1008,7 @@
     ]
   },
   {
+    "id": "q0057",
     "theme": "pieges",
     "question": "sort_list : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -969,6 +1026,7 @@
     ]
   },
   {
+    "id": "q0058",
     "theme": "pieges",
     "question": "sort_list : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -986,6 +1044,7 @@
     ]
   },
   {
+    "id": "q0059",
     "theme": "pieges",
     "question": "sort_list : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -1003,6 +1062,7 @@
     ]
   },
   {
+    "id": "q0060",
     "theme": "pieges",
     "question": "sort_list : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -1020,6 +1080,7 @@
     ]
   },
   {
+    "id": "q0061",
     "theme": "pieges",
     "question": "itoa : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -1037,6 +1098,7 @@
     ]
   },
   {
+    "id": "q0062",
     "theme": "pieges",
     "question": "itoa : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -1054,6 +1116,7 @@
     ]
   },
   {
+    "id": "q0063",
     "theme": "pieges",
     "question": "itoa : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -1071,6 +1134,7 @@
     ]
   },
   {
+    "id": "q0064",
     "theme": "pieges",
     "question": "itoa : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -1088,6 +1152,7 @@
     ]
   },
   {
+    "id": "q0065",
     "theme": "pieges",
     "question": "itoa : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -1105,6 +1170,7 @@
     ]
   },
   {
+    "id": "q0066",
     "theme": "pieges",
     "question": "wdmatch : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -1122,6 +1188,7 @@
     ]
   },
   {
+    "id": "q0067",
     "theme": "pieges",
     "question": "wdmatch : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -1139,6 +1206,7 @@
     ]
   },
   {
+    "id": "q0068",
     "theme": "pieges",
     "question": "wdmatch : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -1156,6 +1224,7 @@
     ]
   },
   {
+    "id": "q0069",
     "theme": "pieges",
     "question": "wdmatch : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -1173,6 +1242,7 @@
     ]
   },
   {
+    "id": "q0070",
     "theme": "pieges",
     "question": "wdmatch : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -1190,6 +1260,7 @@
     ]
   },
   {
+    "id": "q0071",
     "theme": "pieges",
     "question": "union : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -1207,6 +1278,7 @@
     ]
   },
   {
+    "id": "q0072",
     "theme": "pieges",
     "question": "union : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -1224,6 +1296,7 @@
     ]
   },
   {
+    "id": "q0073",
     "theme": "pieges",
     "question": "union : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -1241,6 +1314,7 @@
     ]
   },
   {
+    "id": "q0074",
     "theme": "pieges",
     "question": "union : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -1258,6 +1332,7 @@
     ]
   },
   {
+    "id": "q0075",
     "theme": "pieges",
     "question": "union : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -1275,6 +1350,7 @@
     ]
   },
   {
+    "id": "q0076",
     "theme": "pieges",
     "question": "atoi : le code compile, mais un test caché plante. Quel correctif cible le piège le plus probable ?",
     "choices": [
@@ -1292,6 +1368,7 @@
     ]
   },
   {
+    "id": "q0077",
     "theme": "pieges",
     "question": "atoi : tu observes une sortie incohérente sur les cas limites. Quelle correction est prioritaire ?",
     "choices": [
@@ -1309,6 +1386,7 @@
     ]
   },
   {
+    "id": "q0078",
     "theme": "pieges",
     "question": "atoi : après une suppression ou une écriture mémoire, quel ordre d’opérations évite la corruption ?",
     "choices": [
@@ -1326,6 +1404,7 @@
     ]
   },
   {
+    "id": "q0079",
     "theme": "pieges",
     "question": "atoi : le test d’exam te renvoie “Wrong output”. Quelle décision est la plus sûre en priorité ?",
     "choices": [
@@ -1343,6 +1422,7 @@
     ]
   },
   {
+    "id": "q0080",
     "theme": "pieges",
     "question": "atoi : tu hésites entre optimisation rapide et garde défensive. Quel choix évite le plus de faux positifs en correction ?",
     "choices": [
@@ -1360,6 +1440,7 @@
     ]
   },
   {
+    "id": "q0081",
     "theme": "reflexes_memoire",
     "question": "ft_split : ta fonction renvoie un tableau de mots. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1377,6 +1458,7 @@
     ]
   },
   {
+    "id": "q0082",
     "theme": "reflexes_memoire",
     "question": "ft_split : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1394,6 +1476,7 @@
     ]
   },
   {
+    "id": "q0083",
     "theme": "reflexes_memoire",
     "question": "ft_split : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -1411,6 +1494,7 @@
     ]
   },
   {
+    "id": "q0084",
     "theme": "reflexes_memoire",
     "question": "ft_split : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -1428,6 +1512,7 @@
     ]
   },
   {
+    "id": "q0085",
     "theme": "reflexes_memoire",
     "question": "ft_split : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -1445,6 +1530,7 @@
     ]
   },
   {
+    "id": "q0086",
     "theme": "reflexes_memoire",
     "question": "ft_range : ta fonction renvoie un tableau d'int entre start et end. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1462,6 +1548,7 @@
     ]
   },
   {
+    "id": "q0087",
     "theme": "reflexes_memoire",
     "question": "ft_range : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1479,6 +1566,7 @@
     ]
   },
   {
+    "id": "q0088",
     "theme": "reflexes_memoire",
     "question": "ft_range : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -1496,6 +1584,7 @@
     ]
   },
   {
+    "id": "q0089",
     "theme": "reflexes_memoire",
     "question": "ft_range : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -1513,6 +1602,7 @@
     ]
   },
   {
+    "id": "q0090",
     "theme": "reflexes_memoire",
     "question": "ft_range : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -1530,6 +1620,7 @@
     ]
   },
   {
+    "id": "q0091",
     "theme": "reflexes_memoire",
     "question": "ft_list_remove_if : ta fonction renvoie une liste nettoyée des maillons à supprimer. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1547,6 +1638,7 @@
     ]
   },
   {
+    "id": "q0092",
     "theme": "reflexes_memoire",
     "question": "ft_list_remove_if : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1564,6 +1656,7 @@
     ]
   },
   {
+    "id": "q0093",
     "theme": "reflexes_memoire",
     "question": "ft_list_remove_if : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -1581,6 +1674,7 @@
     ]
   },
   {
+    "id": "q0094",
     "theme": "reflexes_memoire",
     "question": "ft_list_remove_if : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -1598,6 +1692,7 @@
     ]
   },
   {
+    "id": "q0095",
     "theme": "reflexes_memoire",
     "question": "ft_list_remove_if : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -1615,6 +1710,7 @@
     ]
   },
   {
+    "id": "q0096",
     "theme": "reflexes_memoire",
     "question": "sort_list : ta fonction renvoie une liste triée en place. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1632,6 +1728,7 @@
     ]
   },
   {
+    "id": "q0097",
     "theme": "reflexes_memoire",
     "question": "sort_list : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1649,6 +1746,7 @@
     ]
   },
   {
+    "id": "q0098",
     "theme": "reflexes_memoire",
     "question": "sort_list : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -1666,6 +1764,7 @@
     ]
   },
   {
+    "id": "q0099",
     "theme": "reflexes_memoire",
     "question": "sort_list : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -1683,6 +1782,7 @@
     ]
   },
   {
+    "id": "q0100",
     "theme": "reflexes_memoire",
     "question": "sort_list : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -1700,6 +1800,7 @@
     ]
   },
   {
+    "id": "q0101",
     "theme": "reflexes_memoire",
     "question": "itoa : ta fonction renvoie la chaîne représentant l’entier. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1717,6 +1818,7 @@
     ]
   },
   {
+    "id": "q0102",
     "theme": "reflexes_memoire",
     "question": "itoa : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1734,6 +1836,7 @@
     ]
   },
   {
+    "id": "q0103",
     "theme": "reflexes_memoire",
     "question": "itoa : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -1751,6 +1854,7 @@
     ]
   },
   {
+    "id": "q0104",
     "theme": "reflexes_memoire",
     "question": "itoa : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -1768,6 +1872,7 @@
     ]
   },
   {
+    "id": "q0105",
     "theme": "reflexes_memoire",
     "question": "itoa : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -1785,6 +1890,7 @@
     ]
   },
   {
+    "id": "q0106",
     "theme": "reflexes_memoire",
     "question": "wdmatch : ta fonction renvoie un affichage conditionnel de argv[1]. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1802,6 +1908,7 @@
     ]
   },
   {
+    "id": "q0107",
     "theme": "reflexes_memoire",
     "question": "wdmatch : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1819,6 +1926,7 @@
     ]
   },
   {
+    "id": "q0108",
     "theme": "reflexes_memoire",
     "question": "wdmatch : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -1836,6 +1944,7 @@
     ]
   },
   {
+    "id": "q0109",
     "theme": "reflexes_memoire",
     "question": "wdmatch : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -1853,6 +1962,7 @@
     ]
   },
   {
+    "id": "q0110",
     "theme": "reflexes_memoire",
     "question": "wdmatch : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -1870,6 +1980,7 @@
     ]
   },
   {
+    "id": "q0111",
     "theme": "reflexes_memoire",
     "question": "union : ta fonction renvoie une sortie sans doublons provenant de deux chaînes. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1887,6 +1998,7 @@
     ]
   },
   {
+    "id": "q0112",
     "theme": "reflexes_memoire",
     "question": "union : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1904,6 +2016,7 @@
     ]
   },
   {
+    "id": "q0113",
     "theme": "reflexes_memoire",
     "question": "union : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -1921,6 +2034,7 @@
     ]
   },
   {
+    "id": "q0114",
     "theme": "reflexes_memoire",
     "question": "union : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -1938,6 +2052,7 @@
     ]
   },
   {
+    "id": "q0115",
     "theme": "reflexes_memoire",
     "question": "union : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -1955,6 +2070,7 @@
     ]
   },
   {
+    "id": "q0116",
     "theme": "reflexes_memoire",
     "question": "atoi : ta fonction renvoie la valeur entière convertie. Qui doit libérer la mémoire dans le flux standard ?",
     "choices": [
@@ -1972,6 +2088,7 @@
     ]
   },
   {
+    "id": "q0117",
     "theme": "reflexes_memoire",
     "question": "atoi : juste après allocation ou préparation critique, quel réflexe mémoire doit être systématique ?",
     "choices": [
@@ -1989,6 +2106,7 @@
     ]
   },
   {
+    "id": "q0118",
     "theme": "reflexes_memoire",
     "question": "atoi : une allocation intermédiaire échoue après plusieurs succès. Quelle sortie mémoire est correcte ?",
     "choices": [
@@ -2006,6 +2124,7 @@
     ]
   },
   {
+    "id": "q0119",
     "theme": "reflexes_memoire",
     "question": "atoi : tu dois dimensionner une allocation. Quelle formule est la plus fiable ?",
     "choices": [
@@ -2023,6 +2142,7 @@
     ]
   },
   {
+    "id": "q0120",
     "theme": "reflexes_memoire",
     "question": "atoi : après free(ptr) dans une branche de correction, quelle décision évite la réutilisation accidentelle ?",
     "choices": [
@@ -2040,6 +2160,7 @@
     ]
   },
   {
+    "id": "q0121",
     "theme": "pointeurs",
     "question": "ft_split : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2057,6 +2178,7 @@
     ]
   },
   {
+    "id": "q0122",
     "theme": "pointeurs",
     "question": "ft_split : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2074,6 +2196,7 @@
     ]
   },
   {
+    "id": "q0123",
     "theme": "pointeurs",
     "question": "ft_split : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2091,6 +2214,7 @@
     ]
   },
   {
+    "id": "q0124",
     "theme": "pointeurs",
     "question": "ft_split : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2108,6 +2232,7 @@
     ]
   },
   {
+    "id": "q0125",
     "theme": "pointeurs",
     "question": "ft_split : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2125,6 +2250,7 @@
     ]
   },
   {
+    "id": "q0126",
     "theme": "pointeurs",
     "question": "ft_range : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2142,6 +2268,7 @@
     ]
   },
   {
+    "id": "q0127",
     "theme": "pointeurs",
     "question": "ft_range : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2159,6 +2286,7 @@
     ]
   },
   {
+    "id": "q0128",
     "theme": "pointeurs",
     "question": "ft_range : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2176,6 +2304,7 @@
     ]
   },
   {
+    "id": "q0129",
     "theme": "pointeurs",
     "question": "ft_range : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2193,6 +2322,7 @@
     ]
   },
   {
+    "id": "q0130",
     "theme": "pointeurs",
     "question": "ft_range : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2210,6 +2340,7 @@
     ]
   },
   {
+    "id": "q0131",
     "theme": "pointeurs",
     "question": "ft_list_remove_if : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2227,6 +2358,7 @@
     ]
   },
   {
+    "id": "q0132",
     "theme": "pointeurs",
     "question": "ft_list_remove_if : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2244,6 +2376,7 @@
     ]
   },
   {
+    "id": "q0133",
     "theme": "pointeurs",
     "question": "ft_list_remove_if : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2261,6 +2394,7 @@
     ]
   },
   {
+    "id": "q0134",
     "theme": "pointeurs",
     "question": "ft_list_remove_if : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2278,6 +2412,7 @@
     ]
   },
   {
+    "id": "q0135",
     "theme": "pointeurs",
     "question": "ft_list_remove_if : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2295,6 +2430,7 @@
     ]
   },
   {
+    "id": "q0136",
     "theme": "pointeurs",
     "question": "sort_list : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2312,6 +2448,7 @@
     ]
   },
   {
+    "id": "q0137",
     "theme": "pointeurs",
     "question": "sort_list : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2329,6 +2466,7 @@
     ]
   },
   {
+    "id": "q0138",
     "theme": "pointeurs",
     "question": "sort_list : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2346,6 +2484,7 @@
     ]
   },
   {
+    "id": "q0139",
     "theme": "pointeurs",
     "question": "sort_list : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2363,6 +2502,7 @@
     ]
   },
   {
+    "id": "q0140",
     "theme": "pointeurs",
     "question": "sort_list : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2380,6 +2520,7 @@
     ]
   },
   {
+    "id": "q0141",
     "theme": "pointeurs",
     "question": "itoa : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2397,6 +2538,7 @@
     ]
   },
   {
+    "id": "q0142",
     "theme": "pointeurs",
     "question": "itoa : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2414,6 +2556,7 @@
     ]
   },
   {
+    "id": "q0143",
     "theme": "pointeurs",
     "question": "itoa : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2431,6 +2574,7 @@
     ]
   },
   {
+    "id": "q0144",
     "theme": "pointeurs",
     "question": "itoa : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2448,6 +2592,7 @@
     ]
   },
   {
+    "id": "q0145",
     "theme": "pointeurs",
     "question": "itoa : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2465,6 +2610,7 @@
     ]
   },
   {
+    "id": "q0146",
     "theme": "pointeurs",
     "question": "wdmatch : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2482,6 +2628,7 @@
     ]
   },
   {
+    "id": "q0147",
     "theme": "pointeurs",
     "question": "wdmatch : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2499,6 +2646,7 @@
     ]
   },
   {
+    "id": "q0148",
     "theme": "pointeurs",
     "question": "wdmatch : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2516,6 +2664,7 @@
     ]
   },
   {
+    "id": "q0149",
     "theme": "pointeurs",
     "question": "wdmatch : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2533,6 +2682,7 @@
     ]
   },
   {
+    "id": "q0150",
     "theme": "pointeurs",
     "question": "wdmatch : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2550,6 +2700,7 @@
     ]
   },
   {
+    "id": "q0151",
     "theme": "pointeurs",
     "question": "union : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2567,6 +2718,7 @@
     ]
   },
   {
+    "id": "q0152",
     "theme": "pointeurs",
     "question": "union : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2584,6 +2736,7 @@
     ]
   },
   {
+    "id": "q0153",
     "theme": "pointeurs",
     "question": "union : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2601,6 +2754,7 @@
     ]
   },
   {
+    "id": "q0154",
     "theme": "pointeurs",
     "question": "union : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2618,6 +2772,7 @@
     ]
   },
   {
+    "id": "q0155",
     "theme": "pointeurs",
     "question": "union : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2635,6 +2790,7 @@
     ]
   },
   {
+    "id": "q0156",
     "theme": "pointeurs",
     "question": "atoi : tu dois modifier une structure partagée (tête, buffer ou index global). Quelle forme de pointeur est correcte ?",
     "choices": [
@@ -2652,6 +2808,7 @@
     ]
   },
   {
+    "id": "q0157",
     "theme": "pointeurs",
     "question": "atoi : avant de supprimer ou remplacer une cible mémoire, quel réflexe pointeur évite de perdre l’adresse utile ?",
     "choices": [
@@ -2669,6 +2826,7 @@
     ]
   },
   {
+    "id": "q0158",
     "theme": "pointeurs",
     "question": "atoi : quelle décision doit précéder toute déréférence (`*ptr`/`->`) dans un chemin sensible ?",
     "choices": [
@@ -2686,6 +2844,7 @@
     ]
   },
   {
+    "id": "q0159",
     "theme": "pointeurs",
     "question": "atoi : pendant une boucle de transformation, quelle règle d’avancement de pointeur est correcte ?",
     "choices": [
@@ -2703,6 +2862,7 @@
     ]
   },
   {
+    "id": "q0160",
     "theme": "pointeurs",
     "question": "atoi : tu modifies une zone pointée puis tu dois retourner un résultat. Quel pointeur faut-il renvoyer ?",
     "choices": [
@@ -2720,6 +2880,7 @@
     ]
   },
   {
+    "id": "q0161",
     "theme": "malloc",
     "question": "ft_split : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -2737,6 +2898,7 @@
     ]
   },
   {
+    "id": "q0162",
     "theme": "malloc",
     "question": "ft_split : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -2754,6 +2916,7 @@
     ]
   },
   {
+    "id": "q0163",
     "theme": "malloc",
     "question": "ft_split : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -2771,6 +2934,7 @@
     ]
   },
   {
+    "id": "q0164",
     "theme": "malloc",
     "question": "ft_split : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -2788,6 +2952,7 @@
     ]
   },
   {
+    "id": "q0165",
     "theme": "malloc",
     "question": "ft_split : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -2805,6 +2970,7 @@
     ]
   },
   {
+    "id": "q0166",
     "theme": "malloc",
     "question": "ft_range : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -2822,6 +2988,7 @@
     ]
   },
   {
+    "id": "q0167",
     "theme": "malloc",
     "question": "ft_range : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -2839,6 +3006,7 @@
     ]
   },
   {
+    "id": "q0168",
     "theme": "malloc",
     "question": "ft_range : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -2856,6 +3024,7 @@
     ]
   },
   {
+    "id": "q0169",
     "theme": "malloc",
     "question": "ft_range : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -2873,6 +3042,7 @@
     ]
   },
   {
+    "id": "q0170",
     "theme": "malloc",
     "question": "ft_range : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -2890,6 +3060,7 @@
     ]
   },
   {
+    "id": "q0171",
     "theme": "malloc",
     "question": "ft_list_remove_if : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -2907,6 +3078,7 @@
     ]
   },
   {
+    "id": "q0172",
     "theme": "malloc",
     "question": "ft_list_remove_if : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -2924,6 +3096,7 @@
     ]
   },
   {
+    "id": "q0173",
     "theme": "malloc",
     "question": "ft_list_remove_if : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -2941,6 +3114,7 @@
     ]
   },
   {
+    "id": "q0174",
     "theme": "malloc",
     "question": "ft_list_remove_if : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -2958,6 +3132,7 @@
     ]
   },
   {
+    "id": "q0175",
     "theme": "malloc",
     "question": "ft_list_remove_if : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -2975,6 +3150,7 @@
     ]
   },
   {
+    "id": "q0176",
     "theme": "malloc",
     "question": "sort_list : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -2992,6 +3168,7 @@
     ]
   },
   {
+    "id": "q0177",
     "theme": "malloc",
     "question": "sort_list : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -3009,6 +3186,7 @@
     ]
   },
   {
+    "id": "q0178",
     "theme": "malloc",
     "question": "sort_list : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -3026,6 +3204,7 @@
     ]
   },
   {
+    "id": "q0179",
     "theme": "malloc",
     "question": "sort_list : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -3043,6 +3222,7 @@
     ]
   },
   {
+    "id": "q0180",
     "theme": "malloc",
     "question": "sort_list : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -3060,6 +3240,7 @@
     ]
   },
   {
+    "id": "q0181",
     "theme": "malloc",
     "question": "itoa : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -3077,6 +3258,7 @@
     ]
   },
   {
+    "id": "q0182",
     "theme": "malloc",
     "question": "itoa : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -3094,6 +3276,7 @@
     ]
   },
   {
+    "id": "q0183",
     "theme": "malloc",
     "question": "itoa : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -3111,6 +3294,7 @@
     ]
   },
   {
+    "id": "q0184",
     "theme": "malloc",
     "question": "itoa : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -3128,6 +3312,7 @@
     ]
   },
   {
+    "id": "q0185",
     "theme": "malloc",
     "question": "itoa : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -3145,6 +3330,7 @@
     ]
   },
   {
+    "id": "q0186",
     "theme": "malloc",
     "question": "wdmatch : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -3162,6 +3348,7 @@
     ]
   },
   {
+    "id": "q0187",
     "theme": "malloc",
     "question": "wdmatch : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -3179,6 +3366,7 @@
     ]
   },
   {
+    "id": "q0188",
     "theme": "malloc",
     "question": "wdmatch : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -3196,6 +3384,7 @@
     ]
   },
   {
+    "id": "q0189",
     "theme": "malloc",
     "question": "wdmatch : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -3213,6 +3402,7 @@
     ]
   },
   {
+    "id": "q0190",
     "theme": "malloc",
     "question": "wdmatch : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -3230,6 +3420,7 @@
     ]
   },
   {
+    "id": "q0191",
     "theme": "malloc",
     "question": "union : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -3247,6 +3438,7 @@
     ]
   },
   {
+    "id": "q0192",
     "theme": "malloc",
     "question": "union : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -3264,6 +3456,7 @@
     ]
   },
   {
+    "id": "q0193",
     "theme": "malloc",
     "question": "union : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -3281,6 +3474,7 @@
     ]
   },
   {
+    "id": "q0194",
     "theme": "malloc",
     "question": "union : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -3298,6 +3492,7 @@
     ]
   },
   {
+    "id": "q0195",
     "theme": "malloc",
     "question": "union : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -3315,6 +3510,7 @@
     ]
   },
   {
+    "id": "q0196",
     "theme": "malloc",
     "question": "atoi : dois-tu utiliser malloc dans cette implémentation, et pour quoi exactement ?",
     "choices": [
@@ -3332,6 +3528,7 @@
     ]
   },
   {
+    "id": "q0197",
     "theme": "malloc",
     "question": "atoi : quand malloc est nécessaire, quelle stratégie de taille est correcte ?",
     "choices": [
@@ -3349,6 +3546,7 @@
     ]
   },
   {
+    "id": "q0198",
     "theme": "malloc",
     "question": "atoi : un malloc retourne NULL en plein run. Quelle décision garde le comportement maîtrisé ?",
     "choices": [
@@ -3366,6 +3564,7 @@
     ]
   },
   {
+    "id": "q0199",
     "theme": "malloc",
     "question": "atoi : pour éviter un malloc trop petit ou inutile, quelle règle est la plus fiable ?",
     "choices": [
@@ -3383,6 +3582,7 @@
     ]
   },
   {
+    "id": "q0200",
     "theme": "malloc",
     "question": "atoi : ta fonction retourne une zone allouée. Quelle règle de free est correcte côté appelant ?",
     "choices": [
@@ -3400,6 +3600,7 @@
     ]
   },
   {
+    "id": "q0201",
     "theme": "conditions_limites",
     "question": "ft_split : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -3417,6 +3618,7 @@
     ]
   },
   {
+    "id": "q0202",
     "theme": "conditions_limites",
     "question": "ft_split : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -3434,6 +3636,7 @@
     ]
   },
   {
+    "id": "q0203",
     "theme": "conditions_limites",
     "question": "ft_split : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -3451,6 +3654,7 @@
     ]
   },
   {
+    "id": "q0204",
     "theme": "conditions_limites",
     "question": "ft_split : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -3468,6 +3672,7 @@
     ]
   },
   {
+    "id": "q0205",
     "theme": "conditions_limites",
     "question": "ft_split : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -3485,6 +3690,7 @@
     ]
   },
   {
+    "id": "q0206",
     "theme": "conditions_limites",
     "question": "ft_range : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -3502,6 +3708,7 @@
     ]
   },
   {
+    "id": "q0207",
     "theme": "conditions_limites",
     "question": "ft_range : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -3519,6 +3726,7 @@
     ]
   },
   {
+    "id": "q0208",
     "theme": "conditions_limites",
     "question": "ft_range : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -3536,6 +3744,7 @@
     ]
   },
   {
+    "id": "q0209",
     "theme": "conditions_limites",
     "question": "ft_range : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -3553,6 +3762,7 @@
     ]
   },
   {
+    "id": "q0210",
     "theme": "conditions_limites",
     "question": "ft_range : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -3570,6 +3780,7 @@
     ]
   },
   {
+    "id": "q0211",
     "theme": "conditions_limites",
     "question": "ft_list_remove_if : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -3587,6 +3798,7 @@
     ]
   },
   {
+    "id": "q0212",
     "theme": "conditions_limites",
     "question": "ft_list_remove_if : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -3604,6 +3816,7 @@
     ]
   },
   {
+    "id": "q0213",
     "theme": "conditions_limites",
     "question": "ft_list_remove_if : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -3621,6 +3834,7 @@
     ]
   },
   {
+    "id": "q0214",
     "theme": "conditions_limites",
     "question": "ft_list_remove_if : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -3638,6 +3852,7 @@
     ]
   },
   {
+    "id": "q0215",
     "theme": "conditions_limites",
     "question": "ft_list_remove_if : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -3655,6 +3870,7 @@
     ]
   },
   {
+    "id": "q0216",
     "theme": "conditions_limites",
     "question": "sort_list : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -3672,6 +3888,7 @@
     ]
   },
   {
+    "id": "q0217",
     "theme": "conditions_limites",
     "question": "sort_list : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -3689,6 +3906,7 @@
     ]
   },
   {
+    "id": "q0218",
     "theme": "conditions_limites",
     "question": "sort_list : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -3706,6 +3924,7 @@
     ]
   },
   {
+    "id": "q0219",
     "theme": "conditions_limites",
     "question": "sort_list : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -3723,6 +3942,7 @@
     ]
   },
   {
+    "id": "q0220",
     "theme": "conditions_limites",
     "question": "sort_list : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -3740,6 +3960,7 @@
     ]
   },
   {
+    "id": "q0221",
     "theme": "conditions_limites",
     "question": "itoa : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -3757,6 +3978,7 @@
     ]
   },
   {
+    "id": "q0222",
     "theme": "conditions_limites",
     "question": "itoa : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -3774,6 +3996,7 @@
     ]
   },
   {
+    "id": "q0223",
     "theme": "conditions_limites",
     "question": "itoa : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -3791,6 +4014,7 @@
     ]
   },
   {
+    "id": "q0224",
     "theme": "conditions_limites",
     "question": "itoa : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -3808,6 +4032,7 @@
     ]
   },
   {
+    "id": "q0225",
     "theme": "conditions_limites",
     "question": "itoa : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -3825,6 +4050,7 @@
     ]
   },
   {
+    "id": "q0226",
     "theme": "conditions_limites",
     "question": "wdmatch : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -3842,6 +4068,7 @@
     ]
   },
   {
+    "id": "q0227",
     "theme": "conditions_limites",
     "question": "wdmatch : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -3859,6 +4086,7 @@
     ]
   },
   {
+    "id": "q0228",
     "theme": "conditions_limites",
     "question": "wdmatch : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -3876,6 +4104,7 @@
     ]
   },
   {
+    "id": "q0229",
     "theme": "conditions_limites",
     "question": "wdmatch : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -3893,6 +4122,7 @@
     ]
   },
   {
+    "id": "q0230",
     "theme": "conditions_limites",
     "question": "wdmatch : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -3910,6 +4140,7 @@
     ]
   },
   {
+    "id": "q0231",
     "theme": "conditions_limites",
     "question": "union : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -3927,6 +4158,7 @@
     ]
   },
   {
+    "id": "q0232",
     "theme": "conditions_limites",
     "question": "union : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -3944,6 +4176,7 @@
     ]
   },
   {
+    "id": "q0233",
     "theme": "conditions_limites",
     "question": "union : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -3961,6 +4194,7 @@
     ]
   },
   {
+    "id": "q0234",
     "theme": "conditions_limites",
     "question": "union : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -3978,6 +4212,7 @@
     ]
   },
   {
+    "id": "q0235",
     "theme": "conditions_limites",
     "question": "union : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -3995,6 +4230,7 @@
     ]
   },
   {
+    "id": "q0236",
     "theme": "conditions_limites",
     "question": "atoi : quel cas limite dois-tu valider avant les tests nominaux ?",
     "choices": [
@@ -4012,6 +4248,7 @@
     ]
   },
   {
+    "id": "q0237",
     "theme": "conditions_limites",
     "question": "atoi : sur un run de correction, quel scénario de bord est le plus critique ici ?",
     "choices": [
@@ -4029,6 +4266,7 @@
     ]
   },
   {
+    "id": "q0238",
     "theme": "conditions_limites",
     "question": "atoi : quel garde-fou doit être exécuté avant de toucher aux données d’entrée ?",
     "choices": [
@@ -4046,6 +4284,7 @@
     ]
   },
   {
+    "id": "q0239",
     "theme": "conditions_limites",
     "question": "atoi : sur un cas vide ou minimal, quel comportement est attendu par le sujet ?",
     "choices": [
@@ -4063,6 +4302,7 @@
     ]
   },
   {
+    "id": "q0240",
     "theme": "conditions_limites",
     "question": "atoi : quelle décision évite un off-by-one sur les entrées extrêmes ?",
     "choices": [
@@ -4080,6 +4320,7 @@
     ]
   },
   {
+    "id": "q0241",
     "theme": "regles_implicites",
     "question": "ft_split : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4097,6 +4338,7 @@
     ]
   },
   {
+    "id": "q0242",
     "theme": "regles_implicites",
     "question": "ft_split : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4114,6 +4356,7 @@
     ]
   },
   {
+    "id": "q0243",
     "theme": "regles_implicites",
     "question": "ft_split : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4131,6 +4374,7 @@
     ]
   },
   {
+    "id": "q0244",
     "theme": "regles_implicites",
     "question": "ft_split : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4148,6 +4392,7 @@
     ]
   },
   {
+    "id": "q0245",
     "theme": "regles_implicites",
     "question": "ft_split : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4165,6 +4410,7 @@
     ]
   },
   {
+    "id": "q0246",
     "theme": "regles_implicites",
     "question": "ft_range : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4182,6 +4428,7 @@
     ]
   },
   {
+    "id": "q0247",
     "theme": "regles_implicites",
     "question": "ft_range : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4199,6 +4446,7 @@
     ]
   },
   {
+    "id": "q0248",
     "theme": "regles_implicites",
     "question": "ft_range : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4216,6 +4464,7 @@
     ]
   },
   {
+    "id": "q0249",
     "theme": "regles_implicites",
     "question": "ft_range : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4233,6 +4482,7 @@
     ]
   },
   {
+    "id": "q0250",
     "theme": "regles_implicites",
     "question": "ft_range : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4250,6 +4500,7 @@
     ]
   },
   {
+    "id": "q0251",
     "theme": "regles_implicites",
     "question": "ft_list_remove_if : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4267,6 +4518,7 @@
     ]
   },
   {
+    "id": "q0252",
     "theme": "regles_implicites",
     "question": "ft_list_remove_if : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4284,6 +4536,7 @@
     ]
   },
   {
+    "id": "q0253",
     "theme": "regles_implicites",
     "question": "ft_list_remove_if : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4301,6 +4554,7 @@
     ]
   },
   {
+    "id": "q0254",
     "theme": "regles_implicites",
     "question": "ft_list_remove_if : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4318,6 +4572,7 @@
     ]
   },
   {
+    "id": "q0255",
     "theme": "regles_implicites",
     "question": "ft_list_remove_if : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4335,6 +4590,7 @@
     ]
   },
   {
+    "id": "q0256",
     "theme": "regles_implicites",
     "question": "sort_list : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4352,6 +4608,7 @@
     ]
   },
   {
+    "id": "q0257",
     "theme": "regles_implicites",
     "question": "sort_list : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4369,6 +4626,7 @@
     ]
   },
   {
+    "id": "q0258",
     "theme": "regles_implicites",
     "question": "sort_list : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4386,6 +4644,7 @@
     ]
   },
   {
+    "id": "q0259",
     "theme": "regles_implicites",
     "question": "sort_list : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4403,6 +4662,7 @@
     ]
   },
   {
+    "id": "q0260",
     "theme": "regles_implicites",
     "question": "sort_list : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4420,6 +4680,7 @@
     ]
   },
   {
+    "id": "q0261",
     "theme": "regles_implicites",
     "question": "itoa : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4437,6 +4698,7 @@
     ]
   },
   {
+    "id": "q0262",
     "theme": "regles_implicites",
     "question": "itoa : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4454,6 +4716,7 @@
     ]
   },
   {
+    "id": "q0263",
     "theme": "regles_implicites",
     "question": "itoa : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4471,6 +4734,7 @@
     ]
   },
   {
+    "id": "q0264",
     "theme": "regles_implicites",
     "question": "itoa : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4488,6 +4752,7 @@
     ]
   },
   {
+    "id": "q0265",
     "theme": "regles_implicites",
     "question": "itoa : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4505,6 +4770,7 @@
     ]
   },
   {
+    "id": "q0266",
     "theme": "regles_implicites",
     "question": "wdmatch : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4522,6 +4788,7 @@
     ]
   },
   {
+    "id": "q0267",
     "theme": "regles_implicites",
     "question": "wdmatch : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4539,6 +4806,7 @@
     ]
   },
   {
+    "id": "q0268",
     "theme": "regles_implicites",
     "question": "wdmatch : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4556,6 +4824,7 @@
     ]
   },
   {
+    "id": "q0269",
     "theme": "regles_implicites",
     "question": "wdmatch : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4573,6 +4842,7 @@
     ]
   },
   {
+    "id": "q0270",
     "theme": "regles_implicites",
     "question": "wdmatch : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4590,6 +4860,7 @@
     ]
   },
   {
+    "id": "q0271",
     "theme": "regles_implicites",
     "question": "union : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4607,6 +4878,7 @@
     ]
   },
   {
+    "id": "q0272",
     "theme": "regles_implicites",
     "question": "union : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4624,6 +4896,7 @@
     ]
   },
   {
+    "id": "q0273",
     "theme": "regles_implicites",
     "question": "union : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4641,6 +4914,7 @@
     ]
   },
   {
+    "id": "q0274",
     "theme": "regles_implicites",
     "question": "union : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4658,6 +4932,7 @@
     ]
   },
   {
+    "id": "q0275",
     "theme": "regles_implicites",
     "question": "union : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4675,6 +4950,7 @@
     ]
   },
   {
+    "id": "q0276",
     "theme": "regles_implicites",
     "question": "atoi : le sujet autorise seulement un petit set de fonctions. Quelle décision est correcte avant rendu ?",
     "choices": [
@@ -4692,6 +4968,7 @@
     ]
   },
   {
+    "id": "q0277",
     "theme": "regles_implicites",
     "question": "atoi : le prototype demandé par l’énoncé est précis. Quelle action évite un rejet immédiat ?",
     "choices": [
@@ -4709,6 +4986,7 @@
     ]
   },
   {
+    "id": "q0278",
     "theme": "regles_implicites",
     "question": "atoi : dans un main de test exam, argc est invalide. Quel comportement de sortie reste conforme ?",
     "choices": [
@@ -4726,6 +5004,7 @@
     ]
   },
   {
+    "id": "q0279",
     "theme": "regles_implicites",
     "question": "atoi : le sujet compare la sortie au caractère près. Quelle décision est obligatoire ?",
     "choices": [
@@ -4743,6 +5022,7 @@
     ]
   },
   {
+    "id": "q0280",
     "theme": "regles_implicites",
     "question": "atoi : avant de rendre, quelle vérification finale est la plus rentable à 42 ?",
     "choices": [
@@ -4760,6 +5040,7 @@
     ]
   },
   {
+    "id": "q0281",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quel ordre d’opérations est correct ?",
     "choices": [
@@ -4777,6 +5058,7 @@
     ]
   },
   {
+    "id": "q0282",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -4794,6 +5076,7 @@
     ]
   },
   {
+    "id": "q0283",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -4811,6 +5094,7 @@
     ]
   },
   {
+    "id": "q0284",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -4828,6 +5112,7 @@
     ]
   },
   {
+    "id": "q0285",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -4845,6 +5130,7 @@
     ]
   },
   {
+    "id": "q0286",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quel ordre d’opérations est correct ?",
     "choices": [
@@ -4862,6 +5148,7 @@
     ]
   },
   {
+    "id": "q0287",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -4879,6 +5166,7 @@
     ]
   },
   {
+    "id": "q0288",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -4896,6 +5184,7 @@
     ]
   },
   {
+    "id": "q0289",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -4913,6 +5202,7 @@
     ]
   },
   {
+    "id": "q0290",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -4930,6 +5220,7 @@
     ]
   },
   {
+    "id": "q0291",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quel ordre d’opérations est correct ?",
     "choices": [
@@ -4947,6 +5238,7 @@
     ]
   },
   {
+    "id": "q0292",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -4964,6 +5256,7 @@
     ]
   },
   {
+    "id": "q0293",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -4981,6 +5274,7 @@
     ]
   },
   {
+    "id": "q0294",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -4998,6 +5292,7 @@
     ]
   },
   {
+    "id": "q0295",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5015,6 +5310,7 @@
     ]
   },
   {
+    "id": "q0296",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5032,6 +5328,7 @@
     ]
   },
   {
+    "id": "q0297",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5049,6 +5346,7 @@
     ]
   },
   {
+    "id": "q0298",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5066,6 +5364,7 @@
     ]
   },
   {
+    "id": "q0299",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5083,6 +5382,7 @@
     ]
   },
   {
+    "id": "q0300",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5100,6 +5400,7 @@
     ]
   },
   {
+    "id": "q0301",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5117,6 +5418,7 @@
     ]
   },
   {
+    "id": "q0302",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5134,6 +5436,7 @@
     ]
   },
   {
+    "id": "q0303",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5151,6 +5454,7 @@
     ]
   },
   {
+    "id": "q0304",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5168,6 +5472,7 @@
     ]
   },
   {
+    "id": "q0305",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5185,6 +5490,7 @@
     ]
   },
   {
+    "id": "q0306",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5202,6 +5508,7 @@
     ]
   },
   {
+    "id": "q0307",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5219,6 +5526,7 @@
     ]
   },
   {
+    "id": "q0308",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5236,6 +5544,7 @@
     ]
   },
   {
+    "id": "q0309",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5253,6 +5562,7 @@
     ]
   },
   {
+    "id": "q0310",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5270,6 +5580,7 @@
     ]
   },
   {
+    "id": "q0311",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5287,6 +5598,7 @@
     ]
   },
   {
+    "id": "q0312",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5304,6 +5616,7 @@
     ]
   },
   {
+    "id": "q0313",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5321,6 +5634,7 @@
     ]
   },
   {
+    "id": "q0314",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5338,6 +5652,7 @@
     ]
   },
   {
+    "id": "q0315",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5355,6 +5670,7 @@
     ]
   },
   {
+    "id": "q0316",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5372,6 +5688,7 @@
     ]
   },
   {
+    "id": "q0317",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5389,6 +5706,7 @@
     ]
   },
   {
+    "id": "q0318",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5406,6 +5724,7 @@
     ]
   },
   {
+    "id": "q0319",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5423,6 +5742,7 @@
     ]
   },
   {
+    "id": "q0320",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
