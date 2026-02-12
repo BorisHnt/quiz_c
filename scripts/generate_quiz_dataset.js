@@ -1064,7 +1064,8 @@ function validateQuestion(item) {
   if (typeof item.explanation !== 'string' || item.explanation.length < 70) {
     return false;
   }
-  if (sentenceCount(item.explanation) > 3) {
+  const explanationSentences = sentenceCount(item.explanation);
+  if (explanationSentences < 2 || explanationSentences > 3) {
     return false;
   }
   if (item.question.includes('Dans les règles implicites')) {
@@ -1091,8 +1092,46 @@ function validateQuestion(item) {
     }
     normalizedChoices.add(key);
   }
+  if (!['easy', 'medium', 'hard'].includes(item.difficulty)) {
+    return false;
+  }
 
   return true;
+}
+
+function difficultyFromTags(theme, tags) {
+  const normalizedTags = Array.isArray(tags) ? tags.map((tag) => String(tag).toLowerCase()) : [];
+  const hardSignals = new Set([
+    'off_by_one',
+    'limit_case',
+    'prototype',
+    'allowed_functions',
+    'unlink_free',
+    'guard_next',
+    'malloc_fail',
+    'return_pointer',
+    'dangling',
+    'exact_output',
+    'final_check',
+  ]);
+
+  if (theme === 'general' || normalizedTags.some((tag) => tag.startsWith('bases_'))) {
+    return 'easy';
+  }
+
+  if (normalizedTags.some((tag) => hardSignals.has(tag))) {
+    return 'hard';
+  }
+
+  if (theme === 'conditions_limites' || theme === 'regles_implicites' || theme === 'listes_chainees') {
+    return 'hard';
+  }
+
+  if (theme === 'patterns' || theme === 'reflexes_memoire') {
+    return 'medium';
+  }
+
+  return 'medium';
 }
 
 function buildDataset() {
@@ -1118,6 +1157,7 @@ function buildDataset() {
           correct: q.correct,
           explanation: q.explanation,
           tags: q.tags,
+          difficulty: difficultyFromTags(theme, q.tags),
         });
       }
     }
@@ -1134,6 +1174,7 @@ function buildDataset() {
           correct: q.correct,
           explanation: q.explanation,
           tags: q.tags,
+          difficulty: difficultyFromTags('listes_chainees', q.tags),
         });
       }
     }
@@ -1149,6 +1190,7 @@ function buildDataset() {
         correct: q.correct,
         explanation: q.explanation,
         tags: q.tags,
+        difficulty: difficultyFromTags('general', q.tags),
       });
     }
   }

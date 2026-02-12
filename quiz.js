@@ -46,6 +46,104 @@ class QuestionTimer {
   }
 }
 
+const QUESTION_FUNCTIONS = new Set([
+  "ft_split",
+  "split",
+  "ft_range",
+  "range",
+  "ft_list_remove_if",
+  "list_remove_if",
+  "sort_list",
+  "lstsort",
+  "itoa",
+  "atoi",
+  "wdmatch",
+  "union",
+  "inter",
+  "last_word",
+  "strdup",
+  "strrev",
+  "lstsize",
+  "lstforeach",
+]);
+
+const NORMALIZED_FUNCTION_TOKENS = Array.from(QUESTION_FUNCTIONS).map((fn) =>
+  normalizeQuizText(fn).replace(/\s+/g, " ").trim()
+);
+
+const ACTION_HINTS = [
+  "malloc",
+  "free",
+  "unlink",
+  "return",
+  "retourner",
+  "avancer",
+  "pointeur",
+  "swap",
+  "tester",
+  "null",
+  "cas limite",
+  "off-by-one",
+  "segfault",
+  "argc",
+  "prototype",
+  "allouer",
+  "supprimer",
+];
+
+const SEMANTIC_STOP_WORDS = new Set([
+  "de",
+  "des",
+  "du",
+  "la",
+  "le",
+  "les",
+  "un",
+  "une",
+  "et",
+  "ou",
+  "au",
+  "aux",
+  "dans",
+  "pour",
+  "sur",
+  "avec",
+  "sans",
+  "que",
+  "qui",
+  "quand",
+  "comment",
+  "quel",
+  "quelle",
+  "quelles",
+  "quels",
+  "est",
+  "sont",
+  "plus",
+  "moins",
+  "cette",
+  "ce",
+  "ces",
+  "tu",
+  "ton",
+  "ta",
+  "tes",
+  "par",
+  "en",
+  "a",
+  "au",
+  "aux",
+  "si",
+  "se",
+  "sa",
+  "son",
+  "pas",
+  "faut",
+  "doit",
+  "dois",
+  "faire",
+]);
+
 function normalizeQuizText(value) {
   return String(value || "")
     .toLowerCase()
@@ -53,6 +151,205 @@ function normalizeQuizText(value) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
+}
+
+function countSentences(value) {
+  return String(value || "")
+    .split(/[.!?]+/)
+    .map((part) => part.trim())
+    .filter(Boolean).length;
+}
+
+function normalizeQuestionKey(question) {
+  return `q:${normalizeQuizText(question)}`;
+}
+
+function questionKeys(question) {
+  const keys = [normalizeQuestionKey(question.question)];
+  if (typeof question.id === "string" && question.id.trim().length > 0) {
+    keys.unshift(`id:${question.id.trim()}`);
+  }
+  return keys;
+}
+
+function tokenizeForSimilarity(value) {
+  return normalizeQuizText(value)
+    .split(" ")
+    .map((token) => token.trim())
+    .filter((token) => token.length >= 3 && !SEMANTIC_STOP_WORDS.has(token));
+}
+
+function jaccardSimilarity(setA, setB) {
+  if (setA.size === 0 || setB.size === 0) {
+    return 0;
+  }
+
+  let intersection = 0;
+  setA.forEach((token) => {
+    if (setB.has(token)) {
+      intersection += 1;
+    }
+  });
+
+  const union = setA.size + setB.size - intersection;
+  return union > 0 ? intersection / union : 0;
+}
+
+function extractFunctionFromQuestion(question) {
+  const tags = Array.isArray(question.tags) ? question.tags : [];
+  const fromTags = tags.find((tag) => QUESTION_FUNCTIONS.has(String(tag).toLowerCase()));
+  if (fromTags) {
+    return normalizeQuizText(fromTags);
+  }
+
+  const normalizedQuestion = normalizeQuizText(question.question);
+  const found = NORMALIZED_FUNCTION_TOKENS.find((token) => normalizedQuestion.includes(token));
+  return found || "";
+}
+
+function extractActionTag(question) {
+  const tags = Array.isArray(question.tags) ? question.tags : [];
+  const normalizedTheme = String(question.theme || "").toLowerCase();
+  for (const tag of tags) {
+    const normalized = String(tag).toLowerCase();
+    if (normalized !== normalizedTheme && !QUESTION_FUNCTIONS.has(normalized)) {
+      return normalized;
+    }
+  }
+  return "";
+}
+
+function semanticFingerprint(question) {
+  const corpus = [
+    question.question,
+    Array.isArray(question.choices) ? question.choices.join(" ") : "",
+    question.explanation,
+    Array.isArray(question.tags) ? question.tags.join(" ") : "",
+  ].join(" ");
+
+  const tokens = new Set(tokenizeForSimilarity(corpus));
+
+  return {
+    questionKey: normalizeQuizText(question.question),
+    fn: extractFunctionFromQuestion(question),
+    action: extractActionTag(question),
+    tokens,
+  };
+}
+
+function isSemanticDuplicate(candidate, existing, relaxed = false) {
+  if (candidate.questionKey === existing.questionKey) {
+    return true;
+  }
+
+  const similarity = jaccardSimilarity(candidate.tokens, existing.tokens);
+
+  if (
+    !relaxed &&
+    candidate.fn &&
+    existing.fn &&
+    candidate.fn === existing.fn &&
+    candidate.action &&
+    candidate.action === existing.action &&
+    similarity >= 0.8
+  ) {
+    return true;
+  }
+
+  if (!relaxed) {
+    return similarity >= 0.9;
+  }
+
+  return similarity >= 0.96;
+}
+
+function inferDifficulty(item) {
+  const raw = String(item.difficulty || "").toLowerCase();
+  if (raw === "easy" || raw === "medium" || raw === "hard") {
+    return raw;
+  }
+
+  const tags = Array.isArray(item.tags) ? item.tags.map((tag) => String(tag).toLowerCase()) : [];
+  const text = `${item.question || ""} ${item.explanation || ""}`.toLowerCase();
+
+  if (String(item.theme || "") === "general" || tags.some((tag) => tag.startsWith("bases_"))) {
+    return "easy";
+  }
+
+  const hardSignals = [
+    "off_by_one",
+    "limit_case",
+    "prototype",
+    "allowed_functions",
+    "unlink_free",
+    "malloc_fail",
+    "return_pointer",
+    "dangling",
+    "exact_output",
+  ];
+
+  if (
+    hardSignals.some((signal) => tags.includes(signal)) ||
+    text.includes("int_min") ||
+    text.includes("double pointeur") ||
+    text.includes("cas limite")
+  ) {
+    return "hard";
+  }
+
+  return "medium";
+}
+
+function questionHasExpectedFormat(item) {
+  if (!item || typeof item !== "object") {
+    return false;
+  }
+
+  if (typeof item.question !== "string" || !item.question.includes(":") || !item.question.includes("?")) {
+    return false;
+  }
+
+  const normalizedQuestion = normalizeQuizText(item.question);
+  const hasFunction = NORMALIZED_FUNCTION_TOKENS.some((token) => normalizedQuestion.includes(token));
+  if (!hasFunction) {
+    return false;
+  }
+
+  if (!Array.isArray(item.choices) || item.choices.length !== 4) {
+    return false;
+  }
+
+  if (!Number.isInteger(item.correct) || item.correct < 0 || item.correct > 3) {
+    return false;
+  }
+
+  const normalizedChoices = new Set();
+  for (const choice of item.choices) {
+    if (typeof choice !== "string" || choice.trim().length < 20) {
+      return false;
+    }
+    const normalizedChoice = normalizeQuizText(choice);
+    if (normalizedChoices.has(normalizedChoice)) {
+      return false;
+    }
+    normalizedChoices.add(normalizedChoice);
+  }
+
+  if (typeof item.explanation !== "string" || item.explanation.trim().length < 80) {
+    return false;
+  }
+
+  const sentences = countSentences(item.explanation);
+  if (sentences < 2 || sentences > 3) {
+    return false;
+  }
+
+  const contextualCorpus = `${item.question} ${item.choices.join(" ")}`.toLowerCase();
+  if (!ACTION_HINTS.some((hint) => contextualCorpus.includes(hint))) {
+    return false;
+  }
+
+  return true;
 }
 
 function sanitizeQuizData(payload) {
@@ -70,14 +367,9 @@ function sanitizeQuizData(payload) {
       explanation: typeof item.explanation === "string" ? item.explanation.trim() : "",
       theme: typeof item.theme === "string" ? item.theme : "patterns",
       tags: Array.isArray(item.tags) ? item.tags.filter((tag) => typeof tag === "string") : [],
+      difficulty: inferDifficulty(item),
     }))
-    .filter(
-      (item) =>
-        item.question.length > 0 &&
-        item.choices.length >= 2 &&
-        item.correct >= 0 &&
-        item.correct < item.choices.length
-    );
+    .filter((item) => questionHasExpectedFormat(item));
 
   const seenIds = new Set();
   const seenQuestions = new Set();
@@ -105,7 +397,57 @@ function formatTimer(seconds) {
   return `${mm}:${ss}`;
 }
 
-function buildWeaknessMap(progress) {
+function isRelatedTheme(sessionTheme, selectedTheme) {
+  const normalizedSessionTheme = String(sessionTheme || "random");
+  const normalizedSelectedTheme = String(selectedTheme || "random");
+
+  if (normalizedSelectedTheme === "random") {
+    return true;
+  }
+
+  if (normalizedSelectedTheme === "pointeurs_malloc") {
+    return ["pointeurs_malloc", "pointeurs", "malloc", "random"].includes(normalizedSessionTheme);
+  }
+
+  return normalizedSessionTheme === normalizedSelectedTheme || normalizedSessionTheme === "random";
+}
+
+function themeAccuracy(progress, selectedTheme) {
+  const allSessions = Array.isArray(progress.quiz.sessions) ? progress.quiz.sessions : [];
+  const scopedSessions = allSessions.filter((session) => isRelatedTheme(session.theme, selectedTheme));
+  const pool = scopedSessions.length >= 3 ? scopedSessions : allSessions;
+
+  const totals = pool.reduce(
+    (acc, session) => {
+      acc.score += Number.isFinite(session.score) ? session.score : 0;
+      acc.total += Number.isFinite(session.total) ? session.total : 0;
+      return acc;
+    },
+    { score: 0, total: 0 }
+  );
+
+  if (totals.total <= 0) {
+    return 0.55;
+  }
+
+  return totals.score / totals.total;
+}
+
+function daysSince(dateIso) {
+  const timestamp = Date.parse(String(dateIso || ""));
+  if (!Number.isFinite(timestamp)) {
+    return 365;
+  }
+  return Math.max(0, (Date.now() - timestamp) / 86400000);
+}
+
+function spacingBoost(ageDays) {
+  const schedule = [0, 1, 3, 7, 14];
+  const nearest = schedule.reduce((best, day) => Math.min(best, Math.abs(ageDays - day)), Number.POSITIVE_INFINITY);
+  return Math.max(0, 1 - nearest / 3) * 0.9;
+}
+
+function buildWeaknessMap(progress, selectedTheme) {
   const weaknessByTag = new Map();
 
   Object.values(progress.flashcards.records).forEach((record) => {
@@ -119,31 +461,92 @@ function buildWeaknessMap(progress) {
     }
   });
 
-  progress.quiz.errors.forEach((error) => {
+  const questionMistakes = new Map();
+  const immediateReviewSet = new Set();
+
+  progress.quiz.errors.forEach((error, index) => {
+    const rankWeight = Math.max(0, 1 - index / 80) * 1.4;
+    const ageDays = daysSince(error.date);
+    const recencyWeight = ageDays <= 1 ? 2.2 : ageDays <= 3 ? 1.8 : ageDays <= 7 ? 1.1 : 0.5;
+    const spacedWeight = spacingBoost(ageDays);
+    const totalWeight = 1 + rankWeight + recencyWeight + spacedWeight;
+    const idKey = typeof error.questionId === "string" && error.questionId.trim().length > 0
+      ? `id:${error.questionId.trim()}`
+      : "";
+    const textKey = normalizeQuestionKey(error.question);
+
+    if (idKey) {
+      questionMistakes.set(idKey, (questionMistakes.get(idKey) || 0) + totalWeight);
+      if (ageDays <= 3 || spacedWeight >= 0.5) {
+        immediateReviewSet.add(idKey);
+      }
+    }
+    questionMistakes.set(textKey, (questionMistakes.get(textKey) || 0) + totalWeight);
+    if (ageDays <= 3 || spacedWeight >= 0.5) {
+      immediateReviewSet.add(textKey);
+    }
+
     error.tags.forEach((tag) => {
       const key = String(tag || "").toLowerCase();
-      weaknessByTag.set(key, (weaknessByTag.get(key) || 0) + 1.2);
+      weaknessByTag.set(key, (weaknessByTag.get(key) || 0) + 0.9 + rankWeight * 0.25);
     });
   });
 
-  const questionMistakes = new Map();
-  progress.quiz.errors.forEach((error) => {
-    const key = error.question;
-    questionMistakes.set(key, (questionMistakes.get(key) || 0) + 1);
-  });
+  return {
+    weaknessByTag,
+    questionMistakes,
+    immediateReviewSet,
+    themeAccuracy: themeAccuracy(progress, selectedTheme),
+  };
+}
 
-  return { weaknessByTag, questionMistakes };
+function difficultyScore(level) {
+  if (level === "easy") {
+    return 1;
+  }
+  if (level === "hard") {
+    return 3;
+  }
+  return 2;
+}
+
+function targetDifficultyScore(accuracy) {
+  if (accuracy >= 0.82) {
+    return 2.85;
+  }
+  if (accuracy >= 0.68) {
+    return 2.35;
+  }
+  if (accuracy >= 0.52) {
+    return 1.95;
+  }
+  return 1.35;
+}
+
+function adaptiveDifficultyWeight(question, accuracy) {
+  const target = targetDifficultyScore(accuracy);
+  const level = difficultyScore(question.difficulty);
+  const distance = Math.abs(target - level);
+  return Math.max(0.35, 1.55 - distance * 0.62);
 }
 
 function questionWeight(question, weaknessInfo) {
-  const { weaknessByTag, questionMistakes } = weaknessInfo;
+  const { weaknessByTag, questionMistakes, immediateReviewSet, themeAccuracy: accuracy } = weaknessInfo;
   let weight = 1;
 
   question.tags.forEach((tag) => {
     weight += weaknessByTag.get(String(tag).toLowerCase()) || 0;
   });
 
-  weight += (questionMistakes.get(question.question) || 0) * 1.4;
+  const keys = questionKeys(question);
+  const mistakeWeight = keys.reduce((best, key) => Math.max(best, questionMistakes.get(key) || 0), 0);
+  weight += mistakeWeight * 1.15;
+
+  if (keys.some((key) => immediateReviewSet.has(key))) {
+    weight += 2.8;
+  }
+
+  weight *= adaptiveDifficultyWeight(question, accuracy);
   return Math.max(0.1, weight);
 }
 
@@ -172,10 +575,12 @@ function weightedOrder(items, weightFn, rng) {
 }
 
 function buildQuestionSet(allQuestions, count, weaknessInfo, rng) {
-  const weighted = weightedOrder(allQuestions, (question) => questionWeight(question, weaknessInfo), rng);
+  const validPool = allQuestions.filter((question) => questionHasExpectedFormat(question));
+  const weighted = weightedOrder(validPool, (question) => questionWeight(question, weaknessInfo), rng);
   const seenIds = new Set();
   const seenQuestions = new Set();
-  const unique = [];
+  const selected = [];
+  const fingerprints = [];
 
   for (const question of weighted) {
     const idKey = String(question.id || "");
@@ -183,16 +588,64 @@ function buildQuestionSet(allQuestions, count, weaknessInfo, rng) {
     if (seenIds.has(idKey) || seenQuestions.has(questionKey)) {
       continue;
     }
+    const fingerprint = semanticFingerprint(question);
+    const isNearDuplicate = fingerprints.some((entry) => isSemanticDuplicate(fingerprint, entry, false));
+    if (isNearDuplicate) {
+      continue;
+    }
+
     seenIds.add(idKey);
     seenQuestions.add(questionKey);
-    unique.push(question);
+    selected.push(question);
+    fingerprints.push(fingerprint);
 
-    if (unique.length >= count) {
+    if (selected.length >= count) {
       break;
     }
   }
 
-  return unique;
+  if (selected.length < count) {
+    for (const question of weighted) {
+      if (selected.length >= count) {
+        break;
+      }
+
+      const idKey = String(question.id || "");
+      const questionKey = normalizeQuizText(question.question);
+      if (seenIds.has(idKey) || seenQuestions.has(questionKey)) {
+        continue;
+      }
+
+      const fingerprint = semanticFingerprint(question);
+      const isNearDuplicate = fingerprints.some((entry) => isSemanticDuplicate(fingerprint, entry, true));
+      if (isNearDuplicate) {
+        continue;
+      }
+
+      seenIds.add(idKey);
+      seenQuestions.add(questionKey);
+      selected.push(question);
+      fingerprints.push(fingerprint);
+    }
+  }
+
+  if (selected.length < count) {
+    for (const question of weighted) {
+      if (selected.length >= count) {
+        break;
+      }
+      const idKey = String(question.id || "");
+      const questionKey = normalizeQuizText(question.question);
+      if (seenIds.has(idKey) || seenQuestions.has(questionKey)) {
+        continue;
+      }
+      seenIds.add(idKey);
+      seenQuestions.add(questionKey);
+      selected.push(question);
+    }
+  }
+
+  return selected;
 }
 
 function remapQuestionChoices(question, rng) {
@@ -611,6 +1064,7 @@ function registerError(question, selectedIndex) {
   const selectedText = selectedIndex >= 0 ? question.choices[selectedIndex] : "Aucune réponse";
   const errorEntry = {
     date: new Date().toISOString(),
+    questionId: question.id || "",
     question: question.question,
     selected: selectedText,
     correct: question.choices[question.correct],
@@ -789,7 +1243,7 @@ function startSession() {
   state.selectedResultIndex = -1;
   localStorage.setItem(REVISION_MODE_KEY, state.revisionMode ? "1" : "0");
 
-  const weaknessInfo = buildWeaknessMap(state.progress);
+  const weaknessInfo = buildWeaknessMap(state.progress, state.selectedTheme);
   const seed = seedFromString(`${todayKey()}-quiz-${state.selectedTheme}-${state.progress.quiz.errors.length}`);
   const rng = createSeededRng(seed);
   const themedQuestions = state.allQuestions.filter((question) =>

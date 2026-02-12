@@ -34,7 +34,7 @@ const STORAGE_KEY = "c_revision_progress_v2";
     },
     quiz: {
       sessions: [{ date: string, mode: string, theme: string, score: number, total: number, penalty: number, timer: number }],
-      errors: [{ date: string, question: string, selected: string, correct: string, tags: string[], mode: string }]
+      errors: [{ date: string, questionId: string, question: string, selected: string, correct: string, tags: string[], mode: string }]
     },
     ui: {
       lastPage: string,
@@ -163,6 +163,7 @@ function normalizeProgress(input) {
             .filter((e) => isObj(e))
             .map((e) => ({
               date: typeof e.date === "string" ? e.date : new Date().toISOString(),
+              questionId: typeof e.questionId === "string" ? e.questionId : "",
               question: typeof e.question === "string" ? e.question : "",
               selected: typeof e.selected === "string" ? e.selected : "",
               correct: typeof e.correct === "string" ? e.correct : "",

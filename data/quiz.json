@@ -15,7 +15,8 @@
       "patterns",
       "ft_split",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0002",
@@ -33,7 +34,8 @@
       "patterns",
       "ft_split",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0003",
@@ -51,7 +53,8 @@
       "patterns",
       "ft_split",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0004",
@@ -69,7 +72,8 @@
       "patterns",
       "ft_split",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0005",
@@ -87,7 +91,8 @@
       "patterns",
       "ft_split",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0006",
@@ -105,7 +110,8 @@
       "patterns",
       "ft_range",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0007",
@@ -123,7 +129,8 @@
       "patterns",
       "ft_range",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0008",
@@ -141,7 +148,8 @@
       "patterns",
       "ft_range",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0009",
@@ -159,7 +167,8 @@
       "patterns",
       "ft_range",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0010",
@@ -177,7 +186,8 @@
       "patterns",
       "ft_range",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0011",
@@ -195,7 +205,8 @@
       "patterns",
       "ft_list_remove_if",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0012",
@@ -213,7 +224,8 @@
       "patterns",
       "ft_list_remove_if",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0013",
@@ -231,7 +243,8 @@
       "patterns",
       "ft_list_remove_if",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0014",
@@ -249,7 +262,8 @@
       "patterns",
       "ft_list_remove_if",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0015",
@@ -267,7 +281,8 @@
       "patterns",
       "ft_list_remove_if",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0016",
@@ -285,7 +300,8 @@
       "patterns",
       "sort_list",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0017",
@@ -303,7 +319,8 @@
       "patterns",
       "sort_list",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0018",
@@ -321,7 +338,8 @@
       "patterns",
       "sort_list",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0019",
@@ -339,7 +357,8 @@
       "patterns",
       "sort_list",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0020",
@@ -357,7 +376,8 @@
       "patterns",
       "sort_list",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0021",
@@ -375,7 +395,8 @@
       "patterns",
       "itoa",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0022",
@@ -393,7 +414,8 @@
       "patterns",
       "itoa",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0023",
@@ -411,7 +433,8 @@
       "patterns",
       "itoa",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0024",
@@ -429,7 +452,8 @@
       "patterns",
       "itoa",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0025",
@@ -447,7 +471,8 @@
       "patterns",
       "itoa",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0026",
@@ -465,7 +490,8 @@
       "patterns",
       "wdmatch",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0027",
@@ -483,7 +509,8 @@
       "patterns",
       "wdmatch",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0028",
@@ -501,7 +528,8 @@
       "patterns",
       "wdmatch",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0029",
@@ -519,7 +547,8 @@
       "patterns",
       "wdmatch",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0030",
@@ -537,7 +566,8 @@
       "patterns",
       "wdmatch",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0031",
@@ -555,7 +585,8 @@
       "patterns",
       "union",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0032",
@@ -573,7 +604,8 @@
       "patterns",
       "union",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0033",
@@ -591,7 +623,8 @@
       "patterns",
       "union",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0034",
@@ -609,7 +642,8 @@
       "patterns",
       "union",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0035",
@@ -627,7 +661,8 @@
       "patterns",
       "union",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0036",
@@ -645,7 +680,8 @@
       "patterns",
       "atoi",
       "sequence"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0037",
@@ -663,7 +699,8 @@
       "patterns",
       "atoi",
       "fail_path"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0038",
@@ -681,7 +718,8 @@
       "patterns",
       "atoi",
       "loop"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0039",
@@ -699,7 +737,8 @@
       "patterns",
       "atoi",
       "finalize"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0040",
@@ -717,7 +756,8 @@
       "patterns",
       "atoi",
       "edge_case"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0041",
@@ -735,7 +775,8 @@
       "pieges",
       "ft_split",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0042",
@@ -753,7 +794,8 @@
       "pieges",
       "ft_split",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0043",
@@ -771,7 +813,8 @@
       "pieges",
       "ft_split",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0044",
@@ -789,7 +832,8 @@
       "pieges",
       "ft_split",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0045",
@@ -807,7 +851,8 @@
       "pieges",
       "ft_split",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0046",
@@ -825,7 +870,8 @@
       "pieges",
       "ft_range",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0047",
@@ -843,7 +889,8 @@
       "pieges",
       "ft_range",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0048",
@@ -861,7 +908,8 @@
       "pieges",
       "ft_range",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0049",
@@ -879,7 +927,8 @@
       "pieges",
       "ft_range",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0050",
@@ -897,7 +946,8 @@
       "pieges",
       "ft_range",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0051",
@@ -915,7 +965,8 @@
       "pieges",
       "ft_list_remove_if",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0052",
@@ -933,7 +984,8 @@
       "pieges",
       "ft_list_remove_if",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0053",
@@ -951,7 +1003,8 @@
       "pieges",
       "ft_list_remove_if",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0054",
@@ -969,7 +1022,8 @@
       "pieges",
       "ft_list_remove_if",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0055",
@@ -987,7 +1041,8 @@
       "pieges",
       "ft_list_remove_if",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0056",
@@ -1005,7 +1060,8 @@
       "pieges",
       "sort_list",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0057",
@@ -1023,7 +1079,8 @@
       "pieges",
       "sort_list",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0058",
@@ -1041,7 +1098,8 @@
       "pieges",
       "sort_list",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0059",
@@ -1059,7 +1117,8 @@
       "pieges",
       "sort_list",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0060",
@@ -1077,7 +1136,8 @@
       "pieges",
       "sort_list",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0061",
@@ -1095,7 +1155,8 @@
       "pieges",
       "itoa",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0062",
@@ -1113,7 +1174,8 @@
       "pieges",
       "itoa",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0063",
@@ -1131,7 +1193,8 @@
       "pieges",
       "itoa",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0064",
@@ -1149,7 +1212,8 @@
       "pieges",
       "itoa",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0065",
@@ -1167,7 +1231,8 @@
       "pieges",
       "itoa",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0066",
@@ -1185,7 +1250,8 @@
       "pieges",
       "wdmatch",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0067",
@@ -1203,7 +1269,8 @@
       "pieges",
       "wdmatch",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0068",
@@ -1221,7 +1288,8 @@
       "pieges",
       "wdmatch",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0069",
@@ -1239,7 +1307,8 @@
       "pieges",
       "wdmatch",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0070",
@@ -1257,7 +1326,8 @@
       "pieges",
       "wdmatch",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0071",
@@ -1275,7 +1345,8 @@
       "pieges",
       "union",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0072",
@@ -1293,7 +1364,8 @@
       "pieges",
       "union",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0073",
@@ -1311,7 +1383,8 @@
       "pieges",
       "union",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0074",
@@ -1329,7 +1402,8 @@
       "pieges",
       "union",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0075",
@@ -1347,7 +1421,8 @@
       "pieges",
       "union",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0076",
@@ -1365,7 +1440,8 @@
       "pieges",
       "atoi",
       "trap"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0077",
@@ -1383,7 +1459,8 @@
       "pieges",
       "atoi",
       "output_bug"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0078",
@@ -1401,7 +1478,8 @@
       "pieges",
       "atoi",
       "order"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0079",
@@ -1419,7 +1497,8 @@
       "pieges",
       "atoi",
       "output_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0080",
@@ -1437,7 +1516,8 @@
       "pieges",
       "atoi",
       "defensive"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0081",
@@ -1455,7 +1535,8 @@
       "reflexes_memoire",
       "ft_split",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0082",
@@ -1473,7 +1554,8 @@
       "reflexes_memoire",
       "ft_split",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0083",
@@ -1491,7 +1573,8 @@
       "reflexes_memoire",
       "ft_split",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0084",
@@ -1509,7 +1592,8 @@
       "reflexes_memoire",
       "ft_split",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0085",
@@ -1527,7 +1611,8 @@
       "reflexes_memoire",
       "ft_split",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0086",
@@ -1545,7 +1630,8 @@
       "reflexes_memoire",
       "ft_range",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0087",
@@ -1563,7 +1649,8 @@
       "reflexes_memoire",
       "ft_range",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0088",
@@ -1581,7 +1668,8 @@
       "reflexes_memoire",
       "ft_range",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0089",
@@ -1599,7 +1687,8 @@
       "reflexes_memoire",
       "ft_range",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0090",
@@ -1617,7 +1706,8 @@
       "reflexes_memoire",
       "ft_range",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0091",
@@ -1635,7 +1725,8 @@
       "reflexes_memoire",
       "ft_list_remove_if",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0092",
@@ -1653,7 +1744,8 @@
       "reflexes_memoire",
       "ft_list_remove_if",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0093",
@@ -1671,7 +1763,8 @@
       "reflexes_memoire",
       "ft_list_remove_if",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0094",
@@ -1689,7 +1782,8 @@
       "reflexes_memoire",
       "ft_list_remove_if",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0095",
@@ -1707,7 +1801,8 @@
       "reflexes_memoire",
       "ft_list_remove_if",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0096",
@@ -1725,7 +1820,8 @@
       "reflexes_memoire",
       "sort_list",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0097",
@@ -1743,7 +1839,8 @@
       "reflexes_memoire",
       "sort_list",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0098",
@@ -1761,7 +1858,8 @@
       "reflexes_memoire",
       "sort_list",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0099",
@@ -1779,7 +1877,8 @@
       "reflexes_memoire",
       "sort_list",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0100",
@@ -1797,7 +1896,8 @@
       "reflexes_memoire",
       "sort_list",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0101",
@@ -1815,7 +1915,8 @@
       "reflexes_memoire",
       "itoa",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0102",
@@ -1833,7 +1934,8 @@
       "reflexes_memoire",
       "itoa",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0103",
@@ -1851,7 +1953,8 @@
       "reflexes_memoire",
       "itoa",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0104",
@@ -1869,7 +1972,8 @@
       "reflexes_memoire",
       "itoa",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0105",
@@ -1887,7 +1991,8 @@
       "reflexes_memoire",
       "itoa",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0106",
@@ -1905,7 +2010,8 @@
       "reflexes_memoire",
       "wdmatch",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0107",
@@ -1923,7 +2029,8 @@
       "reflexes_memoire",
       "wdmatch",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0108",
@@ -1941,7 +2048,8 @@
       "reflexes_memoire",
       "wdmatch",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0109",
@@ -1959,7 +2067,8 @@
       "reflexes_memoire",
       "wdmatch",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0110",
@@ -1977,7 +2086,8 @@
       "reflexes_memoire",
       "wdmatch",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0111",
@@ -1995,7 +2105,8 @@
       "reflexes_memoire",
       "union",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0112",
@@ -2013,7 +2124,8 @@
       "reflexes_memoire",
       "union",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0113",
@@ -2031,7 +2143,8 @@
       "reflexes_memoire",
       "union",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0114",
@@ -2049,7 +2162,8 @@
       "reflexes_memoire",
       "union",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0115",
@@ -2067,7 +2181,8 @@
       "reflexes_memoire",
       "union",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0116",
@@ -2085,7 +2200,8 @@
       "reflexes_memoire",
       "atoi",
       "ownership"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0117",
@@ -2103,7 +2219,8 @@
       "reflexes_memoire",
       "atoi",
       "guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0118",
@@ -2121,7 +2238,8 @@
       "reflexes_memoire",
       "atoi",
       "cleanup"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0119",
@@ -2139,7 +2257,8 @@
       "reflexes_memoire",
       "atoi",
       "size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0120",
@@ -2157,7 +2276,8 @@
       "reflexes_memoire",
       "atoi",
       "dangling"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0121",
@@ -2175,7 +2295,8 @@
       "pointeurs",
       "ft_split",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0122",
@@ -2193,7 +2314,8 @@
       "pointeurs",
       "ft_split",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0123",
@@ -2211,7 +2333,8 @@
       "pointeurs",
       "ft_split",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0124",
@@ -2229,7 +2352,8 @@
       "pointeurs",
       "ft_split",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0125",
@@ -2247,7 +2371,8 @@
       "pointeurs",
       "ft_split",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0126",
@@ -2265,7 +2390,8 @@
       "pointeurs",
       "ft_range",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0127",
@@ -2283,7 +2409,8 @@
       "pointeurs",
       "ft_range",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0128",
@@ -2301,7 +2428,8 @@
       "pointeurs",
       "ft_range",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0129",
@@ -2319,7 +2447,8 @@
       "pointeurs",
       "ft_range",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0130",
@@ -2337,7 +2466,8 @@
       "pointeurs",
       "ft_range",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0131",
@@ -2355,7 +2485,8 @@
       "pointeurs",
       "ft_list_remove_if",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0132",
@@ -2373,7 +2504,8 @@
       "pointeurs",
       "ft_list_remove_if",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0133",
@@ -2391,7 +2523,8 @@
       "pointeurs",
       "ft_list_remove_if",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0134",
@@ -2409,7 +2542,8 @@
       "pointeurs",
       "ft_list_remove_if",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0135",
@@ -2427,7 +2561,8 @@
       "pointeurs",
       "ft_list_remove_if",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0136",
@@ -2445,7 +2580,8 @@
       "pointeurs",
       "sort_list",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0137",
@@ -2463,7 +2599,8 @@
       "pointeurs",
       "sort_list",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0138",
@@ -2481,7 +2618,8 @@
       "pointeurs",
       "sort_list",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0139",
@@ -2499,7 +2637,8 @@
       "pointeurs",
       "sort_list",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0140",
@@ -2517,7 +2656,8 @@
       "pointeurs",
       "sort_list",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0141",
@@ -2535,7 +2675,8 @@
       "pointeurs",
       "itoa",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0142",
@@ -2553,7 +2694,8 @@
       "pointeurs",
       "itoa",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0143",
@@ -2571,7 +2713,8 @@
       "pointeurs",
       "itoa",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0144",
@@ -2589,7 +2732,8 @@
       "pointeurs",
       "itoa",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0145",
@@ -2607,7 +2751,8 @@
       "pointeurs",
       "itoa",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0146",
@@ -2625,7 +2770,8 @@
       "pointeurs",
       "wdmatch",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0147",
@@ -2643,7 +2789,8 @@
       "pointeurs",
       "wdmatch",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0148",
@@ -2661,7 +2808,8 @@
       "pointeurs",
       "wdmatch",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0149",
@@ -2679,7 +2827,8 @@
       "pointeurs",
       "wdmatch",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0150",
@@ -2697,7 +2846,8 @@
       "pointeurs",
       "wdmatch",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0151",
@@ -2715,7 +2865,8 @@
       "pointeurs",
       "union",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0152",
@@ -2733,7 +2884,8 @@
       "pointeurs",
       "union",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0153",
@@ -2751,7 +2903,8 @@
       "pointeurs",
       "union",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0154",
@@ -2769,7 +2922,8 @@
       "pointeurs",
       "union",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0155",
@@ -2787,7 +2941,8 @@
       "pointeurs",
       "union",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0156",
@@ -2805,7 +2960,8 @@
       "pointeurs",
       "atoi",
       "indirection"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0157",
@@ -2823,7 +2979,8 @@
       "pointeurs",
       "atoi",
       "tmp"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0158",
@@ -2841,7 +2998,8 @@
       "pointeurs",
       "atoi",
       "deref_guard"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0159",
@@ -2859,7 +3017,8 @@
       "pointeurs",
       "atoi",
       "advance"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0160",
@@ -2877,7 +3036,8 @@
       "pointeurs",
       "atoi",
       "return_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0161",
@@ -2895,7 +3055,8 @@
       "malloc",
       "ft_split",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0162",
@@ -2913,7 +3074,8 @@
       "malloc",
       "ft_split",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0163",
@@ -2931,7 +3093,8 @@
       "malloc",
       "ft_split",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0164",
@@ -2949,7 +3112,8 @@
       "malloc",
       "ft_split",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0165",
@@ -2967,7 +3131,8 @@
       "malloc",
       "ft_split",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0166",
@@ -2985,7 +3150,8 @@
       "malloc",
       "ft_range",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0167",
@@ -3003,7 +3169,8 @@
       "malloc",
       "ft_range",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0168",
@@ -3021,7 +3188,8 @@
       "malloc",
       "ft_range",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0169",
@@ -3039,7 +3207,8 @@
       "malloc",
       "ft_range",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0170",
@@ -3057,7 +3226,8 @@
       "malloc",
       "ft_range",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0171",
@@ -3075,7 +3245,8 @@
       "malloc",
       "ft_list_remove_if",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0172",
@@ -3093,7 +3264,8 @@
       "malloc",
       "ft_list_remove_if",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0173",
@@ -3111,7 +3283,8 @@
       "malloc",
       "ft_list_remove_if",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0174",
@@ -3129,7 +3302,8 @@
       "malloc",
       "ft_list_remove_if",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0175",
@@ -3147,7 +3321,8 @@
       "malloc",
       "ft_list_remove_if",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0176",
@@ -3165,7 +3340,8 @@
       "malloc",
       "sort_list",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0177",
@@ -3183,7 +3359,8 @@
       "malloc",
       "sort_list",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0178",
@@ -3201,7 +3378,8 @@
       "malloc",
       "sort_list",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0179",
@@ -3219,7 +3397,8 @@
       "malloc",
       "sort_list",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0180",
@@ -3237,7 +3416,8 @@
       "malloc",
       "sort_list",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0181",
@@ -3255,7 +3435,8 @@
       "malloc",
       "itoa",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0182",
@@ -3273,7 +3454,8 @@
       "malloc",
       "itoa",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0183",
@@ -3291,7 +3473,8 @@
       "malloc",
       "itoa",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0184",
@@ -3309,7 +3492,8 @@
       "malloc",
       "itoa",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0185",
@@ -3327,7 +3511,8 @@
       "malloc",
       "itoa",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0186",
@@ -3345,7 +3530,8 @@
       "malloc",
       "wdmatch",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0187",
@@ -3363,7 +3549,8 @@
       "malloc",
       "wdmatch",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0188",
@@ -3381,7 +3568,8 @@
       "malloc",
       "wdmatch",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0189",
@@ -3399,7 +3587,8 @@
       "malloc",
       "wdmatch",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0190",
@@ -3417,7 +3606,8 @@
       "malloc",
       "wdmatch",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0191",
@@ -3435,7 +3625,8 @@
       "malloc",
       "union",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0192",
@@ -3453,7 +3644,8 @@
       "malloc",
       "union",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0193",
@@ -3471,7 +3663,8 @@
       "malloc",
       "union",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0194",
@@ -3489,7 +3682,8 @@
       "malloc",
       "union",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0195",
@@ -3507,7 +3701,8 @@
       "malloc",
       "union",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0196",
@@ -3525,7 +3720,8 @@
       "malloc",
       "atoi",
       "malloc_need"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0197",
@@ -3543,7 +3739,8 @@
       "malloc",
       "atoi",
       "malloc_size"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0198",
@@ -3561,7 +3758,8 @@
       "malloc",
       "atoi",
       "malloc_fail"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0199",
@@ -3579,7 +3777,8 @@
       "malloc",
       "atoi",
       "sizing_reflex"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0200",
@@ -3597,7 +3796,8 @@
       "malloc",
       "atoi",
       "free_contract"
-    ]
+    ],
+    "difficulty": "medium"
   },
   {
     "id": "q0201",
@@ -3615,7 +3815,8 @@
       "conditions_limites",
       "ft_split",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0202",
@@ -3633,7 +3834,8 @@
       "conditions_limites",
       "ft_split",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0203",
@@ -3651,7 +3853,8 @@
       "conditions_limites",
       "ft_split",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0204",
@@ -3669,7 +3872,8 @@
       "conditions_limites",
       "ft_split",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0205",
@@ -3687,7 +3891,8 @@
       "conditions_limites",
       "ft_split",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0206",
@@ -3705,7 +3910,8 @@
       "conditions_limites",
       "ft_range",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0207",
@@ -3723,7 +3929,8 @@
       "conditions_limites",
       "ft_range",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0208",
@@ -3741,7 +3948,8 @@
       "conditions_limites",
       "ft_range",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0209",
@@ -3759,7 +3967,8 @@
       "conditions_limites",
       "ft_range",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0210",
@@ -3777,7 +3986,8 @@
       "conditions_limites",
       "ft_range",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0211",
@@ -3795,7 +4005,8 @@
       "conditions_limites",
       "ft_list_remove_if",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0212",
@@ -3813,7 +4024,8 @@
       "conditions_limites",
       "ft_list_remove_if",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0213",
@@ -3831,7 +4043,8 @@
       "conditions_limites",
       "ft_list_remove_if",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0214",
@@ -3849,7 +4062,8 @@
       "conditions_limites",
       "ft_list_remove_if",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0215",
@@ -3867,7 +4081,8 @@
       "conditions_limites",
       "ft_list_remove_if",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0216",
@@ -3885,7 +4100,8 @@
       "conditions_limites",
       "sort_list",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0217",
@@ -3903,7 +4119,8 @@
       "conditions_limites",
       "sort_list",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0218",
@@ -3921,7 +4138,8 @@
       "conditions_limites",
       "sort_list",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0219",
@@ -3939,7 +4157,8 @@
       "conditions_limites",
       "sort_list",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0220",
@@ -3957,7 +4176,8 @@
       "conditions_limites",
       "sort_list",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0221",
@@ -3975,7 +4195,8 @@
       "conditions_limites",
       "itoa",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0222",
@@ -3993,7 +4214,8 @@
       "conditions_limites",
       "itoa",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0223",
@@ -4011,7 +4233,8 @@
       "conditions_limites",
       "itoa",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0224",
@@ -4029,7 +4252,8 @@
       "conditions_limites",
       "itoa",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0225",
@@ -4047,7 +4271,8 @@
       "conditions_limites",
       "itoa",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0226",
@@ -4065,7 +4290,8 @@
       "conditions_limites",
       "wdmatch",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0227",
@@ -4083,7 +4309,8 @@
       "conditions_limites",
       "wdmatch",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0228",
@@ -4101,7 +4328,8 @@
       "conditions_limites",
       "wdmatch",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0229",
@@ -4119,7 +4347,8 @@
       "conditions_limites",
       "wdmatch",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0230",
@@ -4137,7 +4366,8 @@
       "conditions_limites",
       "wdmatch",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0231",
@@ -4155,7 +4385,8 @@
       "conditions_limites",
       "union",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0232",
@@ -4173,7 +4404,8 @@
       "conditions_limites",
       "union",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0233",
@@ -4191,7 +4423,8 @@
       "conditions_limites",
       "union",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0234",
@@ -4209,7 +4442,8 @@
       "conditions_limites",
       "union",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0235",
@@ -4227,7 +4461,8 @@
       "conditions_limites",
       "union",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0236",
@@ -4245,7 +4480,8 @@
       "conditions_limites",
       "atoi",
       "edge_priority"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0237",
@@ -4263,7 +4499,8 @@
       "conditions_limites",
       "atoi",
       "limit_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0238",
@@ -4281,7 +4518,8 @@
       "conditions_limites",
       "atoi",
       "input_guard"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0239",
@@ -4299,7 +4537,8 @@
       "conditions_limites",
       "atoi",
       "minimal_case"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0240",
@@ -4317,7 +4556,8 @@
       "conditions_limites",
       "atoi",
       "off_by_one"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0241",
@@ -4335,7 +4575,8 @@
       "regles_implicites",
       "ft_split",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0242",
@@ -4353,7 +4594,8 @@
       "regles_implicites",
       "ft_split",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0243",
@@ -4371,7 +4613,8 @@
       "regles_implicites",
       "ft_split",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0244",
@@ -4389,7 +4632,8 @@
       "regles_implicites",
       "ft_split",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0245",
@@ -4407,7 +4651,8 @@
       "regles_implicites",
       "ft_split",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0246",
@@ -4425,7 +4670,8 @@
       "regles_implicites",
       "ft_range",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0247",
@@ -4443,7 +4689,8 @@
       "regles_implicites",
       "ft_range",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0248",
@@ -4461,7 +4708,8 @@
       "regles_implicites",
       "ft_range",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0249",
@@ -4479,7 +4727,8 @@
       "regles_implicites",
       "ft_range",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0250",
@@ -4497,7 +4746,8 @@
       "regles_implicites",
       "ft_range",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0251",
@@ -4515,7 +4765,8 @@
       "regles_implicites",
       "ft_list_remove_if",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0252",
@@ -4533,7 +4784,8 @@
       "regles_implicites",
       "ft_list_remove_if",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0253",
@@ -4551,7 +4803,8 @@
       "regles_implicites",
       "ft_list_remove_if",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0254",
@@ -4569,7 +4822,8 @@
       "regles_implicites",
       "ft_list_remove_if",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0255",
@@ -4587,7 +4841,8 @@
       "regles_implicites",
       "ft_list_remove_if",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0256",
@@ -4605,7 +4860,8 @@
       "regles_implicites",
       "sort_list",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0257",
@@ -4623,7 +4879,8 @@
       "regles_implicites",
       "sort_list",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0258",
@@ -4641,7 +4898,8 @@
       "regles_implicites",
       "sort_list",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0259",
@@ -4659,7 +4917,8 @@
       "regles_implicites",
       "sort_list",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0260",
@@ -4677,7 +4936,8 @@
       "regles_implicites",
       "sort_list",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0261",
@@ -4695,7 +4955,8 @@
       "regles_implicites",
       "itoa",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0262",
@@ -4713,7 +4974,8 @@
       "regles_implicites",
       "itoa",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0263",
@@ -4731,7 +4993,8 @@
       "regles_implicites",
       "itoa",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0264",
@@ -4749,7 +5012,8 @@
       "regles_implicites",
       "itoa",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0265",
@@ -4767,7 +5031,8 @@
       "regles_implicites",
       "itoa",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0266",
@@ -4785,7 +5050,8 @@
       "regles_implicites",
       "wdmatch",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0267",
@@ -4803,7 +5069,8 @@
       "regles_implicites",
       "wdmatch",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0268",
@@ -4821,7 +5088,8 @@
       "regles_implicites",
       "wdmatch",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0269",
@@ -4839,7 +5107,8 @@
       "regles_implicites",
       "wdmatch",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0270",
@@ -4857,7 +5126,8 @@
       "regles_implicites",
       "wdmatch",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0271",
@@ -4875,7 +5145,8 @@
       "regles_implicites",
       "union",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0272",
@@ -4893,7 +5164,8 @@
       "regles_implicites",
       "union",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0273",
@@ -4911,7 +5183,8 @@
       "regles_implicites",
       "union",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0274",
@@ -4929,7 +5202,8 @@
       "regles_implicites",
       "union",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0275",
@@ -4947,7 +5221,8 @@
       "regles_implicites",
       "union",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0276",
@@ -4965,7 +5240,8 @@
       "regles_implicites",
       "atoi",
       "allowed_functions"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0277",
@@ -4983,7 +5259,8 @@
       "regles_implicites",
       "atoi",
       "prototype"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0278",
@@ -5001,7 +5278,8 @@
       "regles_implicites",
       "atoi",
       "argc_contract"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0279",
@@ -5019,7 +5297,8 @@
       "regles_implicites",
       "atoi",
       "exact_output"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0280",
@@ -5037,7 +5316,8 @@
       "regles_implicites",
       "atoi",
       "final_check"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0281",
@@ -5055,7 +5335,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0282",
@@ -5073,7 +5354,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0283",
@@ -5091,7 +5373,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0284",
@@ -5109,7 +5392,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0285",
@@ -5127,7 +5411,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0286",
@@ -5145,7 +5430,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0287",
@@ -5163,7 +5449,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0288",
@@ -5181,7 +5468,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0289",
@@ -5199,7 +5487,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0290",
@@ -5217,7 +5506,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0291",
@@ -5235,7 +5525,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0292",
@@ -5253,7 +5544,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0293",
@@ -5271,7 +5563,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0294",
@@ -5289,7 +5582,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0295",
@@ -5307,7 +5601,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0296",
@@ -5325,7 +5620,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0297",
@@ -5343,7 +5639,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0298",
@@ -5361,7 +5658,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0299",
@@ -5379,7 +5677,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0300",
@@ -5397,7 +5696,8 @@
       "listes_chainees",
       "ft_list_remove_if",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0301",
@@ -5415,7 +5715,8 @@
       "listes_chainees",
       "sort_list",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0302",
@@ -5433,7 +5734,8 @@
       "listes_chainees",
       "sort_list",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0303",
@@ -5451,7 +5753,8 @@
       "listes_chainees",
       "sort_list",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0304",
@@ -5469,7 +5772,8 @@
       "listes_chainees",
       "sort_list",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0305",
@@ -5487,7 +5791,8 @@
       "listes_chainees",
       "sort_list",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0306",
@@ -5505,7 +5810,8 @@
       "listes_chainees",
       "sort_list",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0307",
@@ -5523,7 +5829,8 @@
       "listes_chainees",
       "sort_list",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0308",
@@ -5541,7 +5848,8 @@
       "listes_chainees",
       "sort_list",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0309",
@@ -5559,7 +5867,8 @@
       "listes_chainees",
       "sort_list",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0310",
@@ -5577,7 +5886,8 @@
       "listes_chainees",
       "sort_list",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0311",
@@ -5595,7 +5905,8 @@
       "listes_chainees",
       "sort_list",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0312",
@@ -5613,7 +5924,8 @@
       "listes_chainees",
       "sort_list",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0313",
@@ -5631,7 +5943,8 @@
       "listes_chainees",
       "sort_list",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0314",
@@ -5649,7 +5962,8 @@
       "listes_chainees",
       "sort_list",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0315",
@@ -5667,7 +5981,8 @@
       "listes_chainees",
       "sort_list",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0316",
@@ -5685,7 +6000,8 @@
       "listes_chainees",
       "sort_list",
       "unlink_free"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0317",
@@ -5703,7 +6019,8 @@
       "listes_chainees",
       "sort_list",
       "tmp_pointer"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0318",
@@ -5721,7 +6038,8 @@
       "listes_chainees",
       "sort_list",
       "advance_rule"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0319",
@@ -5739,7 +6057,8 @@
       "listes_chainees",
       "sort_list",
       "guard_next"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0320",
@@ -5757,7 +6076,8 @@
       "listes_chainees",
       "sort_list",
       "minimal_list"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "q0321",
@@ -5775,7 +6095,8 @@
       "general",
       "ft_split",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0322",
@@ -5793,7 +6114,8 @@
       "general",
       "ft_split",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0323",
@@ -5811,7 +6133,8 @@
       "general",
       "ft_split",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0324",
@@ -5829,7 +6152,8 @@
       "general",
       "ft_split",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0325",
@@ -5847,7 +6171,8 @@
       "general",
       "ft_split",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0326",
@@ -5865,7 +6190,8 @@
       "general",
       "ft_range",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0327",
@@ -5883,7 +6209,8 @@
       "general",
       "ft_range",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0328",
@@ -5901,7 +6228,8 @@
       "general",
       "ft_range",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0329",
@@ -5919,7 +6247,8 @@
       "general",
       "ft_range",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0330",
@@ -5937,7 +6266,8 @@
       "general",
       "ft_range",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0331",
@@ -5955,7 +6285,8 @@
       "general",
       "ft_list_remove_if",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0332",
@@ -5973,7 +6304,8 @@
       "general",
       "ft_list_remove_if",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0333",
@@ -5991,7 +6323,8 @@
       "general",
       "ft_list_remove_if",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0334",
@@ -6009,7 +6342,8 @@
       "general",
       "ft_list_remove_if",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0335",
@@ -6027,7 +6361,8 @@
       "general",
       "ft_list_remove_if",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0336",
@@ -6045,7 +6380,8 @@
       "general",
       "sort_list",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0337",
@@ -6063,7 +6399,8 @@
       "general",
       "sort_list",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0338",
@@ -6081,7 +6418,8 @@
       "general",
       "sort_list",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0339",
@@ -6099,7 +6437,8 @@
       "general",
       "sort_list",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0340",
@@ -6117,7 +6456,8 @@
       "general",
       "sort_list",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0341",
@@ -6135,7 +6475,8 @@
       "general",
       "itoa",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0342",
@@ -6153,7 +6494,8 @@
       "general",
       "itoa",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0343",
@@ -6171,7 +6513,8 @@
       "general",
       "itoa",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0344",
@@ -6189,7 +6532,8 @@
       "general",
       "itoa",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0345",
@@ -6207,7 +6551,8 @@
       "general",
       "itoa",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0346",
@@ -6225,7 +6570,8 @@
       "general",
       "wdmatch",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0347",
@@ -6243,7 +6589,8 @@
       "general",
       "wdmatch",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0348",
@@ -6261,7 +6608,8 @@
       "general",
       "wdmatch",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0349",
@@ -6279,7 +6627,8 @@
       "general",
       "wdmatch",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0350",
@@ -6297,7 +6646,8 @@
       "general",
       "wdmatch",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0351",
@@ -6315,7 +6665,8 @@
       "general",
       "union",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0352",
@@ -6333,7 +6684,8 @@
       "general",
       "union",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0353",
@@ -6351,7 +6703,8 @@
       "general",
       "union",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0354",
@@ -6369,7 +6722,8 @@
       "general",
       "union",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0355",
@@ -6387,7 +6741,8 @@
       "general",
       "union",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0356",
@@ -6405,7 +6760,8 @@
       "general",
       "atoi",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0357",
@@ -6423,7 +6779,8 @@
       "general",
       "atoi",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0358",
@@ -6441,7 +6798,8 @@
       "general",
       "atoi",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0359",
@@ -6459,7 +6817,8 @@
       "general",
       "atoi",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0360",
@@ -6477,7 +6836,8 @@
       "general",
       "atoi",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0361",
@@ -6495,7 +6855,8 @@
       "general",
       "ft_split",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0362",
@@ -6513,7 +6874,8 @@
       "general",
       "ft_split",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0363",
@@ -6531,7 +6893,8 @@
       "general",
       "ft_split",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0364",
@@ -6549,7 +6912,8 @@
       "general",
       "ft_split",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0365",
@@ -6567,7 +6931,8 @@
       "general",
       "ft_split",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0366",
@@ -6585,7 +6950,8 @@
       "general",
       "itoa",
       "bases_guard"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0367",
@@ -6603,7 +6969,8 @@
       "general",
       "itoa",
       "bases_action"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0368",
@@ -6621,7 +6988,8 @@
       "general",
       "itoa",
       "bases_size"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0369",
@@ -6639,7 +7007,8 @@
       "general",
       "itoa",
       "bases_edge"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "q0370",
@@ -6657,6 +7026,7 @@
       "general",
       "itoa",
       "bases_output"
-    ]
+    ],
+    "difficulty": "easy"
   }
 ]
