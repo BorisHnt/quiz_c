@@ -430,6 +430,578 @@ function makeGeneralQuestion(profile, templateIndex) {
   };
 }
 
+function makeCodeSnippetQuestion(fn, templateIndex) {
+  if (fn === 'ft_split') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : avant de parcourir la chaîne d’entrée, quel guard évite un crash immédiat ?`,
+        choices: [
+          `if (str == NULL)\n    return (NULL);`,
+          `if (str == NULL)\n    free(str);`,
+          `if (str)\n    return (NULL);`,
+          `if (*str == '\\0')\n    free(str);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Ce guard protège le tout premier accès mémoire dans les cas d’entrée absente.'),
+        tags: ['code_snippets', fn, 'snippet_guard'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : tu alloues le tableau principal de mots. Quel extrait protège correctement l’échec malloc ?`,
+        choices: [
+          `tab = (char **)malloc(sizeof(char *) * (words + 1));\nif (tab == NULL)\n    return (NULL);`,
+          `tab = (char **)malloc(sizeof(char *) * words);\nif (tab == NULL)\n    return (tab);`,
+          `tab = (char **)malloc(sizeof(char *) * (words + 1));\nif (tab)\n    return (NULL);`,
+          `tab = (char **)malloc(sizeof(char *) * (words + 1));\nif (tab == NULL)\n    tab = (char **)malloc(1);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'En split, la taille du tableau et le chemin d’échec doivent être strictement maîtrisés.'),
+        tags: ['code_snippets', fn, 'snippet_malloc_guard'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : tu veux ignorer les séparateurs avant de copier un mot. Quel extrait est correct ?`,
+        choices: [
+          `while (*str && is_sep(*str))\n    str++;`,
+          `while (*str)\n    str = str + is_sep(*str);`,
+          `while (is_sep(*str))\n    str = NULL;`,
+          `while (*str && is_sep(*str) == 0)\n    str++;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Ce parcours évite de confondre séparateurs et début réel de mot.'),
+        tags: ['code_snippets', fn, 'snippet_skip_sep'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : une copie de mot échoue en plein milieu. Quel extrait de rollback est correct ?`,
+        choices: [
+          `tab[i] = copy_word(str, len);\nif (tab[i] == NULL)\n    return (free_words(tab, i));`,
+          `tab[i] = copy_word(str, len);\nif (tab[i] == NULL)\n    return (tab);`,
+          `tab[i] = copy_word(str, len);\nif (tab[i] == NULL)\n    free(tab[i]);`,
+          `tab[i] = copy_word(str, len);\nif (tab[i] == NULL)\n    return (NULL + i);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le rollback doit libérer précisément ce qui est déjà alloué avant de sortir.'),
+        tags: ['code_snippets', fn, 'snippet_rollback'],
+      };
+    }
+    return {
+      question: `${fn} : quelle terminaison du tableau garantit un parcours sûr côté appelant ?`,
+      choices: [
+        `tab[i] = NULL;\nreturn (tab);`,
+        `tab[i + 1] = NULL;\nreturn (tab);`,
+        `tab[words] = '\\0';\nreturn (tab);`,
+        `return (tab + 1);`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'La terminaison NULL finalise le contrat de sortie attendu par la plupart des tests.'),
+      tags: ['code_snippets', fn, 'snippet_finalize'],
+    };
+  }
+
+  if (fn === 'ft_range') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : tu dois gérer start > end. Quel extrait fixe correctement le sens de parcours ?`,
+        choices: [
+          `step = 1;\nif (start > end)\n    step = -1;`,
+          `step = 0;\nif (start > end)\n    step = 1;`,
+          `step = -1;\nif (start > end)\n    step = 1;`,
+          `step = end - start;\nif (step < 0)\n    step = 0;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le step explicite protège les deux directions sans modifier la logique de boucle.'),
+        tags: ['code_snippets', fn, 'snippet_step'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : quelle formule donne la taille inclusive correcte du tableau ?`,
+        choices: [
+          `size = ft_abs(end - start) + 1;`,
+          `size = ft_abs(end - start);`,
+          `size = end - start + 1;`,
+          `size = start + end + 1;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le +1 évite le off-by-one et couvre aussi le cas start égal end.'),
+        tags: ['code_snippets', fn, 'snippet_size'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : tu alloues le tableau résultat. Quel extrait gère correctement malloc ?`,
+        choices: [
+          `tab = (int *)malloc(sizeof(int) * size);\nif (tab == NULL)\n    return (NULL);`,
+          `tab = (int *)malloc(sizeof(int));\nif (tab == NULL)\n    return (tab);`,
+          `tab = (int *)malloc(size);\nif (tab)\n    return (NULL);`,
+          `tab = (int *)malloc(sizeof(int) * (size - 1));\nif (tab == NULL)\n    return (NULL);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Allocation exacte et guard immédiat évitent les plantages silencieux.'),
+        tags: ['code_snippets', fn, 'snippet_malloc_guard'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : pendant le remplissage, quel extrait garde la progression cohérente ?`,
+        choices: [
+          `tab[i] = value;\nvalue = value + step;\ni++;`,
+          `tab[i] = value;\nvalue = value + i;\ni = step;`,
+          `tab[i] = step;\nvalue = value + 1;\ni = value;`,
+          `tab[i] = value;\nvalue = value - step;\ni--;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'La mise à jour value puis i rend la boucle prédictible sur tous les cas.'),
+        tags: ['code_snippets', fn, 'snippet_fill_loop'],
+      };
+    }
+    return {
+      question: `${fn} : quel return respecte le contrat d’un tableau alloué ?`,
+      choices: [
+        `return (tab);`,
+        `return (tab + 1);`,
+        `return (&size);`,
+        `return ((int *)&step);`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'Il faut renvoyer l’adresse de base allouée, pas un pointeur déplacé.'),
+      tags: ['code_snippets', fn, 'snippet_return_pointer'],
+    };
+  }
+
+  if (fn === 'ft_list_remove_if') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : avant d’accéder à la tête, quel guard évite une déréférence invalide ?`,
+        choices: [
+          `if (begin_list == NULL || cmp == NULL || free_fct == NULL)\n    return ;`,
+          `if (begin_list)\n    *begin_list = (*begin_list)->next;`,
+          `if (begin_list == NULL)\n    free(begin_list);`,
+          `if (*begin_list)\n    return ;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Ce guard protège les pointeurs critiques avant tout parcours de liste.'),
+        tags: ['code_snippets', fn, 'snippet_guard'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : tu dois supprimer plusieurs têtes successives. Quel extrait est correct ?`,
+        choices: [
+          `while (*begin_list && cmp((*begin_list)->data, data_ref) == 0)\n{\n    tmp = *begin_list;\n    *begin_list = (*begin_list)->next;\n    free_fct(tmp->data);\n    free(tmp);\n}`,
+          `if (*begin_list && cmp((*begin_list)->data, data_ref) == 0)\n    *begin_list = NULL;`,
+          `while (*begin_list)\n    free(*begin_list);`,
+          `while (*begin_list)\n    *begin_list = (*begin_list)->next->next;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le nettoyage de tête doit reconnecter puis free, maillon par maillon.'),
+        tags: ['code_snippets', fn, 'snippet_head_cleanup'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : tu supprimes un maillon au milieu. Quel extrait garde un chaînage correct ?`,
+        choices: [
+          `tmp = cur->next;\ncur->next = cur->next->next;\nfree_fct(tmp->data);\nfree(tmp);`,
+          `free(cur->next);\ncur->next = cur->next->next;`,
+          `tmp = cur;\ncur = cur->next;\nfree(tmp->next);`,
+          `cur->next = cur->next->next;\nfree(cur->next);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'La cible doit être sauvegardée avant unlink, puis libérée ensuite.'),
+        tags: ['code_snippets', fn, 'snippet_unlink_free'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : pendant le parcours, quel extrait évite de sauter des maillons après suppression ?`,
+        choices: [
+          `if (cmp(cur->next->data, data_ref) == 0)\n{\n    tmp = cur->next;\n    cur->next = cur->next->next;\n    free_fct(tmp->data);\n    free(tmp);\n}\nelse\n    cur = cur->next;`,
+          `if (cmp(cur->next->data, data_ref) == 0)\n    cur = cur->next;`,
+          `cur = cur->next;\nif (cmp(cur->data, data_ref) == 0)\n    free(cur);`,
+          `if (cmp(cur->next->data, data_ref) == 0)\n{\n    free(cur);\n    cur = cur->next;\n}`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Ne pas avancer après unlink est clé pour traiter les matches consécutifs.'),
+        tags: ['code_snippets', fn, 'snippet_advance_rule'],
+      };
+    }
+    return {
+      question: `${fn} : quelle condition de boucle protège l’accès à cur->next ?`,
+      choices: [
+        `while (cur && cur->next)`,
+        `while (cur->next)`,
+        `while (*cur)`,
+        `while (cur)`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'Cette garde évite les déréférencements invalides en fin de liste.'),
+      tags: ['code_snippets', fn, 'snippet_guard_next'],
+    };
+  }
+
+  if (fn === 'sort_list') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : quel guard évite de trier inutilement une liste vide ou à un élément ?`,
+        choices: [
+          `if (!lst || !lst->next)\n    return (lst);`,
+          `if (lst)\n    return (NULL);`,
+          `if (!lst)\n    free(lst);`,
+          `if (lst->next)\n    return (lst->next);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Ce retour rapide sécurise le tri et supprime un chemin de bug inutile.'),
+        tags: ['code_snippets', fn, 'snippet_guard'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : quel extrait met en place correctement la boucle de passes avec swapped ?`,
+        choices: [
+          `swapped = 1;\nwhile (swapped)\n{\n    swapped = 0;\n    cur = lst;\n    while (cur->next)\n    {\n        cur = cur->next;\n    }\n}`,
+          `swapped = 0;\nwhile (swapped)\n    cur = lst;`,
+          `while (1)\n{\n    swapped = 1;\n    break;\n}`,
+          `swapped = -1;\nwhile (swapped < 0)\n    swapped++;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le flag swapped pilote proprement la condition d’arrêt du bubble sort.'),
+        tags: ['code_snippets', fn, 'snippet_swapped_loop'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : quel extrait effectue un swap de data correct quand cmp > 0 ?`,
+        choices: [
+          `tmp = cur->data;\ncur->data = cur->next->data;\ncur->next->data = tmp;\nswapped = 1;`,
+          `tmp = cur;\ncur = cur->next;\ncur->next = tmp;`,
+          `cur->data = cur->next->data;\ncur->next->data = cur->data;`,
+          `free(cur->data);\ncur->data = cur->next->data;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'En exam, swap data évite de casser le chaînage des maillons.'),
+        tags: ['code_snippets', fn, 'snippet_swap_data'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : dans la boucle interne, quel extrait garde un parcours stable ?`,
+        choices: [
+          `if (cmp(cur->data, cur->next->data) > 0)\n{\n    tmp = cur->data;\n    cur->data = cur->next->data;\n    cur->next->data = tmp;\n    swapped = 1;\n}\ncur = cur->next;`,
+          `if (cmp(cur->data, cur->next->data) > 0)\n    cur = cur->next->next;`,
+          `cur = lst;\nif (cmp(cur->data, cur->next->data) > 0)\n    break;`,
+          `if (cmp(cur->data, cur->next->data) > 0)\n    free(cur);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Après chaque comparaison, l’avancement cur->next doit rester déterministe.'),
+        tags: ['code_snippets', fn, 'snippet_inner_loop'],
+      };
+    }
+    return {
+      question: `${fn} : quel return final respecte le contrat de la fonction ?`,
+      choices: [
+        `return (lst);`,
+        `return (cur);`,
+        `return (NULL);`,
+        `return (cur->next);`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'Le résultat attendu est la tête de liste triée en place.'),
+      tags: ['code_snippets', fn, 'snippet_return_head'],
+    };
+  }
+
+  if (fn === 'itoa') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : quel extrait gère correctement signe et sécurité sur un int négatif ?`,
+        choices: [
+          `n = (long)nbr;\nsign = 0;\nif (n < 0)\n{\n    sign = 1;\n    n = -n;\n}`,
+          `n = nbr;\nsign = -1;\nif (n < 0)\n    n = n * -1;`,
+          `n = (long)nbr;\nif (n < 0)\n    sign = 0;`,
+          `n = nbr;\nif (n < 0)\n    return (NULL);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le cast long protège les cas limites comme INT_MIN sur la négation.'),
+        tags: ['code_snippets', fn, 'snippet_sign'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : quel extrait alloue la bonne taille et protège malloc ?`,
+        choices: [
+          `len = count_digits(n) + sign;\nstr = (char *)malloc(sizeof(char) * (len + 1));\nif (str == NULL)\n    return (NULL);`,
+          `len = count_digits(n);\nstr = (char *)malloc(sizeof(char) * len);\nif (str)\n    return (NULL);`,
+          `len = count_digits(n) + sign;\nstr = (char *)malloc(sizeof(char) * len);\nif (str == NULL)\n    return (str);`,
+          `str = (char *)malloc(10);\nif (str == NULL)\n    len = 0;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'La taille doit inclure chiffres, signe éventuel et terminateur final.'),
+        tags: ['code_snippets', fn, 'snippet_malloc_guard'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : quel extrait place correctement la fin de chaîne avant remplissage ?`,
+        choices: [
+          `str[len] = '\\\\0';`,
+          `str[len + 1] = '\\\\0';`,
+          `str[0] = '\\\\0';`,
+          `str[len - 1] = '\\\\0';`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Poser le terminateur au bon index évite un débordement discret.'),
+        tags: ['code_snippets', fn, 'snippet_terminator'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : quel extrait remplit les chiffres depuis la droite ?`,
+        choices: [
+          `while (index >= sign)\n{\n    str[index] = (char)((n % 10) + '0');\n    n = n / 10;\n    index--;\n}`,
+          `while (index >= 0)\n{\n    str[index] = (char)(n + '0');\n    index++;\n}`,
+          `while (index >= 0)\n{\n    str[index] = '0';\n    n = n * 10;\n    index--;\n}`,
+          `while (index >= 0)\n{\n    str[index] = (char)(n % 10);\n    index--;\n}`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le modulo et la division pilotent un remplissage stable de droite à gauche.'),
+        tags: ['code_snippets', fn, 'snippet_fill_digits'],
+      };
+    }
+    return {
+      question: `${fn} : quel extrait finalise correctement le signe dans la sortie ?`,
+      choices: [
+        `if (sign == 1)\n    str[0] = '-';`,
+        `if (sign == 1)\n    str[len] = '-';`,
+        `if (sign == 0)\n    str[0] = '-';`,
+        `if (sign == 1)\n    str[1] = '-';`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'Le signe doit être posé en tête uniquement quand la valeur initiale était négative.'),
+      tags: ['code_snippets', fn, 'snippet_sign_write'],
+    };
+  }
+
+  if (fn === 'wdmatch') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : sur argc invalide, quel extrait respecte la sortie attendue par le sujet ?`,
+        choices: [
+          `if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}`,
+          `if (argc != 3)\n{\n    write(2, \"error\\\\n\", 6);\n    return (1);\n}`,
+          `if (argc != 3)\n{\n    printf(\"bad argc\\\\n\");\n    return (0);\n}`,
+          `if (argc != 3)\n    return (1);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le contrat de sortie impose une ligne vide et aucun texte annexe.'),
+        tags: ['code_snippets', fn, 'snippet_argc_guard'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : quel extrait initialise correctement le parcours des deux chaînes ?`,
+        choices: [
+          `i = 0;\nj = 0;`,
+          `i = 1;\nj = 1;`,
+          `i = -1;\nj = 0;`,
+          `i = 0;\nj = i + 1;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Des index propres au départ évitent un décalage silencieux du matching.'),
+        tags: ['code_snippets', fn, 'snippet_init_indices'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : quel extrait vérifie argv[2] en avançant argv[1] uniquement en cas de match ?`,
+        choices: [
+          `while (argv[2][j])\n{\n    if (argv[1][i] == argv[2][j])\n        i++;\n    j++;\n}`,
+          `while (argv[1][i])\n{\n    if (argv[1][i] == argv[2][j])\n        j++;\n    i++;\n}`,
+          `while (argv[2][j])\n{\n    i++;\n    j++;\n}`,
+          `while (argv[2][j])\n{\n    if (argv[1][i] != argv[2][j])\n        i++;\n    j++;\n}`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Ce parcours conserve l’ordre relatif exigé par l’exercice wdmatch.'),
+        tags: ['code_snippets', fn, 'snippet_scan_order'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : quel extrait valide la condition de succès avant affichage ?`,
+        choices: [
+          `if (argv[1][i] == '\\\\0')\n    write(1, argv[1], ft_strlen(argv[1]));`,
+          `if (argv[2][j] == '\\\\0')\n    write(1, argv[2], ft_strlen(argv[2]));`,
+          `if (i > 0)\n    write(1, argv[1], i);`,
+          `if (argv[1][0] == '\\\\0')\n    return (1);`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le succès est défini par consommation complète de argv[1], pas de argv[2].'),
+        tags: ['code_snippets', fn, 'snippet_success_condition'],
+      };
+    }
+    return {
+      question: `${fn} : quel extrait finalise correctement la sortie dans tous les cas ?`,
+      choices: [
+        `write(1, \"\\\\n\", 1);`,
+        `write(2, \"\\\\n\", 1);`,
+        `printf(\"\\\\n\");`,
+        `return (write(1, \" \", 1));`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'Le retour ligne sur stdout fait partie du format strict attendu.'),
+      tags: ['code_snippets', fn, 'snippet_newline'],
+    };
+  }
+
+  if (fn === 'union') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : quel extrait protège correctement les arguments avant traitement ?`,
+        choices: [
+          `if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}`,
+          `if (argc != 3)\n{\n    write(2, \"error\\\\n\", 6);\n    return (1);\n}`,
+          `if (argc != 3)\n    return (1);`,
+          `if (argc != 3)\n{\n    printf(\"argc\\\\n\");\n    return (0);\n}`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'La garde argc doit rester conforme à la sortie minimale attendue.'),
+        tags: ['code_snippets', fn, 'snippet_argc_guard'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : quel extrait initialise correctement la table seen[256] ?`,
+        choices: [
+          `i = 0;\nwhile (i < 256)\n{\n    seen[i] = 0;\n    i++;\n}`,
+          `i = 1;\nwhile (i < 256)\n{\n    seen[i] = 0;\n    i++;\n}`,
+          `i = 0;\nwhile (i <= 256)\n{\n    seen[i] = 0;\n    i++;\n}`,
+          `while (seen[i])\n    i++;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'L’initialisation complète de 0 à 255 évite les faux positifs de doublons.'),
+        tags: ['code_snippets', fn, 'snippet_init_seen'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : sur argv[1], quel extrait affiche un caractère inédit puis le marque ?`,
+        choices: [
+          `c = (unsigned char)argv[1][i];\nif (seen[c] == 0)\n{\n    seen[c] = 1;\n    write(1, &argv[1][i], 1);\n}`,
+          `c = argv[1][i];\nif (seen[c])\n    write(1, &argv[1][i], 1);`,
+          `c = (unsigned char)argv[1][i];\nseen[c] = 0;\nwrite(1, &argv[1][i], 1);`,
+          `if (argv[1][i])\n    seen[i] = 1;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le marquage doit se faire au premier passage pour bloquer les doublons suivants.'),
+        tags: ['code_snippets', fn, 'snippet_print_unique'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : quel cast évite les index négatifs dans seen sur char signé ?`,
+        choices: [
+          `c = (unsigned char)argv[2][i];`,
+          `c = (int)argv[2][i];`,
+          `c = (char *)argv[2][i];`,
+          `c = (signed char)argv[2][i];`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le cast unsigned char sécurise l’indexation de la table de 256 cases.'),
+        tags: ['code_snippets', fn, 'snippet_unsigned_char'],
+      };
+    }
+    return {
+      question: `${fn} : quel extrait termine correctement la sortie du programme ?`,
+      choices: [
+        `write(1, \"\\\\n\", 1);`,
+        `write(2, \"\\\\n\", 1);`,
+        `printf(\"\\\\n\");`,
+        `write(1, \" \", 1);`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'Le retour ligne final sur stdout est vérifié strictement en correction.'),
+      tags: ['code_snippets', fn, 'snippet_newline'],
+    };
+  }
+
+  if (fn === 'atoi') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : quel extrait ignore correctement les espaces initiaux ?`,
+        choices: [
+          `while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))\n    i++;`,
+          `while (str[i] == ' ' && str[i] == '\\\\t')\n    i++;`,
+          `while (str[i])\n    i = 0;`,
+          `while (str[i] == '\\\\0')\n    i++;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le parsing doit commencer au premier caractère significatif de la chaîne.'),
+        tags: ['code_snippets', fn, 'snippet_skip_spaces'],
+      };
+    }
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : quel extrait gère correctement le signe au début de la conversion ?`,
+        choices: [
+          `sign = 1;\nif (str[i] == '-' || str[i] == '+')\n{\n    if (str[i] == '-')\n        sign = -1;\n    i++;\n}`,
+          `sign = 0;\nif (str[i] == '-')\n    sign = 1;`,
+          `if (str[i] == '+')\n    sign = -1;`,
+          `sign = 1;\nif (str[i] == '-')\n    i = 0;`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Le signe doit être lu une seule fois avant la boucle de chiffres.'),
+        tags: ['code_snippets', fn, 'snippet_sign'],
+      };
+    }
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : quel extrait accumule correctement la valeur numérique ?`,
+        choices: [
+          `result = result * 10;\nresult = result + (str[i] - '0');`,
+          `result = result + 10;\nresult = result * (str[i] - '0');`,
+          `result = str[i] - '0';\nresult = result / 10;`,
+          `result = result + str[i];`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'Ce pattern maintient une conversion décimale stable caractère après caractère.'),
+        tags: ['code_snippets', fn, 'snippet_accumulate'],
+      };
+    }
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : quelle boucle limite la lecture aux chiffres uniquement ?`,
+        choices: [
+          `while (str[i] >= '0' && str[i] <= '9')`,
+          `while (str[i] > '0' || str[i] < '9')`,
+          `while (str[i] != '\\\\0')`,
+          `while (str[i] == '0' && str[i] == '9')`,
+        ],
+        correct: 0,
+        explanation: explanation('code_snippets', fn, 'La condition numérique explicite définit précisément la zone de conversion.'),
+        tags: ['code_snippets', fn, 'snippet_digit_loop'],
+      };
+    }
+    return {
+      question: `${fn} : quel return final restitue la valeur avec son signe ?`,
+      choices: [
+        `return (result * sign);`,
+        `return (result + sign);`,
+        `return (sign);`,
+        `return (result);`,
+      ],
+      correct: 0,
+      explanation: explanation('code_snippets', fn, 'La valeur retournée doit intégrer le signe lu avant la boucle.'),
+      tags: ['code_snippets', fn, 'snippet_return'],
+    };
+  }
+
+  throw new Error(`Snippet non supporte pour ${fn}`);
+}
+
 function makeQuestion(theme, profile, templateIndex) {
   const { fn } = profile;
 
@@ -963,78 +1535,7 @@ function makeQuestion(theme, profile, templateIndex) {
   }
 
   if (theme === 'code_snippets') {
-    if (templateIndex === 0) {
-      return {
-        question: `${fn} : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?`,
-        choices: [
-          `if (begin_list == NULL || *begin_list == NULL)\n    return ;`,
-          `if (begin_list)\n    *begin_list = (*begin_list)->next;`,
-          `if (begin_list == NULL)\n    free(begin_list);`,
-          `if (*begin_list)\n    return (begin_list);`,
-        ],
-        correct: 0,
-        explanation: explanation(theme, fn, 'Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.'),
-        tags: [theme, fn, 'snippet_guard'],
-      };
-    }
-
-    if (templateIndex === 1) {
-      return {
-        question: `${fn} : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?`,
-        choices: [
-          `ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);`,
-          `ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);`,
-          `ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);`,
-          `ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;`,
-        ],
-        correct: 0,
-        explanation: explanation(theme, fn, 'Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.'),
-        tags: [theme, fn, 'snippet_malloc_guard'],
-      };
-    }
-
-    if (templateIndex === 2) {
-      return {
-        question: `${fn} : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?`,
-        choices: [
-          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';`,
-          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';`,
-          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';`,
-          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';`,
-        ],
-        correct: 0,
-        explanation: explanation(theme, fn, 'Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.'),
-        tags: [theme, fn, 'snippet_off_by_one'],
-      };
-    }
-
-    if (templateIndex === 3) {
-      return {
-        question: `${fn} : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?`,
-        choices: [
-          `tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);`,
-          `free(cur->next);\ncur->next = cur->next->next;`,
-          `tmp = cur;\ncur = cur->next;\nfree(tmp->next);`,
-          `cur->next = cur->next->next;\nfree(cur->next);`,
-        ],
-        correct: 0,
-        explanation: explanation(theme, fn, 'Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.'),
-        tags: [theme, fn, 'snippet_unlink_free'],
-      };
-    }
-
-    return {
-      question: `${fn} : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?`,
-      choices: [
-        `if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}`,
-        `if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}`,
-        `if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}`,
-        `if (argc != 3)\n    return (0);`,
-      ],
-      correct: 0,
-      explanation: explanation(theme, fn, 'La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.'),
-      tags: [theme, fn, 'snippet_output_contract'],
-    };
+    return makeCodeSnippetQuestion(fn, templateIndex);
   }
 
   throw new Error(`Theme non supporte: ${theme}`);
@@ -1144,6 +1645,25 @@ function validateQuestion(item) {
   if (explanationSentences < 2 || explanationSentences > 3) {
     return false;
   }
+
+  if (item.theme === 'code_snippets') {
+    const normalizedChoices = new Set();
+    for (const choice of item.choices) {
+      if (typeof choice !== 'string' || choice.trim().length < 8) {
+        return false;
+      }
+      const key = String(choice).toLowerCase().replace(/\s+/g, ' ').trim();
+      if (normalizedChoices.has(key)) {
+        return false;
+      }
+      normalizedChoices.add(key);
+    }
+    if (!['easy', 'medium', 'hard'].includes(item.difficulty)) {
+      return false;
+    }
+    return true;
+  }
+
   if (item.question.includes('Dans les règles implicites')) {
     return false;
   }
@@ -1155,8 +1675,9 @@ function validateQuestion(item) {
   }
 
   const normalizedChoices = new Set();
+  const minChoiceLength = item.theme === 'code_snippets' ? 8 : 25;
   for (const choice of item.choices) {
-    if (typeof choice !== 'string' || choice.trim().length < 25) {
+    if (typeof choice !== 'string' || choice.trim().length < minChoiceLength) {
       return false;
     }
     if (/\b[ABCD]\s*et\s*[ABCD]\b/i.test(choice) || /\b[ABCD]\s*ou\s*[ABCD]\b/i.test(choice)) {
