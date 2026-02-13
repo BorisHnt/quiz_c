@@ -664,6 +664,9 @@ function themeLabel(theme) {
   if (theme === "general") {
     return "General";
   }
+  if (theme === "code_snippets") {
+    return "Code snippets";
+  }
   if (theme === "patterns") {
     return "Patterns";
   }
@@ -880,6 +883,7 @@ function setActiveTheme(theme) {
   const allowed = new Set([
     "random",
     "general",
+    "code_snippets",
     "patterns",
     "pieges",
     "reflexes_memoire",
@@ -1152,6 +1156,7 @@ function renderQuestion() {
 
   ui.question.textContent = question.question;
   ui.choices.innerHTML = "";
+  ui.choices.classList.toggle("is-code", question.theme === "code_snippets");
   ui.nextBtn.classList.remove("hidden");
   ui.nextBtn.textContent = state.index < state.sessionQuestions.length - 1 ? "Valider" : "Terminer";
 
@@ -1423,6 +1428,7 @@ async function initQuizPage() {
       [
         "random",
         "general",
+        "code_snippets",
         "patterns",
         "pieges",
         "reflexes_memoire",

@@ -786,6 +786,10 @@ body[data-page="index"] .list li {
   background: var(--paper-3);
 }
 
+.dot-code {
+  background: var(--paper-4);
+}
+
 .dot-patterns {
   background: var(--blue);
 }
@@ -1079,6 +1083,12 @@ body[data-page="index"] .list li {
   padding: 8px;
   font: inherit;
   cursor: pointer;
+}
+
+.choices.is-code .choice {
+  white-space: pre-wrap;
+  font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.86rem;
 }
 
 .choice:hover,

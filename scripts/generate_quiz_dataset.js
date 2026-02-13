@@ -347,6 +347,7 @@ function explanation(theme, fn, decision) {
     listes_chainees: `En liste chaînée, l’ordre pointeur/reconnexion/free est critique dans ${fn}. ${decision}`,
     conditions_limites: `Sur ${fn}, ce cas limite est souvent testé en premier. ${decision}`,
     regles_implicites: `Même si ${fn} fonctionne, une non-conformité au sujet fait perdre des points. ${decision}`,
+    code_snippets: `Sur ${fn}, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. ${decision}`,
     general: `Sur ${fn}, l’objectif est de poser un réflexe clair et réutilisable. ${decision}`,
   };
   return byTheme[theme];
@@ -961,6 +962,81 @@ function makeQuestion(theme, profile, templateIndex) {
     };
   }
 
+  if (theme === 'code_snippets') {
+    if (templateIndex === 0) {
+      return {
+        question: `${fn} : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?`,
+        choices: [
+          `if (begin_list == NULL || *begin_list == NULL)\n    return ;`,
+          `if (begin_list)\n    *begin_list = (*begin_list)->next;`,
+          `if (begin_list == NULL)\n    free(begin_list);`,
+          `if (*begin_list)\n    return (begin_list);`,
+        ],
+        correct: 0,
+        explanation: explanation(theme, fn, 'Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.'),
+        tags: [theme, fn, 'snippet_guard'],
+      };
+    }
+
+    if (templateIndex === 1) {
+      return {
+        question: `${fn} : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?`,
+        choices: [
+          `ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);`,
+          `ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);`,
+          `ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);`,
+          `ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;`,
+        ],
+        correct: 0,
+        explanation: explanation(theme, fn, 'Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.'),
+        tags: [theme, fn, 'snippet_malloc_guard'],
+      };
+    }
+
+    if (templateIndex === 2) {
+      return {
+        question: `${fn} : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?`,
+        choices: [
+          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';`,
+          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';`,
+          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';`,
+          `len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';`,
+        ],
+        correct: 0,
+        explanation: explanation(theme, fn, 'Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.'),
+        tags: [theme, fn, 'snippet_off_by_one'],
+      };
+    }
+
+    if (templateIndex === 3) {
+      return {
+        question: `${fn} : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?`,
+        choices: [
+          `tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);`,
+          `free(cur->next);\ncur->next = cur->next->next;`,
+          `tmp = cur;\ncur = cur->next;\nfree(tmp->next);`,
+          `cur->next = cur->next->next;\nfree(cur->next);`,
+        ],
+        correct: 0,
+        explanation: explanation(theme, fn, 'Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.'),
+        tags: [theme, fn, 'snippet_unlink_free'],
+      };
+    }
+
+    return {
+      question: `${fn} : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?`,
+      choices: [
+        `if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}`,
+        `if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}`,
+        `if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}`,
+        `if (argc != 3)\n    return (0);`,
+      ],
+      correct: 0,
+      explanation: explanation(theme, fn, 'La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.'),
+      tags: [theme, fn, 'snippet_output_contract'],
+    };
+  }
+
   throw new Error(`Theme non supporte: ${theme}`);
 }
 
@@ -1144,6 +1220,7 @@ function buildDataset() {
     'malloc',
     'conditions_limites',
     'regles_implicites',
+    'code_snippets',
   ];
 
   for (const theme of standardThemes) {
@@ -1208,8 +1285,8 @@ function buildDataset() {
     return true;
   });
 
-  if (filtered.length !== 370) {
-    throw new Error(`Dataset inattendu: ${filtered.length} questions (attendu: 370)`);
+  if (filtered.length !== 410) {
+    throw new Error(`Dataset inattendu: ${filtered.length} questions (attendu: 410)`);
   }
 
   for (const item of filtered) {

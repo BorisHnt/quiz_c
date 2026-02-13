@@ -5321,6 +5321,766 @@
   },
   {
     "id": "q0281",
+    "theme": "code_snippets",
+    "question": "ft_split : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_split, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "ft_split",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0282",
+    "theme": "code_snippets",
+    "question": "ft_split : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_split, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "ft_split",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0283",
+    "theme": "code_snippets",
+    "question": "ft_split : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_split, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "ft_split",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0284",
+    "theme": "code_snippets",
+    "question": "ft_split : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_split, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "ft_split",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0285",
+    "theme": "code_snippets",
+    "question": "ft_split : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_split, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "ft_split",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0286",
+    "theme": "code_snippets",
+    "question": "ft_range : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_range, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "ft_range",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0287",
+    "theme": "code_snippets",
+    "question": "ft_range : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_range, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "ft_range",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0288",
+    "theme": "code_snippets",
+    "question": "ft_range : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_range, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "ft_range",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0289",
+    "theme": "code_snippets",
+    "question": "ft_range : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_range, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "ft_range",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0290",
+    "theme": "code_snippets",
+    "question": "ft_range : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_range, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "ft_range",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0291",
+    "theme": "code_snippets",
+    "question": "ft_list_remove_if : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_list_remove_if, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "ft_list_remove_if",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0292",
+    "theme": "code_snippets",
+    "question": "ft_list_remove_if : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_list_remove_if, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "ft_list_remove_if",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0293",
+    "theme": "code_snippets",
+    "question": "ft_list_remove_if : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_list_remove_if, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "ft_list_remove_if",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0294",
+    "theme": "code_snippets",
+    "question": "ft_list_remove_if : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_list_remove_if, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "ft_list_remove_if",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0295",
+    "theme": "code_snippets",
+    "question": "ft_list_remove_if : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur ft_list_remove_if, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "ft_list_remove_if",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0296",
+    "theme": "code_snippets",
+    "question": "sort_list : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur sort_list, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "sort_list",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0297",
+    "theme": "code_snippets",
+    "question": "sort_list : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur sort_list, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "sort_list",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0298",
+    "theme": "code_snippets",
+    "question": "sort_list : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur sort_list, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "sort_list",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0299",
+    "theme": "code_snippets",
+    "question": "sort_list : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur sort_list, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "sort_list",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0300",
+    "theme": "code_snippets",
+    "question": "sort_list : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur sort_list, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "sort_list",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0301",
+    "theme": "code_snippets",
+    "question": "itoa : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur itoa, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "itoa",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0302",
+    "theme": "code_snippets",
+    "question": "itoa : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur itoa, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "itoa",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0303",
+    "theme": "code_snippets",
+    "question": "itoa : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur itoa, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "itoa",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0304",
+    "theme": "code_snippets",
+    "question": "itoa : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur itoa, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "itoa",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0305",
+    "theme": "code_snippets",
+    "question": "itoa : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur itoa, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "itoa",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0306",
+    "theme": "code_snippets",
+    "question": "wdmatch : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur wdmatch, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "wdmatch",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0307",
+    "theme": "code_snippets",
+    "question": "wdmatch : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur wdmatch, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "wdmatch",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0308",
+    "theme": "code_snippets",
+    "question": "wdmatch : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur wdmatch, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "wdmatch",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0309",
+    "theme": "code_snippets",
+    "question": "wdmatch : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur wdmatch, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "wdmatch",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0310",
+    "theme": "code_snippets",
+    "question": "wdmatch : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur wdmatch, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "wdmatch",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0311",
+    "theme": "code_snippets",
+    "question": "union : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur union, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "union",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0312",
+    "theme": "code_snippets",
+    "question": "union : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur union, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "union",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0313",
+    "theme": "code_snippets",
+    "question": "union : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur union, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "union",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0314",
+    "theme": "code_snippets",
+    "question": "union : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur union, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "union",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0315",
+    "theme": "code_snippets",
+    "question": "union : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur union, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "union",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0316",
+    "theme": "code_snippets",
+    "question": "atoi : tu prépares le guard d’entrée avant toute déréférence. Quel extrait de code est correct ?",
+    "choices": [
+      "if (begin_list == NULL || *begin_list == NULL)\n    return ;",
+      "if (begin_list)\n    *begin_list = (*begin_list)->next;",
+      "if (begin_list == NULL)\n    free(begin_list);",
+      "if (*begin_list)\n    return (begin_list);"
+    ],
+    "correct": 0,
+    "explanation": "Sur atoi, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le guard doit couper immédiatement le flux pour éviter un accès invalide sur les cas vides.",
+    "tags": [
+      "code_snippets",
+      "atoi",
+      "snippet_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0317",
+    "theme": "code_snippets",
+    "question": "atoi : tu dois sécuriser un malloc et renvoyer un échec propre. Quel extrait de code est correct ?",
+    "choices": [
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (NULL);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    return (ptr);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    ptr = malloc(size * 2);",
+      "ptr = malloc(size);\nif (ptr == NULL)\n    size = size + 1;"
+    ],
+    "correct": 0,
+    "explanation": "Sur atoi, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Tester malloc puis retourner NULL est le contrat attendu pour garder un appelant prévisible.",
+    "tags": [
+      "code_snippets",
+      "atoi",
+      "snippet_malloc_guard"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0318",
+    "theme": "code_snippets",
+    "question": "atoi : tu dois éviter un off-by-one sur une chaîne allouée. Quel extrait de code est correct ?",
+    "choices": [
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * len);\ndup[len] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 1));\ndup[len + 1] = '\\\\0';",
+      "len = ft_strlen(src);\ndup = malloc(sizeof(char) * (len + 2));\ndup[0] = '\\\\0';"
+    ],
+    "correct": 0,
+    "explanation": "Sur atoi, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Le +1 est indispensable pour le terminateur final, sinon la moulinette déclenche vite une erreur mémoire.",
+    "tags": [
+      "code_snippets",
+      "atoi",
+      "snippet_off_by_one"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0319",
+    "theme": "code_snippets",
+    "question": "atoi : tu supprimes un maillon en liste chaînée. Quel extrait de code garde un chaînage correct ?",
+    "choices": [
+      "tmp = cur->next;\ncur->next = cur->next->next;\nfree(tmp);",
+      "free(cur->next);\ncur->next = cur->next->next;",
+      "tmp = cur;\ncur = cur->next;\nfree(tmp->next);",
+      "cur->next = cur->next->next;\nfree(cur->next);"
+    ],
+    "correct": 0,
+    "explanation": "Sur atoi, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. Il faut conserver la cible avant unlink, puis reconnecter, puis free dans cet ordre.",
+    "tags": [
+      "code_snippets",
+      "atoi",
+      "snippet_unlink_free"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0320",
+    "theme": "code_snippets",
+    "question": "atoi : tu veux une sortie strictement conforme à l’énoncé sur argc invalide. Quel extrait de code est correct ?",
+    "choices": [
+      "if (argc != 3)\n{\n    write(1, \"\\\\n\", 1);\n    return (0);\n}",
+      "if (argc != 3)\n{\n    write(2, \"Error\\\\n\", 6);\n    return (1);\n}",
+      "if (argc != 3)\n{\n    printf(\"invalid args\\\\n\");\n    return (0);\n}",
+      "if (argc != 3)\n    return (0);"
+    ],
+    "correct": 0,
+    "explanation": "Sur atoi, la lecture du bon extrait de code fait gagner du temps et évite un faux départ. La sortie doit rester minimale et sur stdout pour coller au contrat implicite des sujets exam.",
+    "tags": [
+      "code_snippets",
+      "atoi",
+      "snippet_output_contract"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "id": "q0321",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5339,7 +6099,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0282",
+    "id": "q0322",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5358,7 +6118,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0283",
+    "id": "q0323",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5377,7 +6137,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0284",
+    "id": "q0324",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5396,7 +6156,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0285",
+    "id": "q0325",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression en tête, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5415,7 +6175,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0286",
+    "id": "q0326",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5434,7 +6194,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0287",
+    "id": "q0327",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5453,7 +6213,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0288",
+    "id": "q0328",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5472,7 +6232,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0289",
+    "id": "q0329",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5491,7 +6251,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0290",
+    "id": "q0330",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression au milieu de la chaîne, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5510,7 +6270,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0291",
+    "id": "q0331",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5529,7 +6289,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0292",
+    "id": "q0332",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5548,7 +6308,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0293",
+    "id": "q0333",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5567,7 +6327,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0294",
+    "id": "q0334",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5586,7 +6346,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0295",
+    "id": "q0335",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en suppression de maillons consécutifs, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5605,7 +6365,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0296",
+    "id": "q0336",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5624,7 +6384,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0297",
+    "id": "q0337",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5643,7 +6403,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0298",
+    "id": "q0338",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5662,7 +6422,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0299",
+    "id": "q0339",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5681,7 +6441,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0300",
+    "id": "q0340",
     "theme": "listes_chainees",
     "question": "ft_list_remove_if : en fin de parcours proche du dernier maillon, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5700,7 +6460,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0301",
+    "id": "q0341",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5719,7 +6479,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0302",
+    "id": "q0342",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5738,7 +6498,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0303",
+    "id": "q0343",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5757,7 +6517,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0304",
+    "id": "q0344",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5776,7 +6536,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0305",
+    "id": "q0345",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression en tête, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5795,7 +6555,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0306",
+    "id": "q0346",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5814,7 +6574,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0307",
+    "id": "q0347",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5833,7 +6593,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0308",
+    "id": "q0348",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5852,7 +6612,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0309",
+    "id": "q0349",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5871,7 +6631,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0310",
+    "id": "q0350",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression au milieu de la chaîne, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5890,7 +6650,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0311",
+    "id": "q0351",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quel ordre d’opérations est correct ?",
     "choices": [
@@ -5909,7 +6669,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0312",
+    "id": "q0352",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -5928,7 +6688,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0313",
+    "id": "q0353",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -5947,7 +6707,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0314",
+    "id": "q0354",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -5966,7 +6726,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0315",
+    "id": "q0355",
     "theme": "listes_chainees",
     "question": "sort_list : en suppression de maillons consécutifs, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -5985,7 +6745,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0316",
+    "id": "q0356",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quel ordre d’opérations est correct ?",
     "choices": [
@@ -6004,7 +6764,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0317",
+    "id": "q0357",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quel pointeur temporaire faut-il conserver avant modification ?",
     "choices": [
@@ -6023,7 +6783,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0318",
+    "id": "q0358",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quelle règle d’avancement de `cur` évite de sauter des maillons ?",
     "choices": [
@@ -6042,7 +6802,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0319",
+    "id": "q0359",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quel test de garde doit être fait avant d’accéder à `->next` ?",
     "choices": [
@@ -6061,7 +6821,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0320",
+    "id": "q0360",
     "theme": "listes_chainees",
     "question": "sort_list : en fin de parcours proche du dernier maillon, quelle décision rend le comportement stable sur liste vide et liste à un élément ?",
     "choices": [
@@ -6080,7 +6840,7 @@
     "difficulty": "hard"
   },
   {
-    "id": "q0321",
+    "id": "q0361",
     "theme": "general",
     "question": "ft_split : contexte tu découpes une phrase avec des séparateurs simples. Quelle vérification fais-tu d’abord quand la chaîne peut être vide ou contenir uniquement des séparateurs ?",
     "choices": [
@@ -6099,7 +6859,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0322",
+    "id": "q0362",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu découpes une phrase avec des séparateurs simples), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6118,7 +6878,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0323",
+    "id": "q0363",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu découpes une phrase avec des séparateurs simples), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6137,7 +6897,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0324",
+    "id": "q0364",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu découpes une phrase avec des séparateurs simples), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6156,7 +6916,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0325",
+    "id": "q0365",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu découpes une phrase avec des séparateurs simples), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6175,7 +6935,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0326",
+    "id": "q0366",
     "theme": "general",
     "question": "ft_range : contexte tu génères une suite d’entiers de start vers end. Quelle vérification fais-tu d’abord quand start peut être supérieur à end ?",
     "choices": [
@@ -6194,7 +6954,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0327",
+    "id": "q0367",
     "theme": "general",
     "question": "ft_range : dans ce contexte (tu génères une suite d’entiers de start vers end), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6213,7 +6973,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0328",
+    "id": "q0368",
     "theme": "general",
     "question": "ft_range : dans ce contexte (tu génères une suite d’entiers de start vers end), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6232,7 +6992,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0329",
+    "id": "q0369",
     "theme": "general",
     "question": "ft_range : dans ce contexte (tu génères une suite d’entiers de start vers end), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6251,7 +7011,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0330",
+    "id": "q0370",
     "theme": "general",
     "question": "ft_range : dans ce contexte (tu génères une suite d’entiers de start vers end), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6270,7 +7030,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0331",
+    "id": "q0371",
     "theme": "general",
     "question": "ft_list_remove_if : contexte tu supprimes des maillons d’une liste chaînée. Quelle vérification fais-tu d’abord quand la liste peut être vide au début ?",
     "choices": [
@@ -6289,7 +7049,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0332",
+    "id": "q0372",
     "theme": "general",
     "question": "ft_list_remove_if : dans ce contexte (tu supprimes des maillons d’une liste chaînée), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6308,7 +7068,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0333",
+    "id": "q0373",
     "theme": "general",
     "question": "ft_list_remove_if : dans ce contexte (tu supprimes des maillons d’une liste chaînée), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6327,7 +7087,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0334",
+    "id": "q0374",
     "theme": "general",
     "question": "ft_list_remove_if : dans ce contexte (tu supprimes des maillons d’une liste chaînée), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6346,7 +7106,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0335",
+    "id": "q0375",
     "theme": "general",
     "question": "ft_list_remove_if : dans ce contexte (tu supprimes des maillons d’une liste chaînée), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6365,7 +7125,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0336",
+    "id": "q0376",
     "theme": "general",
     "question": "sort_list : contexte tu fais un tri simple sur une liste chaînée. Quelle vérification fais-tu d’abord quand la liste est vide ou contient un seul élément ?",
     "choices": [
@@ -6384,7 +7144,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0337",
+    "id": "q0377",
     "theme": "general",
     "question": "sort_list : dans ce contexte (tu fais un tri simple sur une liste chaînée), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6403,7 +7163,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0338",
+    "id": "q0378",
     "theme": "general",
     "question": "sort_list : dans ce contexte (tu fais un tri simple sur une liste chaînée), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6422,7 +7182,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0339",
+    "id": "q0379",
     "theme": "general",
     "question": "sort_list : dans ce contexte (tu fais un tri simple sur une liste chaînée), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6441,7 +7201,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0340",
+    "id": "q0380",
     "theme": "general",
     "question": "sort_list : dans ce contexte (tu fais un tri simple sur une liste chaînée), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6460,7 +7220,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0341",
+    "id": "q0381",
     "theme": "general",
     "question": "itoa : contexte tu convertis un entier signé en chaîne. Quelle vérification fais-tu d’abord quand la valeur peut être `0` ou négative ?",
     "choices": [
@@ -6479,7 +7239,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0342",
+    "id": "q0382",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu convertis un entier signé en chaîne), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6498,7 +7258,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0343",
+    "id": "q0383",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu convertis un entier signé en chaîne), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6517,7 +7277,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0344",
+    "id": "q0384",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu convertis un entier signé en chaîne), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6536,7 +7296,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0345",
+    "id": "q0385",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu convertis un entier signé en chaîne), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6555,7 +7315,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0346",
+    "id": "q0386",
     "theme": "general",
     "question": "wdmatch : contexte tu dois vérifier si argv[1] est inclus dans argv[2] dans le bon ordre. Quelle vérification fais-tu d’abord quand le programme peut être lancé avec un argc invalide ?",
     "choices": [
@@ -6574,7 +7334,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0347",
+    "id": "q0387",
     "theme": "general",
     "question": "wdmatch : dans ce contexte (tu dois vérifier si argv[1] est inclus dans argv[2] dans le bon ordre), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6593,7 +7353,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0348",
+    "id": "q0388",
     "theme": "general",
     "question": "wdmatch : dans ce contexte (tu dois vérifier si argv[1] est inclus dans argv[2] dans le bon ordre), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6612,7 +7372,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0349",
+    "id": "q0389",
     "theme": "general",
     "question": "wdmatch : dans ce contexte (tu dois vérifier si argv[1] est inclus dans argv[2] dans le bon ordre), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6631,7 +7391,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0350",
+    "id": "q0390",
     "theme": "general",
     "question": "wdmatch : dans ce contexte (tu dois vérifier si argv[1] est inclus dans argv[2] dans le bon ordre), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6650,7 +7410,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0351",
+    "id": "q0391",
     "theme": "general",
     "question": "union : contexte tu affiches les caractères uniques de deux chaînes. Quelle vérification fais-tu d’abord quand les arguments peuvent être absents ?",
     "choices": [
@@ -6669,7 +7429,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0352",
+    "id": "q0392",
     "theme": "general",
     "question": "union : dans ce contexte (tu affiches les caractères uniques de deux chaînes), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6688,7 +7448,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0353",
+    "id": "q0393",
     "theme": "general",
     "question": "union : dans ce contexte (tu affiches les caractères uniques de deux chaînes), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6707,7 +7467,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0354",
+    "id": "q0394",
     "theme": "general",
     "question": "union : dans ce contexte (tu affiches les caractères uniques de deux chaînes), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6726,7 +7486,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0355",
+    "id": "q0395",
     "theme": "general",
     "question": "union : dans ce contexte (tu affiches les caractères uniques de deux chaînes), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6745,7 +7505,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0356",
+    "id": "q0396",
     "theme": "general",
     "question": "atoi : contexte tu convertis une chaîne utilisateur en entier. Quelle vérification fais-tu d’abord quand la chaîne peut commencer par des espaces ?",
     "choices": [
@@ -6764,7 +7524,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0357",
+    "id": "q0397",
     "theme": "general",
     "question": "atoi : dans ce contexte (tu convertis une chaîne utilisateur en entier), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6783,7 +7543,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0358",
+    "id": "q0398",
     "theme": "general",
     "question": "atoi : dans ce contexte (tu convertis une chaîne utilisateur en entier), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6802,7 +7562,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0359",
+    "id": "q0399",
     "theme": "general",
     "question": "atoi : dans ce contexte (tu convertis une chaîne utilisateur en entier), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6821,7 +7581,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0360",
+    "id": "q0400",
     "theme": "general",
     "question": "atoi : dans ce contexte (tu convertis une chaîne utilisateur en entier), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6840,7 +7600,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0361",
+    "id": "q0401",
     "theme": "general",
     "question": "ft_split : contexte tu sécurises le chemin d’erreur en cas de malloc partiel. Quelle vérification fais-tu d’abord quand une allocation de mot échoue en milieu de traitement ?",
     "choices": [
@@ -6859,7 +7619,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0362",
+    "id": "q0402",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu sécurises le chemin d’erreur en cas de malloc partiel), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6878,7 +7638,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0363",
+    "id": "q0403",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu sécurises le chemin d’erreur en cas de malloc partiel), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6897,7 +7657,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0364",
+    "id": "q0404",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu sécurises le chemin d’erreur en cas de malloc partiel), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -6916,7 +7676,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0365",
+    "id": "q0405",
     "theme": "general",
     "question": "ft_split : dans ce contexte (tu sécurises le chemin d’erreur en cas de malloc partiel), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
@@ -6935,7 +7695,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0366",
+    "id": "q0406",
     "theme": "general",
     "question": "itoa : contexte tu veux une version claire et fiable pour les bases. Quelle vérification fais-tu d’abord quand tu initialises la conversion pour un nombre négatif ?",
     "choices": [
@@ -6954,7 +7714,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0367",
+    "id": "q0407",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu veux une version claire et fiable pour les bases), quelle action est la plus sûre juste après l’étape principale ?",
     "choices": [
@@ -6973,7 +7733,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0368",
+    "id": "q0408",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu veux une version claire et fiable pour les bases), quelle décision de taille ou de structure est la plus propre pour débuter ?",
     "choices": [
@@ -6992,7 +7752,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0369",
+    "id": "q0409",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu veux une version claire et fiable pour les bases), quel test limite doit être géré explicitement pour éviter une erreur bête ?",
     "choices": [
@@ -7011,7 +7771,7 @@
     "difficulty": "easy"
   },
   {
-    "id": "q0370",
+    "id": "q0410",
     "theme": "general",
     "question": "itoa : dans ce contexte (tu veux une version claire et fiable pour les bases), quelle sortie finale respecte le mieux le contrat de base ?",
     "choices": [
