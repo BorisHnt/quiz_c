@@ -1168,6 +1168,73 @@ body[data-page="index"] .list li {
   padding-left: 18px;
 }
 
+.code-library-panel {
+  background: var(--paper-2);
+}
+
+.code-control-grid {
+  grid-template-columns: 1fr 2fr auto;
+  align-items: end;
+}
+
+.code-viewer-panel {
+  background: var(--paper-2);
+}
+
+.code-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: start;
+}
+
+.code-actions {
+  margin-top: 0;
+}
+
+.code-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.code-helper-box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+  padding: 8px;
+}
+
+.code-helper-box .stat-label {
+  margin: 0;
+}
+
+.code-helper-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.code-helper-list li {
+  margin: 4px 0;
+}
+
+.code-block {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-4);
+  color: var(--dark);
+  overflow: auto;
+  max-height: 70vh;
+  white-space: pre;
+  line-height: 1.35;
+}
+
+.code-block code {
+  font-size: 0.88rem;
+}
+
 @media (max-width: 900px) {
   .layout-two {
     grid-template-columns: 1fr;
@@ -1183,6 +1250,18 @@ body[data-page="index"] .list li {
 
   .puzzle-control-grid {
     grid-template-columns: 1fr;
+  }
+
+  .code-control-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .code-header {
+    grid-template-columns: 1fr;
+  }
+
+  .code-meta-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .quiz-top,
@@ -1255,6 +1334,10 @@ body[data-page="index"] .list li {
   .control-grid,
   .quiz-top,
   .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .code-meta-grid {
     grid-template-columns: 1fr;
   }
 

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Révision C - Codes complets</title>
+    <meta
+      name="description"
+      content="Bibliothèque des exercices C complets avec fonctions satellites pour révision exam 42."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="codes">
+    <header class="site-header" role="banner">
+      <div class="nav-wrap">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">
+            <span class="brand-overline">Langage C</span>
+            <span class="brand-name">Révisions Exam 42</span>
+          </span>
+        </a>
+        <button
+          id="navToggle"
+          class="nav-toggle"
+          type="button"
+          aria-label="Menu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav aria-label="Navigation principale">
+          <ul id="navMenu" class="nav-menu">
+            <li><a class="nav-link" href="index.html">Accueil</a></li>
+            <li><a class="nav-link" href="flashcards.html">Flashcards</a></li>
+            <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+            <li><a class="nav-link" href="puzzle.html">Puzzle</a></li>
+            <li><a class="nav-link" href="codes.html" aria-current="page">Codes complets</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel code-library-panel">
+        <h1 class="panel-title">Bibliothèque des codes complets</h1>
+        <p class="panel-subtitle">
+          Chaque exercice est affiché en version complète, avec la fonction cible et les fonctions satellites nécessaires.
+        </p>
+
+        <div class="control-grid code-control-grid mt-16">
+          <div class="field">
+            <label for="codeExamFilter">Bloc examen</label>
+            <select id="codeExamFilter">
+              <option value="all">Tous</option>
+              <option value="EX2">EX2</option>
+              <option value="EX3">EX3</option>
+              <option value="EX4">EX4</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="codeExerciseSelect">Exercice</label>
+            <select id="codeExerciseSelect"></select>
+          </div>
+
+          <div class="btn-row">
+            <button id="prevCodeBtn" class="btn btn-secondary" type="button">Précédent</button>
+            <button id="nextCodeBtn" class="btn btn-secondary" type="button">Suivant</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel code-viewer-panel" aria-live="polite">
+        <div class="code-header">
+          <div>
+            <h2 id="codeTitle" class="panel-title">Chargement...</h2>
+            <p id="codeSummary" class="panel-subtitle"></p>
+          </div>
+          <div class="btn-row code-actions">
+            <button id="copyCodeBtn" class="btn btn-primary" type="button">Copier le code</button>
+            <button id="downloadCodeBtn" class="btn btn-secondary" type="button">Télécharger .c</button>
+          </div>
+        </div>
+
+        <div class="code-meta-grid mt-16">
+          <article class="stat-item">
+            <p class="stat-label">Bloc</p>
+            <p id="codeExam" class="stat-value">-</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Fonction cible</p>
+            <p id="codeTarget" class="stat-value mono">-</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Satellites</p>
+            <p id="codeHelpersCount" class="stat-value">0</p>
+          </article>
+          <article class="stat-item">
+            <p class="stat-label">Nom de fichier</p>
+            <p id="codeFileName" class="stat-value mono">-</p>
+          </article>
+        </div>
+
+        <div class="code-helper-box mt-16">
+          <p class="stat-label">Fonctions satellites incluses</p>
+          <ul id="codeHelpersList" class="code-helper-list"></ul>
+        </div>
+
+        <pre class="code-block mt-16"><code id="exerciseCode"></code></pre>
+
+        <p id="codeFeedback" class="feedback">Sélectionne un exercice pour afficher son fichier complet.</p>
+      </section>
+    </main>
+
+    <script type="module" src="codes.js"></script>
+  </body>
+</html>
