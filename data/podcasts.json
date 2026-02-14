@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ft_split",
+    "title": "ft_split - stratégie complète",
+    "exercise": "EX4",
+    "description": "Découpage, allocation, rollback mémoire et terminaison NULL.",
+    "file": "./podcats_by_notebooklm/ft_split.m4a"
+  },
+  {
+    "id": "itoa",
+    "title": "itoa - gestion signe et INT_MIN",
+    "exercise": "EX4",
+    "description": "Dimensionnement, remplissage inversé et cas limites.",
+    "file": "./podcats_by_notebooklm/itoa.m4a"
+  },
+  {
+    "id": "list_remove_if",
+    "title": "list_remove_if - suppression sûre",
+    "exercise": "EX4",
+    "description": "Ordre unlink/free, gestion tête et parcours robuste.",
+    "file": "./podcats_by_notebooklm/list_remove_if.m4a"
+  }
+]

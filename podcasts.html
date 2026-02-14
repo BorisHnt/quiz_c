@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Révision C - Podcasts</title>
+    <meta name="description" content="Podcasts de révision C avec lecteur m4a intégré." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="podcasts">
+    <header class="site-header" role="banner">
+      <div class="nav-wrap">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">
+            <span class="brand-overline">Langage C</span>
+            <span class="brand-name">Révisions Exam 42</span>
+          </span>
+        </a>
+        <button id="navToggle" class="nav-toggle" type="button" aria-label="Menu" aria-controls="navMenu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav aria-label="Navigation principale">
+          <ul id="navMenu" class="nav-menu">
+            <li><a class="nav-link" href="index.html">Accueil</a></li>
+            <li><a class="nav-link" href="flashcards.html">Flashcards</a></li>
+            <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+            <li><a class="nav-link" href="puzzle.html">Puzzle</a></li>
+            <li><a class="nav-link" href="codes.html">Codes complets</a></li>
+            <li><a class="nav-link" href="podcasts.html" aria-current="page">Podcasts</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel podcast-panel">
+        <h1 class="panel-title">Podcasts de révision C</h1>
+        <p class="panel-subtitle">Écoute les capsules audio NoteBookLM et révise les patterns des exos exam.</p>
+
+        <div class="podcast-layout mt-16">
+          <article class="podcast-list-wrap">
+            <h2 class="panel-title podcast-subtitle">Playlist</h2>
+            <p class="panel-subtitle">Sélectionne un épisode pour lancer la lecture.</p>
+            <ul id="podcastList" class="podcast-list" role="listbox" aria-label="Liste des podcasts"></ul>
+          </article>
+
+          <article class="podcast-player-wrap" aria-live="polite">
+            <p id="podcastBadge" class="badge">EX4</p>
+            <h2 id="podcastTitle" class="panel-title">Chargement...</h2>
+            <p id="podcastDescription" class="panel-subtitle"></p>
+
+            <audio id="podcastAudio" preload="metadata"></audio>
+
+            <div class="podcast-controls mt-16">
+              <button id="podcastPrevBtn" class="btn btn-secondary" type="button">Précédent</button>
+              <button id="podcastPlayBtn" class="btn btn-primary" type="button">Lire</button>
+              <button id="podcastNextBtn" class="btn btn-secondary" type="button">Suivant</button>
+            </div>
+
+            <div class="podcast-time-row mt-16">
+              <span id="podcastCurrentTime" class="mono">00:00</span>
+              <input id="podcastSeek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Position de lecture" />
+              <span id="podcastDuration" class="mono">00:00</span>
+            </div>
+
+            <div class="podcast-time-row mt-16">
+              <label for="podcastVolume" class="podcast-volume-label">Volume</label>
+              <input id="podcastVolume" type="range" min="0" max="1" value="1" step="0.01" aria-label="Volume" />
+            </div>
+
+            <p id="podcastFeedback" class="feedback">Sélectionne un podcast pour commencer.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="podcasts.js"></script>
+  </body>
+</html>
