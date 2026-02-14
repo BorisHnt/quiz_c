@@ -1249,6 +1249,12 @@ body[data-page="index"] .list li {
   background: var(--paper-2);
 }
 
+.podcast-panel.is-expanded {
+  width: 175%;
+  max-width: none;
+  margin-left: -37.5%;
+}
+
 .podcast-layout {
   display: grid;
   grid-template-columns: 1fr 1.2fr 1.5fr;
@@ -1413,6 +1419,11 @@ body[data-page="index"] .list li {
 
   .podcast-layout {
     grid-template-columns: 1fr;
+  }
+
+  .podcast-panel.is-expanded {
+    width: 100%;
+    margin-left: 0;
   }
 
   .quiz-top,

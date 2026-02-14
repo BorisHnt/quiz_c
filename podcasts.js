@@ -3,6 +3,7 @@ import { initCommon } from "./main.js";
 const PODCAST_STATE_KEY = "c_revision_podcast_state_v1";
 
 const ui = {
+  panel: null,
   layout: null,
   list: null,
   audio: null,
@@ -364,6 +365,7 @@ function formatTime(seconds) {
 }
 
 function selectUi() {
+  ui.panel = document.querySelector(".panel.podcast-panel");
   ui.layout = document.querySelector("#podcastLayout");
   ui.list = document.querySelector("#podcastList");
   ui.audio = document.querySelector("#podcastAudio");
@@ -487,6 +489,7 @@ function highlightCCode(code) {
 function renderCodePanel() {
   const podcast = currentPodcast();
   if (!podcast || !state.showCode) {
+    ui.panel.classList.remove("is-expanded");
     ui.layout.classList.add("is-code-hidden");
     ui.codePanel.classList.add("hidden");
     return;
@@ -494,6 +497,7 @@ function renderCodePanel() {
 
   const codeKey = codeKeyFromPodcast(podcast);
   const entry = CODE_LIBRARY[codeKey];
+  ui.panel.classList.add("is-expanded");
   ui.layout.classList.remove("is-code-hidden");
   ui.codePanel.classList.remove("hidden");
 
