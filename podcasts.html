@@ -40,7 +40,7 @@
         <h1 class="panel-title">Podcasts de révision C</h1>
         <p class="panel-subtitle">Écoute les capsules audio NoteBookLM et révise les patterns des exos exam.</p>
 
-        <div class="podcast-layout mt-16">
+        <div id="podcastLayout" class="podcast-layout is-code-hidden mt-16">
           <article class="podcast-list-wrap">
             <h2 class="panel-title podcast-subtitle">Playlist</h2>
             <p class="panel-subtitle">Sélectionne un épisode pour lancer la lecture.</p>
@@ -71,7 +71,29 @@
               <input id="podcastVolume" type="range" min="0" max="1" value="1" step="0.01" aria-label="Volume" />
             </div>
 
+            <div class="podcast-time-row mt-16">
+              <label for="podcastSpeed" class="podcast-volume-label">Vitesse</label>
+              <select id="podcastSpeed" aria-label="Vitesse de lecture">
+                <option value="0.75">0.75x</option>
+                <option value="1" selected>1x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+              </select>
+            </div>
+
+            <div class="inline-check mt-16">
+              <input id="podcastCodeToggle" type="checkbox" />
+              <label for="podcastCodeToggle">Afficher le code lié</label>
+            </div>
+
             <p id="podcastFeedback" class="feedback">Sélectionne un podcast pour commencer.</p>
+          </article>
+
+          <article id="podcastCodePanel" class="podcast-code-wrap hidden">
+            <h2 class="panel-title podcast-subtitle">Code associé</h2>
+            <p id="podcastCodeTitle" class="panel-subtitle">Aucun code chargé.</p>
+            <pre class="podcast-code-block mt-16"><code id="podcastCodeContent"></code></pre>
           </article>
         </div>
       </section>

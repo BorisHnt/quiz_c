@@ -3,6 +3,7 @@ import { initCommon } from "./main.js";
 const PODCAST_STATE_KEY = "c_revision_podcast_state_v1";
 
 const ui = {
+  layout: null,
   list: null,
   audio: null,
   badge: null,
@@ -15,6 +16,11 @@ const ui = {
   current: null,
   duration: null,
   volume: null,
+  speed: null,
+  codeToggle: null,
+  codePanel: null,
+  codeTitle: null,
+  codeContent: null,
   feedback: null,
 };
 
@@ -23,6 +29,328 @@ const state = {
   index: 0,
   isSeeking: false,
   resumeById: {},
+  showCode: false,
+};
+
+const CODE_LIBRARY = {
+  ft_split: {
+    title: "ft_split.c",
+    code: `#include <stdlib.h>
+
+static int is_sep(char c)
+{
+    if (c == ' ')
+        return (1);
+    if (c == '\\t')
+        return (1);
+    if (c == '\\n')
+        return (1);
+    return (0);
+}
+
+static int count_words(char *str)
+{
+    int count;
+
+    count = 0;
+    while (*str)
+    {
+        while (*str && is_sep(*str))
+            str++;
+        if (*str)
+        {
+            count++;
+            while (*str && is_sep(*str) == 0)
+                str++;
+        }
+    }
+    return (count);
+}
+
+static int word_len(char *str)
+{
+    int len;
+
+    len = 0;
+    while (str[len] && is_sep(str[len]) == 0)
+        len++;
+    return (len);
+}
+
+static char *copy_word(char *src, int len)
+{
+    char *word;
+    int i;
+
+    word = (char *)malloc(sizeof(char) * (len + 1));
+    if (word == NULL)
+        return (NULL);
+    i = 0;
+    while (i < len)
+    {
+        word[i] = src[i];
+        i++;
+    }
+    word[i] = '\\0';
+    return (word);
+}
+
+static char **free_words(char **tab, int filled)
+{
+    int i;
+
+    i = 0;
+    while (i < filled)
+    {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
+    return (NULL);
+}
+
+char **ft_split(char *str)
+{
+    char **tab;
+    int words;
+    int i;
+    int len;
+
+    if (str == NULL)
+        return (NULL);
+    words = count_words(str);
+    tab = (char **)malloc(sizeof(char *) * (words + 1));
+    if (tab == NULL)
+        return (NULL);
+    i = 0;
+    while (*str)
+    {
+        while (*str && is_sep(*str))
+            str++;
+        if (*str)
+        {
+            len = word_len(str);
+            tab[i] = copy_word(str, len);
+            if (tab[i] == NULL)
+                return (free_words(tab, i));
+            i++;
+            str = str + len;
+        }
+    }
+    tab[i] = NULL;
+    return (tab);
+}`,
+  },
+  itoa: {
+    title: "ft_itoa.c",
+    code: `#include <stdlib.h>
+
+static int count_digits(long n)
+{
+    int len;
+
+    len = 1;
+    while (n >= 10)
+    {
+        n = n / 10;
+        len++;
+    }
+    return (len);
+}
+
+static void fill_digits_from_right(char *str, int index, long n)
+{
+    while (index >= 0)
+    {
+        str[index] = (char)((n % 10) + '0');
+        n = n / 10;
+        index--;
+    }
+}
+
+char *ft_itoa(int nbr)
+{
+    long n;
+    int sign;
+    int len;
+    char *str;
+
+    n = (long)nbr;
+    sign = 0;
+    if (n < 0)
+    {
+        sign = 1;
+        n = -n;
+    }
+    len = count_digits(n) + sign;
+    str = (char *)malloc(sizeof(char) * (len + 1));
+    if (str == NULL)
+        return (NULL);
+    str[len] = '\\0';
+    fill_digits_from_right(str, len - 1, n);
+    if (sign == 1)
+        str[0] = '-';
+    return (str);
+}`,
+  },
+  list_remove_if: {
+    title: "ft_list_remove_if.c",
+    code: `#include <stdlib.h>
+
+typedef struct s_list
+{
+    struct s_list *next;
+    void *data;
+} t_list;
+
+static void remove_head_matches(t_list **begin_list, void *data_ref,
+        int (*cmp)(), void (*free_fct)(void *))
+{
+    t_list *tmp;
+
+    while (*begin_list && cmp((*begin_list)->data, data_ref) == 0)
+    {
+        tmp = *begin_list;
+        *begin_list = (*begin_list)->next;
+        free_fct(tmp->data);
+        free(tmp);
+    }
+}
+
+void ft_list_remove_if(t_list **begin_list, void *data_ref,
+        int (*cmp)(), void (*free_fct)(void *))
+{
+    t_list *cur;
+    t_list *tmp;
+
+    if (begin_list == NULL || cmp == NULL || free_fct == NULL)
+        return ;
+    remove_head_matches(begin_list, data_ref, cmp, free_fct);
+    cur = *begin_list;
+    while (cur && cur->next)
+    {
+        if (cmp(cur->next->data, data_ref) == 0)
+        {
+            tmp = cur->next;
+            cur->next = cur->next->next;
+            free_fct(tmp->data);
+            free(tmp);
+        }
+        else
+            cur = cur->next;
+    }
+}`,
+  },
+  sort_list: {
+    title: "sort_list.c",
+    code: `typedef struct s_list
+{
+    int data;
+    struct s_list *next;
+} t_list;
+
+t_list *sort_list(t_list *lst, int (*cmp)(int, int))
+{
+    t_list *cur;
+    int swapped;
+    int tmp;
+
+    if (lst == NULL || cmp == NULL)
+        return (lst);
+    if (lst->next == NULL)
+        return (lst);
+    swapped = 1;
+    while (swapped == 1)
+    {
+        swapped = 0;
+        cur = lst;
+        while (cur->next)
+        {
+            if (cmp(cur->data, cur->next->data) > 0)
+            {
+                tmp = cur->data;
+                cur->data = cur->next->data;
+                cur->next->data = tmp;
+                swapped = 1;
+            }
+            cur = cur->next;
+        }
+    }
+    return (lst);
+}`,
+  },
+  lstforeach: {
+    title: "ft_list_foreach.c",
+    code: `typedef struct s_list
+{
+    struct s_list *next;
+    void *data;
+} t_list;
+
+void ft_list_foreach(t_list *begin_list, void (*f)(void *))
+{
+    t_list *cur;
+
+    if (f == NULL)
+        return ;
+    cur = begin_list;
+    while (cur)
+    {
+        f(cur->data);
+        cur = cur->next;
+    }
+}`,
+  },
+  union: {
+    title: "union.c",
+    code: `#include <unistd.h>
+
+static void init_seen(unsigned char seen[256])
+{
+    int i;
+
+    i = 0;
+    while (i < 256)
+    {
+        seen[i] = 0;
+        i++;
+    }
+}
+
+static void print_unique_from(char *str, unsigned char seen[256])
+{
+    int i;
+    unsigned char c;
+
+    i = 0;
+    while (str[i])
+    {
+        c = (unsigned char)str[i];
+        if (seen[c] == 0)
+        {
+            seen[c] = 1;
+            write(1, &str[i], 1);
+        }
+        i++;
+    }
+}
+
+int main(int argc, char **argv)
+{
+    unsigned char seen[256];
+
+    if (argc != 3)
+    {
+        write(1, "\\n", 1);
+        return (0);
+    }
+    init_seen(seen);
+    print_unique_from(argv[1], seen);
+    print_unique_from(argv[2], seen);
+    write(1, "\\n", 1);
+    return (0);
+}`,
+  },
 };
 
 function formatTime(seconds) {
@@ -36,6 +364,7 @@ function formatTime(seconds) {
 }
 
 function selectUi() {
+  ui.layout = document.querySelector("#podcastLayout");
   ui.list = document.querySelector("#podcastList");
   ui.audio = document.querySelector("#podcastAudio");
   ui.badge = document.querySelector("#podcastBadge");
@@ -48,6 +377,11 @@ function selectUi() {
   ui.current = document.querySelector("#podcastCurrentTime");
   ui.duration = document.querySelector("#podcastDuration");
   ui.volume = document.querySelector("#podcastVolume");
+  ui.speed = document.querySelector("#podcastSpeed");
+  ui.codeToggle = document.querySelector("#podcastCodeToggle");
+  ui.codePanel = document.querySelector("#podcastCodePanel");
+  ui.codeTitle = document.querySelector("#podcastCodeTitle");
+  ui.codeContent = document.querySelector("#podcastCodeContent");
   ui.feedback = document.querySelector("#podcastFeedback");
 
   return Object.values(ui).every((node) => node !== null);
@@ -84,6 +418,95 @@ function normalizePodcast(item, index) {
   };
 }
 
+function codeKeyFromPodcast(podcast) {
+  const id = String(podcast.id || "").toLowerCase();
+  if (id.includes("ft_split")) {
+    return "ft_split";
+  }
+  if (id.includes("itoa")) {
+    return "itoa";
+  }
+  if (id.includes("remove_if")) {
+    return "list_remove_if";
+  }
+  if (id.includes("sort_list")) {
+    return "sort_list";
+  }
+  if (id.includes("for_each") || id.includes("foreach")) {
+    return "lstforeach";
+  }
+  if (id.includes("union")) {
+    return "union";
+  }
+  return "";
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function highlightCCode(code) {
+  const blocks = [];
+  let html = escapeHtml(code);
+
+  html = html.replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g, (match) => {
+    const id = blocks.push({ cls: "tok-comment", text: match }) - 1;
+    return `@@BLOCK${id}@@`;
+  });
+
+  html = html.replace(/"([^"\\]|\\.)*"|'([^'\\]|\\.)*'/g, (match) => {
+    const id = blocks.push({ cls: "tok-string", text: match }) - 1;
+    return `@@BLOCK${id}@@`;
+  });
+
+  html = html.replace(/^\s*#.*$/gm, (match) => {
+    const id = blocks.push({ cls: "tok-preproc", text: match }) - 1;
+    return `@@BLOCK${id}@@`;
+  });
+
+  html = html.replace(
+    /\b(static|int|char|void|long|short|unsigned|signed|return|if|else|while|for|break|continue|typedef|struct|const|NULL|sizeof)\b/g,
+    '<span class="tok-keyword">$1</span>'
+  );
+  html = html.replace(/\b([0-9]+)\b/g, '<span class="tok-number">$1</span>');
+
+  html = html.replace(/@@BLOCK(\d+)@@/g, (_match, index) => {
+    const block = blocks[Number(index)];
+    if (!block) {
+      return "";
+    }
+    return `<span class="${block.cls}">${block.text}</span>`;
+  });
+
+  return html;
+}
+
+function renderCodePanel() {
+  const podcast = currentPodcast();
+  if (!podcast || !state.showCode) {
+    ui.layout.classList.add("is-code-hidden");
+    ui.codePanel.classList.add("hidden");
+    return;
+  }
+
+  const codeKey = codeKeyFromPodcast(podcast);
+  const entry = CODE_LIBRARY[codeKey];
+  ui.layout.classList.remove("is-code-hidden");
+  ui.codePanel.classList.remove("hidden");
+
+  if (!entry) {
+    ui.codeTitle.textContent = "Aucun code lié pour cet épisode.";
+    ui.codeContent.textContent = "";
+    return;
+  }
+
+  ui.codeTitle.textContent = entry.title;
+  ui.codeContent.innerHTML = highlightCCode(entry.code);
+}
+
 async function loadPodcasts() {
   const response = await fetch("./data/podcasts.json", { cache: "no-store" });
   if (!response.ok) {
@@ -108,14 +531,25 @@ function loadSavedState() {
     const parsed = JSON.parse(raw);
     state.index = Number.isFinite(parsed.index) ? Math.max(0, parsed.index) : 0;
     state.resumeById = parsed.resumeById && typeof parsed.resumeById === "object" ? parsed.resumeById : {};
+    state.showCode = Boolean(parsed.showCode);
 
     if (Number.isFinite(parsed.volume)) {
       ui.audio.volume = Math.max(0, Math.min(1, parsed.volume));
       ui.volume.value = String(ui.audio.volume);
     }
+
+    if (Number.isFinite(parsed.playbackRate)) {
+      const speed = Math.max(0.75, Math.min(2, parsed.playbackRate));
+      ui.audio.playbackRate = speed;
+      ui.speed.value = String(speed);
+    }
+
+    ui.codeToggle.checked = state.showCode;
   } catch (_error) {
     state.index = 0;
     state.resumeById = {};
+    state.showCode = false;
+    ui.codeToggle.checked = false;
   }
 }
 
@@ -123,7 +557,9 @@ function saveState() {
   const payload = {
     index: state.index,
     volume: ui.audio.volume,
+    playbackRate: ui.audio.playbackRate,
     resumeById: state.resumeById,
+    showCode: state.showCode,
   };
   localStorage.setItem(PODCAST_STATE_KEY, JSON.stringify(payload));
 }
@@ -218,6 +654,7 @@ function selectPodcast(index, autoplay = false) {
 
   syncMeta(podcast);
   renderList();
+  renderCodePanel();
 
   ui.audio.src = podcast.file;
   ui.audio.load();
@@ -295,6 +732,19 @@ function bindEvents() {
   ui.volume.addEventListener("input", () => {
     const value = Number.parseFloat(ui.volume.value);
     ui.audio.volume = Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : 1;
+    saveState();
+  });
+
+  ui.speed.addEventListener("change", () => {
+    const value = Number.parseFloat(ui.speed.value);
+    ui.audio.playbackRate = Number.isFinite(value) ? Math.max(0.75, Math.min(2, value)) : 1;
+    saveState();
+    setFeedback(`Vitesse: ${ui.audio.playbackRate}x`);
+  });
+
+  ui.codeToggle.addEventListener("change", () => {
+    state.showCode = ui.codeToggle.checked;
+    renderCodePanel();
     saveState();
   });
 
