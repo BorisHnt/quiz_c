@@ -7,6 +7,13 @@
     "file": "./podcats_by_notebooklm/ft_split.m4a"
   },
   {
+    "id": "for_each_long_version",
+    "title": "lstforeach - version longue",
+    "exercise": "EX4",
+    "description": "Parcours complet de liste et application de fonction sur chaque maillon.",
+    "file": "./podcats_by_notebooklm/for_each(long_version).m4a"
+  },
+  {
     "id": "itoa",
     "title": "itoa - gestion signe et INT_MIN",
     "exercise": "EX4",
@@ -19,5 +26,26 @@
     "exercise": "EX4",
     "description": "Ordre unlink/free, gestion tête et parcours robuste.",
     "file": "./podcats_by_notebooklm/list_remove_if.m4a"
+  },
+  {
+    "id": "sort_list_long_version",
+    "title": "sort_list - version longue",
+    "exercise": "EX4",
+    "description": "Tri de liste détaillé avec logique de swaps et condition d'arrêt.",
+    "file": "./podcats_by_notebooklm/sort_list(long_version).m4a"
+  },
+  {
+    "id": "sort_list_short_version",
+    "title": "sort_list - version courte",
+    "exercise": "EX4",
+    "description": "Synthèse rapide des étapes clés pour trier une liste chaînée.",
+    "file": "./podcats_by_notebooklm/sort_list(short_version).m4a"
+  },
+  {
+    "id": "union",
+    "title": "union - caractères uniques",
+    "exercise": "EX2",
+    "description": "Table seen[256], ordre d'apparition et affichage sans doublons.",
+    "file": "./podcats_by_notebooklm/union.m4a"
   }
 ]
