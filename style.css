@@ -1226,6 +1226,17 @@ body[data-page="index"] .list li {
   gap: 8px;
 }
 
+.code-meta-grid .stat-item {
+  min-width: 0;
+}
+
+.code-meta-grid .stat-value.mono {
+  font-size: 1rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .code-helper-box {
   border: 1px solid var(--border);
   border-radius: var(--radius);

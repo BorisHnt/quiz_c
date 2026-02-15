@@ -718,6 +718,318 @@ char *ft_itoa(int nbr)
 ];
 
 const EXAM_OPTI_VARIANTS = {
+  union: {
+    summary: "Version compacte type exam (rank 02 / level 2), parcours direct avec table seen[256].",
+    helpers: [],
+    fileName: "union_opti_exam.c",
+    code: `#include <unistd.h>
+
+int main(int argc, char **argv)
+{
+    unsigned char seen[256] = {0};
+    int i;
+    unsigned char c;
+
+    if (argc != 3)
+    {
+        write(1, "\\n", 1);
+        return (0);
+    }
+    i = 0;
+    while (argv[1][i])
+    {
+        c = (unsigned char)argv[1][i];
+        if (seen[c] == 0)
+        {
+            seen[c] = 1;
+            write(1, &argv[1][i], 1);
+        }
+        i++;
+    }
+    i = 0;
+    while (argv[2][i])
+    {
+        c = (unsigned char)argv[2][i];
+        if (seen[c] == 0)
+        {
+            seen[c] = 1;
+            write(1, &argv[2][i], 1);
+        }
+        i++;
+    }
+    write(1, "\\n", 1);
+    return (0);
+}`,
+  },
+  atoi: {
+    summary: "Version compacte type exam (rank 02 / level 2), gestion espaces, signe et accumulation.",
+    helpers: ["ft_isspace", "ft_isdigit"],
+    fileName: "ft_atoi_opti_exam.c",
+    code: `static int ft_isspace(int c)
+{
+    if (c == ' ')
+        return (1);
+    if (c >= 9 && c <= 13)
+        return (1);
+    return (0);
+}
+
+static int ft_isdigit(int c)
+{
+    if (c >= '0' && c <= '9')
+        return (1);
+    return (0);
+}
+
+int ft_atoi(const char *str)
+{
+    int i;
+    int sign;
+    int result;
+
+    i = 0;
+    while (ft_isspace((unsigned char)str[i]))
+        i++;
+    sign = 1;
+    if (str[i] == '-' || str[i] == '+')
+    {
+        if (str[i] == '-')
+            sign = -1;
+        i++;
+    }
+    result = 0;
+    while (ft_isdigit((unsigned char)str[i]))
+    {
+        result = result * 10 + (str[i] - '0');
+        i++;
+    }
+    return (result * sign);
+}`,
+  },
+  strdup: {
+    summary: "Version compacte type exam (rank 02 / level 2), allocation exacte puis copie simple.",
+    helpers: [],
+    fileName: "ft_strdup_opti_exam.c",
+    code: `#include <stdlib.h>
+
+char *ft_strdup(char *src)
+{
+    char *dup;
+    int len;
+    int i;
+
+    len = 0;
+    while (src[len])
+        len++;
+    dup = (char *)malloc(sizeof(char) * (len + 1));
+    if (dup == NULL)
+        return (NULL);
+    i = 0;
+    while (src[i])
+    {
+        dup[i] = src[i];
+        i++;
+    }
+    dup[i] = '\\0';
+    return (dup);
+}`,
+  },
+  strrev: {
+    summary: "Version compacte type exam (rank 02 / level 2), inversion in-place avec double index.",
+    helpers: [],
+    fileName: "ft_strrev_opti_exam.c",
+    code: `char *ft_strrev(char *str)
+{
+    int i;
+    int j;
+    char tmp;
+
+    i = 0;
+    j = 0;
+    while (str[j])
+        j++;
+    j--;
+    while (i < j)
+    {
+        tmp = str[i];
+        str[i] = str[j];
+        str[j] = tmp;
+        i++;
+        j--;
+    }
+    return (str);
+}`,
+  },
+  inter: {
+    summary: "Version compacte type exam (rank 02 / level 2), intersection sans doublons en gardant l’ordre de argv[1].",
+    helpers: [],
+    fileName: "inter_opti_exam.c",
+    code: `#include <unistd.h>
+
+int main(int argc, char **argv)
+{
+    unsigned char in_second[256] = {0};
+    unsigned char printed[256] = {0};
+    int i;
+    unsigned char c;
+
+    if (argc != 3)
+    {
+        write(1, "\\n", 1);
+        return (0);
+    }
+    i = 0;
+    while (argv[2][i])
+    {
+        in_second[(unsigned char)argv[2][i]] = 1;
+        i++;
+    }
+    i = 0;
+    while (argv[1][i])
+    {
+        c = (unsigned char)argv[1][i];
+        if (in_second[c] == 1 && printed[c] == 0)
+        {
+            printed[c] = 1;
+            write(1, &argv[1][i], 1);
+        }
+        i++;
+    }
+    write(1, "\\n", 1);
+    return (0);
+}`,
+  },
+  last_word: {
+    summary: "Version compacte type exam (rank 02 / level 2), extraction du dernier mot avec trim espace/tab.",
+    helpers: [],
+    fileName: "last_word_opti_exam.c",
+    code: `#include <unistd.h>
+
+static int is_sep(char c)
+{
+    if (c == ' ' || c == '\\t')
+        return (1);
+    return (0);
+}
+
+int main(int argc, char **argv)
+{
+    int i;
+    int start;
+    char *s;
+
+    if (argc == 2)
+    {
+        s = argv[1];
+        i = 0;
+        while (s[i])
+            i++;
+        while (i > 0 && is_sep(s[i - 1]))
+            i--;
+        start = i;
+        while (start > 0 && is_sep(s[start - 1]) == 0)
+            start--;
+        while (start < i)
+            write(1, &s[start++], 1);
+    }
+    write(1, "\\n", 1);
+    return (0);
+}`,
+  },
+  wdmatch: {
+    summary: "Version compacte type exam (rank 02 / level 2), sous-séquence vérifiée par double index.",
+    helpers: [],
+    fileName: "wdmatch_opti_exam.c",
+    code: `#include <unistd.h>
+
+static int ft_strlen(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
+}
+
+int main(int argc, char **argv)
+{
+    int i;
+    int j;
+
+    if (argc == 3)
+    {
+        i = 0;
+        j = 0;
+        while (argv[2][j] && argv[1][i])
+        {
+            if (argv[1][i] == argv[2][j])
+                i++;
+            j++;
+        }
+        if (argv[1][i] == '\\0')
+            write(1, argv[1], ft_strlen(argv[1]));
+    }
+    write(1, "\\n", 1);
+    return (0);
+}`,
+  },
+  lstsize: {
+    summary: "Version compacte type exam (rank 02 / level 3), comptage linéaire robuste de la liste.",
+    helpers: [],
+    fileName: "ft_list_size_opti_exam.c",
+    code: `typedef struct s_list
+{
+    struct s_list *next;
+    void *data;
+} t_list;
+
+int ft_list_size(t_list *begin_list)
+{
+    int count;
+
+    count = 0;
+    while (begin_list)
+    {
+        count++;
+        begin_list = begin_list->next;
+    }
+    return (count);
+}`,
+  },
+  range: {
+    summary: "Version compacte type exam (rank 02 / level 3), allocation inclusive avec step dynamique.",
+    helpers: [],
+    fileName: "ft_range_opti_exam.c",
+    code: `#include <stdlib.h>
+
+int *ft_range(int start, int end)
+{
+    int len;
+    int step;
+    int i;
+    int *tab;
+
+    len = end - start;
+    if (len < 0)
+        len = -len;
+    len++;
+    tab = (int *)malloc(sizeof(int) * len);
+    if (tab == NULL)
+        return (NULL);
+    step = 1;
+    if (start > end)
+        step = -1;
+    i = 0;
+    while (i < len)
+    {
+        tab[i] = start;
+        start = start + step;
+        i++;
+    }
+    return (tab);
+}`,
+  },
   itoa: {
     summary: "Version compacte type exam (rank 02 / level 4), optimisée pour mémorisation rapide.",
     helpers: ["ft_count_len"],
