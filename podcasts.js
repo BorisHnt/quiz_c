@@ -18,6 +18,7 @@ const ui = {
   duration: null,
   volume: null,
   speed: null,
+  loopToggle: null,
   codeToggle: null,
   codePanel: null,
   codeTitle: null,
@@ -30,6 +31,7 @@ const state = {
   index: 0,
   isSeeking: false,
   resumeById: {},
+  loopCurrent: false,
   showCode: false,
 };
 
@@ -380,6 +382,7 @@ function selectUi() {
   ui.duration = document.querySelector("#podcastDuration");
   ui.volume = document.querySelector("#podcastVolume");
   ui.speed = document.querySelector("#podcastSpeed");
+  ui.loopToggle = document.querySelector("#podcastLoopToggle");
   ui.codeToggle = document.querySelector("#podcastCodeToggle");
   ui.codePanel = document.querySelector("#podcastCodePanel");
   ui.codeTitle = document.querySelector("#podcastCodeTitle");
@@ -535,6 +538,7 @@ function loadSavedState() {
     const parsed = JSON.parse(raw);
     state.index = Number.isFinite(parsed.index) ? Math.max(0, parsed.index) : 0;
     state.resumeById = parsed.resumeById && typeof parsed.resumeById === "object" ? parsed.resumeById : {};
+    state.loopCurrent = Boolean(parsed.loopCurrent);
     state.showCode = Boolean(parsed.showCode);
 
     if (Number.isFinite(parsed.volume)) {
@@ -549,11 +553,16 @@ function loadSavedState() {
     }
 
     ui.codeToggle.checked = state.showCode;
+    ui.loopToggle.checked = state.loopCurrent;
+    ui.audio.loop = state.loopCurrent;
   } catch (_error) {
     state.index = 0;
     state.resumeById = {};
+    state.loopCurrent = false;
     state.showCode = false;
+    ui.loopToggle.checked = false;
     ui.codeToggle.checked = false;
+    ui.audio.loop = false;
   }
 }
 
@@ -562,6 +571,7 @@ function saveState() {
     index: state.index,
     volume: ui.audio.volume,
     playbackRate: ui.audio.playbackRate,
+    loopCurrent: state.loopCurrent,
     resumeById: state.resumeById,
     showCode: state.showCode,
   };
@@ -661,6 +671,7 @@ function selectPodcast(index, autoplay = false) {
   renderCodePanel();
 
   ui.audio.src = podcast.file;
+  ui.audio.loop = state.loopCurrent;
   ui.audio.load();
   updatePlayButton();
   updateTimeUi();
@@ -746,6 +757,13 @@ function bindEvents() {
     setFeedback(`Vitesse: ${ui.audio.playbackRate}x`);
   });
 
+  ui.loopToggle.addEventListener("change", () => {
+    state.loopCurrent = ui.loopToggle.checked;
+    ui.audio.loop = state.loopCurrent;
+    saveState();
+    setFeedback(state.loopCurrent ? "Boucle activée pour ce podcast." : "Boucle désactivée.");
+  });
+
   ui.codeToggle.addEventListener("change", () => {
     state.showCode = ui.codeToggle.checked;
     renderCodePanel();
@@ -767,6 +785,9 @@ function bindEvents() {
   });
 
   ui.audio.addEventListener("ended", () => {
+    if (state.loopCurrent) {
+      return;
+    }
     const next = (state.index + 1) % state.podcasts.length;
     selectPodcast(next, true);
   });
