@@ -1,4 +1,8 @@
 const STORAGE_KEY = "c_revision_progress_v2";
+const ENABLE_WAKE_LOCK = true;
+
+let wakeLockSentinel = null;
+let wakeLockBound = false;
 
 /*
   Schéma localStorage (clé: c_revision_progress_v2)
@@ -363,8 +367,78 @@ function setupNavigation() {
   });
 }
 
+function supportsWakeLock() {
+  return Boolean(navigator?.wakeLock && typeof navigator.wakeLock.request === "function");
+}
+
+async function requestWakeLock() {
+  if (!ENABLE_WAKE_LOCK || !supportsWakeLock()) {
+    return;
+  }
+  if (document.visibilityState !== "visible" || wakeLockSentinel) {
+    return;
+  }
+
+  try {
+    wakeLockSentinel = await navigator.wakeLock.request("screen");
+    wakeLockSentinel.addEventListener("release", () => {
+      wakeLockSentinel = null;
+      if (document.visibilityState === "visible") {
+        void requestWakeLock();
+      }
+    });
+  } catch (_error) {
+    wakeLockSentinel = null;
+  }
+}
+
+async function releaseWakeLock() {
+  if (!wakeLockSentinel) {
+    return;
+  }
+
+  try {
+    await wakeLockSentinel.release();
+  } catch (_error) {
+    // no-op
+  } finally {
+    wakeLockSentinel = null;
+  }
+}
+
+function setupWakeLock() {
+  if (!ENABLE_WAKE_LOCK || !supportsWakeLock()) {
+    return;
+  }
+  if (!wakeLockBound) {
+    wakeLockBound = true;
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        void requestWakeLock();
+      } else {
+        void releaseWakeLock();
+      }
+    });
+
+    window.addEventListener("pagehide", () => {
+      void releaseWakeLock();
+    });
+
+    const tryWakeLockOnInteraction = () => {
+      void requestWakeLock();
+    };
+
+    window.addEventListener("pointerdown", tryWakeLockOnInteraction, { once: true, passive: true });
+    window.addEventListener("keydown", tryWakeLockOnInteraction, { once: true });
+  }
+
+  void requestWakeLock();
+}
+
 export function initCommon(pageName, sessionLink = "") {
   setupNavigation();
+  setupWakeLock();
 
   const progress = loadProgress();
   progress.ui.lastPage = pageName;
