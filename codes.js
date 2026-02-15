@@ -1,6 +1,8 @@
 import { initCommon } from "./main.js";
 
 const CODE_PAGE_STORAGE_KEY = "c_revision_codes_page_v1";
+const CODE_VERSION_COMPLETE = "complete";
+const CODE_VERSION_OPTI = "opti";
 
 const EXERCISES = [
   {
@@ -715,15 +717,149 @@ char *ft_itoa(int nbr)
   },
 ];
 
+const EXAM_OPTI_VARIANTS = {
+  itoa: {
+    summary: "Version compacte type exam (rank 02 / level 4), optimisée pour mémorisation rapide.",
+    helpers: ["ft_count_len"],
+    fileName: "ft_itoa_opti_exam.c",
+    code: `#include <stdlib.h>
+
+int ft_count_len(int nbr)
+{
+    int i;
+
+    i = 0;
+    if (nbr <= 0)
+        i++;
+    while (nbr != 0)
+    {
+        nbr = nbr / 10;
+        i++;
+    }
+    return (i);
+}
+
+char *ft_itoa(int nbr)
+{
+    int i;
+    int len;
+    long num;
+    char *str;
+
+    num = nbr;
+    len = ft_count_len(nbr);
+    str = (char *)malloc(sizeof(char) * (len + 1));
+    if (!str)
+        return (NULL);
+    str[len] = '\\0';
+    i = len - 1;
+    if (num < 0)
+    {
+        str[0] = '-';
+        num = -num;
+    }
+    while (num > 9)
+    {
+        str[i] = (char)(num % 10 + '0');
+        num = num / 10;
+        i--;
+    }
+    str[i] = (char)(num + '0');
+    return (str);
+}`,
+  },
+  lstforeach: {
+    summary: "Version compacte type exam (rank 02 / level 4), parcours direct de la liste.",
+    helpers: [],
+    fileName: "ft_list_foreach_opti_exam.c",
+    code: `typedef struct s_list
+{
+    struct s_list *next;
+    void *data;
+} t_list;
+
+void ft_list_foreach(t_list *begin_list, void (*f)(void *))
+{
+    while (begin_list != NULL)
+    {
+        if (begin_list->data != NULL)
+            (*f)(begin_list->data);
+        begin_list = begin_list->next;
+    }
+}`,
+  },
+  list_remove_if: {
+    summary:
+      "Version compacte type exam (rank 02 / level 4), suppression récursive avec reconnection immédiate.",
+    helpers: [],
+    fileName: "ft_list_remove_if_opti_exam.c",
+    code: `typedef struct s_list
+{
+    struct s_list *next;
+    void *data;
+} t_list;
+
+#include <stdlib.h>
+
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
+{
+    t_list *tmp;
+
+    if (begin_list == NULL || *begin_list == NULL || cmp == NULL)
+        return ;
+    if (cmp((*begin_list)->data, data_ref) == 0)
+    {
+        tmp = *begin_list;
+        *begin_list = (*begin_list)->next;
+        free(tmp);
+        ft_list_remove_if(begin_list, data_ref, cmp);
+    }
+    else
+        ft_list_remove_if(&((*begin_list)->next), data_ref, cmp);
+}`,
+  },
+  lstsort: {
+    summary: "Version compacte type exam (rank 02 / level 4), bubble sort avec reset sur la tête.",
+    helpers: [],
+    fileName: "sort_list_opti_exam.c",
+    code: `#include "list.h"
+
+t_list *sort_list(t_list *lst, int (*cmp)(int, int))
+{
+    int tmp;
+    t_list *head;
+
+    if (lst == NULL || cmp == NULL)
+        return (lst);
+    head = lst;
+    while (lst != NULL && lst->next != NULL)
+    {
+        if ((*cmp)(lst->data, lst->next->data) == 0)
+        {
+            tmp = lst->data;
+            lst->data = lst->next->data;
+            lst->next->data = tmp;
+            lst = head;
+        }
+        else
+            lst = lst->next;
+    }
+    return (head);
+}`,
+  },
+};
+
 const ui = {
   examFilter: null,
   exerciseSelect: null,
+  versionSelect: null,
   prevBtn: null,
   nextBtn: null,
   copyBtn: null,
   downloadBtn: null,
   title: null,
   summary: null,
+  versionBadge: null,
   exam: null,
   target: null,
   helpersCount: null,
@@ -736,12 +872,14 @@ const ui = {
 const state = {
   exam: "all",
   exerciseId: EXERCISES[0].id,
+  version: CODE_VERSION_COMPLETE,
 };
 
 function defaultState() {
   return {
     exam: "all",
     exerciseId: EXERCISES[0].id,
+    version: CODE_VERSION_COMPLETE,
   };
 }
 
@@ -753,10 +891,12 @@ function loadState() {
     }
     const parsed = JSON.parse(raw);
     const exams = new Set(["all", "EX2", "EX3", "EX4"]);
+    const versions = new Set([CODE_VERSION_COMPLETE, CODE_VERSION_OPTI]);
     const ids = new Set(EXERCISES.map((item) => item.id));
     return {
       exam: exams.has(parsed.exam) ? parsed.exam : "all",
       exerciseId: ids.has(parsed.exerciseId) ? parsed.exerciseId : EXERCISES[0].id,
+      version: versions.has(parsed.version) ? parsed.version : CODE_VERSION_COMPLETE,
     };
   } catch (_error) {
     return defaultState();
@@ -770,12 +910,14 @@ function saveState() {
 function selectUi() {
   ui.examFilter = document.querySelector("#codeExamFilter");
   ui.exerciseSelect = document.querySelector("#codeExerciseSelect");
+  ui.versionSelect = document.querySelector("#codeVersionSelect");
   ui.prevBtn = document.querySelector("#prevCodeBtn");
   ui.nextBtn = document.querySelector("#nextCodeBtn");
   ui.copyBtn = document.querySelector("#copyCodeBtn");
   ui.downloadBtn = document.querySelector("#downloadCodeBtn");
   ui.title = document.querySelector("#codeTitle");
   ui.summary = document.querySelector("#codeSummary");
+  ui.versionBadge = document.querySelector("#codeVersionBadge");
   ui.exam = document.querySelector("#codeExam");
   ui.target = document.querySelector("#codeTarget");
   ui.helpersCount = document.querySelector("#codeHelpersCount");
@@ -819,6 +961,29 @@ function currentExercise() {
   return EXERCISES.find((item) => item.id === state.exerciseId) || null;
 }
 
+function getVersionedExercise(exercise) {
+  const optiVariant = EXAM_OPTI_VARIANTS[exercise.id] || null;
+  const optiRequested = state.version === CODE_VERSION_OPTI;
+  const useOpti = optiRequested && optiVariant !== null;
+  const helpers = useOpti ? optiVariant.helpers : exercise.helpers;
+
+  return {
+    code: useOpti ? optiVariant.code : exercise.code,
+    summary: useOpti ? optiVariant.summary : exercise.summary,
+    fileName: useOpti ? optiVariant.fileName : exercise.fileName,
+    helpers: Array.isArray(helpers) ? helpers : [],
+    isOpti: useOpti,
+    optiRequested,
+    optiAvailable: optiVariant !== null,
+  };
+}
+
+function setVersionBadge(isOpti) {
+  ui.versionBadge.textContent = isOpti ? "Opti for Exam" : "Complet";
+  ui.versionBadge.classList.toggle("is-opti", isOpti);
+  ui.versionBadge.classList.toggle("is-complete", !isOpti);
+}
+
 function renderExerciseOptions() {
   const available = filteredExercises();
   ui.exerciseSelect.innerHTML = "";
@@ -857,19 +1022,30 @@ function renderExercise() {
   if (!exercise) {
     ui.title.textContent = "Aucun exercice disponible";
     ui.summary.textContent = "Ajuste le filtre pour afficher un code complet.";
+    setVersionBadge(false);
     ui.code.textContent = "";
     return;
   }
 
+  const versioned = getVersionedExercise(exercise);
+
   ui.title.textContent = exercise.title;
-  ui.summary.textContent = exercise.summary;
+  ui.summary.textContent = versioned.summary;
+  setVersionBadge(versioned.isOpti);
   ui.exam.textContent = exercise.exam;
   ui.target.textContent = exercise.target;
-  ui.helpersCount.textContent = String(exercise.helpers.length);
-  ui.fileName.textContent = exercise.fileName;
-  ui.code.textContent = exercise.code;
-  renderHelpers(exercise.helpers);
-  setFeedback("Code complet chargé.");
+  ui.helpersCount.textContent = String(versioned.helpers.length);
+  ui.fileName.textContent = versioned.fileName;
+  ui.code.textContent = versioned.code;
+  renderHelpers(versioned.helpers);
+
+  if (versioned.isOpti) {
+    setFeedback("Version Opti for Exam chargée.", "is-success");
+  } else if (versioned.optiRequested && !versioned.optiAvailable) {
+    setFeedback("Version complète chargée: Opti for Exam indisponible pour cet exercice.");
+  } else {
+    setFeedback("Code complet chargé.");
+  }
 }
 
 function moveSelection(direction) {
@@ -893,16 +1069,17 @@ async function copyCurrentCode() {
   if (!exercise) {
     return;
   }
+  const versioned = getVersionedExercise(exercise);
 
   try {
     if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-      await navigator.clipboard.writeText(exercise.code);
+      await navigator.clipboard.writeText(versioned.code);
       setFeedback("Code copié dans le presse-papiers.", "is-success");
       return;
     }
 
     const area = document.createElement("textarea");
-    area.value = exercise.code;
+    area.value = versioned.code;
     document.body.appendChild(area);
     area.select();
     document.execCommand("copy");
@@ -918,12 +1095,13 @@ function downloadCurrentCode() {
   if (!exercise) {
     return;
   }
+  const versioned = getVersionedExercise(exercise);
 
-  const blob = new Blob([exercise.code], { type: "text/x-c" });
+  const blob = new Blob([versioned.code], { type: "text/x-c" });
   const href = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = href;
-  link.download = exercise.fileName;
+  link.download = versioned.fileName;
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -942,6 +1120,12 @@ function bindEvents() {
 
   ui.exerciseSelect.addEventListener("change", () => {
     state.exerciseId = ui.exerciseSelect.value;
+    renderExercise();
+    saveState();
+  });
+
+  ui.versionSelect.addEventListener("change", () => {
+    state.version = ui.versionSelect.value;
     renderExercise();
     saveState();
   });
@@ -971,6 +1155,7 @@ function initCodesPage() {
   const loaded = loadState();
   state.exam = loaded.exam;
   state.exerciseId = loaded.exerciseId;
+  state.version = loaded.version;
 
   const params = new URLSearchParams(window.location.search);
   const fromQuery = params.get("id");
@@ -979,6 +1164,7 @@ function initCodesPage() {
   }
 
   ui.examFilter.value = state.exam;
+  ui.versionSelect.value = state.version;
   ensureValidSelection();
   renderExerciseOptions();
   renderExercise();

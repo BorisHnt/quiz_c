@@ -1183,7 +1183,7 @@ body[data-page="index"] .list li {
 }
 
 .code-control-grid {
-  grid-template-columns: 1fr 2fr auto;
+  grid-template-columns: 1fr 2fr 1fr auto;
   align-items: end;
 }
 
@@ -1200,6 +1200,24 @@ body[data-page="index"] .list li {
 
 .code-actions {
   margin-top: 0;
+}
+
+.code-version-badge {
+  margin: 8px 0 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+}
+
+.code-version-badge.is-complete {
+  background: var(--paper-4);
+  color: var(--dark);
+}
+
+.code-version-badge.is-opti {
+  background: var(--green);
+  color: #ffffff;
 }
 
 .code-meta-grid {

@@ -68,6 +68,14 @@
             <select id="codeExerciseSelect"></select>
           </div>
 
+          <div class="field">
+            <label for="codeVersionSelect">Version de code</label>
+            <select id="codeVersionSelect">
+              <option value="complete">Complet</option>
+              <option value="opti">Opti for Exam</option>
+            </select>
+          </div>
+
           <div class="btn-row">
             <button id="prevCodeBtn" class="btn btn-secondary" type="button">Précédent</button>
             <button id="nextCodeBtn" class="btn btn-secondary" type="button">Suivant</button>
@@ -80,6 +88,7 @@
           <div>
             <h2 id="codeTitle" class="panel-title">Chargement...</h2>
             <p id="codeSummary" class="panel-subtitle"></p>
+            <p id="codeVersionBadge" class="badge code-version-badge is-complete">Complet</p>
           </div>
           <div class="btn-row code-actions">
             <button id="copyCodeBtn" class="btn btn-primary" type="button">Copier le code</button>
