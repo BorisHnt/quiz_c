@@ -245,8 +245,8 @@ int main(int argc, char **argv)
         return (0);
     }
     init_tables(seen, printed);
-    mark_seen(argv[1], seen);
-    print_intersection(argv[2], seen, printed);
+    mark_seen(argv[2], seen);
+    print_intersection(argv[1], seen, printed);
     write(1, "\\n", 1);
     return (0);
 }`,
@@ -423,8 +423,8 @@ int *ft_range(int start, int end)
     exam: "EX4",
     target: "ft_list_remove_if",
     fileName: "ft_list_remove_if.c",
-    summary: "Supprime les maillons qui matchent data_ref, y compris en tête de liste.",
-    helpers: ["remove_head_matches"],
+    summary: "Supprime les maillons dont data est égal à data_ref selon cmp, y compris en tête de liste.",
+    helpers: [],
     code: `#include <stdlib.h>
 
 typedef struct s_list
@@ -433,41 +433,22 @@ typedef struct s_list
     void *data;
 } t_list;
 
-static void remove_head_matches(t_list **begin_list, void *data_ref,
-        int (*cmp)(), void (*free_fct)(void *))
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(void *, void *))
 {
     t_list *tmp;
 
-    while (*begin_list && cmp((*begin_list)->data, data_ref) == 0)
-    {
-        tmp = *begin_list;
-        *begin_list = (*begin_list)->next;
-        free_fct(tmp->data);
-        free(tmp);
-    }
-}
-
-void ft_list_remove_if(t_list **begin_list, void *data_ref,
-        int (*cmp)(), void (*free_fct)(void *))
-{
-    t_list *cur;
-    t_list *tmp;
-
-    if (begin_list == NULL || cmp == NULL || free_fct == NULL)
+    if (begin_list == 0 || cmp == 0)
         return ;
-    remove_head_matches(begin_list, data_ref, cmp, free_fct);
-    cur = *begin_list;
-    while (cur && cur->next)
+    while (*begin_list)
     {
-        if (cmp(cur->next->data, data_ref) == 0)
+        if (cmp((*begin_list)->data, data_ref) == 0)
         {
-            tmp = cur->next;
-            cur->next = cur->next->next;
-            free_fct(tmp->data);
+            tmp = *begin_list;
+            *begin_list = (*begin_list)->next;
             free(tmp);
         }
         else
-            cur = cur->next;
+            begin_list = &((*begin_list)->next);
     }
 }`,
   },
@@ -489,12 +470,12 @@ void ft_list_foreach(t_list *begin_list, void (*f)(void *))
 {
     t_list *cur;
 
-    if (f == NULL)
+    if (f == 0)
         return ;
     cur = begin_list;
     while (cur)
     {
-        f(cur->data);
+        (*f)(cur->data);
         cur = cur->next;
     }
 }`,
@@ -519,9 +500,9 @@ t_list *sort_list(t_list *lst, int (*cmp)(int, int))
     int swapped;
     int tmp;
 
-    if (lst == NULL || cmp == NULL)
+    if (lst == 0 || cmp == 0)
         return (lst);
-    if (lst->next == NULL)
+    if (lst->next == 0)
         return (lst);
     swapped = 1;
     while (swapped == 1)
@@ -530,7 +511,7 @@ t_list *sort_list(t_list *lst, int (*cmp)(int, int))
         cur = lst;
         while (cur->next)
         {
-            if (cmp(cur->data, cur->next->data) > 0)
+            if (cmp(cur->data, cur->next->data) == 0)
             {
                 tmp = cur->data;
                 cur->data = cur->next->data;
@@ -1092,42 +1073,45 @@ char *ft_itoa(int nbr)
 
 void ft_list_foreach(t_list *begin_list, void (*f)(void *))
 {
-    while (begin_list != NULL)
+    if (f == 0)
+        return ;
+    while (begin_list)
     {
-        if (begin_list->data != NULL)
-            (*f)(begin_list->data);
+        (*f)(begin_list->data);
         begin_list = begin_list->next;
     }
 }`,
   },
   list_remove_if: {
     summary:
-      "Version compacte type exam (rank 02 / level 4), suppression récursive avec reconnection immédiate.",
+      "Version compacte type exam (rank 02 / level 4), suppression en place avec pointeur sur pointeur.",
     helpers: [],
     fileName: "ft_list_remove_if_opti_exam.c",
-    code: `typedef struct s_list
+    code: `#include <stdlib.h>
+
+typedef struct s_list
 {
     struct s_list *next;
     void *data;
 } t_list;
 
-#include <stdlib.h>
-
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(void *, void *))
 {
     t_list *tmp;
 
-    if (begin_list == NULL || *begin_list == NULL || cmp == NULL)
+    if (begin_list == 0 || cmp == 0)
         return ;
-    if (cmp((*begin_list)->data, data_ref) == 0)
+    while (*begin_list)
     {
-        tmp = *begin_list;
-        *begin_list = (*begin_list)->next;
-        free(tmp);
-        ft_list_remove_if(begin_list, data_ref, cmp);
+        if (cmp((*begin_list)->data, data_ref) == 0)
+        {
+            tmp = *begin_list;
+            *begin_list = (*begin_list)->next;
+            free(tmp);
+        }
+        else
+            begin_list = &((*begin_list)->next);
     }
-    else
-        ft_list_remove_if(&((*begin_list)->next), data_ref, cmp);
 }`,
   },
   lstsort: {
@@ -1141,10 +1125,8 @@ t_list *sort_list(t_list *lst, int (*cmp)(int, int))
     int tmp;
     t_list *head;
 
-    if (lst == NULL || cmp == NULL)
-        return (lst);
     head = lst;
-    while (lst != NULL && lst->next != NULL)
+    while (lst != 0 && lst->next != 0)
     {
         if ((*cmp)(lst->data, lst->next->data) == 0)
         {
@@ -1157,6 +1139,93 @@ t_list *sort_list(t_list *lst, int (*cmp)(int, int))
             lst = lst->next;
     }
     return (head);
+}`,
+  },
+  split: {
+    summary: "Version compacte type exam (rank 02 / level 4), découpe espaces/tabs/newlines en tableau NULL-terminated.",
+    helpers: ["is_sep", "count_words", "word_len", "copy_word"],
+    fileName: "ft_split_opti_exam.c",
+    code: `#include <stdlib.h>
+
+static int is_sep(char c)
+{
+    if (c == ' ' || c == '\\t' || c == '\\n')
+        return (1);
+    return (0);
+}
+
+static int count_words(char *str)
+{
+    int count;
+
+    count = 0;
+    while (*str)
+    {
+        while (*str && is_sep(*str))
+            str++;
+        if (*str)
+            count++;
+        while (*str && is_sep(*str) == 0)
+            str++;
+    }
+    return (count);
+}
+
+static int word_len(char *str)
+{
+    int len;
+
+    len = 0;
+    while (str[len] && is_sep(str[len]) == 0)
+        len++;
+    return (len);
+}
+
+static char *copy_word(char *str)
+{
+    char *word;
+    int len;
+    int i;
+
+    len = word_len(str);
+    word = (char *)malloc(sizeof(char) * (len + 1));
+    if (word == 0)
+        return (0);
+    i = 0;
+    while (i < len)
+    {
+        word[i] = str[i];
+        i++;
+    }
+    word[i] = '\\0';
+    return (word);
+}
+
+char **ft_split(char *str)
+{
+    char **tab;
+    int i;
+
+    tab = (char **)malloc(sizeof(char *) * (count_words(str) + 1));
+    if (tab == 0)
+        return (0);
+    i = 0;
+    while (*str)
+    {
+        while (*str && is_sep(*str))
+            str++;
+        if (*str)
+        {
+            tab[i] = copy_word(str);
+            if (tab[i] == 0)
+                return (0);
+            i++;
+        }
+        while (*str && is_sep(*str) == 0)
+            str++;
+    }
+    tab[i] = 0;
+    return (tab);
 }`,
   },
 };
