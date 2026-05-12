@@ -1230,6 +1230,295 @@ char **ft_split(char *str)
   },
 };
 
+const EXERCISE_SUBJECTS = {
+  union: String.raw`Assignment name  : union
+Expected files   : union.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Ècrire un programme nommé union qui prend en paramètre deux chaînes de
+caractères et qui affiche, sans doublon, les caractères qui apparaissent dans
+l'une ou dans l'autre.
+
+L'affichage se fera dans l'ordre d'apparition dans la ligne de commande.
+
+L'affichage doit etre suivi d'un retour à la ligne.
+
+Si le nombre de paramètres transmis est différent de 2, le programme affiche
+\n.
+
+Exemple:
+
+$>./union zpadinton "paqefwtdjetyiytjneytjoeyjnejeyj" | cat -e
+zpadintoqefwjy$
+$>./union ddf6vewg64f gtwthgdwthdwfteewhrtag6h4ffdhsd | cat -e
+df6vewg4thras$
+$>./union "rien" "cette phrase ne cache rien" | cat -e
+rienct phas$
+$>./union | cat -e
+$
+$>
+$>./union "rien" | cat -e
+$
+$>`,
+  atoi: String.raw`Assignment name  : ft_atoi
+Expected files   : ft_atoi.c
+Allowed functions: None
+--------------------------------------------------------------------------------
+
+Écrire une fonction qui convertit une chaîne en un entier (type int) et le retourne.
+
+Marche comme la fonction standard atoi(const char *str), voir le man.
+
+La fonction doit être prototypée comme suit:
+
+int	ft_atoi(const char *str);`,
+  strdup: String.raw`Assignment name  : ft_strdup
+Expected files   : ft_strdup.c
+Allowed functions: malloc
+--------------------------------------------------------------------------------
+
+Reproduisez à l'identique le comportement de la fonction strdup (man strdup).
+
+Votre fonction devra être prototypée de la façon suivante :
+
+char    *ft_strdup(char *src);`,
+  strrev: String.raw`Assignment name  : ft_strrev
+Expected files   : ft_strrev.c
+Allowed functions:
+--------------------------------------------------------------------------------
+
+Écrire une fonction qui inverse (en place) une chaîne de caractères.
+
+Elle devra renvoyer son paramètre.
+
+Votre fonction devra être prototypée de la façon suivante :
+
+char    *ft_strrev(char *str);`,
+  inter: String.raw`Assignment name  : inter
+Expected files   : inter.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Écrire un programme qui prend en paramètres deux chaînes de caractères et qui
+affiche sans doublon les caractères communs aux deux chaînes.
+
+L'affichage se fera dans l'ordre d'apparition dans la premiere chaîne.
+L'affichage doit être suivi d'un '\n'.
+
+Si le nombre de paramètres transmis est différent de 2, le programme affiche
+'\n'.
+
+Exemples:
+$>./inter "padinton" "paqefwtdjetyiytjneytjoeyjnejeyj" | cat -e
+padinto$
+$>./inter ddf6vewg64f gtwthgdwthdwfteewhrtag6h4ffdhsd | cat -e
+df6ewg4$
+$>./inter "rien" "cette phrase ne cache rien" | cat -e
+rien$
+$>./inter | cat -e
+$`,
+  last_word: String.raw`Assignment name  : last_word
+Expected files   : last_word.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Écrire un programme qui prend une chaîne de caractères en paramètre, et qui
+affiche le dernier mot de cette chaîne, suivi d'un '\n'.
+
+On appelle "mot" une portion de chaîne de caractères délimitée soit par des
+espaces et/ou des tabulations, soit par le début / fin de la chaîne.
+
+Si le nombre de paramètres transmis est différent de 1, ou s'il n'y a aucun mot
+à afficher, le programme affiche '\n'.
+
+Exemple:
+
+$> ./last_word "FOR PONY" | cat -e
+PONY$
+$> ./last_word "this        ...       is sparta, then again, maybe    not" | cat -e
+not$
+$> ./last_word "   " | cat -e
+$
+$> ./last_word "a" "b" | cat -e
+$
+$> ./last_word "  lorem,ipsum  " | cat -e
+lorem,ipsum$
+$>`,
+  wdmatch: String.raw`Assignment name  : wdmatch
+Expected files   : wdmatch.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Le programme prend en paramètres deux chaînes de caractères et vérifie qu'il
+est possible d'écrire la première chaîne de caractères a l'aide des caractères
+de la deuxiême chaîne, tout en respectant l'ordre des caractères dans la
+deuxième chaîne.
+
+Si cela est possible, le programme affiche la première chaîne de caractères,
+suivie de '\n'. Sinon le programme affiche seulement '\n'.
+
+Si le nombre de paramètres transmis est différent de 2, le programme affiche
+'\n'.
+
+Exemples :
+
+$>./wdmatch "faya" "fgvvfdxcacpolhyghbreda" | cat -e
+faya$
+$>./wdmatch "faya" "fgvvfdxcacpolhyghbred" | cat -e
+$
+$>./wdmatch "quarante deux" "qfqfsudf arzgsayns tsregfdgs sjytdekuoixq " | cat -e
+quarante deux$
+$>./wdmatch "error" rrerrrfiiljdfxjyuifrrvcoojh | cat -e
+$
+$>./wdmatch | cat -e
+$`,
+  lstsize: String.raw`Assignment name  : ft_list_size
+Expected files   : ft_list_size.c, ft_list.h
+Allowed functions:
+--------------------------------------------------------------------------------
+
+Écrire une fonction qui renvoie le nombre d'éléments dans la liste chaînée
+passée en paramètre.
+
+Elle devra être prototypée de la façon suivante:
+
+int	ft_list_size(t_list *begin_list);
+
+Vous devez utiliser la structure suivante, et la rendre dans un fichier
+ft_list.h:
+
+typedef struct    s_list
+{
+	struct s_list *next;
+	void          *data;
+}                 t_list;`,
+  range: String.raw`Assignment name  : ft_range
+Expected files   : ft_range.c
+Allowed functions: malloc
+--------------------------------------------------------------------------------
+
+Écrire la fonction suivante :
+
+int     *ft_range(int start, int end);
+
+Cette fonction doit allouer avec malloc() un tableau d'ints, le remplir avec
+les valeurs (consécutives) démarrant à start et finissant à end (start et end
+inclus !), et renvoyer un pointeur vers la première valeur du tableau.
+
+Exemples:
+
+- Avec (1, 3) vous devrez renvoyer un tableau contenant 1, 2 et 3.
+- Avec (-1, 2) vous devrez renvoyer un tableau contenant -1, 0, 1 et 2.
+- Avec (0, 0) vous devrez renvoyer un tableau contenant 0.
+- Avec (0, -3) vous devrez renvoyer un tableau contenant 0, -1, -2 et -3.`,
+  list_remove_if: String.raw`Assignment name  : ft_list_remove_if
+Expected files   : ft_list_remove_if.c
+Allowed functions: free
+--------------------------------------------------------------------------------
+
+Écrire une fonction ft_list_remove_if qui efface de la liste tous les élements
+dont la donnée est "égale" à la donnée de référence.
+
+Elle devra être prototypée de la façon suivante :
+
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)());
+
+À la correction, vous disposez du fichier ft_list.h tel que :
+
+$>cat ft_list.h
+typedef struct      s_list
+{
+    struct s_list   *next;
+    void            *data;
+}                   t_list;
+$>`,
+  lstforeach: String.raw`Assignment name  : ft_list_foreach
+Expected files   : ft_list_foreach.c, ft_list.h
+Allowed functions:
+--------------------------------------------------------------------------------
+
+Écrire une fonction qui prend une liste et un pointeur sur fonction en
+paramètres, et applique la fonction à chaque élément de la liste.
+
+Elle devra être prototypée de la façon suivante:
+
+void    ft_list_foreach(t_list *begin_list, void (*f)(void *));
+
+La fonction pointée par f sera utilisée comme suit:
+
+(*f)(list_ptr->data);
+
+Vous devez utiliser la structure suivante, et la rendre dans un fichier
+ft_list.h:
+
+typedef struct    s_list
+{
+    struct s_list *next;
+    void          *data;
+}                 t_list;`,
+  lstsort: String.raw`Assignment name  : sort_list
+Expected files   : sort_list.c
+Allowed functions:
+--------------------------------------------------------------------------------
+
+Écrire la fonction suivante:
+
+t_list	*sort_list(t_list* lst, int (*cmp)(int, int));
+
+Cette fonction doit trier la liste passée en premier paramètre, en utilisant le
+pointeur sur fonction cmp pour déterminer l'ordre à appliquer, et
+renvoyer un pointeur vers le premier élément de la liste triée.
+
+Les doublons doivent être préservés.
+
+Les entrées seront toujours cohérentes.
+
+Vous devez utiliser le type t_list décrit dans le fichier list.h qui vous est
+fourni. Vous devrez inclure (#include "list.h") ce fichier, mais ne pas le
+rendre. Nous utiliserons le notre pour compiler votre exercice.
+
+Les fonctions passées en tant que cmp renverront toujours une valeur
+différente de 0 si a et b sont dans le bon ordre,
+dans le cas contraire elles renverront 0.
+
+Par exemple, la fonction suivante utilisée en tant que cmp devra
+permettre de trier la liste par ordre croissant:
+
+int croissant(int a, int b)
+{
+	return (a <= b);
+}`,
+  split: String.raw`Assignment name  : ft_split
+Expected files   : ft_split.c
+Allowed functions: malloc
+--------------------------------------------------------------------------------
+
+Écrire une fonction qui prend en paramètre une chaîne de caractères et la
+découpe en mots, qui seront retournés sous la forme d'un tableau de chaînes
+terminé par NULL.
+
+On appelle "mot" une portion de chaîne de caractères délimitée soit par des
+espaces, des retours à la ligne et/ou des tabulations, soit par le début / fin
+de la chaîne.
+
+Votre fonction devra être prototypée de la façon suivante :
+
+char    **ft_split(char *str);`,
+  itoa: String.raw`Assignment name  : ft_itoa
+Expected files   : ft_itoa.c
+Allowed functions: malloc
+--------------------------------------------------------------------------------
+
+Écrire une fonction qui prend un int et le convertit en chaîne terminée par un
+caractère nul. Cette fonction retourne le résultat en tant qu'un tableau de
+char que vous devez allouer.
+
+Votre fonction sera déclarée comme suit:
+
+char	*ft_itoa(int nbr);`,
+};
+
 const ui = {
   examFilter: null,
   exerciseSelect: null,
@@ -1246,6 +1535,7 @@ const ui = {
   helpersCount: null,
   helpersList: null,
   fileName: null,
+  subject: null,
   code: null,
   feedback: null,
 };
@@ -1304,6 +1594,7 @@ function selectUi() {
   ui.helpersCount = document.querySelector("#codeHelpersCount");
   ui.helpersList = document.querySelector("#codeHelpersList");
   ui.fileName = document.querySelector("#codeFileName");
+  ui.subject = document.querySelector("#codeSubject");
   ui.code = document.querySelector("#exerciseCode");
   ui.feedback = document.querySelector("#codeFeedback");
 
@@ -1404,6 +1695,7 @@ function renderExercise() {
     ui.title.textContent = "Aucun exercice disponible";
     ui.summary.textContent = "Ajuste le filtre pour afficher un code complet.";
     setVersionBadge(false);
+    ui.subject.textContent = "";
     ui.code.textContent = "";
     return;
   }
@@ -1417,6 +1709,7 @@ function renderExercise() {
   ui.target.textContent = exercise.target;
   ui.helpersCount.textContent = String(versioned.helpers.length);
   ui.fileName.textContent = versioned.fileName;
+  ui.subject.textContent = EXERCISE_SUBJECTS[exercise.id] || "Sujet non disponible pour cet exercice.";
   ui.code.textContent = versioned.code;
   renderHelpers(versioned.helpers);
 
